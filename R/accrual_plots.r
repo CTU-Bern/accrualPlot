@@ -513,6 +513,7 @@ accrual_plot_predict<-function(accrual_df,
 #' @return A plot of the cumulative accrual, optionally by site.
 #'
 #' @export
+#' @importFrom graphics plot
 #'
 #' @examples
 #' set.seed(2020)

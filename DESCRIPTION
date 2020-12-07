@@ -15,7 +15,7 @@ Description: Tracking accrual in clinical trials is important for trial success.
     of statistical analysis plans might need to be rushed. `tRialaccrual` provides 
     functions to aid the tracking of accrual and predict when a trial will reach 
     it's intended sample size.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
