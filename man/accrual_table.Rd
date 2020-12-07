@@ -8,6 +8,7 @@ accrual_table(
   accrual_df,
   overall = TRUE,
   name_overall = "Overall",
+  pos_overall = c("last", "first"),
   start_date = NA,
   format_start_date = "\%d\%b\%Y",
   current_date = NA,
@@ -22,9 +23,11 @@ accrual_table(
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)}
 
-\item{overall}{indicates that accrual_df contains a summary with all sites (only if by is not NA)}
+\item{overall}{logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)}
 
 \item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
+
+\item{pos_overall}{overall in last or first row (if by is not NA and overall==TRUE)}
 
 \item{start_date}{start_date: date when recruitment started, single character or date,}
 
