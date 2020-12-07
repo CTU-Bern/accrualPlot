@@ -1,4 +1,4 @@
 library(testthat)
-library(tRialaccrual)
+library(accrualPlot)
 
 test_check("tRialaccrual")
