@@ -53,12 +53,12 @@
 #' accrual_create_df(enrollment_dates,by=centers)
 #' }
 accrual_create_df <- function(enrollment_dates,
-                              format_enrollment_dates="%d%b%Y", # %F (ISO standard)?
+                              format_enrollment_dates="%d%b%Y",
                               start_date=NA,
-                              format_start_date="%d%b%Y", # %F (ISO standard)?
+                              format_start_date="%d%b%Y",
                               current_date=NA,
-                              format_current_date="%d%b%Y", # %F (ISO standard)?
-                              force_start0=c("no","yes"), #T/F?
+                              format_current_date="%d%b%Y",
+                              force_start0=c("no","yes"),
                               by=NA,
                               overall=TRUE,
                               name_overall="Overall") {
@@ -159,7 +159,7 @@ accrual_create_df <- function(enrollment_dates,
 #'
 #' @return A lm object of a weigthed linear regression of cumulative accrual on dates.
 #'
-#'
+#' @export
 #' @importFrom stats lm aggregate
 #'
 #' @examples
@@ -184,10 +184,10 @@ accrual_create_df <- function(enrollment_dates,
 
 accrual_linear_model <- function(accrual_df,
                                  start_date=NA,
-                                 format_start_date="%d%b%Y", # %F (ISO standard)?
+                                 format_start_date="%d%b%Y",
                                  current_date=NA,
-                                 format_current_date="%d%b%Y", # %F (ISO standard)?
-                                 fill_up=c("yes","no"), # T/F?
+                                 format_current_date="%d%b%Y",
+                                 fill_up=c("yes","no"),
                                  wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))) {
 
   fill_up<-match.arg(fill_up)
@@ -221,12 +221,14 @@ accrual_linear_model <- function(accrual_df,
   if (fill_up=="yes") {
     alldays<-seq(min(accrual_df$Date),max(accrual_df$Date),by=1)
     alldays<-alldays[!(alldays %in% accrual_df$Date)]
-    alldays_df<-data.frame(Date=alldays,Freq=0,Cumulative=NA)
-    adf<-rbind(accrual_df,alldays_df)
-    adf<-adf[order(adf$Date),]
-    stopifnot(cumsum(adf$Fre)[!is.na(adf$Cumulative)]==adf$Cumulative[!is.na(adf$Cumulative)])
-    adf$Cumulative<-cumsum(adf$Fre)
-    accrual_df<-adf
+	if (!is.null(nrow(alldays))) {
+		alldays_df<-data.frame(Date=alldays,Freq=0,Cumulative=NA)
+		adf<-rbind(accrual_df,alldays_df)
+		adf<-adf[order(adf$Date),]
+		stopifnot(cumsum(adf$Fre)[!is.na(adf$Cumulative)]==adf$Cumulative[!is.na(adf$Cumulative)])
+		adf$Cumulative<-cumsum(adf$Fre)
+		accrual_df<-adf
+	}
   }
 
   #linear model:
@@ -277,7 +279,7 @@ accrual_predict <- function(accrual_df,
                             accrual_fit,
                             target,
                             current_date=NA,
-                            format_current_date="%d%b%Y") { # %F (ISO standard)?
+                            format_current_date="%d%b%Y") {
 
   if (!is.na(current_date)) {
     if (inherits(current_date,"Date")) {
@@ -394,7 +396,8 @@ accrual_plot_predict<-function(accrual_df,
                                format_start_date="%d%b%Y",
                                current_date=NA,
                                format_current_date="%d%b%Y",
-                               fill_up=c("yes","no"),wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)),
+                               fill_up=c("yes","no"),
+                               wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)),
                                center_start_dates=NA,
                                format_center_start_dates="%d%b%Y",
                                targetc=NA,
@@ -407,7 +410,8 @@ accrual_plot_predict<-function(accrual_df,
                                label_prediction="Predicted end date: ",
                                cex_prediction=1.1,
                                format_prediction="%B %d, %Y",
-                               ylim=NA,xlim=NA,
+                               ylim=NA,
+                               xlim=NA,
                                ylab="Recruited patients",
                                xlabformat="%d%b%Y",
                                xlabn=5,
@@ -446,7 +450,6 @@ accrual_plot_predict<-function(accrual_df,
 
 
     #current date
-    # can be passed directly to accrual_create_df?
     if (!is.na(current_date)) {
       if (!inherits(current_date,"Date")) {
         current_date<-as.Date(current_date,format=format_current_date)
@@ -456,7 +459,6 @@ accrual_plot_predict<-function(accrual_df,
     }
 
     #start date
-    # can be passed directly to accrual_create_df?
 
     if (!is.na(start_date)) {
       if (!inherits(start_date,"Date")) {
@@ -470,10 +472,8 @@ accrual_plot_predict<-function(accrual_df,
 
     accrual_df<-accrual_create_df(accrual_df,
                                   format_enrollment_dates=format_enrollment_dates,
-                                  start_date=start_date,
-                                  format_start_date=format_start_date,
-                                  current_date=current_date,
-                                  format_current_date=format_current_date)
+                                  start_date=start_date,format_start_date=format_start_date,
+                                  current_date=current_date,format_current_date=format_current_date)
 
     accrual_df0<-accrual_df
     accrual_df0<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),accrual_df0)
@@ -842,15 +842,26 @@ accrual_plot_predict<-function(accrual_df,
 #'
 
 accrual_plot_cum<-function(accrual_df,
-                           overall=TRUE,name_overall="Overall",
-                           start_date=NA,format_start_date="%d%b%Y",
-                           current_date=NA,format_current_date="%d%b%Y",
-                           ylim=NA,xlim=NA,
+                           overall=TRUE,
+                           name_overall="Overall",
+                           start_date=NA,
+                           format_start_date="%d%b%Y",
+                           current_date=NA,
+                           format_current_date="%d%b%Y",
+                           ylim=NA,
+                           xlim=NA,
                            ylab="Recruited patients",
-                           xlabn=5,xlabminn= xlabn %/% 2,
-                           xlabformat="%d%b%Y",xlabpos=NA,xlabsrt=45,xlabadj=c(1,1),xlabcex=1,
-                           col=rep(1:8,5),lty=rep(1:5,each=8),
-                           legend.list=NULL,...) {
+                           xlabn=5,
+                           xlabminn= xlabn %/% 2,
+                           xlabformat="%d%b%Y",
+                           xlabpos=NA,
+                           xlabsrt=45,
+                           xlabadj=c(1,1),
+                           xlabcex=1,
+                           col=rep(1:8,5),
+                           lty=rep(1:5,each=8),
+                           legend.list=NULL,
+                           ...) {
 
   if (is.data.frame(accrual_df)) {
     accrual_df<-list(accrual_df)
@@ -1030,9 +1041,12 @@ accrual_plot_cum<-function(accrual_df,
 #' accrual_time_unit(accrual_df,"week",start_date=as.Date("2017-12-01"),
 #'     current_date=as.Date("2018-03-01"))
 #' }
-accrual_time_unit<-function(accrual_df,unit=c("month","year","week","day"),
-                            start_date=NA,format_start_date="%d%b%Y",
-                            current_date=NA,format_current_date="%d%b%Y") {
+accrual_time_unit<-function(accrual_df,
+                            unit=c("month","year","week","day"),
+                            start_date=NA,
+                            format_start_date="%d%b%Y",
+                            current_date=NA,
+                            format_current_date="%d%b%Y") {
 
   unit<-match.arg(unit)
 
@@ -1171,12 +1185,22 @@ accrual_time_unit<-function(accrual_df,unit=c("month","year","week","day"),
 #'    col="pink",tck=-0.03,mgp=c(3,1.2,0))
 #'
 #'
-accrual_plot_abs<-function(accrual_df,unit=c("month","year","week","day"),target=NA,
-                           start_date=NA,format_start_date="%d%b%Y",
-                           current_date=NA,format_current_date="%d%b%Y",
-                           ylim=NA,xlim=NA,
+accrual_plot_abs<-function(accrual_df,
+                           unit=c("month","year","week","day"),
+                           target=NA,
+                           start_date=NA,
+                           format_start_date="%d%b%Y",
+                           current_date=NA,
+                           format_current_date="%d%b%Y",
+                           ylim=NA,
+                           xlim=NA,
                            ylab="Recruited patients",
-                           xlabformat="%b %Y",xlabsel=NA,xlabpos=NA,xlabsrt=45,xlabadj=c(1,1),xlabcex=1,
+                           xlabformat="%b %Y",
+                           xlabsel=NA,
+                           xlabpos=NA,
+                           xlabsrt=45,
+                           xlabadj=c(1,1),
+                           xlabcex=1,
                            col="grey",...) {
 
   unit<-match.arg(unit)
@@ -1273,8 +1297,9 @@ accrual_plot_abs<-function(accrual_df,unit=c("month","year","week","day"),target
 #'
 #' @param accrual_df  accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)
 #	  with by option, a line is added for each element in the list
-#' @param overall indicates that accrual_df contains a summary with all sites (only if by is not NA)
+#' @param overall logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)
 #' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
+#' @param pos_overall overall in last or first row (if by is not NA and overall==TRUE)
 #' @param start_date start_date: date when recruitment started, single character or date,
 #	  or "common" if the same date should be used for all sites,
 #		if not given the first enrollment date is used as start_date
@@ -1314,15 +1339,22 @@ accrual_plot_abs<-function(accrual_df,unit=c("month","year","week","day"),target
 #'
 #'
 accrual_table<-function(accrual_df,
-                        overall=TRUE,name_overall="Overall",
-                        start_date=NA,format_start_date="%d%b%Y",
-                        current_date=NA,format_current_date="%d%b%Y",
+                        overall=TRUE,
+                        name_overall="Overall",
+                        pos_overall=c("last","first"),
+                        start_date=NA,
+                        format_start_date="%d%b%Y",
+                        current_date=NA,
+                        format_current_date="%d%b%Y",
                         unit=c("month","year","week","day"),
-                        format_table_date="%d%b%Y",format_time="%1.0f",format_rrate="%1.2f",
+                        format_table_date="%d%b%Y",
+                        format_time="%1.0f",
+                        format_rrate="%1.2f",
                         header=TRUE) {
 
 
   unit<-match.arg(unit)
+  pos_overall<-match.arg(pos_overall)
 
   scales<-data.frame(unit=c("year","month","week","day"),scale=c(365,30,7,1),name=c("Years","Months","Weaks","Days"))
   scale<-scales$scale[scales$unit==unit]
@@ -1389,7 +1421,13 @@ accrual_table<-function(accrual_df,
   }
 
   if (overall==TRUE) {
-    tab<-rbind(tab[tab$name!=name_overall,],tab[tab$name==name_overall,])
+	if (pos_overall=="last") {
+		tab<-rbind(tab[tab$name!=name_overall,],tab[tab$name==name_overall,])
+	} else {
+		tab<-rbind(tab[tab$name==name_overall,],tab[tab$name!=name_overall,])
+	}
+  } else {
+	tab<-tab[tab$name!=name_overall,]
   }
 
   if (!is.null(header)) {
