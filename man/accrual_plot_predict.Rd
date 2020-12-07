@@ -50,12 +50,12 @@ ignored if accrual_df is a data frame or a date vector}
 \item{target}{target sample size}
 
 \item{start_date}{date when recruitment started, single character or date,
-if not given the first enrollment date is used as start_date}
+if not given the first enrolment date is used as start_date}
 
 \item{format_start_date}{format of the start date, ignored if start_date is a date}
 
 \item{current_date}{date of the data export or database freeze, single character or date,
-if not given the latest enrollment date is used}
+if not given the latest enrolment date is used}
 
 \item{format_current_date}{format of the current date, ignored if current_date is a date}
 
@@ -120,7 +120,7 @@ requires specification of center_colors}
 A plot with cumulative accrual and the prediction to the end date.
 }
 \description{
-Generates an accrual predction plot based on vector with enrollment dates and a target sample size.
+Generates an accrual prediction plot based on vector with enrollment dates and a target sample size.
 Optionally the enrolled and targeted sites can be included.
 }
 \examples{

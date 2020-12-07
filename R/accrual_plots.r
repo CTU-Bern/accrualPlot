@@ -1,22 +1,6 @@
-#**********************************************************************************#
-#* Functions for accrual plots:
-#* - accrual_plot_predict: plot of cumulative accrual and prediction
-#* - accrual_plot_cum: cumulative accrual optionally by site
-#* - accrual_plot_abs: absolute accrual by time unit
-#* Function for accrual table:
-#* - accrual_table: accrual overview with site, start date, time since start, patients accrued, rate
-#* Helper functions:
-#* - accrual_create_df: created accrual data frame from enrollment dates
-#* - accrual_linear_model: weighted linear regression model for prediction of accrual end
-#* - accrual_predict: predict end date based on model
-#* - accrual_time_unit:  summary of accrual per time unit
-#* Author: Lukas Buetikofer
-#* Date created: January 2017
-#* Last update: October 2020
-#**********************************************************************************#
 #' accrual_plot_predict
 #'
-#' Generates an accrual predction plot based on vector with enrollment dates and a target sample size.
+#' Generates an accrual prediction plot based on vector with enrollment dates and a target sample size.
 #' Optionally the enrolled and targeted sites can be included.
 #'
 #' @param accrual_df accrual data frame produced by accrual_create_df with by=NA
@@ -25,10 +9,10 @@
 #'        ignored if accrual_df is a data frame or a date vector
 #' @param target target sample size
 #' @param start_date date when recruitment started, single character or date,
-#'		if not given the first enrollment date is used as start_date
+#'		if not given the first enrolment date is used as start_date
 #' @param format_start_date format of the start date, ignored if start_date is a date
 #' @param current_date date of the data export or database freeze, single character or date,
-#'		if not given the latest enrollment date is used
+#'		if not given the latest enrolment date is used
 #' @param format_current_date format of the current date, ignored if current_date is a date
 #' @param fill_up whether to fill up days where no recruitment was observed,
 #'		otherwise these points do not contribute to the regression, default is yes
