@@ -1,0 +1,25 @@
+Package: accrualPlot
+Type: Package
+Title: Accrual plots and predictions for clinical trials
+Version: 0.1.0
+Authors@R: 
+    c(
+    person(given = "Lukas", family = "Bütikofer", role = c("cre", "aut"),
+    email = "lukas.buetikofer@ctu.unibe.ch"),
+    person(given = "Alan G.", family = "Haynes", role = "ctb",
+    email = "alan.haynes@ctu.unibe.ch"))
+Maintainer: Lukas Bütikofer <lukas.buetikofer@ctu.unibe.ch>
+Description: Tracking accrual in clinical trials is important for trial success. 
+    If accrual is too slow, the trial will take too long and be too expensive. If
+    accrual is much faster than expected, time sensitive tasks such as the writing 
+    of statistical analysis plans might need to be rushed. `tRialaccrual` provides 
+    functions to aid the tracking of accrual and predict when a trial will reach 
+    it's intended sample size.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Depends:
+    lubridate
+RoxygenNote: 7.1.1
+Suggests: 
+    testthat
