@@ -84,7 +84,7 @@ df2 <- accrual_create_df(x, by = site)
 accrual_plot_cum(df2)
 ```
 
-It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 75 participants, we can put that in the `target` option.
+It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 75 participants, we can put that in the `target` option. 
 
 ```{r}
 accrual_plot_predict(df, target = 75)
