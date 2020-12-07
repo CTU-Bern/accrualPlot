@@ -267,12 +267,12 @@ accrual_linear_model <- function(accrual_df,
 #' accrual_df<-accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
 #'     current_date=as.Date("2018-03-01"))
 #' accrual_model<-accrual_linear_model(accrual_df)
-#' accrual_predict(accrual_df,accrual_model,target=100)
+#' accrual_plot_predict(accrual_df,accrual_model,target=100)
 #' #or
 #' accrual_df<-accrual_create_df(enrollment_dates)
 #' accrual_model<-accrual_linear_model(accrual_df,start_date=as.Date("2017-12-01"),
 #'     current_date=as.Date("2018-03-01"))
-#' accrual_predict(accrual_df,accrual_model,target=100,current_date=as.Date("2018-03-01"))
+#' accrual_plot_predict(accrual_df,accrual_model,target=100,current_date=as.Date("2018-03-01"))
 #' }
 
 accrual_predict <- function(accrual_df,
