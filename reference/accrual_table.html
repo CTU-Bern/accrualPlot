@@ -74,7 +74,7 @@ rate of recruitment" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -200,12 +200,12 @@ rate of recruitment</p>
 <span class='va'>centers</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Site 1"</span>,<span class='st'>"Site 2"</span>,<span class='st'>"Site 3"</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>,replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>,by<span class='op'>=</span><span class='va'>centers</span><span class='op'>)</span>
 <span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         name       start_date            time                n
-#&gt; 1     Center First patient in Months accruing Patients accrued
-#&gt; tabi  Site 1        02Jan2018               1               19
-#&gt; 2     Site 2        03Jan2018               1               19
-#&gt; 3     Site 3        04Jan2018               1               12
-#&gt; 4    Overall        02Jan2018               1               50
+</div><div class='output co'>#&gt;         name           start_date            time                    n
+#&gt; 1     Center First participant in Months accruing Participants accrued
+#&gt; tabi  Site 1            02Jan2018               1                   19
+#&gt; 2     Site 2            03Jan2018               1                   19
+#&gt; 3     Site 3            04Jan2018               1                   12
+#&gt; 4    Overall            02Jan2018               1                   50
 #&gt;                          rate
 #&gt; 1    Accrual rate (per month)
 #&gt; tabi                    21.92
@@ -214,12 +214,12 @@ rate of recruitment</p>
 #&gt; 4                       53.57</div><div class='input'>
 <span class='co'>#format</span>
 <span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,format_time<span class='op'>=</span><span class='st'>"%1.1f"</span>,format_rrate<span class='op'>=</span><span class='st'>"%1.1f"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         name       start_date            time                n
-#&gt; 1     Center First patient in Months accruing Patients accrued
-#&gt; tabi  Site 1        02Jan2018             0.9               19
-#&gt; 2     Site 2        03Jan2018             0.9               19
-#&gt; 3     Site 3        04Jan2018             0.8               12
-#&gt; 4    Overall        02Jan2018             0.9               50
+</div><div class='output co'>#&gt;         name           start_date            time                    n
+#&gt; 1     Center First participant in Months accruing Participants accrued
+#&gt; tabi  Site 1            02Jan2018             0.9                   19
+#&gt; 2     Site 2            03Jan2018             0.9                   19
+#&gt; 3     Site 3            04Jan2018             0.8                   12
+#&gt; 4    Overall            02Jan2018             0.9                   50
 #&gt;                          rate
 #&gt; 1    Accrual rate (per month)
 #&gt; tabi                     21.9
@@ -228,12 +228,12 @@ rate of recruitment</p>
 #&gt; 4                        53.6</div><div class='input'>
 <span class='co'>#unit</span>
 <span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         name       start_date          time                n
-#&gt; 1     Center First patient in Days accruing Patients accrued
-#&gt; tabi  Site 1        02Jan2018            26               19
-#&gt; 2     Site 2        03Jan2018            27               19
-#&gt; 3     Site 3        04Jan2018            25               12
-#&gt; 4    Overall        02Jan2018            28               50
+</div><div class='output co'>#&gt;         name           start_date          time                    n
+#&gt; 1     Center First participant in Days accruing Participants accrued
+#&gt; tabi  Site 1            02Jan2018            26                   19
+#&gt; 2     Site 2            03Jan2018            27                   19
+#&gt; 3     Site 3            04Jan2018            25                   12
+#&gt; 4    Overall            02Jan2018            28                   50
 #&gt;                        rate
 #&gt; 1    Accrual rate (per day)
 #&gt; tabi                   0.73
@@ -242,12 +242,12 @@ rate of recruitment</p>
 #&gt; 4                      1.79</div><div class='input'>
 <span class='co'>#common start and current dates</span>
 <span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span>,start_date<span class='op'>=</span><span class='st'>"common"</span>,current_date<span class='op'>=</span><span class='st'>"common"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         name       start_date          time                n
-#&gt; 1     Center First patient in Days accruing Patients accrued
-#&gt; tabi  Site 1        02Jan2018            28               19
-#&gt; 2     Site 2        02Jan2018            28               19
-#&gt; 3     Site 3        02Jan2018            28               12
-#&gt; 4    Overall        02Jan2018            28               50
+</div><div class='output co'>#&gt;         name           start_date          time                    n
+#&gt; 1     Center First participant in Days accruing Participants accrued
+#&gt; tabi  Site 1            02Jan2018            28                   19
+#&gt; 2     Site 2            02Jan2018            28                   19
+#&gt; 3     Site 3            02Jan2018            28                   12
+#&gt; 4    Overall            02Jan2018            28                   50
 #&gt;                        rate
 #&gt; 1    Accrual rate (per day)
 #&gt; tabi                   0.68
@@ -255,12 +255,12 @@ rate of recruitment</p>
 #&gt; 3                      0.43
 #&gt; 4                      1.79</div><div class='input'><span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span>,start_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2017-12-31"</span><span class='op'>)</span>,
     current_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-03-01"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         name       start_date          time                n
-#&gt; 1     Center First patient in Days accruing Patients accrued
-#&gt; tabi  Site 1        31Dec2017            60               19
-#&gt; 2     Site 2        31Dec2017            60               19
-#&gt; 3     Site 3        31Dec2017            60               12
-#&gt; 4    Overall        31Dec2017            60               50
+</div><div class='output co'>#&gt;         name           start_date          time                    n
+#&gt; 1     Center First participant in Days accruing Participants accrued
+#&gt; tabi  Site 1            31Dec2017            60                   19
+#&gt; 2     Site 2            31Dec2017            60                   19
+#&gt; 3     Site 3            31Dec2017            60                   12
+#&gt; 4    Overall            31Dec2017            60                   50
 #&gt;                        rate
 #&gt; 1    Accrual rate (per day)
 #&gt; tabi                   0.32

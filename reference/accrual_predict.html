@@ -73,7 +73,7 @@ a fitted regression model produced by accrual_linear_model and a target sample s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -157,19 +157,20 @@ a fitted regression model produced by accrual_linear_model and a target sample s
 <span class='va'>enrollment_dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>, <span class='fl'>50</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>
 <span class='va'>accrual_model</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_linear_model.html'>accrual_linear_model</a></span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span>
-<span class='fu'>accrual_predict</span><span class='op'>(</span><span class='va'>accrual_df</span>,<span class='va'>accrual_model</span>,target<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in accrual_predict(accrual_df, accrual_model, target = 100): could not find function "accrual_predict"</span></div><div class='input'>
+<span class='fu'>accrualPlot</span><span class='fu'>:::</span><span class='fu'>accrual_predict</span><span class='op'>(</span><span class='va'>accrual_df</span>,<span class='va'>accrual_model</span>,target<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2018-02-26"</div><div class='input'>
 <span class='co'>#different start and current date</span>
 <span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>,start_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2017-12-01"</span><span class='op'>)</span>,
     current_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-03-01"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>accrual_model</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_linear_model.html'>accrual_linear_model</a></span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span>
-<span class='fu'>accrual_predict</span><span class='op'>(</span><span class='va'>accrual_df</span>,<span class='va'>accrual_model</span>,target<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in accrual_predict(accrual_df, accrual_model, target = 100): could not find function "accrual_predict"</span></div><div class='input'><span class='co'>#or</span>
+<span class='fu'><a href='accrual_plot_predict.html'>accrual_plot_predict</a></span><span class='op'>(</span><span class='va'>accrual_df</span>,<span class='va'>accrual_model</span>,target<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
+</div><div class='img'><img src='accrual_predict-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>#or</span>
 <span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>
 <span class='va'>accrual_model</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_linear_model.html'>accrual_linear_model</a></span><span class='op'>(</span><span class='va'>accrual_df</span>,start_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2017-12-01"</span><span class='op'>)</span>,
     current_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-03-01"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>accrual_predict</span><span class='op'>(</span><span class='va'>accrual_df</span>,<span class='va'>accrual_model</span>,target<span class='op'>=</span><span class='fl'>100</span>,current_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-03-01"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in accrual_predict(accrual_df, accrual_model, target = 100, current_date = as.Date("2018-03-01")): could not find function "accrual_predict"</span></div><div class='input'><span class='co'># }</span>
+<span class='fu'>accrualPlot</span><span class='fu'>:::</span><span class='fu'>accrual_predict</span><span class='op'>(</span><span class='va'>accrual_df</span>,<span class='va'>accrual_model</span>,target<span class='op'>=</span><span class='fl'>100</span>,
+    current_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-03-01"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2018-04-29"</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
