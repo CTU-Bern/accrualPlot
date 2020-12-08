@@ -38,9 +38,10 @@ Generates summary of recruitment per time unit
 set.seed(2020)
 enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
 accrual_df<-accrual_create_df(enrollment_dates)
-accrual_time_unit(accrual_df,"week")
-accrual_time_unit(accrual_df,"day")
-accrual_time_unit(accrual_df,"week",start_date=as.Date("2017-12-01"),
+accrualPlot:::accrual_time_unit(accrual_df,"week")
+accrualPlot:::accrual_time_unit(accrual_df,"day")
+accrualPlot:::accrual_time_unit(accrual_df,"week",
+    start_date=as.Date("2017-12-01"),
     current_date=as.Date("2018-03-01"))
 }
 }
