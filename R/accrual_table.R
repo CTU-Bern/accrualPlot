@@ -67,7 +67,7 @@ accrual_table<-function(accrual_df,
 
   scales<-data.frame(unit=c("year","month","week","day"),scale=c(365,30,7,1),name=c("Years","Months","Weaks","Days"))
   scale<-scales$scale[scales$unit==unit]
-  name<-scales$name[scales$unit==unit]
+  uname<-scales$name[scales$unit==unit]
 
   if (is.data.frame(accrual_df)) {
     accrual_df<-list(accrual_df)
@@ -136,13 +136,15 @@ accrual_table<-function(accrual_df,
       tab<-rbind(tab[tab$name==name_overall,],tab[tab$name!=name_overall,])
     }
   } else {
-    tab<-tab[tab$name!=name_overall,]
+    if (!is.null(tab$name)) {
+      tab<-tab[tab$name!=name_overall,]
+    }
   }
 
   if (!is.null(header)) {
     if (length(header)==1) {
       if (header==TRUE) {
-        head<-c("Center","First patient in",paste0(name," accruing"),
+        head<-c("Center","First patient in",paste0(uname," accruing"),
                 "Patients accrued",
                 paste0("Accrual rate (per ",unit,")"))
         if (nhead==4) {
@@ -155,4 +157,3 @@ accrual_table<-function(accrual_df,
 
   return(tab)
 }
-

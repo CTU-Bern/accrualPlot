@@ -868,4 +868,3 @@ accrual_plot_abs<-function(accrual_df,
   }
 
 }
-
