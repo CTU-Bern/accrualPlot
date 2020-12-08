@@ -98,7 +98,7 @@ plot(df, "predict", target = 75)
 
 Table of recruitment, with or without a descriptive header.
 ```{r}
-# accrual_table(df) # doesnt seem to work
+# accrual_table(df) 
 summary(df) 
 summary(df2) 
 summary(df2, header = FALSE) 

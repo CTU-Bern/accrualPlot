@@ -5,7 +5,7 @@
 
 <!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
 
-[![](https://img.shields.io/badge/dev%20version-0.1.1-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
+[![](https://img.shields.io/badge/dev%20version-0.2.0-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
 [![Actions
 Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
@@ -119,23 +119,34 @@ plot(df, "predict", target = 75)
 
 ![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
 
+Table of recruitment, with or without a descriptive header.
+
 ``` r
-# accrual_table(df) # doesnt seem to work
-summary(df) # doesnt seem to work
-#>            start_date            time                n                     rate
-#> 1    First patient in Months accruing Patients accrued Accrual rate (per month)
-#> tabi        18Nov2020               1               50                    38.46
-summary(df2) # doesnt seem to work
-#>         name       start_date            time                n
-#> 1     Center First patient in Months accruing Patients accrued
-#> tabi       3        19Nov2020               1               15
-#> 2          2        21Nov2020               1               19
-#> 3          1        18Nov2020               1               16
-#> 4    Overall        18Nov2020               1               50
-#>                          rate
-#> 1    Accrual rate (per month)
-#> tabi                    13.64
-#> 2                       15.83
-#> 3                       12.31
-#> 4                       38.46
+# accrual_table(df) 
+summary(df) 
+#>            start_date            time                    n
+#>  First participant in Months accruing Participants accrued
+#>             18Nov2020               1                   50
+#>                      rate
+#>  Accrual rate (per month)
+#>                     38.46
+summary(df2) 
+#>     name           start_date            time                    n
+#>   Center First participant in Months accruing Participants accrued
+#>        3            19Nov2020               1                   15
+#>        2            21Nov2020               1                   19
+#>        1            18Nov2020               1                   16
+#>  Overall            18Nov2020               1                   50
+#>                      rate
+#>  Accrual rate (per month)
+#>                     13.64
+#>                     15.83
+#>                     12.31
+#>                     38.46
+summary(df2, header = FALSE) 
+#>     name start_date time  n  rate
+#>        3  19Nov2020    1 15 13.64
+#>        2  21Nov2020    1 19 15.83
+#>        1  18Nov2020    1 16 12.31
+#>  Overall  18Nov2020    1 50 38.46
 ```
