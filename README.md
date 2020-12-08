@@ -5,11 +5,11 @@
 
 <!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
 
-[![](https://img.shields.io/badge/dev%20version-0.1.0-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
-<!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
-<!-- [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize) -->
+[![](https://img.shields.io/badge/dev%20version-0.2.0-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
 [![Actions
 Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/presize/actions)
+<!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
+<!-- [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize) -->
 <!-- [![codecov](https://codecov.io/github/CTU-Bern/accrualPlot/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/accrualPlot) -->
 
 Accrual plots are an important tool when monitoring clinical trials.
@@ -50,9 +50,9 @@ library(accrualPlot)
 #> Loading required package: lubridate
 #> 
 #> Attaching package: 'lubridate'
-#> The following object is masked from 'package:base':
+#> The following objects are masked from 'package:base':
 #> 
-#>     date
+#>     date, intersect, setdiff, union
 
 # generate some data
 set.seed(1234)
@@ -61,27 +61,36 @@ x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
 df <- accrual_create_df(x)
 ```
 
-Recruitment per day
+Cumulative recruitment
 
 ``` r
-accrual_plot_abs(df, unit = "day")
+plot(df)
 ```
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
-Cumulative recruitment
+``` r
+# accrual_plot_cum(df)
+```
+
+Recruitment per day
 
 ``` r
-accrual_plot_cum(df)
+plot(df, which = "abs", unit = "day")
 ```
 
 ![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
+
+``` r
+# accrual_plot_abs(df, unit = "day")
+```
 
 If we know that we started recruiting on the 1st November, we can add
 this information.
 
 ``` r
-accrual_plot_cum(df, start_date = as.Date("2020-11-01"))
+# accrual_plot_cum(df, start_date = as.Date("2020-11-01"))
+plot(df, start_date = as.Date("2020-11-01"))
 ```
 
 ![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
@@ -91,7 +100,8 @@ Multiple sites can also be depicted…
 ``` r
 site <- sample(1:3, 50, replace = TRUE)
 df2 <- accrual_create_df(x, by = site)
-accrual_plot_cum(df2)
+# accrual_plot_cum(df2)
+plot(df2)
 ```
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
@@ -103,14 +113,40 @@ that in the `target` option.
 
 ``` r
 accrual_plot_predict(df, target = 75)
+# accrual_plot_predict(df2, target = 75) # does not seem to work
+plot(df, "predict", target = 75)
 ```
 
 ![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
 
-``` r
-# accrual_plot_predict(df2, target = 75) # does seem to work
-```
+Table of recruitment, with or without a descriptive header.
 
 ``` r
-accrual_table(df) # doesnt seem to work
+# accrual_table(df) 
+summary(df) 
+#>            start_date            time                    n
+#>  First participant in Months accruing Participants accrued
+#>             18Nov2020               1                   50
+#>                      rate
+#>  Accrual rate (per month)
+#>                     38.46
+summary(df2) 
+#>     name           start_date            time                    n
+#>   Center First participant in Months accruing Participants accrued
+#>        3            19Nov2020               1                   15
+#>        2            21Nov2020               1                   19
+#>        1            18Nov2020               1                   16
+#>  Overall            18Nov2020               1                   50
+#>                      rate
+#>  Accrual rate (per month)
+#>                     13.64
+#>                     15.83
+#>                     12.31
+#>                     38.46
+summary(df2, header = FALSE) 
+#>     name start_date time  n  rate
+#>        3  19Nov2020    1 15 13.64
+#>        2  21Nov2020    1 19 15.83
+#>        1  18Nov2020    1 16 12.31
+#>  Overall  18Nov2020    1 50 38.46
 ```

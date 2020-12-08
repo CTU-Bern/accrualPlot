@@ -1,0 +1,11 @@
+accrualPlot 0.2.0
+------------------
+new summary and plot methods can be used instead of accrual_plot_x
+
+accrualPlot 0.1.1
+------------------
+accrual_table works without a by argument
+
+accrualPlot 0.1.0
+------------------
+accrualPlot uploaded to github
