@@ -1339,17 +1339,11 @@ accrual_plot_abs<-function(accrual_df,
 #'
 #'
 accrual_table<-function(accrual_df,
-                        overall=TRUE,
-                        name_overall="Overall",
-                        pos_overall=c("last","first"),
-                        start_date=NA,
-                        format_start_date="%d%b%Y",
-                        current_date=NA,
-                        format_current_date="%d%b%Y",
+                        overall=TRUE,name_overall="Overall",pos_overall=c("last","first"),
+                        start_date=NA,format_start_date="%d%b%Y",
+                        current_date=NA,format_current_date="%d%b%Y",
                         unit=c("month","year","week","day"),
-                        format_table_date="%d%b%Y",
-                        format_time="%1.0f",
-                        format_rrate="%1.2f",
+                        format_table_date="%d%b%Y",format_time="%1.0f",format_rrate="%1.2f",
                         header=TRUE) {
 
 
@@ -1358,7 +1352,7 @@ accrual_table<-function(accrual_df,
 
   scales<-data.frame(unit=c("year","month","week","day"),scale=c(365,30,7,1),name=c("Years","Months","Weaks","Days"))
   scale<-scales$scale[scales$unit==unit]
-  name<-scales$name[scales$unit==unit]
+  uname<-scales$name[scales$unit==unit]
 
   if (is.data.frame(accrual_df)) {
     accrual_df<-list(accrual_df)
@@ -1427,13 +1421,15 @@ accrual_table<-function(accrual_df,
 		tab<-rbind(tab[tab$name==name_overall,],tab[tab$name!=name_overall,])
 	}
   } else {
-	tab<-tab[tab$name!=name_overall,]
+	if (!is.null(tab$name)) {
+		tab<-tab[tab$name!=name_overall,]
+	}
   }
 
   if (!is.null(header)) {
     if (length(header)==1) {
       if (header==TRUE) {
-        head<-c("Center","First patient in",paste0(name," accruing"),
+        head<-c("Center","First patient in",paste0(uname," accruing"),
                 "Patients accrued",
                 paste0("Accrual rate (per ",unit,")"))
         if (nhead==4) {
