@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 
 <!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
 `r badger::badge_custom("dev version", as.character(packageVersion("accrualPlot")), "blue", "https://github.com/CTU-Bern/accrualPlot")`
+[![Actions Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
 <!-- [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize) -->
-[![Actions Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 <!-- [![codecov](https://codecov.io/github/CTU-Bern/accrualPlot/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/accrualPlot) -->
 
 Accrual plots are an important tool when monitoring clinical trials. Some trials are terminated early due to low accrual, which is a waste of resources (including time). Assessing accrual rates can also be useful for planning analyses and estimating how long a trial needs to continue recruiting participants.  `accrualPlot` provides tools for such plots

@@ -19,7 +19,7 @@
 #' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
 #' accrual_df<-accrual_create_df(enrollment_dates)
 #' accrual_model<-accrual_linear_model(accrual_df)
-#' accrualPlot::accrual_predict(accrual_df,accrual_model,target=100)
+#' accrualPlot:::accrual_predict(accrual_df,accrual_model,target=100)
 #'
 #' #different start and current date
 #' accrual_df<-accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
@@ -30,7 +30,7 @@
 #' accrual_df<-accrual_create_df(enrollment_dates)
 #' accrual_model<-accrual_linear_model(accrual_df,start_date=as.Date("2017-12-01"),
 #'     current_date=as.Date("2018-03-01"))
-#' accrualPlot::accrual_predict(accrual_df,accrual_model,target=100,current_date=as.Date("2018-03-01"))
+#' accrualPlot:::accrual_predict(accrual_df,accrual_model,target=100,current_date=as.Date("2018-03-01"))
 #' }
 
 accrual_predict <- function(accrual_df,
