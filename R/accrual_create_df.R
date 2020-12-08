@@ -118,5 +118,6 @@ accrual_create_df <- function(enrollment_dates,
       }
     }
   }
+  class(accrual_df) <- c("accrual_df", class(accrual_df))
   return(accrual_df)
 }
