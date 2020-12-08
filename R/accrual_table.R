@@ -144,8 +144,8 @@ accrual_table<-function(accrual_df,
   if (!is.null(header)) {
     if (length(header)==1) {
       if (header==TRUE) {
-        head<-c("Center","First patient in",paste0(uname," accruing"),
-                "Patients accrued",
+        head<-c("Center","First participant in",paste0(uname," accruing"),
+                "Participants accrued",
                 paste0("Accrual rate (per ",unit,")"))
         if (nhead==4) {
           head<-head[-1]
