@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -127,11 +127,12 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>accrual_df</th>
-      <td><p>accrual data frame produced by accrual_create_df with by=NA</p></td>
+      <td><p>accrual data frame produced by accrual_create_df (optionally with by option as a list)</p></td>
     </tr>
     <tr>
       <th>start_date</th>
-      <td><p>date when recruitment started, single character or date,</p></td>
+      <td><p>date when recruitment started,
+single character/date, or a vector with the same length as accrual_df,</p></td>
     </tr>
     <tr>
       <th>format_start_date</th>
@@ -139,7 +140,8 @@
     </tr>
     <tr>
       <th>current_date</th>
-      <td><p>date of the data export or database freeze, single character or date,</p></td>
+      <td><p>date of the data export or database freeze,
+single character/date, or a vector with the same length as accrual_df,</p></td>
     </tr>
     <tr>
       <th>format_current_date</th>
@@ -167,7 +169,7 @@
 <span class='fu'>accrual_linear_model</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; Call:
-#&gt; lm(formula = Cumulative ~ Date, data = accrual_df, weights = weivec)
+#&gt; lm(formula = Cumulative ~ Date, data = accrual_dfi, weights = weivec)
 #&gt; 
 #&gt; Coefficients:
 #&gt; (Intercept)         Date  
@@ -177,7 +179,7 @@
 <span class='fu'>accrual_linear_model</span><span class='op'>(</span><span class='va'>accrual_df</span>, wfun<span class='op'>=</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; Call:
-#&gt; lm(formula = Cumulative ~ Date, data = accrual_df, weights = weivec)
+#&gt; lm(formula = Cumulative ~ Date, data = accrual_dfi, weights = weivec)
 #&gt; 
 #&gt; Coefficients:
 #&gt; (Intercept)         Date  
@@ -189,7 +191,7 @@
     current_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-03-01"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; Call:
-#&gt; lm(formula = Cumulative ~ Date, data = accrual_df, weights = weivec)
+#&gt; lm(formula = Cumulative ~ Date, data = accrual_dfi, weights = weivec)
 #&gt; 
 #&gt; Coefficients:
 #&gt; (Intercept)         Date  
@@ -200,11 +202,56 @@
 <span class='fu'>accrual_linear_model</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; Call:
-#&gt; lm(formula = Cumulative ~ Date, data = accrual_df, weights = weivec)
+#&gt; lm(formula = Cumulative ~ Date, data = accrual_dfi, weights = weivec)
 #&gt; 
 #&gt; Coefficients:
 #&gt; (Intercept)         Date  
 #&gt;  -1.499e+04    8.557e-01  
+#&gt; </div><div class='input'>
+ <span class='co'>#accrual_df with by option</span>
+ <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span>
+<span class='va'>centers</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Site 1"</span>,<span class='st'>"Site 2"</span>,<span class='st'>"Site 3"</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>,replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+ <span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>,by<span class='op'>=</span><span class='va'>centers</span><span class='op'>)</span>
+<span class='fu'>accrual_linear_model</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $`Site 3`
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = Cumulative ~ Date, data = accrual_dfi, weights = weivec)
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)         Date  
+#&gt;  -9436.5901       0.5381  
+#&gt; 
+#&gt; 
+#&gt; $`Site 2`
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = Cumulative ~ Date, data = accrual_dfi, weights = weivec)
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)         Date  
+#&gt;  -1.336e+04    7.623e-01  
+#&gt; 
+#&gt; 
+#&gt; $`Site 1`
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = Cumulative ~ Date, data = accrual_dfi, weights = weivec)
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)         Date  
+#&gt;  -1.200e+04    6.845e-01  
+#&gt; 
+#&gt; 
+#&gt; $Overall
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = Cumulative ~ Date, data = accrual_dfi, weights = weivec)
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)         Date  
+#&gt;  -33380.717        1.904  
+#&gt; 
 #&gt; </div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
