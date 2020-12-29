@@ -26,31 +26,39 @@ accrual_plot_abs(
 )
 }
 \arguments{
-\item{accrual_df}{accrual data frame produced by accrual_create_df with by=NA}
+\item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
 
-\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day"}
+\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day", 
+can be a vector with the same length as accrual_df}
 
-\item{target}{adds horizontal line for target recruitment per time unit}
+\item{target}{adds horizontal line for target recruitment per time unit, 
+can be a vector with the same length as accrual_df}
 
-\item{start_date}{start_date: date when recruitment started, single character or date,}
+\item{start_date}{start_date: date when recruitment started,
+single character/date, or a vector with the same length as accrual_df,
+if not given the first enrollment date is used as start_date,}
 
 \item{format_start_date}{format of the start date, ignored if start_date is a date}
 
-\item{current_date}{date of the data export or database freeze, single character or date}
+\item{current_date}{date of the data export or database freeze,
+single character/date, or a vector with the same length as accrual_df,
+if not given the latest enrollment date is used for each site,}
 
 \item{format_current_date}{format of the current date, ignored if current_date is a date}
 
-\item{ylim}{limits for y-axis}
+\item{ylim}{limits for y-axis, can be a vector with the same length as accrual_df}
 
-\item{xlim}{limits for x-axis, in barplot units}
+\item{xlim}{limits for x-axis, in barplot units, can be a vector with the same length as accrual_df}
 
 \item{ylab}{y-axis label}
 
 \item{xlabformat}{format of date on x-axis}
 
-\item{xlabsel}{selection of x-labels if not all should be shown,}
+\item{xlabsel}{selection of x-labels if not all should be shown,
+by default all are shown up to 15 bars, with more an automated selection is done,
+either NA (default), NULL (show all), or a numeric vector}
 
-\item{xlabpos}{position of the x-label}
+\item{xlabpos}{position of the x-label, can be a vector with the same length as accrual_df}
 
 \item{xlabsrt}{rotation of x-axis labels in degrees}
 
@@ -90,5 +98,11 @@ accrual_plot_abs(accrual_df,unit="week",ylab="No of recruited patients",
    xlabformat="\%Y-\%m-\%d",xlabsrt=30,xlabpos=-0.8,xlabadj=c(1,0.5),
    col="pink",tck=-0.03,mgp=c(3,1.2,0))
 
+#accrual_df with by option
+set.seed(2020)
+centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
+accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+par(mfcol=c(2,2))
+accrual_plot_abs(accrual_df=accrual_df,unit=c("week"))
 
 }
