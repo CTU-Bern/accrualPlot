@@ -2,11 +2,13 @@
 #'
 #' Creates weighted linear regression model based on an accrual data frame producd by accrual_create_df.
 #'
-#' @param accrual_df accrual data frame produced by accrual_create_df with by=NA
-#' @param start_date date when recruitment started, single character or date,
+#' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
+#' @param start_date date when recruitment started,
+#'		single character/date, or a vector with the same length as accrual_df,
 #		if not given the first enrollment date is used
 #' @param format_start_date format of the start date, ignored if start_date is a date
-#' @param current_date date of the data export or database freeze, single character or date,
+#' @param current_date date of the data export or database freeze,
+#'		single character/date, or a vector with the same length as accrual_df,
 #		if not given the latest enrollment date is used
 #' @param format_current_date format of the current date, ignored if current_date is a date
 #' @param fill_up whether to fill up days where no recruitment was observed,
@@ -17,6 +19,7 @@
 #' @return A lm object of a weigthed linear regression of cumulative accrual on dates.
 #'
 #' @export
+#'
 #' @importFrom stats lm aggregate
 #'
 #' @examples
@@ -37,6 +40,12 @@
 #' accrual_df<-accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
 #'     current_date=as.Date("2018-03-01"))
 #' accrual_linear_model(accrual_df)
+#'
+#'  #accrual_df with by option
+#'  set.seed(2020)
+#'	centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
+#'  accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+#'	accrual_linear_model(accrual_df)
 #' }
 
 accrual_linear_model <- function(accrual_df,
@@ -49,48 +58,74 @@ accrual_linear_model <- function(accrual_df,
 
   fill_up<-match.arg(fill_up)
 
-  #add start or current date
-  if (!is.na(start_date)) {
-    if (inherits(start_date,"Date")) {
-      sdate<-start_date
-    } else {
-      sdate<-as.Date(start_date,format=format_start_date)
-    }
-    if (sdate != min(accrual_df$Date)) {
-      stopifnot(sdate < min(accrual_df$Date))
-      accrual_df<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),accrual_df)
-    }
+  if (is.data.frame(accrual_df)) {
+	accrual_df<-list(accrual_df)
   }
-
-  if (!is.na(current_date)) {
-    if (inherits(current_date,"Date")) {
-      end_date<-current_date
-    } else {
-      end_date<-as.Date(current_date,format=format_current_date)
-    }
-    if (end_date != max(accrual_df$Date)) {
-      stopifnot(end_date > max(accrual_df$Date))
-      accrual_df<-rbind(accrual_df,data.frame(Date=end_date,Freq=0,Cumulative=max(accrual_df$Cumulative)))
-    }
+  
+  if (length(start_date)==1) {
+	start_date<-rep(start_date,length(accrual_df))
   }
-
-  #fill up days:
-  if (fill_up=="yes") {
-    alldays<-seq(min(accrual_df$Date),max(accrual_df$Date),by=1)
-    alldays<-alldays[!(alldays %in% accrual_df$Date)]
-    if (!is.null(nrow(alldays))) {
-      alldays_df<-data.frame(Date=alldays,Freq=0,Cumulative=NA)
-      adf<-rbind(accrual_df,alldays_df)
-      adf<-adf[order(adf$Date),]
-      stopifnot(cumsum(adf$Fre)[!is.na(adf$Cumulative)]==adf$Cumulative[!is.na(adf$Cumulative)])
-      adf$Cumulative<-cumsum(adf$Fre)
-      accrual_df<-adf
-    }
+  stopifnot(length(accrual_df)==length(start_date))
+  
+  if (length(current_date)==1) {
+	current_date<-rep(current_date,length(accrual_df))
   }
-
-  #linear model:
-  accrual_df<-aggregate(cbind(Freq,Cumulative)~Date,data=accrual_df,FUN=sum)
-  weivec <- wfun(accrual_df)
-  stopifnot( length(weivec) == nrow(accrual_df) )
-  lm(Cumulative ~ Date, data=accrual_df, weights = weivec)
+  stopifnot(length(accrual_df)==length(current_date))	 
+  
+  lmi<-numeric(0)
+  for (i in 1:length(accrual_df)) {  
+	accrual_dfi<-accrual_df[[i]]
+  
+    #add start or current date
+    if (!is.na(start_date[i])) {
+      if (inherits(start_date[i],"Date")) {
+        sdate<-start_date[i]
+      } else {
+        sdate<-as.Date(start_date[i],format=format_start_date)
+      }
+      if (sdate != min(accrual_dfi$Date)) {
+        stopifnot(sdate < min(accrual_dfi$Date))
+        accrual_dfi<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),accrual_dfi)
+      }
+    }
+  
+    if (!is.na(current_date[i])) {
+      if (inherits(current_date[i],"Date")) {
+        end_date<-current_date[i]
+      } else {
+        end_date<-as.Date(current_date[i],format=format_current_date)
+      }
+      if (end_date != max(accrual_dfi$Date)) {
+        stopifnot(end_date > max(accrual_dfi$Date))
+        accrual_dfi<-rbind(accrual_dfi,data.frame(Date=end_date,Freq=0,Cumulative=max(accrual_dfi$Cumulative)))
+      }
+    }
+  
+    #fill up days:
+    if (fill_up=="yes") {
+      alldays<-seq(min(accrual_dfi$Date),max(accrual_dfi$Date),by=1)
+      alldays<-alldays[!(alldays %in% accrual_dfi$Date)]
+      if (!is.null(nrow(alldays))) {
+        alldays_df<-data.frame(Date=alldays,Freq=0,Cumulative=NA)
+        adf<-rbind(accrual_dfi,alldays_df)
+        adf<-adf[order(adf$Date),]
+        stopifnot(cumsum(adf$Fre)[!is.na(adf$Cumulative)]==adf$Cumulative[!is.na(adf$Cumulative)])
+        adf$Cumulative<-cumsum(adf$Fre)
+        accrual_dfi<-adf
+      }
+    }
+  
+    #linear model:
+    accrual_dfi<-aggregate(cbind(Freq,Cumulative)~Date,data=accrual_dfi,FUN=sum)
+    weivec <- wfun(accrual_dfi)
+    stopifnot( length(weivec) == nrow(accrual_dfi) )
+    lmi<-append(lmi,list(lm(Cumulative ~ Date, data=accrual_dfi, weights = weivec)))
+  }
+  
+  if (length(lmi)==1) {
+	return(lmi[[1]])
+  } else {
+	names(lmi)<-names(accrual_df)
+	return(lmi)
+  }	
 }

@@ -1,18 +1,20 @@
 #' accrual_plot_predict
 #'
-#' Generates an accrual prediction plot based on vector with enrollment dates and a target sample size.
+#' Generates an accrual predction plot based on vector with enrollment dates and a target sample size.
 #' Optionally the enrolled and targeted sites can be included.
 #'
-#' @param accrual_df accrual data frame produced by accrual_create_df with by=NA
+#' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
 #'        or dates on which patients are enrolled as date or character vector
 #' @param format_enrollment_dates single character identifying the format of the dates,
 #'        ignored if accrual_df is a data frame or a date vector
-#' @param target target sample size
-#' @param start_date date when recruitment started, single character or date,
-#'		if not given the first enrolment date is used as start_date
+#' @param target target sample size, can be a vector with the same length as accrual_df
+#' @param start_date date when recruitment started, 
+#'		single character/date, or a vector with the same length as accrual_df,
+#'		if not given the first enrollment date is used as start_date,
 #' @param format_start_date format of the start date, ignored if start_date is a date
-#' @param current_date date of the data export or database freeze, single character or date,
-#'		if not given the latest enrolment date is used
+#' @param current_date date of the data export or database freeze,
+#'		single character/date, or a vector with the same length as accrual_df,
+#'		if not given the latest enrollment date is used, 
 #' @param format_current_date format of the current date, ignored if current_date is a date
 #' @param fill_up whether to fill up days where no recruitment was observed,
 #'		otherwise these points do not contribute to the regression, default is yes
@@ -21,7 +23,8 @@
 #' @param center_start_dates dates on which centers are enrolled as character or date vector,
 #'		required if center information should be shown
 #' @param format_center_start_dates format of the center start date, ignored if enrollment_dates are dates
-#' @param targetc  target number of centers, required if center information should be shown
+#' @param targetc  target number of centers, required if center information should be shown, 
+#'		can be a vector with the same length as accrual_df
 #' @param center_label label for the center strip od axis
 #' @param design design options for the addition of the center
 #'		1: barplots, 2 (default): strip below plot, 3: strip within plot, above line, 4: strip within plot, below line
@@ -34,14 +37,14 @@
 #' @param label_prediction label for predicted end date
 #' @param cex_prediction text size for predicted end date
 #' @param format_prediction date format for predicted end date
-#' @param ylim limits for y-axis
-#' @param xlim limits for x-axis
+#' @param ylim limits for y-axis, can be a vector with the same length as accrual_df
+#' @param xlim limits for x-axis, can be a vector with the same length as accrual_df
 #' @param ylab y-axis label
 #' @param xlabformat format of date on x-axis
 #' @param xlabn integer giving the desired number of intervals for the xlabel, default=5
 #' @param xlabminn nonnegative integer giving the minimal number of intervals
 #' @param xlabformat format of date on x-axis
-#' @param xlabpos position of the x-label
+#' @param xlabpos position of the x-label, can be a vector with the same length as accrual_df
 #' @param xlabsrt rotation of x-axis labels in degrees
 #' @param xlabadj adjustment of x-label, numeric vector with length 1 or 2 for different adjustment in x- and y-direction
 #' @param xlabcex size of x-axis label
@@ -87,40 +90,33 @@
 #'      xlabcex=1.2,xlabsrt=30,xlabn=5,xlabmin=5,
 #'      mgp=c(3,0.5,0),cex.lab=1.2,cex.axis=1.2)
 #'
+#' #accrual_df with by option
+#' set.seed(2020)
+#' centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
+#' accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+#' par(mfcol=c(2,2))
+#' accrual_plot_predict(accrual_df=accrual_df,target=c(30,30,30,100))
+#'
 
 accrual_plot_predict<-function(accrual_df,
                                format_enrollment_dates="%d%b%Y",
                                target,
-                               start_date=NA,
-                               format_start_date="%d%b%Y",
-                               current_date=NA,
-                               format_current_date="%d%b%Y",
-                               fill_up=c("yes","no"),
-                               wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)),
-                               center_start_dates=NA,
-                               format_center_start_dates="%d%b%Y",
+                               start_date=NA,format_start_date="%d%b%Y",
+                               current_date=NA,format_current_date="%d%b%Y",
+                               fill_up=c("yes","no"),wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)),
+                               center_start_dates=NA,format_center_start_dates="%d%b%Y",
                                targetc=NA,
                                center_label="Centers",
                                design=2,
-                               center_colors=NA,
-                               center_legend=c("number","strip"),
-                               legend_text_size=0.7,
-                               pos_prediction=c("out","in","none"),
-                               label_prediction="Predicted end date: ",
-                               cex_prediction=1.1,
-                               format_prediction="%B %d, %Y",
-                               ylim=NA,
-                               xlim=NA,
+                               center_colors=NA,center_legend=c("number","strip"),legend_text_size=0.7,
+                               pos_prediction=c("out","in","none"),label_prediction="Predicted end date: ",
+                               cex_prediction=1.1,format_prediction="%B %d, %Y",
+                               ylim=NA,xlim=NA,
                                ylab="Recruited patients",
                                xlabformat="%d%b%Y",
-                               xlabn=5,
-                               xlabminn= xlabn %/% 2,
-                               xlabpos=NA,
-                               xlabsrt=45,
-                               xlabadj=c(1,1),
-                               xlabcex=1,
-                               mar=NA,
-                               ...) {
+							   xlabn=5,xlabminn= xlabn %/% 2,
+							   xlabpos=NA,xlabsrt=45,xlabadj=c(1,1),xlabcex=1,
+                               mar=NA,...) {
 
   fill_up<-match.arg(fill_up)
   pos_prediction<-match.arg(pos_prediction)
@@ -139,10 +135,9 @@ accrual_plot_predict<-function(accrual_df,
 
 
   #via enrollment dates
-  #....................
-
-  if (!is.data.frame(accrual_df)) {
-
+  #####################
+  if (mode(accrual_df) %in% c("logical","numeric","complex","character")) {
+  
     if (!inherits(accrual_df,"Date")) {
       accrual_df<-as.Date(accrual_df,format=format_enrollment_dates)
     }
@@ -182,297 +177,379 @@ accrual_plot_predict<-function(accrual_df,
     #	current_date=current_date,format_current_date=format_current_date,
     #	force_start0="yes")
 
+	accrual_df<-list(accrual_df)
+	accrual_df0<-list(accrual_df0)
+	 
   } else {
 
     #via accrual_df
-    #..............
-
-    if (!is.na(current_date)) {
-      if (!inherits(current_date,"Date")) {
-        current_date<-as.Date(current_date,format=format_current_date)
-      }
-      stopifnot(current_date >= max(accrual_df$Date))
-
-      if (current_date != max(accrual_df$Date)) {
-        accrual_df<-rbind(accrual_df,
-                          data.frame(Date=current_date,Freq=0,Cumulative=max(accrual_df$Cumulative)))
-      }
-    } else {
-      current_date<-max(accrual_df$Date)
+    #####################
+	
+    if (is.data.frame(accrual_df)) {
+	  accrual_df<-list(accrual_df)
     }
+	
+	mult<-function(var) {
+		if (length(var)==1) {
+			var<-rep(var,length(accrual_df))
+			return(var) 
+		} else {
+			stopifnot(length(var)==length(accrual_df))
+			return(var)
+		}
+	}
+	target<-mult(target)
+	targetc<-mult(targetc)
+	current_date<-mult(current_date)
+	start_date<-mult(start_date)
+	xlabpos<-mult(xlabpos)
+	
+	if (mode(xlim) %in% c("logical","numeric","complex","character")) {
+		xlim<-rep(list(xlim),length(accrual_df))
+	} else {
+		stopifnot(length(xlim)==length(accrual_df))
+	}	
+	if (mode(ylim) %in% c("logical","numeric","complex","character")) {
+		ylim<-rep(list(ylim),length(accrual_df))
+	} else {
+		stopifnot(length(ylim)==length(accrual_df))
+	}	
+	
+	accrual_df0<-vector(mode = "list", length = length(accrual_df))
+	
+    for (i in 1:length(accrual_df)) {
+		
+		accrual_dfi<-accrual_df[[i]]
 
-    if (!is.na(start_date)) {
-      if (!inherits(start_date,"Date")) {
-        start_date<-as.Date(start_date,format=format_start_date)
-      }
-      stopifnot(start_date <= min(accrual_df$Date))
+		if (!is.na(current_date[i])) {
+		  if (!inherits(current_date[i],"Date")) {
+			cdate<-as.Date(current_date[i],format=format_current_date)
+		  } else {
+			cdate<-current_date[i]
+		  }
+		  stopifnot(cdate >= max(accrual_dfi$Date))
 
-      if (start_date != min(accrual_df$Date))  {
-        accrual_df<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),accrual_df)
-        accrual_df0<-accrual_df
-      }
-    } else {
-      start_date<-min(accrual_df$Date)
-      accrual_df0<-accrual_df
-      accrual_df0<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),accrual_df0)
-    }
+		  if (cdate != max(accrual_dfi$Date)) {
+			accrual_dfi<-rbind(accrual_dfi,
+							  data.frame(Date=cdate,Freq=0,Cumulative=max(accrual_dfi$Cumulative)))
+		  }
+		} else {
+		  cdate<-max(accrual_dfi$Date)
+		}
+
+		if (!is.na(start_date[i])) {
+		  if (!inherits(start_date[i],"Date")) {
+			sdate<-as.Date(start_date[i],format=format_start_date)
+		  } else {
+			sdate<-start_date[i]
+		  }
+		  stopifnot(sdate <= min(accrual_dfi$Date))
+
+		  if (sdate != min(accrual_dfi$Date))  {
+			accrual_dfi<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),accrual_dfi)
+			adf0<-accrual_dfi
+		  } else {
+			adf0<-accrual_dfi
+			adf0<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),adf0)
+		  }
+		} else {
+		  sdate<-min(accrual_dfi$Date)
+		  adf0<-accrual_dfi
+		  adf0<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),adf0)
+		}
+		accrual_df[[i]]<-accrual_dfi
+		accrual_df0[[i]]<-adf0
+	}	
   }
 
   #centers
-  #.......
+  ##########
+   	
+  cs<-vector(mode = "list", length = length(accrual_df))	
+  for (i in 1:length(accrual_df)) {
+	if (mode(center_start_dates) %in% c("logical","numeric","complex","character")) {
+		center_start_datesi<-center_start_dates
+	} else {
+		stopifnot(length(accrual_df)==length(center_start_dates))
+		center_start_datesi<-center_start_dates[[i]]
+	}	
+  
+    if (!is.na(max(center_start_datesi))) {
 
-  if (!is.na(max(center_start_dates))) {
+		if (inherits(center_start_datesi,"Date")) {
+		  format_center_start_dates<-"%Y-%m-%d"
+		}
 
-    if (inherits(center_start_dates,"Date")) {
-      format_center_start_dates<-"%Y-%m-%d"
-    }
-
-    cs<-accrual_create_df(center_start_dates,format_enrollment_dates=format_center_start_dates)
-
-    if (is.na(targetc)) {
-      targetc<-max(cs$Cumulative)
-    }
-
-    #use start center if earlier than recruitment
-    if (min(cs$Date)<start_date) {
-      start_date<-min(cs$Date)
-    }
-
+		csi<-accrual_create_df(center_start_datesi,format_enrollment_dates=format_center_start_dates)
+		cs[[i]]<-csi
+		
+		if (is.na(targetc[i])) {
+		  targetc[i]<-max(csi$Cumulative)
+		}
+	}	
   }
 
+  for (k in 1:length(accrual_df)) { 	
+		
+	  accrual_dfi<-accrual_df[[k]]	
+	  accrual_df0i<-accrual_df0[[k]]
+	  csk<-cs[[k]]	
+	  
+	  if (is.na(start_date[k])) {
+		sdate<-min(accrual_dfi$Date)
+	  } else {
+		sdate<-start_date[k]
+	  }
+	  if (!is.null(cs[[k]])) {
+		  #use start center if earlier than recruitment
+		  if (min(csk$Date) < sdate) {
+			sdate<-min(csk$Date)
+		  }
+	  }
+	  
+	  if (is.na(current_date[k])) {
+		cdate<-max(accrual_dfi$Date)
+	  } else {
+		cdate<-current_date[k]
+	  }
+	  
+	  #model and prediction
+	  #######################
+
+	  m1<-accrual_linear_model(accrual_dfi,
+							   start_date=sdate,format_start_date=format_start_date,
+							   current_date=cdate,format_current_date=format_current_date,
+							   fill_up=fill_up,wfun=wfun)
+
+	  #from last recruited patient:
+	  end_date<-accrual_predict(accrual_dfi,m1,target[k],current_date=cdate,format_current_date="%d%b%Y")
+
+	  if (sum(!is.na(xlim[[k]]))==0) {
+		xlimk<-c(min(accrual_dfi$Date),end_date)
+	  } else {
+		xlimk<-xlim[[k]]
+	  }
+	  xlabs<-pretty(x=xlimk,n=xlabn,min.n=xlabminn)
+	  xlabs<-xlabs[xlabs>=xlimk[1] & xlabs <=xlimk[2]]
+
+	  #plot setup
+	  #######
+
+	  ymin<-0
+
+	  if (pos_prediction %in% c("in","none")) {
+		margin_top<-1
+	  } else {
+		margin_top<-2
+	  }
+	  if (is.na(sum(mar))) {
+		par(mar=c(5,4.3,margin_top,1))
+	  }
+
+	  #centers
+	  if (!is.null(cs[[k]])) {
+
+		if (design==1) {
+		  diffs<-c(csk$Date[-1],cdate)-csk$Date
+
+		  if (is.na(sum(mar))) {
+			par(mar=c(5,4.3,margin_top,4))
+		  }
+
+		  b<-barplot(csk$Cumulative,space=0,width=as.numeric(diffs),
+					 ylim=c(0,targetc[k]),col="gray90",border="gray90",axes=FALSE,
+					 xlim=c(0,max(end_date-csk$Date)))
+		  axis(side=4,las=1,col="gray60",col.axis="gray60")
+		  mtext(center_label,side=4,cex=1.2,line=2.2,col="gray70")
+
+		  par(new=T)
+		} else {
+
+		  margin_bottom<-5
+
+		  if (center_legend=="number") {
+			margin_right<-1
+		  } else {
+			margin_right<-2.5
+		  }
+
+		  if (design==2) {
+			margin_bottom<-6.5
+		  }
+
+		  if (design==4) {
+			ymin<--target[k]/15
+		  }
+
+		  if (is.na(sum(mar))) {
+			par(mar=c(margin_bottom,4.3,margin_top,margin_right))
+		  }
+		}
+	  }
+
+	  if (sum(!is.na(ylim[[k]]))==0) {
+		ylimk<-c(ymin,target[k])
+	  } else {
+		ylimk<-ylim[[k]]
+	  }
+
+	  #plot raw data
+	  #########
+
+	  if (!is.null(cs[[k]]) & design==1) {
+		plot(0,type="n",ylim=ylimk,xlim=xlimk,
+			 axes=FALSE,xlab="",ylab=ylab,
+			 yaxs = "i",...)
+		box(bty="c")
+	  } else {
+		plot(0,type="n",ylim=ylimk,xlim=xlimk,
+			 axes=FALSE,xlab="",ylab=ylab,...)
+		box()
+	  }
+
+	  #xlabel:
+	  xlabsl<-format(xlabs, xlabformat)
+	  axis(side=1,at=xlabs,labels=rep("",length(xlabs)),...)
+	  if (is.na(xlabpos[k])) {
+		xlabposk<-par("usr")[3]-(par("usr")[4]-par("usr")[3])/30
+	  } else {
+		xlabposk<-xlabpos[k]
+	  }
+	  text(x=xlabs,y=xlabposk,srt=xlabsrt,labels=xlabsl,xpd=TRUE,adj=xlabadj,cex=xlabcex)
+
+	  #ylabel:
+	  axis(side=2,las=1,...)
+
+	  #lines
+	  #points(Cumulative~Date,data=accrual_dfi,cex=0.8)
+	  #lines(Cumulative~Date,data=accrual_dfi,type="s")
+	  lines(Cumulative~Date,data=accrual_df0i,type="s")
 
 
-  #model and prediction
-  #....................
+	  #plot model fit
+	  ############
 
-  m1<-accrual_linear_model(accrual_df,
-                           start_date=start_date,format_start_date=format_start_date,
-                           current_date=current_date,format_current_date=format_current_date,
-                           fill_up=fill_up,wfun=wfun)
-
-  #from last recruited patient:
-  end_date<-accrual_predict(accrual_df,m1,target,current_date=current_date,format_current_date="%d%b%Y")
-
-  if (sum(!is.na(xlim))==0) {
-    xlim<-c(min(accrual_df$Date),end_date)
-  }
-  xlabs<-pretty(x=xlim,n=xlabn,min.n=xlabminn)
-  xlabs<-xlabs[xlabs>=xlim[1] & xlabs <=xlim[2]]
-
-  #plot setup
-  #..........
-
-  ymin<-0
-
-  if (pos_prediction %in% c("in","none")) {
-    margin_top<-1
-  } else {
-    margin_top<-2
-  }
-  if (is.na(sum(mar))) {
-    par(mar=c(5,4.3,margin_top,1))
-  }
-
-  #centers
-
-  if (!is.na(max(center_start_dates))) {
-
-    if (design==1) {
-      diffs<-c(cs$Date[-1],current_date)-cs$Date
-
-      if (is.na(sum(mar))) {
-        par(mar=c(5,4.3,margin_top,4))
-      }
-
-      b<-barplot(cs$Cumulative,space=0,width=as.numeric(diffs),
-                 ylim=c(0,targetc),col="gray90",border="gray90",axes=FALSE,
-                 xlim=c(0,max(end_date-cs$Date)))
-      axis(side=4,las=1,col="gray60",col.axis="gray60")
-      mtext(center_label,side=4,cex=1.2,line=2.2,col="gray70")
-
-      par(new=T)
-    } else {
-
-      margin_bottom<-5
-
-      if (center_legend=="number") {
-        margin_right<-1
-      } else {
-        margin_right<-2.5
-      }
-
-      if (design==2) {
-        margin_bottom<-6.5
-      }
-
-      if (design==4) {
-        ymin<--target/15
-      }
-
-      if (is.na(sum(mar))) {
-        par(mar=c(margin_bottom,4.3,margin_top,margin_right))
-      }
-    }
-  }
-
-  if (sum(!is.na(ylim))==0) {
-    ylim<-c(ymin,target)
-  }
-
-  #plot raw data
-  #.............
-
-  if (!is.na(max(center_start_dates)) & design==1) {
-    plot(0,type="n",ylim=ylim,xlim=xlim,
-         axes=FALSE,xlab="",ylab=ylab,
-         yaxs = "i",...)
-    box(bty="c")
-  } else {
-    plot(0,type="n",ylim=ylim,xlim=xlim,
-         axes=FALSE,xlab="",ylab=ylab,...)
-    box()
-  }
-
-  #xlabel:
-  xlabsl<-format(xlabs, xlabformat)
-  axis(side=1,at=xlabs,labels=rep("",length(xlabs)),...)
-  if (is.na(xlabpos)) {
-    xlabpos<-par("usr")[3]-(par("usr")[4]-par("usr")[3])/30
-  }
-  text(x=xlabs,y=xlabpos,srt=xlabsrt,labels=xlabsl,xpd=TRUE,adj=xlabadj,cex=xlabcex)
-
-  #ylabel:
-  axis(side=2,las=1,...)
-
-  #lines
-  #points(Cumulative~Date,data=accrual_df,cex=0.8)
-  #lines(Cumulative~Date,data=accrual_df,type="s")
-  lines(Cumulative~Date,data=accrual_df0,type="s")
+	  lp<-accrual_df0i[which.max(accrual_df0i$Date),]
+	  lines(x=c(lp$Date,end_date),y=c(lp$Cumulative,target[k]),col="red",lty=2)
+	  points(x=end_date,y=target[k],pch=8,col="red",xpd=TRUE)
 
 
-  #plot model fit
-  #..............
+	  #predicted end date
+	  ############
+	  if (pos_prediction!="none") {
+		if (pos_prediction=="in") {
+		  legend("topleft",paste0(label_prediction,format(end_date, format_prediction)),bty="n",
+				 cex=cex_prediction)
+		} else {
+		  text(x=par("usr")[1],y=par("usr")[4],adj=c(0,-1), xpd=TRUE,
+			   paste0(label_prediction,format(end_date, format_prediction)),cex=cex_prediction)
+		}
+	  }
 
-  lp<-accrual_df0[which.max(accrual_df0$Date),]
-  lines(x=c(lp$Date,end_date),y=c(lp$Cumulative,target),col="red",lty=2)
-  points(x=end_date,y=target,pch=8,col="red",xpd=TRUE)
+	  #centers, design 2-4
+	  #################
 
+	  if (!is.null(cs[[k]]) & design!=1) {
 
-  #predicted end date
-  #..................
-  if (pos_prediction!="none") {
-    if (pos_prediction=="in") {
-      legend("topleft",paste0(label_prediction,format(end_date, format_prediction)),bty="n",
-             cex=cex_prediction)
-    } else {
-      text(x=par("usr")[1],y=par("usr")[4],adj=c(0,-1), xpd=TRUE,
-           paste0(label_prediction,format(end_date, format_prediction)),cex=cex_prediction)
-    }
-  }
+		cdates<-c(csk$Date,cdate)
+		centerw<-1
 
-  #centers, design 2-4
-  #...................
+		#coordinates for plotting
+		uc<-par("usr")
+		lh <- par('cin')[2] * par('cex') * par('lheight')
+		x_off <- diff(grconvertX(0:1, 'inches', 'user'))
+		y_off <- diff(grconvertY(0:1, 'inches', 'user'))
+		bwidth<-centerw*y_off*lh
+		ypf<-function(yp1) {c(rep(yp1,2),rep(yp1 + bwidth,2))} #get position for barplot
 
-  if (!is.na(max(center_start_dates)) & design!=1) {
+		if (design==2) {
 
-    cdates<-c(cs$Date,current_date)
-    centerw<-1
+		  yp1<-uc[3] - par("mar")[1] * y_off*lh #at the bottom
+		  yp1<-uc[3] - (par("mar")[1]-0.4) * y_off*lh #0.4 lines above the bottom
+		  yp<-ypf(yp1)
+		  ypl<-mean(yp)
+		  xpl<-cdates[1]-(uc[2]-uc[1])/50
+		  xadj<-1
+		  label<-center_label
+		}
 
-    #coordinates for plotting
-    uc<-par("usr")
-    lh <- par('cin')[2] * par('cex') * par('lheight')
-    x_off <- diff(grconvertX(0:1, 'inches', 'user'))
-    y_off <- diff(grconvertY(0:1, 'inches', 'user'))
-    bwidth<-centerw*y_off*lh
-    ypf<-function(yp1) {c(rep(yp1,2),rep(yp1 + bwidth,2))} #get position for barplot
+		if (design==3) {
+		  yp1<-0.85*uc[4]
+		  yp<-ypf(yp1)
+		  ypl<-1.03*max(yp)
+		  xpl<-cdates[1]
+		  xadj<-0
+		  label<-center_label
+		}
 
-    if (design==2) {
-
-      yp1<-uc[3] - par("mar")[1] * y_off*lh #at the bottom
-      yp1<-uc[3] - (par("mar")[1]-0.4) * y_off*lh #0.4 lines above the bottom
-      yp<-ypf(yp1)
-      ypl<-mean(yp)
-      xpl<-cdates[1]-(uc[2]-uc[1])/50
-      xadj<-1
-      label<-center_label
-    }
-
-    if (design==3) {
-      yp1<-0.85*uc[4]
-      yp<-ypf(yp1)
-      ypl<-1.03*max(yp)
-      xpl<-cdates[1]
-      xadj<-0
-      label<-center_label
-    }
-
-    if (design==4) {
-      yp1<-0.85*uc[3]
-      yp<-ypf(yp1)
-      ypl<-mean(yp)
-      xpl<-cdates[length(cdates)]+(uc[2]-uc[1])/50
-      xadj<-0
-      label<-center_label
-    }
+		if (design==4) {
+		  yp1<-0.85*uc[3]
+		  yp<-ypf(yp1)
+		  ypl<-mean(yp)
+		  xpl<-cdates[length(cdates)]+(uc[2]-uc[1])/50
+		  xadj<-0
+		  label<-center_label
+		}
 
 
-    for (i in 1:(length(cdates)-1)) {
-      nc<-cs$Cumulative[i]
+		for (i in 1:(length(cdates)-1)) {
+		  nc<-csk$Cumulative[i]
 
-      if (is.na(center_colors[1])) {
-        polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
-                xpd=TRUE,col="grey90",border="gray70")
-      } else {
-        if (length(center_colors)==targetc) {
-          cols<-rev(center_colors)
-        } else {
-          cols<-rev(heat.colors(targetc))
-          print("Length of center_colors does not correpsong to targetc, default scheme used")
-        }
-        polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
-                xpd=TRUE,col=cols[nc],border="black")
-      }
-    }
+		  if (is.na(center_colors[1])) {
+			polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
+					xpd=TRUE,col="grey90",border="gray70")
+		  } else {
+			if (length(center_colors)==targetc[k]) {
+			  cols<-rev(center_colors)
+			} else {
+			  cols<-rev(heat.colors(targetc[k]))
+			  print("Length of center_colors does not correpsong to targetc, default scheme used")
+			}
+			polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
+					xpd=TRUE,col=cols[nc],border="black")
+		  }
+		}
 
-    #legend
-    text(x=xpl,y=ypl,labels=label,adj=xadj,xpd=TRUE)
+		#legend
+		text(x=xpl,y=ypl,labels=label,adj=xadj,xpd=TRUE)
 
-    if (center_legend=="number") {
-      td<-(as.numeric(cdates)[-length(cdates)]+as.numeric(cdates)[-1])/2
-      text(x=td,y=mean(yp),labels=cs$Cumulative,xpd=TRUE,cex=legend_text_size)
+		if (center_legend=="number") {
+		  td<-(as.numeric(cdates)[-length(cdates)]+as.numeric(cdates)[-1])/2
+		  text(x=td,y=mean(yp),labels=csk$Cumulative,xpd=TRUE,cex=legend_text_size)
 
-    } else {
+		} else {
 
-      bwidth<-centerw*y_off*lh
-      pl<- 0.5 * x_off * lh
-      lxp<-par("usr")[2] + pl/2
-      ypp<-seq(yp[1],yp[3] + 2*bwidth ,l=targetc+1)
-      if (design==3) {
-        ypp<-seq(yp[1]- bwidth,yp[3] + bwidth,l=targetc+1)
-      }
-      atc<-round(seq(1,targetc,l=5))
-      ypatc<-(ypp[atc]+ypp[atc+1])/2
-      tcks<-pl/5
-      xtck<-matrix(rep(c(lxp+pl,lxp+pl+tcks),length(atc)),length(atc),2,byrow=TRUE)
-      ytck<-matrix(rep(ypatc,each=2),length(atc),2,byrow=TRUE)
+		  bwidth<-centerw*y_off*lh
+		  pl<- 0.5 * x_off * lh
+		  lxp<-par("usr")[2] + pl/2
+		  ypp<-seq(yp[1],yp[3] + 2*bwidth ,l=targetc[k]+1)
+		  if (design==3) {
+			ypp<-seq(yp[1]- bwidth,yp[3] + bwidth,l=targetc[k]+1)
+		  }
+		  atc<-round(seq(1,targetc[k],l=5))
+		  ypatc<-(ypp[atc]+ypp[atc+1])/2
+		  tcks<-pl/5
+		  xtck<-matrix(rep(c(lxp+pl,lxp+pl+tcks),length(atc)),length(atc),2,byrow=TRUE)
+		  ytck<-matrix(rep(ypatc,each=2),length(atc),2,byrow=TRUE)
 
-      for (i in 1:targetc) {
-        polygon(x=c(lxp,lxp+pl,lxp+pl,lxp),y=c(ypp[i],ypp[i],ypp[i+1],ypp[i+1]),
-                xpd=TRUE,col=cols[i],border=NA)
-      }
-      lines(x=c(lxp,lxp)+pl,y=c(min(ypp),max(ypp)),xpd=TRUE)
-      lines(x=c(lxp,lxp),y=c(min(ypp),max(ypp)),xpd=TRUE)
-      lines(x=c(lxp,lxp+pl),y=c(min(ypp),min(ypp)),xpd=TRUE)
-      lines(x=c(lxp+pl,lxp),y=c(max(ypp),max(ypp)),xpd=TRUE)
+		  for (i in 1:targetc[k]) {
+			polygon(x=c(lxp,lxp+pl,lxp+pl,lxp),y=c(ypp[i],ypp[i],ypp[i+1],ypp[i+1]),
+					xpd=TRUE,col=cols[i],border=NA)
+		  }
+		  lines(x=c(lxp,lxp)+pl,y=c(min(ypp),max(ypp)),xpd=TRUE)
+		  lines(x=c(lxp,lxp),y=c(min(ypp),max(ypp)),xpd=TRUE)
+		  lines(x=c(lxp,lxp+pl),y=c(min(ypp),min(ypp)),xpd=TRUE)
+		  lines(x=c(lxp+pl,lxp),y=c(max(ypp),max(ypp)),xpd=TRUE)
 
-      for (i in 1:nrow(xtck)) {
-        lines(x=xtck[i,],y=ytck[i,],xpd=TRUE)
-      }
-      text(x=lxp+pl+2*tcks,y=ytck[,2],label=atc,xpd=TRUE,adj=0,cex=legend_text_size)
+		  for (i in 1:nrow(xtck)) {
+			lines(x=xtck[i,],y=ytck[i,],xpd=TRUE)
+		  }
+		  text(x=lxp+pl+2*tcks,y=ytck[,2],label=atc,xpd=TRUE,adj=0,cex=legend_text_size)
 
-    }
+		}
 
-  }
+	  }
+	}	
 }
 
 #**********************************************************************************#
@@ -716,23 +793,27 @@ accrual_plot_cum<-function(accrual_df,
 #'
 #' Plot of absolute recruitment by time unit
 #'
-#' @param accrual_df accrual data frame produced by accrual_create_df with by=NA
-#' @param unit time unit for which the bars should be plotted, any of "month","year","week","day"
-#' @param target adds horizontal line for target recruitment per time unit
-#' @param start_date start_date: date when recruitment started, single character or date,
-#		if not given the first enrollment date is used as start_date
+#' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
+#' @param unit time unit for which the bars should be plotted, any of "month","year","week","day", 
+#'		can be a vector with the same length as accrual_df
+#' @param target adds horizontal line for target recruitment per time unit, 
+#'		can be a vector with the same length as accrual_df
+#' @param start_date start_date: date when recruitment started,
+#'		single character/date, or a vector with the same length as accrual_df,
+#'		if not given the first enrollment date is used as start_date,
 #' @param format_start_date format of the start date, ignored if start_date is a date
-#' @param current_date date of the data export or database freeze, single character or date
-#		if not given the latest enrollment date is used for each site
+#' @param current_date date of the data export or database freeze,
+#'		single character/date, or a vector with the same length as accrual_df,
+#'		if not given the latest enrollment date is used for each site,
 #' @param format_current_date format of the current date, ignored if current_date is a date
-#' @param ylim limits for y-axis
-#' @param xlim limits for x-axis, in barplot units
+#' @param ylim limits for y-axis, can be a vector with the same length as accrual_df
+#' @param xlim limits for x-axis, in barplot units, can be a vector with the same length as accrual_df
 #' @param ylab y-axis label
 #' @param xlabformat format of date on x-axis
 #' @param xlabsel selection of x-labels if not all should be shown,
-#		 by default all are shown up to 15 bars, with more an automated selection is done,
-#		 either NA (default), NULL (show all), or a numeric vector
-#' @param xlabpos position of the x-label
+#'		 by default all are shown up to 15 bars, with more an automated selection is done,
+#'		 either NA (default), NULL (show all), or a numeric vector
+#' @param xlabpos position of the x-label, can be a vector with the same length as accrual_df
 #' @param xlabsrt rotation of x-axis labels in degrees
 #' @param xlabadj adjustment of x-label, numeric vector with length 1 or 2 for different adjustment
 #'   in x- and y-direction
@@ -767,104 +848,145 @@ accrual_plot_cum<-function(accrual_df,
 #'    xlabformat="%Y-%m-%d",xlabsrt=30,xlabpos=-0.8,xlabadj=c(1,0.5),
 #'    col="pink",tck=-0.03,mgp=c(3,1.2,0))
 #'
+#' #accrual_df with by option
+#' set.seed(2020)
+#' centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
+#' accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+#' par(mfcol=c(2,2))
+#' accrual_plot_abs(accrual_df=accrual_df,unit=c("week"))
 #'
-accrual_plot_abs<-function(accrual_df,
-                           unit=c("month","year","week","day"),
-                           target=NA,
-                           start_date=NA,
-                           format_start_date="%d%b%Y",
-                           current_date=NA,
-                           format_current_date="%d%b%Y",
-                           ylim=NA,
-                           xlim=NA,
+accrual_plot_abs<-function(accrual_df,unit=c("month","year","week","day"),target=NA,
+                           start_date=NA,format_start_date="%d%b%Y",
+                           current_date=NA,format_current_date="%d%b%Y",
+                           ylim=NA,xlim=NA,
                            ylab="Recruited patients",
-                           xlabformat="%b %Y",
-                           xlabsel=NA,
-                           xlabpos=NA,
-                           xlabsrt=45,
-                           xlabadj=c(1,1),
-                           xlabcex=1,
+                           xlabformat="%b %Y",xlabsel=NA,xlabpos=NA,xlabsrt=45,xlabadj=c(1,1),xlabcex=1,
                            col="grey",...) {
-
-  unit<-match.arg(unit)
-
-  #add start or end date
-  if (!is.na(start_date)) {
-    if (inherits(start_date,"Date")) {
-      sdate<-start_date
+	
+   if (is.data.frame(accrual_df)) {
+	  accrual_df<-list(accrual_df)
+    }
+	
+	mult<-function(var) {
+		if (length(var)==1) {
+			var<-rep(var,length(accrual_df))
+			return(var) 
+		} else {
+			stopifnot(length(var)==length(accrual_df))
+			return(var)
+		}
+	}
+    if (length(accrual_df)==1) {
+      unit<-match.arg(unit)
     } else {
-      sdate<-as.Date(start_date,format=format_start_date)
+      unit<-mult(unit)
+	  stopifnot(!is.na(sum(match(unit,c("month","year","week","day")))))
     }
-    if (sdate != min(accrual_df$Date)) {
-      stopifnot(sdate < min(accrual_df$Date))
-    }
-  } else {
-    sdate<-min(accrual_df$Date)
-  }
+  
+	target<-mult(target)
+	current_date<-mult(current_date)
+	start_date<-mult(start_date)
+	xlabpos<-mult(xlabpos)
+	
+	if (mode(xlim) %in% c("logical","numeric","complex","character")) {
+		xlim<-rep(list(xlim),length(accrual_df))
+	} else {
+		stopifnot(length(xlim)==length(accrual_df))
+	}	
+	if (mode(ylim) %in% c("logical","numeric","complex","character")) {
+		ylim<-rep(list(ylim),length(accrual_df))
+	} else {
+		stopifnot(length(ylim)==length(accrual_df))
+	}
+	
+	for (i in 1:length(accrual_df)) {
+		
+	  accrual_dfi<-accrual_df[[i]]	
+		  
+	  #add start or end date
+	  if (!is.na(start_date[i])) {
+		if (inherits(start_date[i],"Date")) {
+		  sdate<-start_date[i]
+		} else {
+		  sdate<-as.Date(start_date[i],format=format_start_date)
+		}
+		if (sdate != min(accrual_dfi$Date)) {
+		  stopifnot(sdate < min(accrual_dfi$Date))
+		}
+	  } else {
+		sdate<-min(accrual_dfi$Date)
+	  }
 
 
-  if (!is.na(current_date)) {
-    if (inherits(current_date,"Date")) {
-      edate<-current_date
-    } else {
-      edate<-as.Date(current_date,format=format_current_date)
-    }
-    if (edate != max(accrual_df$Date)) {
-      stopifnot(edate > max(accrual_df$Date))
-    }
-  } else {
-    edate<-max(accrual_df$Date)
-  }
+	  if (!is.na(current_date[i])) {
+		if (inherits(current_date[i],"Date")) {
+		  edate<-current_date[i]
+		} else {
+		  edate<-as.Date(current_date[i],format=format_current_date)
+		}
+		if (edate != max(accrual_dfi$Date)) {
+		  stopifnot(edate > max(accrual_dfi$Date))
+		}
+	  } else {
+		edate<-max(accrual_dfi$Date)
+	  }
 
-  #summarize data by time unit
-  dfit<-accrual_time_unit(accrual_df,unit=unit,start_date=sdate,current_date=edate)
+	  #summarize data by time unit
+	  dfit<-accrual_time_unit(accrual_dfi,unit=unit[i],start_date=sdate,current_date=edate)
 
-  if (sum(!is.na(ylim))==0) {
-    ylim<-c(0,max(dfit$Freq,target,na.rm=TRUE)+1)
-  }
+	  if (sum(!is.na(ylim[[i]]))==0) {
+		ylimi<-c(0,max(dfit$Freq,target[i],na.rm=TRUE)+1)
+	  } else {
+		ylimi<-ylim[[i]]
+	  }
 
-  #xscale
-  if (sum(!is.na(xlim))==0) {
-    b<-barplot(dfit$Freq,plot=FALSE)
-    xlim<-c(min(b),max(b)) + c(-0.5,0.5)
-  }
+	  #xscale
+	  if (sum(!is.na(xlim[[i]]))==0) {
+		b<-barplot(dfit$Freq,plot=FALSE)
+		xlimi<-c(min(b),max(b)) + c(-0.5,0.5)
+	  } else{
+		xlimi<-xlim[[i]]
+	  }
 
-  #x label selection
-  if (is.null(xlabsel)) {
-    sel<-1:nrow(b)
-  } else {
-    if (sum(!is.na(xlabsel))==0) {
-      if (nrow(b)>15) {
-        sel<-round(seq(1,nrow(b),l=8))
-        sel<-sel[sel>0&sel<=nrow(b)]
-      } else {
-        sel<-1:nrow(b)
-      }
-    } else {
-      sel<-xlabsel
-    }
-  }
+	  #x label selection
+	  if (is.null(xlabsel)) {
+		sel<-1:nrow(b)
+	  } else {
+		if (sum(!is.na(xlabsel))==0) {
+		  if (nrow(b)>15) {
+			sel<-round(seq(1,nrow(b),l=8))
+			sel<-sel[sel>0&sel<=nrow(b)]
+		  } else {
+			sel<-1:nrow(b)
+		  }
+		} else {
+		  sel<-xlabsel
+		}
+	  }
 
-  #plot
-  b<-barplot(dfit$Freq,ylab=ylab,
-             ylim=ylim,axes=FALSE,xlim=xlim,col=col,...)
-  box()
-  axis(side=2,las=2,...)
-  axis(side=1,at=b,labels=rep("",length(b)),...)
+	  #plot
+	  b<-barplot(dfit$Freq,ylab=ylab,
+				 ylim=ylimi,axes=FALSE,xlim=xlimi,col=col,...)
+	  box()
+	  axis(side=2,las=2,...)
+	  axis(side=1,at=b,labels=rep("",length(b)),...)
 
-  #xlabel
-  if (is.na(xlabpos)) {
-    xlabpos<-par("usr")[3]-(par("usr")[4]-par("usr")[3])/30
-  }
-  sel<-sel[sel<=nrow(b)]
-  bu<-b[sel,]
-  lab<-format(dfit$date,xlabformat)
-  lab<-lab[sel]
-  text(x=bu,y=xlabpos,srt=xlabsrt,labels=lab,xpd=TRUE,adj=xlabadj,cex = xlabcex)
+	  #xlabel
+	  if (is.na(xlabpos[i])) {
+		xlabposi<-par("usr")[3]-(par("usr")[4]-par("usr")[3])/30
+	  } else {
+		xlabposi<-xlabpos[i]
+	  }
+	  sel<-sel[sel<=nrow(b)]
+	  bu<-b[sel,]
+	  lab<-format(dfit$date,xlabformat)
+	  lab<-lab[sel]
+	  text(x=bu,y=xlabposi,srt=xlabsrt,labels=lab,xpd=TRUE,adj=xlabadj,cex = xlabcex)
 
-  #line for target
-  if (!is.na(target)) {
-    abline(h=target,lty=2)
-  }
-
+	  #line for target
+	  if (!is.na(target[i])) {
+		abline(h=target[i],lty=2)
+	  }
+	}
 }
+
