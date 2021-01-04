@@ -55,8 +55,13 @@ accrual_create_df <- function(enrollment_dates,
     nc<-1
     byt<-0
   } else {
-    lc<-unique(by)
-    nc<-length(unique(by))
+    if (is.factor(by)) {
+	  lc<-levels(by)
+	} else {
+	  lc<-unique(by)
+	}
+
+    nc<-length(lc)
     if (overall==TRUE) {
       nc<-nc+1
     }
