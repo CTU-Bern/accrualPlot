@@ -15,14 +15,28 @@ df <- accrual_create_df(x)
 df2 <- accrual_create_df(x, by = site)
 dfs <- accrual_create_df(format(x, "%d%b%Y"))
 
-test_that("works with string", {
-  expect_equivalent(df, accrual_create_df(format(x, "%d%b%Y")))
-  expect_equivalent(df2, accrual_create_df(format(x, "%d%b%Y"), by = site))
-  expect_equivalent(df2, accrual_create_df(format(x, "%Y-%M-%d"),
-                                           format_enrollment_dates = "%Y-%M-%d",
-                                           by = site))
-  expect_equivalent(df, accrual_create_df(format(x, "%Y-%M-%d"),
-                                           format_enrollment_dates = "%Y-%M-%d"))
+test_that("works with string '%d%b%Y'", {
+  df <- accrual_create_df(x)
+  df2 <- accrual_create_df(x, by = site)
+
+  dfs <- accrual_create_df(format(x, "%d%b%Y"))
+  df2s <- accrual_create_df(format(x, "%d%b%Y"), by = site)
+  expect_equivalent(df, dfs)
+  expect_equivalent(df2, df2s)
+
+})
+
+test_that("works with string %Y-%m-%d", {
+  df <- accrual_create_df(x)
+  df2 <- accrual_create_df(x, by = site)
+
+  dfs <- accrual_create_df(format(x, "%Y-%m-%d"),
+                           format_enrollment_dates = "%Y-%m-%d")
+  df2s <- accrual_create_df(format(x, "%Y-%m-%d"),
+                            format_enrollment_dates = "%Y-%m-%d",
+                            by = site)
+  expect_equivalent(df2, df2s)
+  expect_equivalent(df, dfs)
 
 })
 
@@ -51,7 +65,7 @@ test_that("current date parsing", {
   expect_warning(accrual_create_df(x, current_date = as.Date("2020-12-31")), NA)
   expect_warning(accrual_create_df(x, current_date = "31Dec2020"), NA)
   expect_warning(accrual_create_df(x, current_date = "2020-12-31",
-                                   format_start_date = "%Y-%M-%d"), NA)
+                                   format_current_date = "%Y-%m-%d"), NA)
   expect_error(accrual_create_df(x, current_date = "2020-12-31"), "error parsing")
 
   df <- accrual_create_df(x, current_date = as.Date("2020-12-31"))
@@ -82,9 +96,9 @@ test_that("force start", {
 
 
 
-head(accrual_create_df(x), 2)
-head(accrual_create_df(x, force_start0 = "yes"), 2)
-head(accrual_create_df(x, force_start0 = "yes", start_date = as.Date("2020-11-18")), 2)
-head(accrual_create_df(x, force_start0 = "yes", start_date = as.Date("2020-11-17")), 2)
+# head(accrual_create_df(x), 2)
+# head(accrual_create_df(x, force_start0 = "yes"), 2)
+# head(accrual_create_df(x, force_start0 = "yes", start_date = as.Date("2020-11-18")), 2)
+# head(accrual_create_df(x, force_start0 = "yes", start_date = as.Date("2020-11-17")), 2)
 
 
