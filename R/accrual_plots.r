@@ -855,7 +855,7 @@ accrual_plot_cum<-function(accrual_df,
 #' par(mfcol=c(2,2))
 #' accrual_plot_abs(accrual_df=accrual_df,unit=c("week"))
 #'
-accrual_plot_abs<-function(accrual_df,unit=c("month","year","week","day"),target=NA,
+accrual_plot_abs<-function(accrual_df,unit="month",target=NA,
                            start_date=NA,format_start_date="%d%b%Y",
                            current_date=NA,format_current_date="%d%b%Y",
                            ylim=NA,xlim=NA,
@@ -876,13 +876,9 @@ accrual_plot_abs<-function(accrual_df,unit=c("month","year","week","day"),target
 			return(var)
 		}
 	}
-    if (length(accrual_df)==1) {
-      unit<-match.arg(unit)
-    } else {
-      unit<-mult(unit)
-	  stopifnot(!is.na(sum(match(unit,c("month","year","week","day")))))
-    }
-  
+	
+    unit<-mult(unit)
+	stopifnot(!is.na(sum(match(unit,c("month","year","week","day")))))
 	target<-mult(target)
 	current_date<-mult(current_date)
 	start_date<-mult(start_date)
@@ -941,8 +937,8 @@ accrual_plot_abs<-function(accrual_df,unit=c("month","year","week","day"),target
 	  }
 
 	  #xscale
+	  b<-barplot(dfit$Freq,plot=FALSE)
 	  if (sum(!is.na(xlim[[i]]))==0) {
-		b<-barplot(dfit$Freq,plot=FALSE)
 		xlimi<-c(min(b),max(b)) + c(-0.5,0.5)
 	  } else{
 		xlimi<-xlim[[i]]

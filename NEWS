@@ -1,5 +1,9 @@
 accrualPlot 0.3.0
 ------------------
+bug fix for accrual_plot_abs
+
+accrualPlot 0.3.0
+------------------
 bug fix for accrual_create_df with by as factor
 plots for list of accrual data frames (accrual_create_df with by option)
 
