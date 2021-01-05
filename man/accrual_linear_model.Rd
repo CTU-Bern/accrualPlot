@@ -15,13 +15,15 @@ accrual_linear_model(
 )
 }
 \arguments{
-\item{accrual_df}{accrual data frame produced by accrual_create_df with by=NA}
+\item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
 
-\item{start_date}{date when recruitment started, single character or date,}
+\item{start_date}{date when recruitment started,
+single character/date, or a vector with the same length as accrual_df,}
 
 \item{format_start_date}{format of the start date, ignored if start_date is a date}
 
-\item{current_date}{date of the data export or database freeze, single character or date,}
+\item{current_date}{date of the data export or database freeze,
+single character/date, or a vector with the same length as accrual_df,}
 
 \item{format_current_date}{format of the current date, ignored if current_date is a date}
 
@@ -52,6 +54,12 @@ accrual_linear_model(accrual_df,start_date=as.Date("2017-12-01"),
 #or
 accrual_df<-accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
     current_date=as.Date("2018-03-01"))
+accrual_linear_model(accrual_df)
+
+ #accrual_df with by option
+ set.seed(2020)
+centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
+ accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 accrual_linear_model(accrual_df)
 }
 }

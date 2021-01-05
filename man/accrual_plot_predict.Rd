@@ -41,21 +41,23 @@ accrual_plot_predict(
 )
 }
 \arguments{
-\item{accrual_df}{accrual data frame produced by accrual_create_df with by=NA
+\item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)
 or dates on which patients are enrolled as date or character vector}
 
 \item{format_enrollment_dates}{single character identifying the format of the dates,
 ignored if accrual_df is a data frame or a date vector}
 
-\item{target}{target sample size}
+\item{target}{target sample size, can be a vector with the same length as accrual_df}
 
-\item{start_date}{date when recruitment started, single character or date,
-if not given the first enrolment date is used as start_date}
+\item{start_date}{date when recruitment started, 
+single character/date, or a vector with the same length as accrual_df,
+if not given the first enrollment date is used as start_date,}
 
 \item{format_start_date}{format of the start date, ignored if start_date is a date}
 
-\item{current_date}{date of the data export or database freeze, single character or date,
-if not given the latest enrolment date is used}
+\item{current_date}{date of the data export or database freeze,
+single character/date, or a vector with the same length as accrual_df,
+if not given the latest enrollment date is used,}
 
 \item{format_current_date}{format of the current date, ignored if current_date is a date}
 
@@ -70,7 +72,8 @@ required if center information should be shown}
 
 \item{format_center_start_dates}{format of the center start date, ignored if enrollment_dates are dates}
 
-\item{targetc}{target number of centers, required if center information should be shown}
+\item{targetc}{target number of centers, required if center information should be shown, 
+can be a vector with the same length as accrual_df}
 
 \item{center_label}{label for the center strip od axis}
 
@@ -92,9 +95,9 @@ requires specification of center_colors}
 
 \item{format_prediction}{date format for predicted end date}
 
-\item{ylim}{limits for y-axis}
+\item{ylim}{limits for y-axis, can be a vector with the same length as accrual_df}
 
-\item{xlim}{limits for x-axis}
+\item{xlim}{limits for x-axis, can be a vector with the same length as accrual_df}
 
 \item{ylab}{y-axis label}
 
@@ -104,7 +107,7 @@ requires specification of center_colors}
 
 \item{xlabminn}{nonnegative integer giving the minimal number of intervals}
 
-\item{xlabpos}{position of the x-label}
+\item{xlabpos}{position of the x-label, can be a vector with the same length as accrual_df}
 
 \item{xlabsrt}{rotation of x-axis labels in degrees}
 
@@ -120,7 +123,7 @@ requires specification of center_colors}
 A plot with cumulative accrual and the prediction to the end date.
 }
 \description{
-Generates an accrual prediction plot based on vector with enrollment dates and a target sample size.
+Generates an accrual predction plot based on vector with enrollment dates and a target sample size.
 Optionally the enrolled and targeted sites can be included.
 }
 \examples{
@@ -155,5 +158,12 @@ accrual_plot_predict(accrual_df=accrual_df,target=100,
      ylab="No of recruited patients",ylim=c(0,150),
      xlabcex=1.2,xlabsrt=30,xlabn=5,xlabmin=5,
      mgp=c(3,0.5,0),cex.lab=1.2,cex.axis=1.2)
+
+#accrual_df with by option
+set.seed(2020)
+centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
+accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+par(mfcol=c(2,2))
+accrual_plot_predict(accrual_df=accrual_df,target=c(30,30,30,100))
 
 }

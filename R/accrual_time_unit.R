@@ -29,15 +29,14 @@
 #'     current_date=as.Date("2018-03-01"))
 #' }
 accrual_time_unit<-function(accrual_df,
-                            unit="month",
+                            unit=c("month","year","week","day"),
                             start_date=NA,
                             format_start_date="%d%b%Y",
                             current_date=NA,
                             format_current_date="%d%b%Y") {
 
+  unit<-match.arg(unit)
 
-  stopifnot(unit %in% c("month","year","week","day"))
-  
   #add start or end date
   if (!is.na(start_date)) {
     if (inherits(start_date,"Date")) {
