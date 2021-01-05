@@ -93,9 +93,10 @@ accrual_create_df <- function(enrollment_dates,
         sdate<-start_date
       } else {
         sdate<-as.Date(start_date,format=format_start_date)
+        if (is.na(sdate)) stop("error parsing start date - incorrect format?")
       }
       if (sdate != min(adf$Date) | force_start0=="yes")  {
-        stopifnot(sdate <= min(adf$Date))
+        if (!(sdate <= min(adf$Date))) stop("'start_date' after earliest enrolment")
         adf<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),adf)
       }
     }
@@ -105,9 +106,10 @@ accrual_create_df <- function(enrollment_dates,
         end_date<-current_date
       } else {
         end_date<-as.Date(current_date,format=format_current_date)
+        if (is.na(end_date)) stop("error parsing current date - incorrect format?")
       }
       if (end_date != max(adf$Date)) {
-        stopifnot(end_date > max(adf$Date))
+        if (!(end_date > max(adf$Date))) stop("'current_date' is before last enrolment")
         adf<-rbind(adf,data.frame(Date=end_date,Freq=0,Cumulative=max(adf$Cumulative)))
       }
     }
