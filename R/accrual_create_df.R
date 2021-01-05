@@ -56,10 +56,10 @@ accrual_create_df <- function(enrollment_dates,
     byt<-0
   } else {
     if (is.factor(by)) {
-	  lc<-levels(by)
-	} else {
-	  lc<-unique(by)
-	}
+  	  lc<-levels(by)
+  	} else {
+  	  lc<-unique(by)
+  	}
 
     nc<-length(lc)
     if (overall==TRUE) {
@@ -125,6 +125,10 @@ accrual_create_df <- function(enrollment_dates,
       }
     }
   }
+  if (byt == 1) accrual_df <- lapply(accrual_df, function(x) {
+      class(x) <- c("accrual_df", class(x))
+      x
+    })
   class(accrual_df) <- c("accrual_df", class(accrual_df))
   return(accrual_df)
 }
