@@ -10,8 +10,6 @@
 #' @param format_start_date format of the start date, ignored if start_date is a date
 #' @param current_date date of the data export or database freeze, single character or date, if not given the latest enrollment date is used
 #' @param format_current_date format of the current date, ignored if current_date is a date
-#' @param force_start0 adds an extra 0 line to the accrual data frame in cases where a start date is given and
-#' corresponds to the earliest enrollment date
 #' @param by vector with centers, has to have the same length as enrollment dates,
 #' generates a list with accrual data frames for each site
 #' @param overall indicates that accrual_df contains a summary with all sites (only if by is not NA)
@@ -40,12 +38,9 @@ accrual_create_df <- function(enrollment_dates,
                               format_start_date="%d%b%Y",
                               current_date=NA,
                               format_current_date="%d%b%Y",
-                              force_start0=c("no","yes"),
                               by=NA,
                               overall=TRUE,
                               name_overall="Overall") {
-
-  force_start0<-match.arg(force_start0)
 
   if (inherits(enrollment_dates,"Date")) {
     format_enrollment_dates<-"%Y-%m-%d"
@@ -95,7 +90,8 @@ accrual_create_df <- function(enrollment_dates,
         sdate<-as.Date(start_date,format=format_start_date)
         if (is.na(sdate)) stop("error parsing start date - incorrect format?")
       }
-      if (sdate != min(adf$Date) | force_start0=="yes")  {
+
+      if (sdate != min(adf$Date))  {
         if (!(sdate <= min(adf$Date))) stop("'start_date' after earliest enrolment")
         adf<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),adf)
       }
