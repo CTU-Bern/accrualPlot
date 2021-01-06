@@ -171,11 +171,6 @@ accrual_plot_predict<-function(accrual_df,
 
     accrual_df0<-accrual_df
     accrual_df0<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),accrual_df0)
-    #accrual_df0<-accrual_create_df(enrollment_dates,
-    #	format_enrollment_dates=format_enrollment_dates,
-    #	start_date=start_date,format_start_date=format_start_date,
-    #	current_date=current_date,format_current_date=format_current_date,
-    #	force_start0="yes")
 
 	accrual_df<-list(accrual_df)
 	accrual_df0<-list(accrual_df0)

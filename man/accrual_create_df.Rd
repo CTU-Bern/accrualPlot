@@ -11,7 +11,6 @@ accrual_create_df(
   format_start_date = "\%d\%b\%Y",
   current_date = NA,
   format_current_date = "\%d\%b\%Y",
-  force_start0 = c("no", "yes"),
   by = NA,
   overall = TRUE,
   name_overall = "Overall"
@@ -30,9 +29,6 @@ ignored if enrollment_dates are dates}
 \item{current_date}{date of the data export or database freeze, single character or date, if not given the latest enrollment date is used}
 
 \item{format_current_date}{format of the current date, ignored if current_date is a date}
-
-\item{force_start0}{adds an extra 0 line to the accrual data frame in cases where a start date is given and
-corresponds to the earliest enrollment date}
 
 \item{by}{vector with centers, has to have the same length as enrollment dates,
 generates a list with accrual data frames for each site}
