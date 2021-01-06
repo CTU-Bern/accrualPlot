@@ -4,6 +4,9 @@ set.seed(1234)
 x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
 site <- sample(1:3, 50, replace = TRUE)
 
+# requires english locale!!
+# Sys.setlocale("LC_ALL","English")
+
 
 test_that("works with dates", {
   expect_warning(accrual_create_df(x), NA)
@@ -87,18 +90,5 @@ test_that("overall column", {
 
 })
 
-test_that("force start", {
-  df <- accrual_create_df(x)
-  expect_equal(df$Cumulative[1], 2)
-  df <- accrual_create_df(x, force_start0 = "yes", start_date = as.Date("2020-11-17"))
-  expect_equal(df$Cumulative[1], 0)
-})
-
-
-
-# head(accrual_create_df(x), 2)
-# head(accrual_create_df(x, force_start0 = "yes"), 2)
-# head(accrual_create_df(x, force_start0 = "yes", start_date = as.Date("2020-11-18")), 2)
-# head(accrual_create_df(x, force_start0 = "yes", start_date = as.Date("2020-11-17")), 2)
 
 
