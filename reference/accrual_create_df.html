@@ -121,7 +121,6 @@ recruited at each date from a vector with enrollment dates.</p>
   format_start_date <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
   current_date <span class='op'>=</span> <span class='cn'>NA</span>,
   format_current_date <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
-  force_start0 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no"</span>, <span class='st'>"yes"</span><span class='op'>)</span>,
   by <span class='op'>=</span> <span class='cn'>NA</span>,
   overall <span class='op'>=</span> <span class='cn'>TRUE</span>,
   name_overall <span class='op'>=</span> <span class='st'>"Overall"</span>
@@ -154,11 +153,6 @@ ignored if enrollment_dates are dates</p></td>
     <tr>
       <th>format_current_date</th>
       <td><p>format of the current date, ignored if current_date is a date</p></td>
-    </tr>
-    <tr>
-      <th>force_start0</th>
-      <td><p>adds an extra 0 line to the accrual data frame in cases where a start date is given and
-corresponds to the earliest enrollment date</p></td>
     </tr>
     <tr>
       <th>by</th>
