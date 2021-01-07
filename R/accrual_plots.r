@@ -321,11 +321,13 @@ accrual_plot_predict<-function(accrual_df,
 
 	  if (sum(!is.na(xlim[[k]]))==0) {
 		xlimk<-c(min(accrual_dfi$Date),end_date)
+		xlabs<-pretty(x=xlimk,n=xlabn,min.n=xlabminn)
+		xlimk<-c(min(xlimk,xlabs),max(xlimk,xlabs))
 	  } else {
 		xlimk<-xlim[[k]]
+		xlabs<-pretty(x=xlimk,n=xlabn,min.n=xlabminn)
+	    xlabs<-xlabs[xlabs>=xlimk[1] & xlabs <=xlimk[2]]
 	  }
-	  xlabs<-pretty(x=xlimk,n=xlabn,min.n=xlabminn)
-	  xlabs<-xlabs[xlabs>=xlimk[1] & xlabs <=xlimk[2]]
 
 	  #plot setup
 	  #######
@@ -707,11 +709,13 @@ accrual_plot_cum<-function(accrual_df,
     if (sum(!is.na(xlim))==0) {
       xlims<-c(min(do.call("c",lapply(adf,function(x) min(x$Date)))),
                max(do.call("c",lapply(adf,function(x) max(x$Date)))))
+	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
+      xlims<-c(min(xlims,xlabs),max(xlims,xlabs))	   
     } else {
       xlims<-xlim
+	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
+      xlabs<-xlabs[xlabs>=xlims[1] & xlabs <=xlims[2]]
     }
-    xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
-    xlabs<-xlabs[xlabs>=xlims[1] & xlabs <=xlims[2]]
 
     if (sum(!is.na(ylim))==0) {
       ymax<-max(do.call("c",lapply(adf,function(x) max(x$Cumulative))))
