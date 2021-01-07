@@ -1,3 +1,7 @@
+accrualPlot 0.3.2
+------------------
+Adapt x-axis labeling for accrual_plot_cum and accrual_plot_predict
+
 accrualPlot 0.3.1
 ------------------
 bug fix for accrual_plot_abs
