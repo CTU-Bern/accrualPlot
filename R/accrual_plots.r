@@ -8,13 +8,13 @@
 #' @param format_enrollment_dates single character identifying the format of the dates,
 #'        ignored if accrual_df is a data frame or a date vector
 #' @param target target sample size, can be a vector with the same length as accrual_df
-#' @param start_date date when recruitment started, 
+#' @param start_date date when recruitment started,
 #'		single character/date, or a vector with the same length as accrual_df,
 #'		if not given the first enrollment date is used as start_date,
 #' @param format_start_date format of the start date, ignored if start_date is a date
 #' @param current_date date of the data export or database freeze,
 #'		single character/date, or a vector with the same length as accrual_df,
-#'		if not given the latest enrollment date is used, 
+#'		if not given the latest enrollment date is used,
 #' @param format_current_date format of the current date, ignored if current_date is a date
 #' @param fill_up whether to fill up days where no recruitment was observed,
 #'		otherwise these points do not contribute to the regression, default is yes
@@ -23,7 +23,7 @@
 #' @param center_start_dates dates on which centers are enrolled as character or date vector,
 #'		required if center information should be shown
 #' @param format_center_start_dates format of the center start date, ignored if enrollment_dates are dates
-#' @param targetc  target number of centers, required if center information should be shown, 
+#' @param targetc  target number of centers, required if center information should be shown,
 #'		can be a vector with the same length as accrual_df
 #' @param center_label label for the center strip od axis
 #' @param design design options for the addition of the center
@@ -137,7 +137,7 @@ accrual_plot_predict<-function(accrual_df,
   #via enrollment dates
   #####################
   if (mode(accrual_df) %in% c("logical","numeric","complex","character")) {
-  
+
     if (!inherits(accrual_df,"Date")) {
       accrual_df<-as.Date(accrual_df,format=format_enrollment_dates)
     }
@@ -174,46 +174,38 @@ accrual_plot_predict<-function(accrual_df,
 
 	accrual_df<-list(accrual_df)
 	accrual_df0<-list(accrual_df0)
-	 
+
   } else {
 
     #via accrual_df
     #####################
-	
+
     if (is.data.frame(accrual_df)) {
 	  accrual_df<-list(accrual_df)
     }
-	
-	mult<-function(var) {
-		if (length(var)==1) {
-			var<-rep(var,length(accrual_df))
-			return(var) 
-		} else {
-			stopifnot(length(var)==length(accrual_df))
-			return(var)
-		}
-	}
+
+
 	target<-mult(target)
 	targetc<-mult(targetc)
 	current_date<-mult(current_date)
 	start_date<-mult(start_date)
 	xlabpos<-mult(xlabpos)
-	
+
 	if (mode(xlim) %in% c("logical","numeric","complex","character")) {
 		xlim<-rep(list(xlim),length(accrual_df))
 	} else {
 		stopifnot(length(xlim)==length(accrual_df))
-	}	
+	}
 	if (mode(ylim) %in% c("logical","numeric","complex","character")) {
 		ylim<-rep(list(ylim),length(accrual_df))
 	} else {
 		stopifnot(length(ylim)==length(accrual_df))
-	}	
-	
+	}
+
 	accrual_df0<-vector(mode = "list", length = length(accrual_df))
-	
+
     for (i in 1:length(accrual_df)) {
-		
+
 		accrual_dfi<-accrual_df[[i]]
 
 		if (!is.na(current_date[i])) {
@@ -254,21 +246,21 @@ accrual_plot_predict<-function(accrual_df,
 		}
 		accrual_df[[i]]<-accrual_dfi
 		accrual_df0[[i]]<-adf0
-	}	
+	}
   }
 
   #centers
   ##########
-   	
-  cs<-vector(mode = "list", length = length(accrual_df))	
+
+  cs<-vector(mode = "list", length = length(accrual_df))
   for (i in 1:length(accrual_df)) {
 	if (mode(center_start_dates) %in% c("logical","numeric","complex","character")) {
 		center_start_datesi<-center_start_dates
 	} else {
 		stopifnot(length(accrual_df)==length(center_start_dates))
 		center_start_datesi<-center_start_dates[[i]]
-	}	
-  
+	}
+
     if (!is.na(max(center_start_datesi))) {
 
 		if (inherits(center_start_datesi,"Date")) {
@@ -277,19 +269,19 @@ accrual_plot_predict<-function(accrual_df,
 
 		csi<-accrual_create_df(center_start_datesi,format_enrollment_dates=format_center_start_dates)
 		cs[[i]]<-csi
-		
+
 		if (is.na(targetc[i])) {
 		  targetc[i]<-max(csi$Cumulative)
 		}
-	}	
+	}
   }
 
-  for (k in 1:length(accrual_df)) { 	
-		
-	  accrual_dfi<-accrual_df[[k]]	
+  for (k in 1:length(accrual_df)) {
+
+	  accrual_dfi<-accrual_df[[k]]
 	  accrual_df0i<-accrual_df0[[k]]
-	  csk<-cs[[k]]	
-	  
+	  csk<-cs[[k]]
+
 	  if (is.na(start_date[k])) {
 		sdate<-min(accrual_dfi$Date)
 	  } else {
@@ -301,13 +293,13 @@ accrual_plot_predict<-function(accrual_df,
 			sdate<-min(csk$Date)
 		  }
 	  }
-	  
+
 	  if (is.na(current_date[k])) {
 		cdate<-max(accrual_dfi$Date)
 	  } else {
 		cdate<-current_date[k]
 	  }
-	  
+
 	  #model and prediction
 	  #######################
 
@@ -544,7 +536,7 @@ accrual_plot_predict<-function(accrual_df,
 		}
 
 	  }
-	}	
+	}
 }
 
 #**********************************************************************************#
@@ -700,28 +692,7 @@ accrual_plot_cum<-function(accrual_df,
   }
 
 
-  ascale<-function(adf,xlim=NA,ylim=NA,ni=5,min.n=ni %/% 2) {
-    if (is.data.frame(adf)) {
-      adf<-list(adf)
-    }
-    if (sum(!is.na(xlim))==0) {
-      xlims<-c(min(do.call("c",lapply(adf,function(x) min(x$Date)))),
-               max(do.call("c",lapply(adf,function(x) max(x$Date)))))
-    } else {
-      xlims<-xlim
-    }
-    xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
-    xlabs<-xlabs[xlabs>=xlims[1] & xlabs <=xlims[2]]
 
-    if (sum(!is.na(ylim))==0) {
-      ymax<-max(do.call("c",lapply(adf,function(x) max(x$Cumulative))))
-      ylims<-c(0,ymax)
-    } else {
-      ylims<-ylim
-    }
-    alim<-list(xlim=xlims,ylim=ylims,xlabs=xlabs)
-    return(alim)
-  }
 
   if (overall) {
     lc<-length(accrual_df)-1
@@ -789,9 +760,9 @@ accrual_plot_cum<-function(accrual_df,
 #' Plot of absolute recruitment by time unit
 #'
 #' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
-#' @param unit time unit for which the bars should be plotted, any of "month","year","week","day", 
+#' @param unit time unit for which the bars should be plotted, any of "month","year","week","day",
 #'		can be a vector with the same length as accrual_df
-#' @param target adds horizontal line for target recruitment per time unit, 
+#' @param target adds horizontal line for target recruitment per time unit,
 #'		can be a vector with the same length as accrual_df
 #' @param start_date start_date: date when recruitment started,
 #'		single character/date, or a vector with the same length as accrual_df,
@@ -857,43 +828,33 @@ accrual_plot_abs<-function(accrual_df,unit="month",target=NA,
                            ylab="Recruited patients",
                            xlabformat="%b %Y",xlabsel=NA,xlabpos=NA,xlabsrt=45,xlabadj=c(1,1),xlabcex=1,
                            col="grey",...) {
-	
+
    if (is.data.frame(accrual_df)) {
 	  accrual_df<-list(accrual_df)
-    }
-	
-	mult<-function(var) {
-		if (length(var)==1) {
-			var<-rep(var,length(accrual_df))
-			return(var) 
-		} else {
-			stopifnot(length(var)==length(accrual_df))
-			return(var)
-		}
-	}
-	
-    unit<-mult(unit)
+  }
+
+  unit<-mult(unit)
 	stopifnot(!is.na(sum(match(unit,c("month","year","week","day")))))
 	target<-mult(target)
 	current_date<-mult(current_date)
 	start_date<-mult(start_date)
 	xlabpos<-mult(xlabpos)
-	
+
 	if (mode(xlim) %in% c("logical","numeric","complex","character")) {
 		xlim<-rep(list(xlim),length(accrual_df))
 	} else {
 		stopifnot(length(xlim)==length(accrual_df))
-	}	
+	}
 	if (mode(ylim) %in% c("logical","numeric","complex","character")) {
 		ylim<-rep(list(ylim),length(accrual_df))
 	} else {
 		stopifnot(length(ylim)==length(accrual_df))
 	}
-	
+
 	for (i in 1:length(accrual_df)) {
-		
-	  accrual_dfi<-accrual_df[[i]]	
-		  
+
+	  accrual_dfi<-accrual_df[[i]]
+
 	  #add start or end date
 	  if (!is.na(start_date[i])) {
 		if (inherits(start_date[i],"Date")) {
@@ -980,4 +941,42 @@ accrual_plot_abs<-function(accrual_df,unit="month",target=NA,
 	  }
 	}
 }
+
+
+# helpers
+ascale<-function(adf,xlim=NA,ylim=NA,ni=5,min.n=ni %/% 2) {
+  if (is.data.frame(adf)) {
+    adf<-list(adf)
+  }
+  if (sum(!is.na(xlim))==0) {
+    xlims<-c(min(do.call("c",lapply(adf,function(x) min(x$Date)))),
+             max(do.call("c",lapply(adf,function(x) max(x$Date)))))
+  } else {
+    xlims<-xlim
+  }
+  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
+  xlabs<-xlabs[xlabs>=xlims[1] & xlabs <=xlims[2]]
+
+  if (sum(!is.na(ylim))==0) {
+    ymax<-max(do.call("c",lapply(adf,function(x) max(x$Cumulative))))
+    ylims<-c(0,ymax)
+  } else {
+    ylims<-ylim
+  }
+  alim<-list(xlim=xlims,ylim=ylims,xlabs=xlabs)
+  return(alim)
+}
+
+
+
+mult<-function(var) {
+  if (length(var)==1) {
+    var<-rep(var,length(accrual_df))
+    return(var)
+  } else {
+    stopifnot(length(var)==length(accrual_df))
+    return(var)
+  }
+}
+
 
