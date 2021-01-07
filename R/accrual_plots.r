@@ -669,7 +669,7 @@ accrual_plot_cum<-function(accrual_df,
     }
     for (i in 1:lc) {
       if (sdate != min(accrual_df[[i]]$Date))  {
-        stopifnot(sdate <= min(accrual_df[[i]]$Date))
+        if(!(sdate <= min(accrual_df[[i]]$Date))) stop("'start_date' after earliest enrolment")
         accrual_df[[i]]<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),accrual_df[[i]])
       }
     }
@@ -692,7 +692,7 @@ accrual_plot_cum<-function(accrual_df,
     }
     for (i in 1:lc) {
       if (end_date != max(accrual_df[[i]]$Date)) {
-        stopifnot(end_date > max(accrual_df[[i]]$Date))
+        if(!(end_date > max(accrual_df[[i]]$Date))) stop("'current_date' is before last enrolment")
         accrual_df[[i]]<-rbind(accrual_df[[i]],
                                data.frame(Date=end_date,Freq=0,Cumulative=max(accrual_df[[i]]$Cumulative)))
       }
