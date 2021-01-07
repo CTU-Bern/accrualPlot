@@ -4,9 +4,6 @@ set.seed(1234)
 x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
 site <- sample(1:3, 50, replace = TRUE)
 
-# requires english locale!!
-# Sys.setlocale("LC_ALL","English")
-
 
 test_that("works with dates", {
   expect_warning(accrual_create_df(x), NA)
