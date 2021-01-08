@@ -313,11 +313,13 @@ accrual_plot_predict<-function(accrual_df,
 
 	  if (sum(!is.na(xlim[[k]]))==0) {
 		xlimk<-c(min(accrual_dfi$Date),end_date)
+		xlabs<-pretty(x=xlimk,n=xlabn,min.n=xlabminn)
+		xlimk<-c(min(xlimk,xlabs),max(xlimk,xlabs))
 	  } else {
 		xlimk<-xlim[[k]]
+		xlabs<-pretty(x=xlimk,n=xlabn,min.n=xlabminn)
+	    xlabs<-xlabs[xlabs>=xlimk[1] & xlabs <=xlimk[2]]
 	  }
-	  xlabs<-pretty(x=xlimk,n=xlabn,min.n=xlabminn)
-	  xlabs<-xlabs[xlabs>=xlimk[1] & xlabs <=xlimk[2]]
 
 	  #plot setup
 	  #######

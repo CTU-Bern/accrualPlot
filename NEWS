@@ -1,7 +1,11 @@
-accrualPlot 0.4.0
+accrualPlot 0.3.3
 ------------------
 accrual_df class applied to all dataframes when by is used (allows methods to work on subelements of the list too, e.g. plot(list[[1]]))
 tests added for accrual_create_df, accrual_plot_cum
+
+accrualPlot 0.3.2
+------------------
+Adapt x-axis labeling for accrual_plot_cum and accrual_plot_predict
 
 accrualPlot 0.3.1
 ------------------
