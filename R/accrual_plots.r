@@ -835,13 +835,12 @@ accrual_plot_abs<-function(accrual_df,unit="month",target=NA,
 	  accrual_df<-list(accrual_df)
   }
 
-  unit<-mult(unit)
+  unit<-mult(unit, accrual_df)
   if (is.na(match(unit,c("month","year","week","day")))) stop("'units' should be one of 'year', 'month', 'week', 'day'")
-	# stopifnot(!is.na(sum(match(unit,c("month","year","week","day")))))
-	target<-mult(target)
-	current_date<-mult(current_date)
-	start_date<-mult(start_date)
-	xlabpos<-mult(xlabpos)
+	target<-mult(target, accrual_df)
+	current_date<-mult(current_date, accrual_df)
+	start_date<-mult(start_date, accrual_df)
+	xlabpos<-mult(xlabpos, accrual_df)
 
 	if (mode(xlim) %in% c("logical","numeric","complex","character")) {
 		xlim<-rep(list(xlim),length(accrual_df))
@@ -972,7 +971,7 @@ ascale<-function(adf,xlim=NA,ylim=NA,ni=5,min.n=ni %/% 2) {
 
 
 
-mult<-function(var) {
+mult<-function(var, accrual_df) {
   if (length(var)==1) {
     var<-rep(var,length(accrual_df))
     return(var)
