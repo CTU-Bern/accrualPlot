@@ -185,11 +185,11 @@ accrual_plot_predict<-function(accrual_df,
     }
 
 
-	target<-mult(target)
-	targetc<-mult(targetc)
-	current_date<-mult(current_date)
-	start_date<-mult(start_date)
-	xlabpos<-mult(xlabpos)
+	target<-mult(target, accrual_df)
+	targetc<-mult(targetc, accrual_df)
+	current_date<-mult(current_date, accrual_df)
+	start_date<-mult(start_date, accrual_df)
+	xlabpos<-mult(xlabpos, accrual_df)
 
 	if (mode(xlim) %in% c("logical","numeric","complex","character")) {
 		xlim<-rep(list(xlim),length(accrual_df))
@@ -821,7 +821,7 @@ accrual_plot_cum<-function(accrual_df,
 #' centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
 #' accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 #' par(mfcol=c(2,2))
-#' accrual_plot_abs(accrual_df=accrual_df,unit=c("week"))
+#' accrual_plot_abs(accrual_df=accrual_df,unit="week")
 #'
 accrual_plot_abs<-function(accrual_df,unit="month",target=NA,
                            start_date=NA,format_start_date="%d%b%Y",
@@ -835,8 +835,8 @@ accrual_plot_abs<-function(accrual_df,unit="month",target=NA,
 	  accrual_df<-list(accrual_df)
   }
 
+  if (!unit %in% c("month","year","week","day")) stop("'unit' should be one of 'year', 'month', 'week', 'day'")
   unit<-mult(unit, accrual_df)
-  if (is.na(match(unit,c("month","year","week","day")))) stop("'units' should be one of 'year', 'month', 'week', 'day'")
 	target<-mult(target, accrual_df)
 	current_date<-mult(current_date, accrual_df)
 	start_date<-mult(start_date, accrual_df)
