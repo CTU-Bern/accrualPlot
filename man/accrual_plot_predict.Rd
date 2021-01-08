@@ -49,7 +49,7 @@ ignored if accrual_df is a data frame or a date vector}
 
 \item{target}{target sample size, can be a vector with the same length as accrual_df}
 
-\item{start_date}{date when recruitment started, 
+\item{start_date}{date when recruitment started,
 single character/date, or a vector with the same length as accrual_df,
 if not given the first enrollment date is used as start_date,}
 
@@ -72,7 +72,7 @@ required if center information should be shown}
 
 \item{format_center_start_dates}{format of the center start date, ignored if enrollment_dates are dates}
 
-\item{targetc}{target number of centers, required if center information should be shown, 
+\item{targetc}{target number of centers, required if center information should be shown,
 can be a vector with the same length as accrual_df}
 
 \item{center_label}{label for the center strip od axis}

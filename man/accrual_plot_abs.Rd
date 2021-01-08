@@ -28,10 +28,10 @@ accrual_plot_abs(
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
 
-\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day", 
+\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day",
 can be a vector with the same length as accrual_df}
 
-\item{target}{adds horizontal line for target recruitment per time unit, 
+\item{target}{adds horizontal line for target recruitment per time unit,
 can be a vector with the same length as accrual_df}
 
 \item{start_date}{start_date: date when recruitment started,
@@ -103,6 +103,6 @@ set.seed(2020)
 centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
 accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 par(mfcol=c(2,2))
-accrual_plot_abs(accrual_df=accrual_df,unit=c("week"))
+accrual_plot_abs(accrual_df=accrual_df,unit="week")
 
 }
