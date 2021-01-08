@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, polygon, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<rect x='82.40' y='96.00' width='83.43' height='406.56' style='stroke-width: 0.75; fill: #BEBEBE;' />
+<rect x='182.51' y='354.72' width='83.43' height='147.84' style='stroke-width: 0.75; fill: #BEBEBE;' />
+<rect x='282.63' y='169.92' width='83.43' height='332.64' style='stroke-width: 0.75; fill: #BEBEBE;' />
+<rect x='382.74' y='243.84' width='83.43' height='258.72' style='stroke-width: 0.75; fill: #BEBEBE;' />
+<rect x='482.86' y='206.88' width='83.43' height='295.68' style='stroke-width: 0.75; fill: #BEBEBE;' />
+<rect x='582.97' y='96.00' width='83.43' height='406.56' style='stroke-width: 0.75; fill: #BEBEBE;' />
+<text transform='translate(12.96,329.15) rotate(-90)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='96.70px' lengthAdjust='spacingAndGlyphs'>Recruited patients</text>
+<polyline points='59.04,502.56 689.76,502.56 689.76,59.04 59.04,59.04 59.04,502.56 ' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='502.56' x2='59.04' y2='59.04' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='502.56' x2='51.84' y2='502.56' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='428.64' x2='51.84' y2='428.64' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='354.72' x2='51.84' y2='354.72' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='280.80' x2='51.84' y2='280.80' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='206.88' x2='51.84' y2='206.88' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='132.96' x2='51.84' y2='132.96' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='59.04' x2='51.84' y2='59.04' style='stroke-width: 0.75;' />
+<text x='37.97' y='506.69' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>0</text>
+<text x='37.97' y='432.76' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>2</text>
+<text x='37.97' y='358.85' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>4</text>
+<text x='37.97' y='284.92' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>6</text>
+<text x='37.97' y='211.01' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>8</text>
+<text x='31.30' y='137.09' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='13.34px' lengthAdjust='spacingAndGlyphs'>10</text>
+<text x='31.30' y='63.16' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='13.34px' lengthAdjust='spacingAndGlyphs'>12</text>
+<line x1='124.11' y1='502.56' x2='624.69' y2='502.56' style='stroke-width: 0.75;' />
+<line x1='124.11' y1='502.56' x2='124.11' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='224.23' y1='502.56' x2='224.23' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='324.34' y1='502.56' x2='324.34' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='424.46' y1='502.56' x2='424.46' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='524.57' y1='502.56' x2='524.57' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='624.69' y1='502.56' x2='624.69' y2='509.76' style='stroke-width: 0.75;' />
+<text transform='translate(93.63,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Nov 2020</text>
+<text transform='translate(193.75,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Nov 2020</text>
+<text transform='translate(293.86,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Nov 2020</text>
+<text transform='translate(393.97,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Dec 2020</text>
+<text transform='translate(494.09,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Dec 2020</text>
+<text transform='translate(594.20,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Dec 2020</text>
+</svg>

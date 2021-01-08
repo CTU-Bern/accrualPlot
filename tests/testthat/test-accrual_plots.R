@@ -55,7 +55,31 @@ test_that("cumulative plots", {
   fn <- function() accrual_plot_cum(df2, xlabsrt = 90)
   expect_doppelganger("cumulative site, xlabsrt", fn)
 
+  expect_warning(accrual_plot_cum(df2, name_overall = "Foo"))
+  fn <- function() accrual_plot_cum(df2, col = c("red1", "blue", "orange", "black"))
+  expect_doppelganger("cumulative site, col", fn)
+
+
 })
+
+
+
+
+
+# accrual_plot_abs(df, unit = "week")
+
+test_that("accrual_plot_abs", {
+  expect_error(accrual_plot_abs(df, unit = "weeks"))
+  expect_error(accrual_plot_abs(df, unit = "week"), NA)
+  fn <- function() accrual_plot_abs(df)
+  expect_doppelganger("abs default", fn)
+  fn <- function() accrual_plot_abs(df, unit = "week")
+  expect_doppelganger("abs week", fn)
+  fn <- function() accrual_plot_abs(df, unit = "day")
+  expect_doppelganger("abs day", fn)
+})
+
+
 
 
 
