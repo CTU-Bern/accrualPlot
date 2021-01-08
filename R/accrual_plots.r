@@ -644,7 +644,7 @@ accrual_plot_cum<-function(accrual_df,
 
   if (lc>1 & overall==TRUE) {
     if (is.null(accrual_df[[name_overall]])) {
-      print(paste0("'",name_overall,"' not found in accrual_df, overall set to FALSE"))
+      warning("'",name_overall,"' not found in accrual_df, overall set to FALSE")
       overall<-FALSE
     }
   }
@@ -834,7 +834,8 @@ accrual_plot_abs<-function(accrual_df,unit="month",target=NA,
   }
 
   unit<-mult(unit)
-	stopifnot(!is.na(sum(match(unit,c("month","year","week","day")))))
+  if (is.na(match(unit,c("month","year","week","day")))) stop("'units' should be one of 'year', 'month', 'week', 'day'")
+	# stopifnot(!is.na(sum(match(unit,c("month","year","week","day")))))
 	target<-mult(target)
 	current_date<-mult(current_date)
 	start_date<-mult(start_date)
@@ -863,7 +864,7 @@ accrual_plot_abs<-function(accrual_df,unit="month",target=NA,
 		  sdate<-as.Date(start_date[i],format=format_start_date)
 		}
 		if (sdate != min(accrual_dfi$Date)) {
-		  stopifnot(sdate < min(accrual_dfi$Date))
+		  if (!sdate < min(accrual_dfi$Date)) stop("'start_date' after earliest enrolment")
 		}
 	  } else {
 		sdate<-min(accrual_dfi$Date)
@@ -877,7 +878,7 @@ accrual_plot_abs<-function(accrual_df,unit="month",target=NA,
 		  edate<-as.Date(current_date[i],format=format_current_date)
 		}
 		if (edate != max(accrual_dfi$Date)) {
-		  stopifnot(edate > max(accrual_dfi$Date))
+		  if (!(edate > max(accrual_dfi$Date))) stop("'current_date' is before last enrolment")
 		}
 	  } else {
 		edate<-max(accrual_dfi$Date)
