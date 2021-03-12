@@ -73,7 +73,7 @@ recruited at each date from a vector with enrollment dates." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -116,11 +116,9 @@ recruited at each date from a vector with enrollment dates.</p>
 
     <pre class="usage"><span class='fu'>accrual_create_df</span><span class='op'>(</span>
   <span class='va'>enrollment_dates</span>,
-  format_enrollment_dates <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
   start_date <span class='op'>=</span> <span class='cn'>NA</span>,
-  format_start_date <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
   current_date <span class='op'>=</span> <span class='cn'>NA</span>,
-  format_current_date <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
+  force_start0 <span class='op'>=</span> <span class='cn'>TRUE</span>,
   by <span class='op'>=</span> <span class='cn'>NA</span>,
   overall <span class='op'>=</span> <span class='cn'>TRUE</span>,
   name_overall <span class='op'>=</span> <span class='st'>"Overall"</span>
@@ -134,25 +132,17 @@ recruited at each date from a vector with enrollment dates.</p>
       <td><p>dates on which patients are enrolled as date or character vector</p></td>
     </tr>
     <tr>
-      <th>format_enrollment_dates</th>
-      <td><p>single character identifying the format of the dates,
-ignored if enrollment_dates are dates</p></td>
-    </tr>
-    <tr>
       <th>start_date</th>
       <td><p>date when recruitment started, single character or date, if not given the first enrollment date is used</p></td>
-    </tr>
-    <tr>
-      <th>format_start_date</th>
-      <td><p>format of the start date, ignored if start_date is a date</p></td>
     </tr>
     <tr>
       <th>current_date</th>
       <td><p>date of the data export or database freeze, single character or date, if not given the latest enrollment date is used</p></td>
     </tr>
     <tr>
-      <th>format_current_date</th>
-      <td><p>format of the current date, ignored if current_date is a date</p></td>
+      <th>force_start0</th>
+      <td><p>adds an extra 0 line to the accrual data frame in cases where a start date is given and
+corresponds to the earliest enrollment date</p></td>
     </tr>
     <tr>
       <th>by</th>

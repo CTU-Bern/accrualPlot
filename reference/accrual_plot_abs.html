@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -114,12 +114,10 @@
 
     <pre class="usage"><span class='fu'>accrual_plot_abs</span><span class='op'>(</span>
   <span class='va'>accrual_df</span>,
-  unit <span class='op'>=</span> <span class='st'>"month"</span>,
+  unit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"month"</span>, <span class='st'>"year"</span>, <span class='st'>"week"</span>, <span class='st'>"day"</span><span class='op'>)</span>,
   target <span class='op'>=</span> <span class='cn'>NA</span>,
   start_date <span class='op'>=</span> <span class='cn'>NA</span>,
-  format_start_date <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
   current_date <span class='op'>=</span> <span class='cn'>NA</span>,
-  format_current_date <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
   ylim <span class='op'>=</span> <span class='cn'>NA</span>,
   xlim <span class='op'>=</span> <span class='cn'>NA</span>,
   ylab <span class='op'>=</span> <span class='st'>"Recruited patients"</span>,
@@ -142,12 +140,12 @@
     </tr>
     <tr>
       <th>unit</th>
-      <td><p>time unit for which the bars should be plotted, any of "month","year","week","day", 
+      <td><p>time unit for which the bars should be plotted, any of "month","year","week","day"
 can be a vector with the same length as accrual_df</p></td>
     </tr>
     <tr>
       <th>target</th>
-      <td><p>adds horizontal line for target recruitment per time unit, 
+      <td><p>adds horizontal line for target recruitment per time unit,
 can be a vector with the same length as accrual_df</p></td>
     </tr>
     <tr>
@@ -157,18 +155,10 @@ single character/date, or a vector with the same length as accrual_df,
 if not given the first enrollment date is used as start_date,</p></td>
     </tr>
     <tr>
-      <th>format_start_date</th>
-      <td><p>format of the start date, ignored if start_date is a date</p></td>
-    </tr>
-    <tr>
       <th>current_date</th>
       <td><p>date of the data export or database freeze,
 single character/date, or a vector with the same length as accrual_df,
 if not given the latest enrollment date is used for each site,</p></td>
-    </tr>
-    <tr>
-      <th>format_current_date</th>
-      <td><p>format of the current date, ignored if current_date is a date</p></td>
     </tr>
     <tr>
       <th>ylim</th>
