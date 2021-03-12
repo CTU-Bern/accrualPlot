@@ -12,7 +12,7 @@
 #		if not given the latest enrollment date is used
 #' @param format_current_date format of the current date, ignored if current_date is a date
 #' @param fill_up whether to fill up days where no recruitment was observed,
-#		otherwise these points do not contribute to the regression, default is yes
+#		otherwise these points do not contribute to the regression, default is TRUE
 #' @param wfun function to calculate the weights based on the accrual data frame, default is
 #		wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))
 #'
@@ -46,63 +46,55 @@
 #'	centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
 #'  accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 #'	accrual_linear_model(accrual_df)
+#'	accrual_linear_model(accrual_df, start_date = as.Date("2017-12-25"))
+#'	accrual_linear_model(accrual_df, start_date = as.Date("2017-12-25"), current_date = "2018-02-05")
 #' }
 
 accrual_linear_model <- function(accrual_df,
                                  start_date=NA,
-                                 format_start_date="%d%b%Y",
+                                 # format_start_date="%d%b%Y",
                                  current_date=NA,
-                                 format_current_date="%d%b%Y",
-                                 fill_up=c("yes","no"),
+                                 # format_current_date="%d%b%Y",
+                                 fill_up=TRUE,
                                  wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))) {
 
-  fill_up<-match.arg(fill_up)
+  # fill_up<-match.arg(fill_up)
 
   if (is.data.frame(accrual_df)) {
-	accrual_df<-list(accrual_df)
+	  accrual_df<-list(accrual_df)
   }
-  
+
   if (length(start_date)==1) {
 	start_date<-rep(start_date,length(accrual_df))
   }
   stopifnot(length(accrual_df)==length(start_date))
-  
+
   if (length(current_date)==1) {
 	current_date<-rep(current_date,length(accrual_df))
   }
-  stopifnot(length(accrual_df)==length(current_date))	 
-  
+  stopifnot(length(accrual_df)==length(current_date))
+
   lmi<-numeric(0)
-  for (i in 1:length(accrual_df)) {  
+  for (i in 1:length(accrual_df)) {
 	accrual_dfi<-accrual_df[[i]]
-  
+
     #add start or current date
     if (!is.na(start_date[i])) {
-      if (inherits(start_date[i],"Date")) {
-        sdate<-start_date[i]
-      } else {
-        sdate<-as.Date(start_date[i],format=format_start_date)
-      }
-      if (sdate != min(accrual_dfi$Date)) {
-        stopifnot(sdate < min(accrual_dfi$Date))
-        accrual_dfi<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),accrual_dfi)
+      if (start_date[i] != min(accrual_dfi$Date)) {
+        stopifnot(start_date < min(accrual_dfi$Date))
+        accrual_dfi<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),accrual_dfi)
       }
     }
-  
+
     if (!is.na(current_date[i])) {
-      if (inherits(current_date[i],"Date")) {
-        end_date<-current_date[i]
-      } else {
-        end_date<-as.Date(current_date[i],format=format_current_date)
-      }
-      if (end_date != max(accrual_dfi$Date)) {
-        stopifnot(end_date > max(accrual_dfi$Date))
-        accrual_dfi<-rbind(accrual_dfi,data.frame(Date=end_date,Freq=0,Cumulative=max(accrual_dfi$Cumulative)))
+      if (current_date[i] != max(accrual_dfi$Date)) {
+        stopifnot(current_date > max(accrual_dfi$Date))
+        accrual_dfi<-rbind(accrual_dfi,data.frame(Date=current_date,Freq=0,Cumulative=max(accrual_dfi$Cumulative)))
       }
     }
-  
+
     #fill up days:
-    if (fill_up=="yes") {
+    if (fill_up) {
       alldays<-seq(min(accrual_dfi$Date),max(accrual_dfi$Date),by=1)
       alldays<-alldays[!(alldays %in% accrual_dfi$Date)]
       if (!is.null(nrow(alldays))) {
@@ -114,18 +106,18 @@ accrual_linear_model <- function(accrual_df,
         accrual_dfi<-adf
       }
     }
-  
+
     #linear model:
     accrual_dfi<-aggregate(cbind(Freq,Cumulative)~Date,data=accrual_dfi,FUN=sum)
     weivec <- wfun(accrual_dfi)
     stopifnot( length(weivec) == nrow(accrual_dfi) )
     lmi<-append(lmi,list(lm(Cumulative ~ Date, data=accrual_dfi, weights = weivec)))
   }
-  
+
   if (length(lmi)==1) {
 	return(lmi[[1]])
   } else {
 	names(lmi)<-names(accrual_df)
 	return(lmi)
-  }	
+  }
 }
