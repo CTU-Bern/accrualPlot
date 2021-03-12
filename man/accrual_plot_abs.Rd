@@ -6,7 +6,7 @@
 \usage{
 accrual_plot_abs(
   accrual_df,
-  unit = "month",
+  unit = c("month", "year", "week", "day"),
   target = NA,
   start_date = NA,
   current_date = NA,
@@ -26,7 +26,7 @@ accrual_plot_abs(
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
 
-\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day",
+\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day"
 can be a vector with the same length as accrual_df}
 
 \item{target}{adds horizontal line for target recruitment per time unit,

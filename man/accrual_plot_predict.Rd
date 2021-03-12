@@ -38,8 +38,7 @@ accrual_plot_predict(
 }
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)
-or dates on which patients are enrolled as date or character vector
-ignored if accrual_df is a data frame or a date vector}
+or dates on which patients are enrolled as date or character vector}
 
 \item{target}{target sample size, can be a vector with the same length as accrual_df}
 

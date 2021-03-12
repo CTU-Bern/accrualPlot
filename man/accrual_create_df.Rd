@@ -15,8 +15,7 @@ accrual_create_df(
 )
 }
 \arguments{
-\item{enrollment_dates}{dates on which patients are enrolled as date or character vector
-ignored if enrollment_dates are dates}
+\item{enrollment_dates}{dates on which patients are enrolled as date or character vector}
 
 \item{start_date}{date when recruitment started, single character or date, if not given the first enrollment date is used}
 
@@ -24,7 +23,7 @@ ignored if enrollment_dates are dates}
 
 \item{force_start0}{adds an extra 0 line to the accrual data frame in cases where a start date is given and
 corresponds to the earliest enrollment date}
-  
+
 \item{by}{vector with centers, has to have the same length as enrollment dates,
 generates a list with accrual data frames for each site}
 

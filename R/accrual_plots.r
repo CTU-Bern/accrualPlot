@@ -5,24 +5,19 @@
 #'
 #' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
 #'        or dates on which patients are enrolled as date or character vector
-# @param format_enrollment_dates single character identifying the format of the dates,
-#'        ignored if accrual_df is a data frame or a date vector
 #' @param target target sample size, can be a vector with the same length as accrual_df
 #' @param start_date date when recruitment started,
 #'		single character/date, or a vector with the same length as accrual_df,
 #'		if not given the first enrollment date is used as start_date,
-# @param format_start_date format of the start date, ignored if start_date is a date
 #' @param current_date date of the data export or database freeze,
 #'		single character/date, or a vector with the same length as accrual_df,
 #'		if not given the latest enrollment date is used,
-# @param format_current_date format of the current date, ignored if current_date is a date
 #' @param fill_up whether to fill up days where no recruitment was observed,
 #'		otherwise these points do not contribute to the regression, default is yes
 #' @param wfun function to calculate the weights based on the accrual data frame, default is
 #'		wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))
 #' @param center_start_dates dates on which centers are enrolled as character or date vector,
 #'		required if center information should be shown
-# @param format_center_start_dates format of the center start date, ignored if enrollment_dates are dates
 #' @param targetc  target number of centers, required if center information should be shown,
 #'		can be a vector with the same length as accrual_df
 #' @param center_label label for the center strip od axis
@@ -99,16 +94,12 @@
 #'
 
 accrual_plot_predict<-function(accrual_df,
-                               # format_enrollment_dates="%d%b%Y",
                                target,
                                start_date=NA,
-                               # format_start_date="%d%b%Y",
                                current_date=NA,
-                               # format_current_date="%d%b%Y",
                                fill_up=TRUE,
                                wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)),
                                center_start_dates=NA,
-                               # format_center_start_dates="%d%b%Y",
                                targetc=NA,
                                center_label="Centers",
                                design=2,
@@ -165,11 +156,8 @@ accrual_plot_predict<-function(accrual_df,
 
     #accrual data frame
     accrual_df<-accrual_create_df(accrual_df,
-                                  # format_enrollment_dates=format_enrollment_dates,
                                   start_date=start_date,
-                                  # format_start_date=format_start_date,
                                   current_date=current_date
-                                  # format_current_date=format_current_date
                                   )
 
     accrual_df0<-accrual_df
@@ -555,11 +543,9 @@ accrual_plot_predict<-function(accrual_df,
 #' @param start_date start_date: date when recruitment started, single character or date,
 #'	  or "common" if the same date should be used for all sites,
 #'		if not given the first enrollment date is used as start_date
-# @param format_start_date format of the start date, ignored if start_date is a date
 #' @param current_date date of the data export or database freeze, single character or date
 #'	  or "common" if the same date should be used for all sites,
 #'		if not given the latest enrollment date is used for each site
-# @param format_current_date format of the current date, ignored if current_date is a date
 #' @param ylim  limits for y-axis
 #' @param xlim  limits for x-axis
 #' @param ylab y-axis label
@@ -612,9 +598,7 @@ accrual_plot_cum<-function(accrual_df,
                            overall=TRUE,
                            name_overall="Overall",
                            start_date=NA,
-                           # format_start_date="%d%b%Y",
                            current_date=NA,
-                           # format_current_date="%d%b%Y",
                            ylim=NA,
                            xlim=NA,
                            ylab="Recruited patients",
@@ -703,7 +687,7 @@ accrual_plot_cum<-function(accrual_df,
       xlims<-c(min(do.call("c",lapply(adf,function(x) min(x$Date)))),
                max(do.call("c",lapply(adf,function(x) max(x$Date)))))
 	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
-      xlims<-c(min(xlims,xlabs),max(xlims,xlabs))	   
+      xlims<-c(min(xlims,xlabs),max(xlims,xlabs))
     } else {
       xlims<-xlim
 	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
@@ -786,18 +770,16 @@ accrual_plot_cum<-function(accrual_df,
 #' Plot of absolute recruitment by time unit
 #'
 #' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
-#' @param unit time unit for which the bars should be plotted, any of "month","year","week","day",
+#' @param unit time unit for which the bars should be plotted, any of "month","year","week","day"
 #'		can be a vector with the same length as accrual_df
 #' @param target adds horizontal line for target recruitment per time unit,
 #'		can be a vector with the same length as accrual_df
 #' @param start_date start_date: date when recruitment started,
 #'		single character/date, or a vector with the same length as accrual_df,
 #'		if not given the first enrollment date is used as start_date,
-# @param format_start_date format of the start date, ignored if start_date is a date
 #' @param current_date date of the data export or database freeze,
 #'		single character/date, or a vector with the same length as accrual_df,
 #'		if not given the latest enrollment date is used for each site,
-# @param format_current_date format of the current date, ignored if current_date is a date
 #' @param ylim limits for y-axis, can be a vector with the same length as accrual_df
 #' @param xlim limits for x-axis, in barplot units, can be a vector with the same length as accrual_df
 #' @param ylab y-axis label
@@ -852,9 +834,7 @@ accrual_plot_abs<-function(accrual_df,
                            unit=c("month","year","week","day"),
                            target=NA,
                            start_date=NA,
-                           # format_start_date="%d%b%Y",
                            current_date=NA,
-                           # format_current_date="%d%b%Y",
                            ylim=NA,
                            xlim=NA,
                            ylab="Recruited patients",
@@ -880,6 +860,7 @@ accrual_plot_abs<-function(accrual_df,
 		}
 	}
 
+	unit<-match.arg(unit)
   unit<-mult(unit)
 	stopifnot(!is.na(sum(match(unit,c("month","year","week","day")))))
 
@@ -944,7 +925,7 @@ accrual_plot_abs<-function(accrual_df,
 	  b<-barplot(dfit$Freq,plot=FALSE)
 	  if (sum(!is.na(xlim[[i]]))==0) {
 		xlimi<-c(min(b),max(b)) + c(-0.5,0.5)
-      
+
 	  } else{
 	    xlimi<-xlim[[i]]
 	  }
