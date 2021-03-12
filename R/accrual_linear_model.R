@@ -6,11 +6,11 @@
 #' @param start_date date when recruitment started,
 #'		single character/date, or a vector with the same length as accrual_df,
 #		if not given the first enrollment date is used
-#' @param format_start_date format of the start date, ignored if start_date is a date
+# @param format_start_date format of the start date, ignored if start_date is a date
 #' @param current_date date of the data export or database freeze,
 #'		single character/date, or a vector with the same length as accrual_df,
 #		if not given the latest enrollment date is used
-#' @param format_current_date format of the current date, ignored if current_date is a date
+# @param format_current_date format of the current date, ignored if current_date is a date
 #' @param fill_up whether to fill up days where no recruitment was observed,
 #		otherwise these points do not contribute to the regression, default is TRUE
 #' @param wfun function to calculate the weights based on the accrual data frame, default is
