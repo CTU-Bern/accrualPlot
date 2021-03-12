@@ -47,7 +47,8 @@
 #'  accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 #'	accrual_linear_model(accrual_df)
 #'	accrual_linear_model(accrual_df, start_date = as.Date("2017-12-25"))
-#'	accrual_linear_model(accrual_df, start_date = as.Date("2017-12-25"), current_date = "2018-02-05")
+#'	accrual_linear_model(accrual_df, start_date = as.Date("2017-12-25"),
+#'	  current_date = as.Date("2018-02-05"))
 #' }
 
 accrual_linear_model <- function(accrual_df,
