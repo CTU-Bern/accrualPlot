@@ -35,23 +35,17 @@
 #' accrual_create_df(enrollment_dates,by=centers)
 #' }
 accrual_create_df <- function(enrollment_dates,
-                              format_enrollment_dates="%d%b%Y",
+                              # format_enrollment_dates="%d%b%Y",
                               start_date=NA,
-                              format_start_date="%d%b%Y",
+                              # format_start_date="%d%b%Y",
                               current_date=NA,
-                              format_current_date="%d%b%Y",
-                              force_start0=c("no","yes"),
+                              # format_current_date="%d%b%Y",
+                              force_start0=TRUE,
                               by=NA,
                               overall=TRUE,
                               name_overall="Overall") {
 
-  force_start0<-match.arg(force_start0)
-
-  if (inherits(enrollment_dates,"Date")) {
-    format_enrollment_dates<-"%Y-%m-%d"
-  }
-
-  if (sum(!is.na(by))==0) {
+ if (sum(!is.na(by))==0) {
     nc<-1
     byt<-0
   } else {
@@ -84,31 +78,21 @@ accrual_create_df <- function(enrollment_dates,
 
     adf <- data.frame(table(ed))
     colnames(adf) <- c("Date", "Freq")
-    adf$Date <- as.Date(adf$Date,format=format_enrollment_dates)
+    adf$Date <- as.Date(as.character(adf$Date))
     adf<-adf[order(adf$Date),]
     adf$Cumulative <- cumsum(adf$Freq)
 
     if (!is.na(start_date)) {
-      if (inherits(start_date,"Date")) {
-        sdate<-start_date
-      } else {
-        sdate<-as.Date(start_date,format=format_start_date)
-      }
-      if (sdate != min(adf$Date) | force_start0=="yes")  {
-        stopifnot(sdate <= min(adf$Date))
-        adf<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),adf)
+      if (start_date != min(adf$Date) | force_start0)  {
+        stopifnot(start_date <= min(adf$Date))
+        adf<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),adf)
       }
     }
 
     if (!is.na(current_date)) {
-      if (inherits(current_date,"Date")) {
-        end_date<-current_date
-      } else {
-        end_date<-as.Date(current_date,format=format_current_date)
-      }
-      if (end_date != max(adf$Date)) {
-        stopifnot(end_date > max(adf$Date))
-        adf<-rbind(adf,data.frame(Date=end_date,Freq=0,Cumulative=max(adf$Cumulative)))
+      if (current_date != max(adf$Date)) {
+        stopifnot(current_date > max(adf$Date))
+        adf<-rbind(adf,data.frame(Date=current_date,Freq=0,Cumulative=max(adf$Cumulative)))
       }
     }
 
