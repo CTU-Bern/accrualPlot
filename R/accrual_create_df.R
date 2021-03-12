@@ -4,7 +4,7 @@
 #' recruited at each date from a vector with enrollment dates.
 #'
 #' @param enrollment_dates dates on which patients are enrolled as date or character vector
-#' @param format_enrollment_dates single character identifying the format of the dates,
+# @param format_enrollment_dates single character identifying the format of the dates,
 #' ignored if enrollment_dates are dates
 #' @param start_date date when recruitment started, single character or date, if not given the first enrollment date is used
 # @param format_start_date format of the start date, ignored if start_date is a date
