@@ -9,6 +9,13 @@
 #' @export
 #'
 #' @examples
+#' set.seed(2020)
+#' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
+#' accrual_df<-accrual_create_df(enrollment_dates)
+#' plot(accrual_df)
+#' plot(accrual_df, "abs")
+#' plot(accrual_df, "pred", target = 50)
+
 plot.accrual_df <- function(x, which = "cum", ...){
 
   # which <- switch(as.character(which),
@@ -40,6 +47,10 @@ plot.accrual_df <- function(x, which = "cum", ...){
 #' @export
 #'
 #' @examples
+#' set.seed(2020)
+#' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
+#' accrual_df<-accrual_create_df(enrollment_dates)
+#' summary(accrual_df)
 summary.accrual_df <- function(object, ...){
 
   tab <- accrual_table(object, ...)

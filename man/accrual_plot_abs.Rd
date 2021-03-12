@@ -6,12 +6,10 @@
 \usage{
 accrual_plot_abs(
   accrual_df,
-  unit = "month",
+  unit = c("month", "year", "week", "day"),
   target = NA,
   start_date = NA,
-  format_start_date = "\%d\%b\%Y",
   current_date = NA,
-  format_current_date = "\%d\%b\%Y",
   ylim = NA,
   xlim = NA,
   ylab = "Recruited patients",
@@ -28,23 +26,19 @@ accrual_plot_abs(
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
 
-\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day", 
+\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day"
 can be a vector with the same length as accrual_df}
 
-\item{target}{adds horizontal line for target recruitment per time unit, 
+\item{target}{adds horizontal line for target recruitment per time unit,
 can be a vector with the same length as accrual_df}
 
 \item{start_date}{start_date: date when recruitment started,
 single character/date, or a vector with the same length as accrual_df,
 if not given the first enrollment date is used as start_date,}
 
-\item{format_start_date}{format of the start date, ignored if start_date is a date}
-
 \item{current_date}{date of the data export or database freeze,
 single character/date, or a vector with the same length as accrual_df,
 if not given the latest enrollment date is used for each site,}
-
-\item{format_current_date}{format of the current date, ignored if current_date is a date}
 
 \item{ylim}{limits for y-axis, can be a vector with the same length as accrual_df}
 
