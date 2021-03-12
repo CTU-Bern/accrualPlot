@@ -6,7 +6,7 @@
 \usage{
 accrual_plot_abs(
   accrual_df,
-  unit = c("month", "year", "week", "day"),
+  unit = "month",
   target = NA,
   start_date = NA,
   current_date = NA,

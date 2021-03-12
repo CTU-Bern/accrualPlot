@@ -174,11 +174,6 @@ accrual_plot_predict<-function(accrual_df,
 
     accrual_df0<-accrual_df
     accrual_df0<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),accrual_df0)
-    #accrual_df0<-accrual_create_df(enrollment_dates,
-    #	format_enrollment_dates=format_enrollment_dates,
-    #	start_date=start_date,format_start_date=format_start_date,
-    #	current_date=current_date,format_current_date=format_current_date,
-    #	force_start0="yes")
 
 	accrual_df<-list(accrual_df)
 	accrual_df0<-list(accrual_df0)
@@ -319,11 +314,13 @@ accrual_plot_predict<-function(accrual_df,
 
 	  if (sum(!is.na(xlim[[k]]))==0) {
 		xlimk<-c(min(accrual_dfi$Date),end_date)
+		xlabs<-pretty(x=xlimk,n=xlabn,min.n=xlabminn)
+		xlimk<-c(min(xlimk,xlabs),max(xlimk,xlabs))
 	  } else {
 		xlimk<-xlim[[k]]
+		xlabs<-pretty(x=xlimk,n=xlabn,min.n=xlabminn)
+	    xlabs<-xlabs[xlabs>=xlimk[1] & xlabs <=xlimk[2]]
 	  }
-	  xlabs<-pretty(x=xlimk,n=xlabn,min.n=xlabminn)
-	  xlabs<-xlabs[xlabs>=xlimk[1] & xlabs <=xlimk[2]]
 
 	  #plot setup
 	  #&&&&&&&&&&
@@ -705,11 +702,13 @@ accrual_plot_cum<-function(accrual_df,
     if (sum(!is.na(xlim))==0) {
       xlims<-c(min(do.call("c",lapply(adf,function(x) min(x$Date)))),
                max(do.call("c",lapply(adf,function(x) max(x$Date)))))
+	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
+      xlims<-c(min(xlims,xlabs),max(xlims,xlabs))	   
     } else {
       xlims<-xlim
+	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
+      xlabs<-xlabs[xlabs>=xlims[1] & xlabs <=xlims[2]]
     }
-    xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
-    xlabs<-xlabs[xlabs>=xlims[1] & xlabs <=xlims[2]]
 
     if (sum(!is.na(ylim))==0) {
       ymax<-max(do.call("c",lapply(adf,function(x) max(x$Cumulative))))
@@ -848,6 +847,7 @@ accrual_plot_cum<-function(accrual_df,
 #' par(mfcol=c(2,2))
 #' accrual_plot_abs(accrual_df=accrual_df,unit=c("week"))
 #'
+
 accrual_plot_abs<-function(accrual_df,
                            unit=c("month","year","week","day"),
                            target=NA,
@@ -879,12 +879,9 @@ accrual_plot_abs<-function(accrual_df,
 			return(var)
 		}
 	}
-    if (length(accrual_df)==1) {
-      unit<-match.arg(unit)
-    } else {
-      unit<-mult(unit)
-	  stopifnot(!is.na(sum(match(unit,c("month","year","week","day")))))
-    }
+
+  unit<-mult(unit)
+	stopifnot(!is.na(sum(match(unit,c("month","year","week","day")))))
 
 	target<-mult(target)
 	current_date<-mult(current_date)
@@ -944,9 +941,10 @@ accrual_plot_abs<-function(accrual_df,
 	  }
 
 	  #xscale
+	  b<-barplot(dfit$Freq,plot=FALSE)
 	  if (sum(!is.na(xlim[[i]]))==0) {
-	    b<-barplot(dfit$Freq,plot=FALSE)
-	    xlimi<-c(min(b),max(b)) + c(-0.5,0.5)
+		xlimi<-c(min(b),max(b)) + c(-0.5,0.5)
+      
 	  } else{
 	    xlimi<-xlim[[i]]
 	  }

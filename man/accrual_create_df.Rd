@@ -24,7 +24,7 @@ ignored if enrollment_dates are dates}
 
 \item{force_start0}{adds an extra 0 line to the accrual data frame in cases where a start date is given and
 corresponds to the earliest enrollment date}
-
+  
 \item{by}{vector with centers, has to have the same length as enrollment dates,
 generates a list with accrual data frames for each site}
 

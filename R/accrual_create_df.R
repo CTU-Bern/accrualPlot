@@ -9,6 +9,7 @@
 #' @param start_date date when recruitment started, single character or date, if not given the first enrollment date is used
 # @param format_start_date format of the start date, ignored if start_date is a date
 #' @param current_date date of the data export or database freeze, single character or date, if not given the latest enrollment date is used
+
 # @param format_current_date format of the current date, ignored if current_date is a date
 #' @param force_start0 adds an extra 0 line to the accrual data frame in cases where a start date is given and
 #' corresponds to the earliest enrollment date
@@ -39,11 +40,13 @@ accrual_create_df <- function(enrollment_dates,
                               start_date=NA,
                               # format_start_date="%d%b%Y",
                               current_date=NA,
+
                               # format_current_date="%d%b%Y",
                               force_start0=TRUE,
                               by=NA,
                               overall=TRUE,
                               name_overall="Overall") {
+
 
   check_date(enrollment_dates)
   if (!is.na(start_date)) check_date(start_date)

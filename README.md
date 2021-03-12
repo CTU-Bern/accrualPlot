@@ -5,7 +5,7 @@
 
 <!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
 
-[![](https://img.shields.io/badge/dev%20version-0.2.0-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
+[![](https://img.shields.io/badge/dev%20version-0.3.2-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
 [![Actions
 Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
