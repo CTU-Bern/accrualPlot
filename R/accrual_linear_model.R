@@ -59,6 +59,8 @@ accrual_linear_model <- function(accrual_df,
                                  wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))) {
 
   # fill_up<-match.arg(fill_up)
+  if (!is.na(start_date)) check_date(start_date)
+  if (!is.na(current_date)) check_date(current_date)
 
   if (is.data.frame(accrual_df)) {
 	  accrual_df<-list(accrual_df)

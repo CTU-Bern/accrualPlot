@@ -45,7 +45,11 @@ accrual_create_df <- function(enrollment_dates,
                               overall=TRUE,
                               name_overall="Overall") {
 
- if (sum(!is.na(by))==0) {
+  check_date(enrollment_dates)
+  if (!is.na(start_date)) check_date(start_date)
+  if (!is.na(current_date)) check_date(current_date)
+
+  if (sum(!is.na(by))==0) {
     nc<-1
     byt<-0
   } else {
