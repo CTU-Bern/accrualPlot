@@ -15,7 +15,8 @@ accrual_create_df(
 )
 }
 \arguments{
-\item{enrollment_dates}{dates on which patients are enrolled as date or character vector}
+\item{enrollment_dates}{dates on which patients are enrolled as date or character vector
+ignored if enrollment_dates are dates}
 
 \item{start_date}{date when recruitment started, single character or date, if not given the first enrollment date is used}
 
@@ -30,9 +31,6 @@ generates a list with accrual data frames for each site}
 \item{overall}{indicates that accrual_df contains a summary with all sites (only if by is not NA)}
 
 \item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
-
-\item{format_enrollment_dates}{single character identifying the format of the dates,
-ignored if enrollment_dates are dates}
 }
 \value{
 Returns a data frame (or a list of data frames if by is not NA)

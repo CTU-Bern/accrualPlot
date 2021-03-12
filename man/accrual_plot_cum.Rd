@@ -9,9 +9,7 @@ accrual_plot_cum(
   overall = TRUE,
   name_overall = "Overall",
   start_date = NA,
-  format_start_date = "\%d\%b\%Y",
   current_date = NA,
-  format_current_date = "\%d\%b\%Y",
   ylim = NA,
   xlim = NA,
   ylab = "Recruited patients",
@@ -35,13 +33,13 @@ accrual_plot_cum(
 
 \item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
 
-\item{start_date}{start_date: date when recruitment started, single character or date,}
+\item{start_date}{start_date: date when recruitment started, single character or date,
+or "common" if the same date should be used for all sites,
+  if not given the first enrollment date is used as start_date}
 
-\item{format_start_date}{format of the start date, ignored if start_date is a date}
-
-\item{current_date}{date of the data export or database freeze, single character or date}
-
-\item{format_current_date}{format of the current date, ignored if current_date is a date}
+\item{current_date}{date of the data export or database freeze, single character or date
+or "common" if the same date should be used for all sites,
+  if not given the latest enrollment date is used for each site}
 
 \item{ylim}{limits for y-axis}
 

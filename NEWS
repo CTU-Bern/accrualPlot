@@ -1,3 +1,7 @@
+accrualPlot 0.3.1
+------------------
+removal of possibility to pass dates are strings
+
 accrualPlot 0.3.0
 ------------------
 bug fix for accrual_create_df with by as factor

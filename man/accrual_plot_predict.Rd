@@ -6,16 +6,12 @@
 \usage{
 accrual_plot_predict(
   accrual_df,
-  format_enrollment_dates = "\%d\%b\%Y",
   target,
   start_date = NA,
-  format_start_date = "\%d\%b\%Y",
   current_date = NA,
-  format_current_date = "\%d\%b\%Y",
-  fill_up = c("yes", "no"),
+  fill_up = TRUE,
   wfun = function(x) seq(1/nrow(x), 1, by = 1/nrow(x)),
   center_start_dates = NA,
-  format_center_start_dates = "\%d\%b\%Y",
   targetc = NA,
   center_label = "Centers",
   design = 2,
@@ -42,24 +38,18 @@ accrual_plot_predict(
 }
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)
-or dates on which patients are enrolled as date or character vector}
-
-\item{format_enrollment_dates}{single character identifying the format of the dates,
+or dates on which patients are enrolled as date or character vector
 ignored if accrual_df is a data frame or a date vector}
 
 \item{target}{target sample size, can be a vector with the same length as accrual_df}
 
-\item{start_date}{date when recruitment started, 
+\item{start_date}{date when recruitment started,
 single character/date, or a vector with the same length as accrual_df,
 if not given the first enrollment date is used as start_date,}
-
-\item{format_start_date}{format of the start date, ignored if start_date is a date}
 
 \item{current_date}{date of the data export or database freeze,
 single character/date, or a vector with the same length as accrual_df,
 if not given the latest enrollment date is used,}
-
-\item{format_current_date}{format of the current date, ignored if current_date is a date}
 
 \item{fill_up}{whether to fill up days where no recruitment was observed,
 otherwise these points do not contribute to the regression, default is yes}
@@ -70,9 +60,7 @@ wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))}
 \item{center_start_dates}{dates on which centers are enrolled as character or date vector,
 required if center information should be shown}
 
-\item{format_center_start_dates}{format of the center start date, ignored if enrollment_dates are dates}
-
-\item{targetc}{target number of centers, required if center information should be shown, 
+\item{targetc}{target number of centers, required if center information should be shown,
 can be a vector with the same length as accrual_df}
 
 \item{center_label}{label for the center strip od axis}
