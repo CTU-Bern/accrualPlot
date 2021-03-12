@@ -14,7 +14,7 @@
 #' accrual_df<-accrual_create_df(enrollment_dates)
 #' plot(accrual_df)
 #' plot(accrual_df, "abs")
-#' plot(accrual_df, "pred")
+#' plot(accrual_df, "pred", target = 50)
 
 plot.accrual_df <- function(x, which = "cum", ...){
 
