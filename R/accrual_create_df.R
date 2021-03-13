@@ -10,8 +10,8 @@
 #' @param current_date date of the data export or database freeze. 
 #' 	Single date, date vector (with the same length the number of distinct sites in by),
 #'  "common" (last date overall, default) or "site" (first date for each site).
-#' @param force_start0 logical, adds an extra 0 line to the accrual data frame in cases where a start date is given and
-#' corresponds to the earliest enrollment date
+#' @param force_start0 logical, adds an extra 0 line to the accrual data frame in cases 
+#'  where a start date is given and corresponds to the earliest enrollment date.
 #' @param by vector with sites, has to have the same length as enrollment dates,
 #' generates a list with accrual data frames for each site
 #' @param overall logical indicates that accrual_df contains a summary with all sites (only if by is not NA)
@@ -19,7 +19,7 @@
 #'
 #' @return Returns a data frame (or a list of data frames if by is not NA)
 #' with three columns "Date", "Freq" and "Cumulative" with each
-#' date with an accural and the absolute and cumulative number of patients accrued.
+#' date with an accrual and the absolute and cumulative number of patients accrued.
 #' @export
 #' @examples
 #' \donttest{
@@ -89,12 +89,12 @@ accrual_create_df <- function(enrollment_dates,
  
   accrual_df<-numeric(0)
 
-  for (i in 1:nc) {
+  for (i in 1:nct) {
 
     if (byt==0) {
       ed<-enrollment_dates
     } else {
-      if (overall==TRUE & i==nc) {
+      if (overall==TRUE & i==nct) {
         ed<-enrollment_dates
       } else {
         ed<-enrollment_dates[by==lc[i]]
@@ -125,7 +125,7 @@ accrual_create_df <- function(enrollment_dates,
       accrual_df<-adf
     } else {
       accrual_df<-append(accrual_df,list(adf))
-      if (overall==TRUE & i==nc) {
+      if (overall==TRUE & i==nct) {
         names(accrual_df)[i]<-name_overall
       } else {
         names(accrual_df)[i]<-lc[i]

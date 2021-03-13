@@ -6,8 +6,8 @@
 \usage{
 accrual_create_df(
   enrollment_dates,
-  start_date = NA,
-  current_date = NA,
+  start_date = "site",
+  current_date = "common",
   force_start0 = TRUE,
   by = NA,
   overall = TRUE,
@@ -15,26 +15,30 @@ accrual_create_df(
 )
 }
 \arguments{
-\item{enrollment_dates}{dates on which patients are enrolled as date or character vector}
+\item{enrollment_dates}{dates on which patients are enrolled, date vector}
 
-\item{start_date}{date when recruitment started, single character or date, if not given the first enrollment date is used}
+\item{start_date}{date when recruitment started. Single date (used for all sites in by), 
+date vector (with the same length the number of distinct sites in by), 
+"common" (first date overall) or "site" (first date for each site, default).}
 
-\item{current_date}{date of the data export or database freeze, single character or date, if not given the latest enrollment date is used}
+\item{current_date}{date of the data export or database freeze. 
+   Single date, date vector (with the same length the number of distinct sites in by),
+"common" (last date overall, default) or "site" (first date for each site).}
 
-\item{force_start0}{adds an extra 0 line to the accrual data frame in cases where a start date is given and
-corresponds to the earliest enrollment date}
+\item{force_start0}{logical, adds an extra 0 line to the accrual data frame in cases 
+where a start date is given and corresponds to the earliest enrollment date.}
 
-\item{by}{vector with centers, has to have the same length as enrollment dates,
+\item{by}{vector with sites, has to have the same length as enrollment dates,
 generates a list with accrual data frames for each site}
 
-\item{overall}{indicates that accrual_df contains a summary with all sites (only if by is not NA)}
+\item{overall}{logical indicates that accrual_df contains a summary with all sites (only if by is not NA)}
 
 \item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
 }
 \value{
 Returns a data frame (or a list of data frames if by is not NA)
 with three columns "Date", "Freq" and "Cumulative" with each
-date with an accural and the absolute and cumulative number of patients accrued.
+date with an accrual and the absolute and cumulative number of patients accrued.
 }
 \description{
 Creates a data frame that contains the absolute and cumululative number of patients
