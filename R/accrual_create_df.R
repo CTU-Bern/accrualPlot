@@ -4,12 +4,10 @@
 #' recruited at each date from a vector with enrollment dates.
 #'
 #' @param enrollment_dates dates on which patients are enrolled as date or character vector
-#' @param format_enrollment_dates single character identifying the format of the dates,
-#' ignored if enrollment_dates are dates
 #' @param start_date date when recruitment started, single character or date, if not given the first enrollment date is used
-#' @param format_start_date format of the start date, ignored if start_date is a date
 #' @param current_date date of the data export or database freeze, single character or date, if not given the latest enrollment date is used
-#' @param format_current_date format of the current date, ignored if current_date is a date
+#' @param force_start0 adds an extra 0 line to the accrual data frame in cases where a start date is given and
+#' corresponds to the earliest enrollment date
 #' @param by vector with centers, has to have the same length as enrollment dates,
 #' generates a list with accrual data frames for each site
 #' @param overall indicates that accrual_df contains a summary with all sites (only if by is not NA)
@@ -33,18 +31,17 @@
 #' accrual_create_df(enrollment_dates,by=centers)
 #' }
 accrual_create_df <- function(enrollment_dates,
-                              format_enrollment_dates="%d%b%Y",
                               start_date=NA,
-                              format_start_date="%d%b%Y",
                               current_date=NA,
-                              format_current_date="%d%b%Y",
+                              force_start0=TRUE,
                               by=NA,
                               overall=TRUE,
                               name_overall="Overall") {
 
-  if (inherits(enrollment_dates,"Date")) {
-    format_enrollment_dates<-"%Y-%m-%d"
-  }
+
+  check_date(enrollment_dates)
+  if (!is.na(start_date)) check_date(start_date)
+  if (!is.na(current_date)) check_date(current_date)
 
   if (sum(!is.na(by))==0) {
     nc<-1
@@ -79,31 +76,21 @@ accrual_create_df <- function(enrollment_dates,
 
     adf <- data.frame(table(ed))
     colnames(adf) <- c("Date", "Freq")
-    adf$Date <- as.Date(adf$Date,format=format_enrollment_dates)
+    adf$Date <- as.Date(as.character(adf$Date))
     adf<-adf[order(adf$Date),]
     adf$Cumulative <- cumsum(adf$Freq)
 
     if (!is.na(start_date)) {
-      if (inherits(start_date,"Date")) {
-        sdate<-start_date
-      } else {
-        sdate<-as.Date(start_date,format=format_start_date)
-      }
-      if (sdate != min(adf$Date))  {
-        stopifnot(sdate <= min(adf$Date))
-        adf<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),adf)
+      if (start_date != min(adf$Date) | force_start0)  {
+        stopifnot(start_date <= min(adf$Date))
+        adf<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),adf)
       }
     }
 
     if (!is.na(current_date)) {
-      if (inherits(current_date,"Date")) {
-        end_date<-current_date
-      } else {
-        end_date<-as.Date(current_date,format=format_current_date)
-      }
-      if (end_date != max(adf$Date)) {
-        stopifnot(end_date > max(adf$Date))
-        adf<-rbind(adf,data.frame(Date=end_date,Freq=0,Cumulative=max(adf$Cumulative)))
+      if (current_date != max(adf$Date)) {
+        stopifnot(current_date > max(adf$Date))
+        adf<-rbind(adf,data.frame(Date=current_date,Freq=0,Cumulative=max(adf$Cumulative)))
       }
     }
 

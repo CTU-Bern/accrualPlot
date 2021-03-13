@@ -1,3 +1,8 @@
+
+accrualPlot 0.3.3
+------------------
+removal of possibility to pass dates are strings
+
 accrualPlot 0.3.2
 ------------------
 Adapt x-axis labeling for accrual_plot_cum and accrual_plot_predict
