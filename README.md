@@ -5,7 +5,7 @@
 
 <!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
 
-[![](https://img.shields.io/badge/dev%20version-0.3.3-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
+[![](https://img.shields.io/badge/dev%20version-0.3.4-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
 [![Actions
 Status](https://github.com/CTU-Bern/presize/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/presize/actions)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
@@ -114,19 +114,19 @@ Table of recruitment, with or without a descriptive header.
     summary(df2) 
     #>     name           start_date            time                    n
     #>   Center First participant in Months accruing Participants accrued
-    #>        3            19Nov2020               1                   15
-    #>        2            21Nov2020               1                   19
     #>        1            18Nov2020               1                   16
+    #>        2            21Nov2020               1                   19
+    #>        3            19Nov2020               1                   15
     #>  Overall            18Nov2020               1                   50
     #>                      rate
     #>  Accrual rate (per month)
-    #>                     13.64
-    #>                     15.83
     #>                     12.31
+    #>                     15.83
+    #>                     11.84
     #>                     38.46
     summary(df2, header = FALSE) 
     #>     name start_date time  n  rate
-    #>        3  19Nov2020    1 15 13.64
-    #>        2  21Nov2020    1 19 15.83
     #>        1  18Nov2020    1 16 12.31
+    #>        2  21Nov2020    1 19 15.83
+    #>        3  19Nov2020    1 15 11.84
     #>  Overall  18Nov2020    1 50 38.46
