@@ -74,7 +74,7 @@ rate of recruitment" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.4</span>
       </span>
     </div>
 
@@ -208,9 +208,9 @@ rate of recruitment</p>
 #&gt; 4    Overall            02Jan2018               1                   50
 #&gt;                          rate
 #&gt; 1    Accrual rate (per month)
-#&gt; tabi                    21.92
+#&gt; tabi                    20.36
 #&gt; 2                       21.11
-#&gt; 3                       14.40
+#&gt; 3                       13.85
 #&gt; 4                       53.57</div><div class='input'>
 <span class='co'>#format</span>
 <span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,format_time<span class='op'>=</span><span class='st'>"%1.1f"</span>,format_rrate<span class='op'>=</span><span class='st'>"%1.1f"</span><span class='op'>)</span>
@@ -218,27 +218,27 @@ rate of recruitment</p>
 #&gt; 1     Center First participant in Months accruing Participants accrued
 #&gt; tabi  Site 1            02Jan2018             0.9                   19
 #&gt; 2     Site 2            03Jan2018             0.9                   19
-#&gt; 3     Site 3            04Jan2018             0.8                   12
+#&gt; 3     Site 3            04Jan2018             0.9                   12
 #&gt; 4    Overall            02Jan2018             0.9                   50
 #&gt;                          rate
 #&gt; 1    Accrual rate (per month)
-#&gt; tabi                     21.9
+#&gt; tabi                     20.4
 #&gt; 2                        21.1
-#&gt; 3                        14.4
+#&gt; 3                        13.8
 #&gt; 4                        53.6</div><div class='input'>
 <span class='co'>#unit</span>
 <span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;         name           start_date          time                    n
 #&gt; 1     Center First participant in Days accruing Participants accrued
-#&gt; tabi  Site 1            02Jan2018            26                   19
+#&gt; tabi  Site 1            02Jan2018            28                   19
 #&gt; 2     Site 2            03Jan2018            27                   19
-#&gt; 3     Site 3            04Jan2018            25                   12
+#&gt; 3     Site 3            04Jan2018            26                   12
 #&gt; 4    Overall            02Jan2018            28                   50
 #&gt;                        rate
 #&gt; 1    Accrual rate (per day)
-#&gt; tabi                   0.73
+#&gt; tabi                   0.68
 #&gt; 2                      0.70
-#&gt; 3                      0.48
+#&gt; 3                      0.46
 #&gt; 4                      1.79</div><div class='input'>
 <span class='co'>#common start and current dates</span>
 <span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span>,start_date<span class='op'>=</span><span class='st'>"common"</span>,current_date<span class='op'>=</span><span class='st'>"common"</span><span class='op'>)</span>
