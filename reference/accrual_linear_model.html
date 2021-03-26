@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -152,7 +152,14 @@ single character/date, or a vector with the same length as accrual_df,</p></td>
     <p>A lm object of a weigthed linear regression of cumulative accrual on dates.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+    <pre class="examples">accrual_linear_model,accrual_linear_model,accrual_linear_model — accrual_linear_model,accrual_linear_model.Rd,character(0),accrual_linear_model,character(0),list(title = "Description", contents = "<p>Creates weighted linear regression model based on an accrual data frame producd by accrual_create_df.</p>"),list(description = "Creates weighted linear regression model based on an accrual data frame producd by accrual_create_df."),<span class='fu'>accrual_linear_model</span><span class='op'>(</span>
+  <span class='va'>accrual_df</span>,
+  start_date <span class='op'>=</span> <span class='cn'>NA</span>,
+  current_date <span class='op'>=</span> <span class='cn'>NA</span>,
+  fill_up <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  wfun <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fl'>1</span>, by <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>,list(list(name = "accrual_df", description = "<p>accrual data frame produced by accrual_create_df (optionally with by option as a list)</p>"), list(name = "start_date", description = "<p>date when recruitment started,\nsingle character/date, or a vector with the same length as accrual_df,</p>"), list(name = "current_date", description = "<p>date of the data export or database freeze,\nsingle character/date, or a vector with the same length as accrual_df,</p>"), list(name = "fill_up", description = "<p>whether to fill up days where no recruitment was observed,</p>"), 
+    list(name = "wfun", description = "<p>function to calculate the weights based on the accrual data frame, default is</p>")),TRUE,<div class='input'><span class='co'># \donttest{</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span>
 <span class='va'>enrollment_dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>, <span class='fl'>50</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>
@@ -324,7 +331,7 @@ single character/date, or a vector with the same length as accrual_df,</p></td>
 #&gt;  -72142.504        4.113  
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># }</span>
-</div></pre>
+</div>,list(list(title = "Value", contents = "<p>A lm object of a weigthed linear regression of cumulative accrual on dates.</p>", slug = "value")),2021,list(name = "accrualPlot", version = "0.3.5", authors = "Lukas Bütikofer"),list(destination = "dev", mode = "release", version_label = "default", version_tooltip = "Released version", in_dev = FALSE),list(root = "../", title = "accrualPlot"),list(),list(type = "default", left = "<li>\n  <a href=\"../index.html\">\n    <span class=\"fas fa-home fa-lg\"></span>\n     \n  </a>\n</li>\n<li>\n  <a href=\"../reference/index.html\">Reference</a>\n</li>", right = ""),list(.present = TRUE),list(version = "1.6.1"),FALSE</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

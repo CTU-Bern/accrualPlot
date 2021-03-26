@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -214,7 +214,28 @@ in x- and y-direction</p></td>
     <p>Barplot of absolute recruitment by time unit.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span>
+    <pre class="examples">accrual_plot_abs,accrual_plot_abs,accrual_plot_abs — accrual_plot_abs,accrual_plot_abs.Rd,character(0),accrual_plot_abs,character(0),list(title = "Description", contents = "<p>Plot of absolute recruitment by time unit</p>"),list(description = "Plot of absolute recruitment by time unit"),<span class='fu'>accrual_plot_abs</span><span class='op'>(</span>
+  <span class='va'>accrual_df</span>,
+  unit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"month"</span>, <span class='st'>"year"</span>, <span class='st'>"week"</span>, <span class='st'>"day"</span><span class='op'>)</span>,
+  target <span class='op'>=</span> <span class='cn'>NA</span>,
+  start_date <span class='op'>=</span> <span class='cn'>NA</span>,
+  current_date <span class='op'>=</span> <span class='cn'>NA</span>,
+  ylim <span class='op'>=</span> <span class='cn'>NA</span>,
+  xlim <span class='op'>=</span> <span class='cn'>NA</span>,
+  ylab <span class='op'>=</span> <span class='st'>"Recruited patients"</span>,
+  xlabformat <span class='op'>=</span> <span class='st'>"%b %Y"</span>,
+  xlabsel <span class='op'>=</span> <span class='cn'>NA</span>,
+  xlabpos <span class='op'>=</span> <span class='cn'>NA</span>,
+  xlabsrt <span class='op'>=</span> <span class='fl'>45</span>,
+  xlabadj <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  xlabcex <span class='op'>=</span> <span class='fl'>1</span>,
+  col <span class='op'>=</span> <span class='st'>"grey"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>,list(list(name = "accrual_df", description = "<p>accrual data frame produced by accrual_create_df (optionally with by option as a list)</p>"), list(name = "unit", description = "<p>time unit for which the bars should be plotted, any of \"month\",\"year\",\"week\",\"day\"\ncan be a vector with the same length as accrual_df</p>"), list(name = "target", description = "<p>adds horizontal line for target recruitment per time unit,\ncan be a vector with the same length as accrual_df</p>"), list(name = "start_date", 
+    description = "<p>start_date: date when recruitment started,\nsingle character/date, or a vector with the same length as accrual_df,\nif not given the first enrollment date is used as start_date,</p>"), list(name = "current_date", description = "<p>date of the data export or database freeze,\nsingle character/date, or a vector with the same length as accrual_df,\nif not given the latest enrollment date is used for each site,</p>"), list(name = "ylim", description = "<p>limits for y-axis, can be a vector with the same length as accrual_df</p>"), 
+    list(name = "xlim", description = "<p>limits for x-axis, in barplot units, can be a vector with the same length as accrual_df</p>"), list(name = "ylab", description = "<p>y-axis label</p>"), list(name = "xlabformat", description = "<p>format of date on x-axis</p>"), list(name = "xlabsel", description = "<p>selection of x-labels if not all should be shown,\nby default all are shown up to 15 bars, with more an automated selection is done,\neither NA (default), NULL (show all), or a numeric vector</p>"), 
+    list(name = "xlabpos", description = "<p>position of the x-label, can be a vector with the same length as accrual_df</p>"), list(name = "xlabsrt", description = "<p>rotation of x-axis labels in degrees</p>"), list(name = "xlabadj", description = "<p>adjustment of x-label, numeric vector with length 1 or 2 for different adjustment\nin x- and y-direction</p>"), list(name = "xlabcex", description = "<p>size of x-axis label</p>"), list(name = "col", description = "<p>colors of bars in barplot</p>"), 
+    list(name = "...", description = "<p>further arguments passed to barplot() and axis()</p>")),TRUE,<div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span>
 <span class='va'>enrollment_dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>, <span class='fl'>50</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>
 <span class='fu'>accrual_plot_abs</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"week"</span>,xlabformat<span class='op'>=</span><span class='st'>"%d%b%Y"</span><span class='op'>)</span>
@@ -241,7 +262,7 @@ in x- and y-direction</p></td>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfcol<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>accrual_plot_abs</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"week"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='accrual_plot_abs-6.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+</div>,list(list(title = "Value", contents = "<p>Barplot of absolute recruitment by time unit.</p>", slug = "value")),2021,list(name = "accrualPlot", version = "0.3.5", authors = "Lukas Bütikofer"),list(destination = "dev", mode = "release", version_label = "default", version_tooltip = "Released version", in_dev = FALSE),list(root = "../", title = "accrualPlot"),list(),list(type = "default", left = "<li>\n  <a href=\"../index.html\">\n    <span class=\"fas fa-home fa-lg\"></span>\n     \n  </a>\n</li>\n<li>\n  <a href=\"../reference/index.html\">Reference</a>\n</li>", right = ""),list(.present = TRUE),list(version = "1.6.1"),FALSE</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
