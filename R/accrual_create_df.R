@@ -44,7 +44,8 @@ accrual_create_df <- function(enrollment_dates,
 
 
   check_date(enrollment_dates)
-  
+  if(any(is.na(enrollment_dates))) stop("'enrollment_dates' contains NA values")
+
    if (sum(!is.na(by))==0) {
     nc<-1; nct<-1; byt<-0
   } else {

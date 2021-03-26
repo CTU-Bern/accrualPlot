@@ -72,7 +72,11 @@ test_that("current_date", {
 
 
 
-
+test_that("error on NA dates", {
+  x <- enrollment_dates
+  x[10] <- NA
+  expect_error(accrual_create_df(x), "contains NA")
+})
 
 
 
