@@ -1,3 +1,7 @@
+accrualPlot 0.3.5
+------------------
+enrollment_date no longer allowed to include NA values
+
 accrualPlot 0.3.4
 ------------------
 adapt options for start and end dates accrual_create_df
