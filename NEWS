@@ -1,3 +1,9 @@
+accrualPlot 0.4.0
+------------------
+accrual_plot_abs produces stacked barplots if accrual_df is a list
+does no longer allow additional input of start an end dates
+does no longer produce several plots if accrual_df is a list
+
 accrualPlot 0.3.5
 ------------------
 enrollment_date no longer allowed to include NA values

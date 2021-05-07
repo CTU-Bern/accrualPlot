@@ -772,18 +772,20 @@ accrual_plot_cum<-function(accrual_df,
 #' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
 #' @param unit time unit for which the bars should be plotted, any of "month","year","week","day"
 #' @param target adds horizontal line for target recruitment per time unit
+#' @param overall logical, indicates that accrual_df contains a summary with all sites 
+#'		that should be removed from stacked barplot (only if by is not NA)
+#' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
 #' @param ylim limits for y-axis, numeric vector of length 2
 #' @param xlim limits for x-axis, in barplot units, numeric vector of length 2
 #' @param ylab y-axis label
-#' @param xlabformat format of date on x-axis, default are "%b %Y" if unit is "month",
-#'		"%Y" if unit is "year" and "%d %b %Y" otherwise
+#' @param xlabformat format of date on x-axis
 #' @param xlabsel selection of x-labels if not all should be shown,
 #'		 by default all are shown up to 15 bars, with more an automated selection is done,
 #'		 either NA (default), NULL (show all), or a numeric vector
 #' @param xlabpos position of the x-label
 #' @param xlabsrt rotation of x-axis labels in degrees
 #' @param xlabadj adjustment of x-label, numeric vector with length 1 or 2 for different adjustment
-#'   in x- and y-direction
+#' 		in x- and y-direction
 #' @param xlabcex size of x-axis label
 #' @param col colors of bars in barplot, can be a vector if accrual_df is a list, default is grayscale	
 #' @param legend.list named list with options passed to legend()
@@ -794,6 +796,7 @@ accrual_plot_cum<-function(accrual_df,
 #' @export
 #'
 #' @importFrom graphics abline axis barplot box grconvertX grconvertY legend lines mtext par points polygon text
+#' @importFrom grDevices gray.colors
 #'
 #' @examples
 #' set.seed(2020)
