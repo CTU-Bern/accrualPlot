@@ -8,8 +8,6 @@ accrual_plot_cum(
   accrual_df,
   overall = TRUE,
   name_overall = "Overall",
-  start_date = NA,
-  current_date = NA,
   ylim = NA,
   xlim = NA,
   ylab = "Recruited patients",
@@ -29,17 +27,9 @@ accrual_plot_cum(
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)}
 
-\item{overall}{indicates that accrual_df contains a summary with all sites (only if by is not NA)}
+\item{overall}{logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)}
 
 \item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
-
-\item{start_date}{start_date: date when recruitment started, single character or date,
-or "common" if the same date should be used for all sites,
-  if not given the first enrollment date is used as start_date}
-
-\item{current_date}{date of the data export or database freeze, single character or date
-or "common" if the same date should be used for all sites,
-  if not given the latest enrollment date is used for each site}
 
 \item{ylim}{limits for y-axis}
 
@@ -89,15 +79,15 @@ accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 accrual_plot_cum(accrual_df)
 
 #assuming a common start and current date
-accrual_plot_cum(accrual_df,start_date="common",current_date="common")
+accrual_df<-accrual_create_df(enrollment_dates,by=centers,start_date="common",current_date="common")
+accrual_plot_cum(accrual_df)
 
 #plot and legend options
-accrual_plot_cum(accrual_df,start_date="common",current_date="common",
-     col=c("red",rep(1,3)),lty=c(1,1:3),cex.lab=1.2,cex.axis=1.1,xlabcex=1.1)
+accrual_plot_cum(accrual_df,col=c("red",rep(1,3)),lty=c(1,1:3),cex.lab=1.2,cex.axis=1.1,xlabcex=1.1)
 accrual_plot_cum(accrual_df,legend.list=list(ncol=2,bty=TRUE,cex=0.8))
 
 #without overall
 accrual_df<-accrual_create_df(enrollment_dates,by=centers,overall=FALSE)
-accrual_plot_cum(accrual_df,start_date="common",current_date="common",overall=FALSE)
+accrual_plot_cum(accrual_df,overall=FALSE)
 
 }

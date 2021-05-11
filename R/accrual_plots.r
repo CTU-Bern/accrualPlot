@@ -538,14 +538,8 @@ accrual_plot_predict<-function(accrual_df,
 #'
 #' @param accrual_df  accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)
 #	  with by option, a line is added for each element in the list
-#' @param overall indicates that accrual_df contains a summary with all sites (only if by is not NA)
+#' @param overall logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)
 #' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
-#' @param start_date start_date: date when recruitment started, single character or date,
-#'	  or "common" if the same date should be used for all sites,
-#'		if not given the first enrollment date is used as start_date
-#' @param current_date date of the data export or database freeze, single character or date
-#'	  or "common" if the same date should be used for all sites,
-#'		if not given the latest enrollment date is used for each site
 #' @param ylim  limits for y-axis
 #' @param xlim  limits for x-axis
 #' @param ylab y-axis label
@@ -582,23 +576,21 @@ accrual_plot_predict<-function(accrual_df,
 #' accrual_plot_cum(accrual_df)
 #'
 #' #assuming a common start and current date
-#' accrual_plot_cum(accrual_df,start_date="common",current_date="common")
+#' accrual_df<-accrual_create_df(enrollment_dates,by=centers,start_date="common",current_date="common")
+#' accrual_plot_cum(accrual_df)
 #'
 #' #plot and legend options
-#' accrual_plot_cum(accrual_df,start_date="common",current_date="common",
-#'      col=c("red",rep(1,3)),lty=c(1,1:3),cex.lab=1.2,cex.axis=1.1,xlabcex=1.1)
+#' accrual_plot_cum(accrual_df,col=c("red",rep(1,3)),lty=c(1,1:3),cex.lab=1.2,cex.axis=1.1,xlabcex=1.1)
 #' accrual_plot_cum(accrual_df,legend.list=list(ncol=2,bty=TRUE,cex=0.8))
 #'
 #' #without overall
 #' accrual_df<-accrual_create_df(enrollment_dates,by=centers,overall=FALSE)
-#' accrual_plot_cum(accrual_df,start_date="common",current_date="common",overall=FALSE)
+#' accrual_plot_cum(accrual_df,overall=FALSE)
 #'
 
 accrual_plot_cum<-function(accrual_df,
                            overall=TRUE,
                            name_overall="Overall",
-                           start_date=NA,
-                           current_date=NA,
                            ylim=NA,
                            xlim=NA,
                            ylab="Recruited patients",
@@ -618,7 +610,9 @@ accrual_plot_cum<-function(accrual_df,
     accrual_df<-list(accrual_df)
     overall<-FALSE
   } else {
-    stopifnot((is.data.frame(accrual_df[[1]])))
+	if (!all(unlist(lapply(accrual_df,function(x) is.data.frame(x))))) {
+		stop("accrual_df has to be a data frame or a list of data frames")
+	}
   }
   lc<-length(accrual_df)
 
@@ -634,74 +628,6 @@ accrual_plot_cum<-function(accrual_df,
       print(paste0("'",name_overall,"' not found in accrual_df, overall set to FALSE"))
       overall<-FALSE
     }
-  }
-
-  if (!is.na(start_date)) {
-    if (inherits(start_date,"Date")) {
-      sdate<-start_date-0.00001
-    } else {
-      if (start_date=="common") {
-        sdate<-min(do.call("c",lapply(accrual_df,function(x) min(x$Date))))-0.00001
-      } else {
-        stop("'start_date' should be of class Date or a string ('common')")
-      }
-    }
-    for (i in 1:lc) {
-      if (sdate != min(accrual_df[[i]]$Date))  {
-        stopifnot(sdate <= min(accrual_df[[i]]$Date))
-        accrual_df[[i]]<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),accrual_df[[i]])
-      }
-    }
-  } else {
-    for (i in 1:lc) {
-      sdate<-min(accrual_df[[i]]$Date)-0.00001
-      accrual_df[[i]]<-rbind(data.frame(Date=sdate,Freq=0,Cumulative=0),accrual_df[[i]])
-    }
-  }
-
-  if (!is.na(current_date)) {
-    if (inherits(current_date,"Date")) {
-      end_date<-current_date
-    } else {
-      if (current_date=="common") {
-        end_date<-max(do.call("c",lapply(accrual_df,function(x) max(x$Date))))
-      } else {
-        stop("'current_date' should be of class Date or a string ('common')")
-      }
-    }
-    for (i in 1:lc) {
-      if (end_date != max(accrual_df[[i]]$Date)) {
-        stopifnot(end_date > max(accrual_df[[i]]$Date))
-        accrual_df[[i]]<-rbind(accrual_df[[i]],
-                               data.frame(Date=end_date,Freq=0,Cumulative=max(accrual_df[[i]]$Cumulative)))
-      }
-    }
-  }
-
-
-  ascale<-function(adf,xlim=NA,ylim=NA,ni=5,min.n=ni %/% 2) {
-    if (is.data.frame(adf)) {
-      adf<-list(adf)
-    }
-    if (sum(!is.na(xlim))==0) {
-      xlims<-c(min(do.call("c",lapply(adf,function(x) min(x$Date)))),
-               max(do.call("c",lapply(adf,function(x) max(x$Date)))))
-	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
-      xlims<-c(min(xlims,xlabs),max(xlims,xlabs))
-    } else {
-      xlims<-xlim
-	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
-      xlabs<-xlabs[xlabs>=xlims[1] & xlabs <=xlims[2]]
-    }
-
-    if (sum(!is.na(ylim))==0) {
-      ymax<-max(do.call("c",lapply(adf,function(x) max(x$Cumulative))))
-      ylims<-c(0,ymax)
-    } else {
-      ylims<-ylim
-    }
-    alim<-list(xlim=xlims,ylim=ylims,xlabs=xlabs)
-    return(alim)
   }
 
   if (overall) {
@@ -841,10 +767,14 @@ accrual_plot_abs<-function(accrual_df,
 						    legend.list=NULL,
 							...) {
 
-   if (is.data.frame(accrual_df)) {
-	  accrual_df<-list(accrual_df)
-    }
-
+	if (is.data.frame(accrual_df)) {
+		accrual_df<-list(accrual_df)
+	} else {
+		if (!all(unlist(lapply(accrual_df,function(x) is.data.frame(x))))) {
+			stop("accrual_df has to be a data frame or a list of data frames")
+		}
+	}
+  
 	#remove overall if 
 	if (length(accrual_df)>1 & overall==TRUE) {
 		accrual_df<-accrual_df[names(accrual_df)!=name_overall]
