@@ -11,7 +11,8 @@ accrual_create_df(
   force_start0 = TRUE,
   by = NA,
   overall = TRUE,
-  name_overall = "Overall"
+  name_overall = "Overall",
+  pos_overall = c("last", "first")
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ generates a list with accrual data frames for each site}
 \item{overall}{logical indicates that accrual_df contains a summary with all sites (only if by is not NA)}
 
 \item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
+
+\item{pos_overall}{overall as last or first element of the list (if by is not NA and overall==TRUE)}
 }
 \value{
 Returns a data frame (or a list of data frames if by is not NA)

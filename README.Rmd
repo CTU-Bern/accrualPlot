@@ -87,10 +87,32 @@ plot(df3)
 plot(df3, which = "abs", unit = "day")
 ```
 
+Or with a common start date:
+```{r}
+site <- sample(1:3, 50, replace = TRUE)
+df4 <- accrual_create_df(x, by = site, start_date = "common")
+plot(df4)
+```
+
 It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 75 participants, we can put that in the `target` option. 
 
 ```{r}
 plot(df, "predict", target = 75)
+```
+
+If multiple sites are included in the accrual data frame, the site info is added
+```{r}
+plot(df3, "predict")
+```
+
+Alternatively with a targeted number of centers:
+```{r}
+plot(df3, "predict", targetc = 5, center_colors = heat.colors(5), center_legend = "strip")
+```
+
+Predictions for each site can be added by specifiying separate targets
+```{r}
+plot(df3, "predict", target = c(30,30,30,75))
 ```
 
 Table of recruitment, with or without a descriptive header.
