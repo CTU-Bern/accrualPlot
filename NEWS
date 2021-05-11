@@ -1,8 +1,12 @@
+accrualPlot 0.4.1
+------------------
+accrual_plot_cum no longer allows input of start and end date
+
 accrualPlot 0.4.0
 ------------------
 accrual_plot_abs produces stacked barplots if accrual_df is a list
-does no longer allow additional input of start an end dates
-does no longer produce several plots if accrual_df is a list
+no longer allows additional input of start an end dates
+no longer produces several plots if accrual_df is a list
 
 accrualPlot 0.3.5
 ------------------

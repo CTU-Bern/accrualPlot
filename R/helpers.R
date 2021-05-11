@@ -32,3 +32,29 @@ mult<-function(x,n) {
   return(x)
 }
 
+ascale<-function(adf,xlim=NA,ylim=NA,ni=5,min.n=ni %/% 2) {
+   if (is.data.frame(adf)) {
+     adf<-list(adf)
+   }
+   if (sum(!is.na(xlim))==0) {
+     xlims<-c(min(do.call("c",lapply(adf,function(x) min(x$Date)))),
+              max(do.call("c",lapply(adf,function(x) max(x$Date)))))
+	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
+     xlims<-c(min(xlims,xlabs),max(xlims,xlabs))
+   } else {
+     xlims<-xlim
+	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
+     xlabs<-xlabs[xlabs>=xlims[1] & xlabs <=xlims[2]]
+   }
+
+   if (sum(!is.na(ylim))==0) {
+     ymax<-max(do.call("c",lapply(adf,function(x) max(x$Cumulative))))
+     ylims<-c(0,ymax)
+   } else {
+     ylims<-ylim
+   }
+   alim<-list(xlim=xlims,ylim=ylims,xlabs=xlabs)
+   return(alim)
+}
+ 
+ 

@@ -64,39 +64,42 @@ df <- accrual_create_df(x)
 
 Cumulative recruitment
 ```{r}
-plot(df)
+plot(df, which = "cum")
 # accrual_plot_cum(df)
 ```
 
 Recruitment per day
 ```{r}
 plot(df, which = "abs", unit = "day")
-# accrual_plot_abs(df, unit = "day")
 ```
 
+If we know that we started recruiting on the 1st November, we can add this information.
+```{r}
+df2 <- accrual_create_df(x, start_date = as.Date("2020-11-01"))
+plot(df2)
+```
 
 Multiple sites can also be depicted...
 ```{r}
 site <- sample(1:3, 50, replace = TRUE)
-df2 <- accrual_create_df(x, by = site)
-# accrual_plot_cum(df2)
-plot(df2)
+df3 <- accrual_create_df(x, by = site)
+plot(df3)
+plot(df3, which = "abs", unit = "day")
 ```
 
 It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 75 participants, we can put that in the `target` option. 
 
 ```{r}
-accrual_plot_predict(df, target = 75)
-# accrual_plot_predict(df2, target = 75) # does not seem to work
 plot(df, "predict", target = 75)
 ```
 
 Table of recruitment, with or without a descriptive header.
 ```{r}
 # accrual_table(df) 
-summary(df) 
-summary(df2) 
-summary(df2, header = FALSE) 
+summary(df, unit = "day") 
+summary(df2, unit = "day") 
+summary(df3, unit = "day") 
+summary(df3, unit = "day", header = FALSE) 
 ```
 
 
