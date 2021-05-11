@@ -116,8 +116,6 @@
   <span class='va'>accrual_df</span>,
   overall <span class='op'>=</span> <span class='cn'>TRUE</span>,
   name_overall <span class='op'>=</span> <span class='st'>"Overall"</span>,
-  start_date <span class='op'>=</span> <span class='cn'>NA</span>,
-  current_date <span class='op'>=</span> <span class='cn'>NA</span>,
   ylim <span class='op'>=</span> <span class='cn'>NA</span>,
   xlim <span class='op'>=</span> <span class='cn'>NA</span>,
   ylab <span class='op'>=</span> <span class='st'>"Recruited patients"</span>,
@@ -143,23 +141,11 @@
     </tr>
     <tr>
       <th>overall</th>
-      <td><p>indicates that accrual_df contains a summary with all sites (only if by is not NA)</p></td>
+      <td><p>logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)</p></td>
     </tr>
     <tr>
       <th>name_overall</th>
       <td><p>name of the summary with all sites (if by is not NA and overall==TRUE)</p></td>
-    </tr>
-    <tr>
-      <th>start_date</th>
-      <td><p>start_date: date when recruitment started, single character or date,
-or "common" if the same date should be used for all sites,
-  if not given the first enrollment date is used as start_date</p></td>
-    </tr>
-    <tr>
-      <th>current_date</th>
-      <td><p>date of the data export or database freeze, single character or date
-or "common" if the same date should be used for all sites,
-  if not given the latest enrollment date is used for each site</p></td>
     </tr>
     <tr>
       <th>ylim</th>
@@ -240,19 +226,19 @@ or "common" if the same date should be used for all sites,
 <span class='r-plt'><img src='accrual_plot_cum-3.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>#assuming a common start and current date</span></span>
-<span class='r-in'><span class='fu'>accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span>,start_date<span class='op'>=</span><span class='st'>"common"</span>,current_date<span class='op'>=</span><span class='st'>"common"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>,by<span class='op'>=</span><span class='va'>centers</span>,start_date<span class='op'>=</span><span class='st'>"common"</span>,current_date<span class='op'>=</span><span class='st'>"common"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span></span>
 <span class='r-plt'><img src='accrual_plot_cum-4.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>#plot and legend options</span></span>
-<span class='r-in'><span class='fu'>accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span>,start_date<span class='op'>=</span><span class='st'>"common"</span>,current_date<span class='op'>=</span><span class='st'>"common"</span>,</span>
-<span class='r-in'>     col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>,lty<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>,cex.lab<span class='op'>=</span><span class='fl'>1.2</span>,cex.axis<span class='op'>=</span><span class='fl'>1.1</span>,xlabcex<span class='op'>=</span><span class='fl'>1.1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span>,col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>,lty<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>,cex.lab<span class='op'>=</span><span class='fl'>1.2</span>,cex.axis<span class='op'>=</span><span class='fl'>1.1</span>,xlabcex<span class='op'>=</span><span class='fl'>1.1</span><span class='op'>)</span></span>
 <span class='r-plt'><img src='accrual_plot_cum-5.png' alt='' width='700' height='433' /></span>
 <span class='r-in'><span class='fu'>accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span>,legend.list<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ncol<span class='op'>=</span><span class='fl'>2</span>,bty<span class='op'>=</span><span class='cn'>TRUE</span>,cex<span class='op'>=</span><span class='fl'>0.8</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-plt'><img src='accrual_plot_cum-6.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>#without overall</span></span>
 <span class='r-in'><span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>,by<span class='op'>=</span><span class='va'>centers</span>,overall<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'>accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span>,start_date<span class='op'>=</span><span class='st'>"common"</span>,current_date<span class='op'>=</span><span class='st'>"common"</span>,overall<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span>,overall<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
 <span class='r-plt'><img src='accrual_plot_cum-7.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
 </pre>
