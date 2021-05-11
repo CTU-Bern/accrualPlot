@@ -74,7 +74,7 @@ rate of recruitment" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -195,96 +195,85 @@ rate of recruitment</p>
  number of patients accrued and accrual rate.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples">accrual_table,accrual_table,accrual_table — accrual_table,accrual_table.Rd,character(0),accrual_table,character(0),list(title = "Description", contents = "<p>Table of recruitment overview by site,\nincluding name of site, start date, time recruiting, number of patients recruited and\nrate of recruitment</p>"),list(description = "Table of recruitment overview by site,\nincluding name of site, start date, time recruiting, number of patients recruited and\nrate of recruitment"),<span class='fu'>accrual_table</span><span class='op'>(</span>
-  <span class='va'>accrual_df</span>,
-  overall <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  name_overall <span class='op'>=</span> <span class='st'>"Overall"</span>,
-  pos_overall <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"last"</span>, <span class='st'>"first"</span><span class='op'>)</span>,
-  start_date <span class='op'>=</span> <span class='cn'>NA</span>,
-  format_start_date <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
-  current_date <span class='op'>=</span> <span class='cn'>NA</span>,
-  format_current_date <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
-  unit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"month"</span>, <span class='st'>"year"</span>, <span class='st'>"week"</span>, <span class='st'>"day"</span><span class='op'>)</span>,
-  format_table_date <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
-  format_time <span class='op'>=</span> <span class='st'>"%1.0f"</span>,
-  format_rrate <span class='op'>=</span> <span class='st'>"%1.2f"</span>,
-  header <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>,list(list(name = "accrual_df", description = "<p>accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)</p>"), list(name = "overall", description = "<p>logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)</p>"), list(name = "name_overall", description = "<p>name of the summary with all sites (if by is not NA and overall==TRUE)</p>"), list(name = "pos_overall", description = "<p>overall in last or first row (if by is not NA and overall==TRUE)</p>"), 
-    list(name = "start_date", description = "<p>start_date: date when recruitment started, single character or date,</p>"), list(name = "format_start_date", description = "<p>format of the start date, ignored if start_date is a date</p>"), list(name = "current_date", description = "<p>date of the data export or database freeze, single character or date</p>"), list(name = "format_current_date", description = "<p>format of the current date, ignored if current_date is a date</p>"), list(name = "unit", 
-        description = "<p>time unit for time recruiting and the rate, any of \"month\",\"year\",\"week\",\"day\"</p>"), list(name = "format_table_date", description = "<p>format of start date in table</p>"), list(name = "format_time", description = "<p>format of time recruiting in table</p>"), list(name = "format_rrate", description = "<p>format of recruitment rate in table</p>"), list(name = "header", description = "<p>header: include header, TRUE, NULL or character vector of length 5</p>")),TRUE,<div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span>
-<span class='va'>enrollment_dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>, <span class='fl'>50</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>centers</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Site 1"</span>,<span class='st'>"Site 2"</span>,<span class='st'>"Site 3"</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>,replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>,by<span class='op'>=</span><span class='va'>centers</span><span class='op'>)</span>
-<span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         name           start_date            time                    n
-#&gt; 1     Center First participant in Months accruing Participants accrued
-#&gt; tabi  Site 1            02Jan2018               1                   19
-#&gt; 2     Site 2            03Jan2018               1                   19
-#&gt; 3     Site 3            04Jan2018               1                   12
-#&gt; 4    Overall            02Jan2018               1                   50
-#&gt;                          rate
-#&gt; 1    Accrual rate (per month)
-#&gt; tabi                    20.36
-#&gt; 2                       21.11
-#&gt; 3                       13.85
-#&gt; 4                       53.57</div><div class='input'>
-<span class='co'>#format</span>
-<span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,format_time<span class='op'>=</span><span class='st'>"%1.1f"</span>,format_rrate<span class='op'>=</span><span class='st'>"%1.1f"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         name           start_date            time                    n
-#&gt; 1     Center First participant in Months accruing Participants accrued
-#&gt; tabi  Site 1            02Jan2018             0.9                   19
-#&gt; 2     Site 2            03Jan2018             0.9                   19
-#&gt; 3     Site 3            04Jan2018             0.9                   12
-#&gt; 4    Overall            02Jan2018             0.9                   50
-#&gt;                          rate
-#&gt; 1    Accrual rate (per month)
-#&gt; tabi                     20.4
-#&gt; 2                        21.1
-#&gt; 3                        13.8
-#&gt; 4                        53.6</div><div class='input'>
-<span class='co'>#unit</span>
-<span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         name           start_date          time                    n
-#&gt; 1     Center First participant in Days accruing Participants accrued
-#&gt; tabi  Site 1            02Jan2018            28                   19
-#&gt; 2     Site 2            03Jan2018            27                   19
-#&gt; 3     Site 3            04Jan2018            26                   12
-#&gt; 4    Overall            02Jan2018            28                   50
-#&gt;                        rate
-#&gt; 1    Accrual rate (per day)
-#&gt; tabi                   0.68
-#&gt; 2                      0.70
-#&gt; 3                      0.46
-#&gt; 4                      1.79</div><div class='input'>
-<span class='co'>#common start and current dates</span>
-<span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span>,start_date<span class='op'>=</span><span class='st'>"common"</span>,current_date<span class='op'>=</span><span class='st'>"common"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         name           start_date          time                    n
-#&gt; 1     Center First participant in Days accruing Participants accrued
-#&gt; tabi  Site 1            02Jan2018            28                   19
-#&gt; 2     Site 2            02Jan2018            28                   19
-#&gt; 3     Site 3            02Jan2018            28                   12
-#&gt; 4    Overall            02Jan2018            28                   50
-#&gt;                        rate
-#&gt; 1    Accrual rate (per day)
-#&gt; tabi                   0.68
-#&gt; 2                      0.68
-#&gt; 3                      0.43
-#&gt; 4                      1.79</div><div class='input'><span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span>,start_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2017-12-31"</span><span class='op'>)</span>,
-    current_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-03-01"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         name           start_date          time                    n
-#&gt; 1     Center First participant in Days accruing Participants accrued
-#&gt; tabi  Site 1            31Dec2017            60                   19
-#&gt; 2     Site 2            31Dec2017            60                   19
-#&gt; 3     Site 3            31Dec2017            60                   12
-#&gt; 4    Overall            31Dec2017            60                   50
-#&gt;                        rate
-#&gt; 1    Accrual rate (per day)
-#&gt; tabi                   0.32
-#&gt; 2                      0.32
-#&gt; 3                      0.20
-#&gt; 4                      0.83</div><div class='input'>
-
-</div>,list(list(title = "Value", contents = "<p>Data frame with name of the site, accrual start date, time accruing,\n number of patients accrued and accrual rate.</p>", slug = "value")),2021,list(name = "accrualPlot", version = "0.3.5", authors = "Lukas Bütikofer"),list(destination = "dev", mode = "release", version_label = "default", version_tooltip = "Released version", in_dev = FALSE),list(root = "../", title = "accrualPlot"),list(),list(type = "default", left = "<li>\n  <a href=\"../index.html\">\n    <span class=\"fas fa-home fa-lg\"></span>\n     \n  </a>\n</li>\n<li>\n  <a href=\"../reference/index.html\">Reference</a>\n</li>", right = ""),list(.present = TRUE),list(version = "1.6.1"),FALSE</pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>enrollment_dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>, <span class='fl'>50</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>centers</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Site 1"</span>,<span class='st'>"Site 2"</span>,<span class='st'>"Site 3"</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>,replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>,by<span class='op'>=</span><span class='va'>centers</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         name           start_date            time                    n</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     Center First participant in Months accruing Participants accrued</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tabi  Site 1            02Jan2018               1                   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     Site 2            03Jan2018               1                   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     Site 3            04Jan2018               1                   12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    Overall            02Jan2018               1                   50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                          rate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    Accrual rate (per month)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tabi                    20.36</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                       21.11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                       13.85</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                       53.57</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#format</span></span>
+<span class='r-in'><span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,format_time<span class='op'>=</span><span class='st'>"%1.1f"</span>,format_rrate<span class='op'>=</span><span class='st'>"%1.1f"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         name           start_date            time                    n</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     Center First participant in Months accruing Participants accrued</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tabi  Site 1            02Jan2018             0.9                   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     Site 2            03Jan2018             0.9                   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     Site 3            04Jan2018             0.9                   12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    Overall            02Jan2018             0.9                   50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                          rate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    Accrual rate (per month)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tabi                     20.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                        21.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                        13.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                        53.6</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#unit</span></span>
+<span class='r-in'><span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         name           start_date          time                    n</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     Center First participant in Days accruing Participants accrued</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tabi  Site 1            02Jan2018            28                   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     Site 2            03Jan2018            27                   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     Site 3            04Jan2018            26                   12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    Overall            02Jan2018            28                   50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                        rate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    Accrual rate (per day)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tabi                   0.68</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                      0.70</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                      0.46</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                      1.79</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#common start and current dates</span></span>
+<span class='r-in'><span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span>,start_date<span class='op'>=</span><span class='st'>"common"</span>,current_date<span class='op'>=</span><span class='st'>"common"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         name           start_date          time                    n</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     Center First participant in Days accruing Participants accrued</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tabi  Site 1            02Jan2018            28                   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     Site 2            02Jan2018            28                   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     Site 3            02Jan2018            28                   12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    Overall            02Jan2018            28                   50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                        rate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    Accrual rate (per day)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tabi                   0.68</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                      0.68</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                      0.43</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                      1.79</span>
+<span class='r-in'><span class='fu'>accrual_table</span><span class='op'>(</span><span class='va'>accrual_df</span>,unit<span class='op'>=</span><span class='st'>"day"</span>,start_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2017-12-31"</span><span class='op'>)</span>,</span>
+<span class='r-in'>    current_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-03-01"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         name           start_date          time                    n</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     Center First participant in Days accruing Participants accrued</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tabi  Site 1            31Dec2017            60                   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     Site 2            31Dec2017            60                   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     Site 3            31Dec2017            60                   12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    Overall            31Dec2017            60                   50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                        rate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    Accrual rate (per day)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tabi                   0.32</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                      0.32</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                      0.20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                      0.83</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -73,7 +73,7 @@ Optionally the enrolled and targeted sites can be included." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -137,7 +137,7 @@ Optionally the enrolled and targeted sites can be included.</p>
   ylab <span class='op'>=</span> <span class='st'>"Recruited patients"</span>,
   xlabformat <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
   xlabn <span class='op'>=</span> <span class='fl'>5</span>,
-  xlabminn <span class='op'>=</span> <span class='va'>xlabn</span><span class='op'>%/%</span><span class='fl'>2</span>,
+  xlabminn <span class='op'>=</span> <span class='va'>xlabn</span><span class='op'><a href='https://rdrr.io/r/base/Arithmetic.html'>%/%</a></span><span class='fl'>2</span>,
   xlabpos <span class='op'>=</span> <span class='cn'>NA</span>,
   xlabsrt <span class='op'>=</span> <span class='fl'>45</span>,
   xlabadj <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>,
@@ -283,82 +283,54 @@ requires specification of center_colors</p></td>
     <p>A plot with cumulative accrual and the prediction to the end date.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples">accrual_plot_predict,accrual_plot_predict,accrual_plot_predict — accrual_plot_predict,accrual_plot_predict.Rd,character(0),accrual_plot_predict,character(0),list(title = "Description", contents = "<p>Generates an accrual predction plot based on vector with enrollment dates and a target sample size.\nOptionally the enrolled and targeted sites can be included.</p>"),list(description = "Generates an accrual predction plot based on vector with enrollment dates and a target sample size.\nOptionally the enrolled and targeted sites can be included."),<span class='fu'>accrual_plot_predict</span><span class='op'>(</span>
-  <span class='va'>accrual_df</span>,
-  <span class='va'>target</span>,
-  start_date <span class='op'>=</span> <span class='cn'>NA</span>,
-  current_date <span class='op'>=</span> <span class='cn'>NA</span>,
-  fill_up <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  wfun <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fl'>1</span>, by <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>,
-  center_start_dates <span class='op'>=</span> <span class='cn'>NA</span>,
-  targetc <span class='op'>=</span> <span class='cn'>NA</span>,
-  center_label <span class='op'>=</span> <span class='st'>"Centers"</span>,
-  design <span class='op'>=</span> <span class='fl'>2</span>,
-  center_colors <span class='op'>=</span> <span class='cn'>NA</span>,
-  center_legend <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"number"</span>, <span class='st'>"strip"</span><span class='op'>)</span>,
-  legend_text_size <span class='op'>=</span> <span class='fl'>0.7</span>,
-  pos_prediction <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"out"</span>, <span class='st'>"in"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
-  label_prediction <span class='op'>=</span> <span class='st'>"Predicted end date: "</span>,
-  cex_prediction <span class='op'>=</span> <span class='fl'>1.1</span>,
-  format_prediction <span class='op'>=</span> <span class='st'>"%B %d, %Y"</span>,
-  ylim <span class='op'>=</span> <span class='cn'>NA</span>,
-  xlim <span class='op'>=</span> <span class='cn'>NA</span>,
-  ylab <span class='op'>=</span> <span class='st'>"Recruited patients"</span>,
-  xlabformat <span class='op'>=</span> <span class='st'>"%d%b%Y"</span>,
-  xlabn <span class='op'>=</span> <span class='fl'>5</span>,
-  xlabminn <span class='op'>=</span> <span class='va'>xlabn</span><span class='op'>%/%</span><span class='fl'>2</span>,
-  xlabpos <span class='op'>=</span> <span class='cn'>NA</span>,
-  xlabsrt <span class='op'>=</span> <span class='fl'>45</span>,
-  xlabadj <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>,
-  xlabcex <span class='op'>=</span> <span class='fl'>1</span>,
-  mar <span class='op'>=</span> <span class='cn'>NA</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>,list(list(name = "accrual_df", description = "<p>accrual data frame produced by accrual_create_df (optionally with by option as a list)\nor dates on which patients are enrolled as date or character vector</p>"), list(name = "target", description = "<p>target sample size, can be a vector with the same length as accrual_df</p>"), list(name = "start_date", description = "<p>date when recruitment started,\nsingle character/date, or a vector with the same length as accrual_df,\nif not given the first enrollment date is used as start_date,</p>"), 
-    list(name = "current_date", description = "<p>date of the data export or database freeze,\nsingle character/date, or a vector with the same length as accrual_df,\nif not given the latest enrollment date is used,</p>"), list(name = "fill_up", description = "<p>whether to fill up days where no recruitment was observed,\notherwise these points do not contribute to the regression, default is yes</p>"), list(name = "wfun", description = "<p>function to calculate the weights based on the accrual data frame, default is\nwfun&lt;-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))</p>"), 
-    list(name = "center_start_dates", description = "<p>dates on which centers are enrolled as character or date vector,\nrequired if center information should be shown</p>"), list(name = "targetc", description = "<p>target number of centers, required if center information should be shown,\ncan be a vector with the same length as accrual_df</p>"), list(name = "center_label", description = "<p>label for the center strip od axis</p>"), list(name = "design", description = "<p>design options for the addition of the center\n1: barplots, 2 (default): strip below plot, 3: strip within plot, above line, 4: strip within plot, below line</p>"), 
-    list(name = "center_colors", description = "<p>colors to be used for the strip with the centers, a vector of length targetc</p>"), list(name = "center_legend", description = "<p>either \"number\" to plot numbers in the center strip or \"strip\" to add a legend strip,\nrequires specification of center_colors</p>"), list(name = "legend_text_size", description = "<p>size of the text of the center or legend strip, only has a function</p>"), list(name = "pos_prediction", description = "<p>position of text with predicted end date, out, in or none</p>"), 
-    list(name = "label_prediction", description = "<p>label for predicted end date</p>"), list(name = "cex_prediction", description = "<p>text size for predicted end date</p>"), list(name = "format_prediction", description = "<p>date format for predicted end date</p>"), list(name = "ylim", description = "<p>limits for y-axis, can be a vector with the same length as accrual_df</p>"), list(name = "xlim", description = "<p>limits for x-axis, can be a vector with the same length as accrual_df</p>"), 
-    list(name = "ylab", description = "<p>y-axis label</p>"), list(name = "xlabformat", description = "<p>format of date on x-axis</p>"), list(name = "xlabn", description = "<p>integer giving the desired number of intervals for the xlabel, default=5</p>"), list(name = "xlabminn", description = "<p>nonnegative integer giving the minimal number of intervals</p>"), list(name = "xlabpos", description = "<p>position of the x-label, can be a vector with the same length as accrual_df</p>"), list(name = "xlabsrt", 
-        description = "<p>rotation of x-axis labels in degrees</p>"), list(name = "xlabadj", description = "<p>adjustment of x-label, numeric vector with length 1 or 2 for different adjustment in x- and y-direction</p>"), list(name = "xlabcex", description = "<p>size of x-axis label</p>"), list(name = "mar", description = "<p>vector of length 4 (bottom, left, top, right margins), overwrite default margins</p>"), list(name = "...", description = "<p>further options passed to plot() and axis()</p>")),TRUE,<div class='input'><span class='co'>#Data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span>
-<span class='va'>enrollment_dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>, <span class='fl'>50</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>center_start_dates</span><span class='op'>&lt;-</span><span class='va'>enrollment_dates</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>]</span>
-
-<span class='co'>#Default plot</span>
-<span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>
-<span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
-</div><div class='img'><img src='accrual_plot_predict-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>enrollment_dates</span>,target<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
-</div><div class='img'><img src='accrual_plot_predict-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>#Include site</span>
-<span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span>,
-     center_start_dates<span class='op'>=</span><span class='va'>center_start_dates</span>,targetc<span class='op'>=</span><span class='fl'>10</span>,center_label<span class='op'>=</span><span class='st'>"Site"</span><span class='op'>)</span>
-</div><div class='img'><img src='accrual_plot_predict-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span>,
-     center_start_dates<span class='op'>=</span><span class='va'>center_start_dates</span>,targetc<span class='op'>=</span><span class='fl'>10</span>,
-     center_colors<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>heat.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>,center_legend<span class='op'>=</span><span class='st'>"strip"</span><span class='op'>)</span>
-</div><div class='img'><img src='accrual_plot_predict-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>#Design for site</span>
-<span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span>,
-     center_start_dates<span class='op'>=</span><span class='va'>center_start_dates</span>,targetc<span class='op'>=</span><span class='fl'>10</span>,design<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='img'><img src='accrual_plot_predict-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>#Format prediction end date</span>
-<span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span>,
-     pos_prediction<span class='op'>=</span><span class='st'>"in"</span>,label_prediction<span class='op'>=</span><span class='st'>"End of accrual: "</span>,cex_prediction<span class='op'>=</span><span class='fl'>1.2</span>,
-     format_prediction<span class='op'>=</span><span class='st'>"%Y-%m-%d"</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>150</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='accrual_plot_predict-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>#Format plot</span>
-<span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span>,
-     ylab<span class='op'>=</span><span class='st'>"No of recruited patients"</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>150</span><span class='op'>)</span>,
-     xlabcex<span class='op'>=</span><span class='fl'>1.2</span>,xlabsrt<span class='op'>=</span><span class='fl'>30</span>,xlabn<span class='op'>=</span><span class='fl'>5</span>,xlabmin<span class='op'>=</span><span class='fl'>5</span>,
-     mgp<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>0.5</span>,<span class='fl'>0</span><span class='op'>)</span>,cex.lab<span class='op'>=</span><span class='fl'>1.2</span>,cex.axis<span class='op'>=</span><span class='fl'>1.2</span><span class='op'>)</span>
-</div><div class='img'><img src='accrual_plot_predict-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>#accrual_df with by option</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span>
-<span class='va'>centers</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Site 1"</span>,<span class='st'>"Site 2"</span>,<span class='st'>"Site 3"</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>,replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>,by<span class='op'>=</span><span class='va'>centers</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfcol<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>,<span class='fl'>30</span>,<span class='fl'>30</span>,<span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='accrual_plot_predict-8.png' alt='' width='700' height='433' /></div><div class='input'>
-</div>,list(list(title = "Value", contents = "<p>A plot with cumulative accrual and the prediction to the end date.</p>", slug = "value")),2021,list(name = "accrualPlot", version = "0.3.5", authors = "Lukas Bütikofer"),list(destination = "dev", mode = "release", version_label = "default", version_tooltip = "Released version", in_dev = FALSE),list(root = "../", title = "accrualPlot"),list(),list(type = "default", left = "<li>\n  <a href=\"../index.html\">\n    <span class=\"fas fa-home fa-lg\"></span>\n     \n  </a>\n</li>\n<li>\n  <a href=\"../reference/index.html\">Reference</a>\n</li>", right = ""),list(.present = TRUE),list(version = "1.6.1"),FALSE</pre>
+    <pre class="examples"><span class='r-in'><span class='co'>#Data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>enrollment_dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>, <span class='fl'>50</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>center_start_dates</span><span class='op'>&lt;-</span><span class='va'>enrollment_dates</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Default plot</span></span>
+<span class='r-in'><span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_predict-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>enrollment_dates</span>,target<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_predict-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Include site</span></span>
+<span class='r-in'><span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span>,</span>
+<span class='r-in'>     center_start_dates<span class='op'>=</span><span class='va'>center_start_dates</span>,targetc<span class='op'>=</span><span class='fl'>10</span>,center_label<span class='op'>=</span><span class='st'>"Site"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_predict-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span>,</span>
+<span class='r-in'>     center_start_dates<span class='op'>=</span><span class='va'>center_start_dates</span>,targetc<span class='op'>=</span><span class='fl'>10</span>,</span>
+<span class='r-in'>     center_colors<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>heat.colors</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>,center_legend<span class='op'>=</span><span class='st'>"strip"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_predict-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Design for site</span></span>
+<span class='r-in'><span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span>,</span>
+<span class='r-in'>     center_start_dates<span class='op'>=</span><span class='va'>center_start_dates</span>,targetc<span class='op'>=</span><span class='fl'>10</span>,design<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_predict-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Format prediction end date</span></span>
+<span class='r-in'><span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span>,</span>
+<span class='r-in'>     pos_prediction<span class='op'>=</span><span class='st'>"in"</span>,label_prediction<span class='op'>=</span><span class='st'>"End of accrual: "</span>,cex_prediction<span class='op'>=</span><span class='fl'>1.2</span>,</span>
+<span class='r-in'>     format_prediction<span class='op'>=</span><span class='st'>"%Y-%m-%d"</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>150</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_predict-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Format plot</span></span>
+<span class='r-in'><span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fl'>100</span>,</span>
+<span class='r-in'>     ylab<span class='op'>=</span><span class='st'>"No of recruited patients"</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>150</span><span class='op'>)</span>,</span>
+<span class='r-in'>     xlabcex<span class='op'>=</span><span class='fl'>1.2</span>,xlabsrt<span class='op'>=</span><span class='fl'>30</span>,xlabn<span class='op'>=</span><span class='fl'>5</span>,xlabmin<span class='op'>=</span><span class='fl'>5</span>,</span>
+<span class='r-in'>     mgp<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>0.5</span>,<span class='fl'>0</span><span class='op'>)</span>,cex.lab<span class='op'>=</span><span class='fl'>1.2</span>,cex.axis<span class='op'>=</span><span class='fl'>1.2</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_predict-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#accrual_df with by option</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>centers</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Site 1"</span>,<span class='st'>"Site 2"</span>,<span class='st'>"Site 3"</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>,replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>,by<span class='op'>=</span><span class='va'>centers</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfcol<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>accrual_plot_predict</span><span class='op'>(</span>accrual_df<span class='op'>=</span><span class='va'>accrual_df</span>,target<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>,<span class='fl'>30</span>,<span class='fl'>30</span>,<span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_predict-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
