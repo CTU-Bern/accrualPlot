@@ -74,11 +74,6 @@ plot(df, which = "abs", unit = "day")
 # accrual_plot_abs(df, unit = "day")
 ```
 
-If we know that we started recruiting on the 1st November, we can add this information.
-```{r}
-# accrual_plot_cum(df, start_date = as.Date("2020-11-01"))
-plot(df, start_date = as.Date("2020-11-01"))
-```
 
 Multiple sites can also be depicted...
 ```{r}

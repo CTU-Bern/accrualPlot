@@ -7,42 +7,38 @@
 accrual_plot_abs(
   accrual_df,
   unit = c("month", "year", "week", "day"),
-  target = NA,
-  start_date = NA,
-  current_date = NA,
-  ylim = NA,
-  xlim = NA,
+  target = NULL,
+  overall = TRUE,
+  name_overall = "Overall",
+  ylim = NULL,
+  xlim = NULL,
   ylab = "Recruited patients",
-  xlabformat = "\%b \%Y",
+  xlabformat = NULL,
   xlabsel = NA,
-  xlabpos = NA,
+  xlabpos = NULL,
   xlabsrt = 45,
   xlabadj = c(1, 1),
   xlabcex = 1,
-  col = "grey",
+  col = NULL,
+  legend.list = NULL,
   ...
 )
 }
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
 
-\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day"
-can be a vector with the same length as accrual_df}
+\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day"}
 
-\item{target}{adds horizontal line for target recruitment per time unit,
-can be a vector with the same length as accrual_df}
+\item{target}{adds horizontal line for target recruitment per time unit}
 
-\item{start_date}{start_date: date when recruitment started,
-single character/date, or a vector with the same length as accrual_df,
-if not given the first enrollment date is used as start_date,}
+\item{overall}{logical, indicates that accrual_df contains a summary with all sites 
+that should be removed from stacked barplot (only if by is not NA)}
 
-\item{current_date}{date of the data export or database freeze,
-single character/date, or a vector with the same length as accrual_df,
-if not given the latest enrollment date is used for each site,}
+\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
 
-\item{ylim}{limits for y-axis, can be a vector with the same length as accrual_df}
+\item{ylim}{limits for y-axis, numeric vector of length 2}
 
-\item{xlim}{limits for x-axis, in barplot units, can be a vector with the same length as accrual_df}
+\item{xlim}{limits for x-axis, in barplot units, numeric vector of length 2}
 
 \item{ylab}{y-axis label}
 
@@ -52,7 +48,7 @@ if not given the latest enrollment date is used for each site,}
 by default all are shown up to 15 bars, with more an automated selection is done,
 either NA (default), NULL (show all), or a numeric vector}
 
-\item{xlabpos}{position of the x-label, can be a vector with the same length as accrual_df}
+\item{xlabpos}{position of the x-label}
 
 \item{xlabsrt}{rotation of x-axis labels in degrees}
 
@@ -61,31 +57,29 @@ in x- and y-direction}
 
 \item{xlabcex}{size of x-axis label}
 
-\item{col}{colors of bars in barplot}
+\item{col}{colors of bars in barplot, can be a vector if accrual_df is a list, default is grayscale}
+
+\item{legend.list}{named list with options passed to legend()}
 
 \item{...}{further arguments passed to barplot() and axis()}
 }
 \value{
-Barplot of absolute recruitment by time unit.
+Barplot of absolute recruitment by time unit, stacked if accrual_df is a list.
 }
 \description{
 Plot of absolute recruitment by time unit
 }
 \examples{
 set.seed(2020)
-enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
+enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:100, 50, replace=TRUE))
 accrual_df<-accrual_create_df(enrollment_dates)
-accrual_plot_abs(accrual_df,unit="week",xlabformat="\%d\%b\%Y")
+accrual_plot_abs(accrual_df,unit="week")
 
 #time unit
-accrual_plot_abs(accrual_df,unit="day",xlabformat="\%d\%b\%Y")
+accrual_plot_abs(accrual_df,unit="day")
 
 #include target
-accrual_plot_abs(accrual_df,unit="week",xlabformat="\%d\%b\%Y",target=10)
-
-#different start and current dates
-accrual_plot_abs(accrual_df,unit="week",xlabformat="\%d\%b\%Y",target=10,
-   start_date=as.Date("2017-12-01"),current_date=as.Date("2018-03-01"))
+accrual_plot_abs(accrual_df,unit="week",target=5)
 
 #further plot options
 accrual_plot_abs(accrual_df,unit="week",ylab="No of recruited patients",
@@ -95,8 +89,8 @@ accrual_plot_abs(accrual_df,unit="week",ylab="No of recruited patients",
 #accrual_df with by option
 set.seed(2020)
 centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
+centers<-factor(centers,levels=c("Site 1","Site 2","Site 3"))
 accrual_df<-accrual_create_df(enrollment_dates,by=centers)
-par(mfcol=c(2,2))
 accrual_plot_abs(accrual_df=accrual_df,unit=c("week"))
 
 }
