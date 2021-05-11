@@ -5,7 +5,7 @@
 
 <!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
 
-[![](https://img.shields.io/badge/dev%20version-0.3.5-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
+[![](https://img.shields.io/badge/dev%20version-0.4.0-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
 [![Actions
 Status](https://github.com/CTU-Bern/accrualPlot/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/accrualPlot/actions)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
@@ -73,14 +73,6 @@ Recruitment per day
 
     # accrual_plot_abs(df, unit = "day")
 
-If we know that we started recruiting on the 1st November, we can add
-this information.
-
-    # accrual_plot_cum(df, start_date = as.Date("2020-11-01"))
-    plot(df, start_date = as.Date("2020-11-01"))
-
-![](man/figures/README-unnamed-chunk-5-1.png)
-
 Multiple sites can also be depicted…
 
     site <- sample(1:3, 50, replace = TRUE)
@@ -88,7 +80,7 @@ Multiple sites can also be depicted…
     # accrual_plot_cum(df2)
     plot(df2)
 
-![](man/figures/README-unnamed-chunk-6-1.png)
+![](man/figures/README-unnamed-chunk-5-1.png)
 
 It is also possible to predict the time point at which a certain number
 of participants has been recruited (for estimating when a study will be
@@ -99,7 +91,7 @@ that in the `target` option.
     # accrual_plot_predict(df2, target = 75) # does not seem to work
     plot(df, "predict", target = 75)
 
-![](man/figures/README-unnamed-chunk-7-1.png)
+![](man/figures/README-unnamed-chunk-6-1.png)
 
 Table of recruitment, with or without a descriptive header.
 
