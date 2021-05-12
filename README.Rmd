@@ -49,7 +49,6 @@ Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
 ## Overview
 The first step to using `accrualPlot` is to create an accrual dataframe. This is simply a dataframe with a counts of participants included per day.
 
-
 ```{r}
 # load package
 library(accrualPlot)
@@ -62,45 +61,13 @@ df <- accrual_create_df(x)
 
 ```
 
-Cumulative recruitment
-```{r}
+Cumulative and absolute recruitment plots , as well as a method to predict the time point of study completion, are included.
+
+```{r, fig.height=3}
+par(mfrow = c(1,3))
 plot(df, which = "cum")
-# accrual_plot_cum(df)
+plot(df, which = "abs")
+plot(df, which = "pred", target = 100)
 ```
-
-Recruitment per day
-```{r}
-plot(df, which = "abs", unit = "day")
-```
-
-If we know that we started recruiting on the 1st November, we can add this information.
-```{r}
-df2 <- accrual_create_df(x, start_date = as.Date("2020-11-01"))
-plot(df2)
-```
-
-Multiple sites can also be depicted...
-```{r}
-site <- sample(1:3, 50, replace = TRUE)
-df3 <- accrual_create_df(x, by = site)
-plot(df3)
-plot(df3, which = "abs", unit = "day")
-```
-
-It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 75 participants, we can put that in the `target` option. 
-
-```{r}
-plot(df, "predict", target = 75)
-```
-
-Table of recruitment, with or without a descriptive header.
-```{r}
-# accrual_table(df) 
-summary(df, unit = "day") 
-summary(df2, unit = "day") 
-summary(df3, unit = "day") 
-summary(df3, unit = "day", header = FALSE) 
-```
-
 
 
