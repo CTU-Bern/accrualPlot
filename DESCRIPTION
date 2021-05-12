@@ -22,4 +22,8 @@ Depends:
     lubridate
 RoxygenNote: 7.1.1
 Suggests: 
+    knitr,
+    markdown,
+    rmarkdown,
     testthat
+VignetteBuilder: knitr

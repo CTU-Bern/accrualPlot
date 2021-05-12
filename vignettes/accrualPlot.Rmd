@@ -1,0 +1,127 @@
+---
+title: "accrualPlot"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{accrualPlot}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Following a trials recruitment is an important task for timing of analyses and ensuring that a trial will not run for too long (longer trials are more expensive). `accrualPlot` provides tools for easily creating recruitment plots and even for predicting when a trial will have successfully recruited all participants.
+
+The package is loaded like any other:
+
+```{r setup}
+library(accrualPlot)
+```
+
+
+## The `accrual_df`
+
+To work with `accrualPlot`, we need some data, specifically dates and, optionally, site identifiers. Here's some data that we will use in the following examples.
+
+```{r}
+set.seed(1234)
+x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
+site <- sample(1:3, 50, replace = TRUE)
+```
+
+`accrual_df`s are simply dataframes with the number of participants on each day participants are recruited (or site) began recruiting. 
+
+### Monocentric trials
+
+Monocentric trials obviously have only a single site, so we only need the `x` object we just created. We can pass this into the `accrual_create_df` function.
+
+```{r}
+df <- accrual_create_df(x)
+head(df)
+```
+
+In this case, the `accrual_df` has a single data frame.
+
+### Multicentric trials
+
+For multicentric trials, we should also pass the site identifier to `accrual_create_df` in the `by` argument.
+
+```{r}
+df2 <- accrual_create_df(x, by = site)
+lapply(df2, head)
+```
+
+In this case, the `accrual_df` is a list of dataframes, one for each site and an overall 
+
+### Start and end dates
+
+By default, the start and end dates are defined based on the dates that you pass to `accrual_create_df`. You can override these via the `start_date` and `current_date` arguments. This is useful for when you have particularly slow recruiting trials (such as those with particularly strict inclusion criteria). For example, our fictitious example trial might have started recruiting on the 1st November. By adding this information, we modify other output
+
+```{r}
+df3 <- accrual_create_df(x, start_date = as.Date("2020-11-01"))
+```
+
+For multicentric trials where different sites started recruiting at different times, we can pass a vector to `start_date`
+
+```{r}
+df4 <- accrual_create_df(x, by = site, start_date = as.Date(c("2020-11-10", "2020-11-20", "2020-11-18")))
+```
+
+
+## Accrual plots
+
+`accrualPlot` has three flavours of plots:  
+ * Cumulative  
+ * Absolute  
+ * Prediction
+
+### Cumulative plots 
+
+Cumulative plots show a standard step function of the number of participants recruited up to a given point in time. The plots are produced via the `plot` method (which is a wrapper for the internal function `accrual_plot_cum`)
+```{r, fig.width=7}
+par(mfrow = c(1, 3))
+plot(df)
+plot(df2)
+plot(df4)
+```
+
+### Absolute recruitment
+
+Recruitment plots per unit time can be obtained via the `absolute` method (specify `which = "absolute"` to `plot`)
+
+```{r, fig.width=7}
+par(mfrow = c(1, 3))
+plot(df, which = "abs", unit = "day")
+plot(df2, which = "abs", unit = "day")
+plot(df4, which = "abs", unit = "day")
+```
+
+Options for `unit` are `year`, `month`, `week` and `day`.
+
+Where multiple sites exist, the different sites are indicated by different colours on the stacked bars.
+
+### Predicting the endpoint
+
+It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 75 participants, we can put that in the `target` option. 
+
+```{r}
+plot(df, which = "predict", target = 75)
+```
+
+## Recruitment tables
+
+Tables of recruitment can also be generated using `accrualPlot`, via the `summary` method. As with absolute recruitment above, a unit of time can be specified. 
+
+```{r}
+# accrual_table(df) 
+summary(df, unit = "day") 
+summary(df2, unit = "day") 
+summary(df3, unit = "day") 
+summary(df3, unit = "day", header = FALSE) 
+```
+
+
