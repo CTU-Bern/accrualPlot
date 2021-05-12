@@ -16,6 +16,7 @@
 #' generates a list with accrual data frames for each site
 #' @param overall logical indicates that accrual_df contains a summary with all sites (only if by is not NA)
 #' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
+#' @param pos_overall overall as last or first element of the list (if by is not NA and overall==TRUE)
 #'
 #' @return Returns a data frame (or a list of data frames if by is not NA)
 #' with three columns "Date", "Freq" and "Cumulative" with each
@@ -40,12 +41,14 @@ accrual_create_df <- function(enrollment_dates,
                               force_start0=TRUE,
                               by=NA,
                               overall=TRUE,
-                              name_overall="Overall") {
+                              name_overall="Overall",
+							  pos_overall=c("last","first")) {
 
 
   check_date(enrollment_dates)
   if(any(is.na(enrollment_dates))) stop("'enrollment_dates' contains NA values")
-
+  pos_overall<-match.arg(pos_overall)
+   
    if (sum(!is.na(by))==0) {
     nc<-1; nct<-1; byt<-0
   } else {
@@ -71,7 +74,7 @@ accrual_create_df <- function(enrollment_dates,
     }
   }	
   
- if (!any(current_date[1] %in% c("site","common"))) {
+  if (!any(current_date[1] %in% c("site","common"))) {
 	check_date(current_date)
 	check_length(current_date,by)	
 	current_date<-mult(current_date,nc)
@@ -87,52 +90,36 @@ accrual_create_df <- function(enrollment_dates,
     }
   }	
   
- 
   accrual_df<-numeric(0)
-
-  for (i in 1:nct) {
-
-    if (byt==0) {
-      ed<-enrollment_dates
-    } else {
-      if (overall==TRUE & i==nct) {
-        ed<-enrollment_dates
-      } else {
-        ed<-enrollment_dates[by==lc[i]]
-      }
-    }
-
-    adf <- data.frame(table(ed))
-    colnames(adf) <- c("Date", "Freq")
-    adf$Date <- as.Date(as.character(adf$Date))
-    adf<-adf[order(adf$Date),]
-    adf$Cumulative <- cumsum(adf$Freq)
-
-    if (!is.na(start_date[i])) {
-      if (start_date[i] != min(adf$Date) | force_start0)  {
-        stopifnot(start_date[i] <= min(adf$Date))
-        adf<-rbind(data.frame(Date=start_date[i],Freq=0,Cumulative=0),adf)
-      }
-    }
-
-    if (!is.na(current_date[i])) {
-      if (current_date[i] != max(adf$Date)) {
-        stopifnot(current_date[i] > max(adf$Date))
-        adf<-rbind(adf,data.frame(Date=current_date[i],Freq=0,Cumulative=max(adf$Cumulative)))
-      }
-    }
-
-    if (byt==0) {
-      accrual_df<-adf
-    } else {
-      accrual_df<-append(accrual_df,list(adf))
-      if (overall==TRUE & i==nct) {
-        names(accrual_df)[i]<-name_overall
-      } else {
-        names(accrual_df)[i]<-lc[i]
-      }
-    }
+  
+  if (byt==0) {
+    ed<-enrollment_dates
+    accrual_df<-genadf(enrollment_dates=ed,start_date=start_date[1],current_date=current_date[1],
+		force_start0=force_start0)
+  } 
+  else {
+     for (i in 1:nc) {
+       ed<-enrollment_dates[by==lc[i]]
+	   adf<-genadf(enrollment_dates=ed,start_date=start_date[i],current_date=current_date[i],
+		force_start0=force_start0)
+	   accrual_df<-append(accrual_df,list(adf))
+	   names(accrual_df)[i]<-lc[i]
+	 } 
   }
+   
+  if (byt!=0 & overall) {
+    ed<-enrollment_dates
+    adf<-genadf(enrollment_dates=ed,start_date=start_date[nct],current_date=current_date[nct],
+		force_start0=force_start0)
+    if (pos_overall=="last") {
+	  accrual_df<-append(accrual_df,list(name_overall=adf))
+	} else {
+	  accrual_df<-append(list(name_overall=adf),accrual_df)	
+	}
+	names(accrual_df)[names(accrual_df)=="name_overall"]<-name_overall
+  }
+
   class(accrual_df) <- c("accrual_df", class(accrual_df))
   return(accrual_df)
 }
+

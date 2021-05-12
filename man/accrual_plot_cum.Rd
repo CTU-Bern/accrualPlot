@@ -6,8 +6,6 @@
 \usage{
 accrual_plot_cum(
   accrual_df,
-  overall = TRUE,
-  name_overall = "Overall",
   ylim = NA,
   xlim = NA,
   ylab = "Recruited patients",
@@ -26,10 +24,6 @@ accrual_plot_cum(
 }
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)}
-
-\item{overall}{logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)}
-
-\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
 
 \item{ylim}{limits for y-axis}
 
@@ -88,6 +82,6 @@ accrual_plot_cum(accrual_df,legend.list=list(ncol=2,bty=TRUE,cex=0.8))
 
 #without overall
 accrual_df<-accrual_create_df(enrollment_dates,by=centers,overall=FALSE)
-accrual_plot_cum(accrual_df,overall=FALSE)
+accrual_plot_cum(accrual_df)
 
 }

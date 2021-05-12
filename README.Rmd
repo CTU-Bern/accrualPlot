@@ -70,4 +70,3 @@ plot(df, which = "abs")
 plot(df, which = "pred", target = 100)
 ```
 
-
