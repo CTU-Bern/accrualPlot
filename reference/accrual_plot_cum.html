@@ -117,8 +117,6 @@
 
     <pre class="usage"><span class='fu'>accrual_plot_cum</span><span class='op'>(</span>
   <span class='va'>accrual_df</span>,
-  overall <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  name_overall <span class='op'>=</span> <span class='st'>"Overall"</span>,
   ylim <span class='op'>=</span> <span class='cn'>NA</span>,
   xlim <span class='op'>=</span> <span class='cn'>NA</span>,
   ylab <span class='op'>=</span> <span class='st'>"Recruited patients"</span>,
@@ -141,14 +139,6 @@
     <tr>
       <th>accrual_df</th>
       <td><p>accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)</p></td>
-    </tr>
-    <tr>
-      <th>overall</th>
-      <td><p>logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)</p></td>
-    </tr>
-    <tr>
-      <th>name_overall</th>
-      <td><p>name of the summary with all sites (if by is not NA and overall==TRUE)</p></td>
     </tr>
     <tr>
       <th>ylim</th>
@@ -241,7 +231,7 @@
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>#without overall</span></span>
 <span class='r-in'><span class='va'>accrual_df</span><span class='op'>&lt;-</span><span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>,by<span class='op'>=</span><span class='va'>centers</span>,overall<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'>accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span>,overall<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span></span>
 <span class='r-plt'><img src='accrual_plot_cum-7.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
 </pre>
