@@ -61,7 +61,6 @@
 #' #Data
 #' set.seed(2020)
 #' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-#' center_start_dates<-enrollment_dates[sample(1:length(enrollment_dates),5)]
 #'
 #' #Default plot
 #' accrual_df<-accrual_create_df(enrollment_dates)
