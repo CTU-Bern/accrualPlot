@@ -57,76 +57,12 @@ day.
 
     df <- accrual_create_df(x)
 
-Cumulative recruitment
+Cumulative and absolute recruitment plots , as well as a method to
+predict the time point of study completion, are included.
 
+    par(mfrow = c(1,3))
     plot(df, which = "cum")
+    plot(df, which = "abs")
+    plot(df, which = "pred", target = 100)
 
 ![](man/figures/README-unnamed-chunk-3-1.png)
-
-    # accrual_plot_cum(df)
-
-Recruitment per day
-
-    plot(df, which = "abs", unit = "day")
-
-![](man/figures/README-unnamed-chunk-4-1.png)
-
-If we know that we started recruiting on the 1st November, we can add
-this information.
-
-    df2 <- accrual_create_df(x, start_date = as.Date("2020-11-01"))
-    plot(df2)
-
-![](man/figures/README-unnamed-chunk-5-1.png)
-
-Multiple sites can also be depicted…
-
-    site <- sample(1:3, 50, replace = TRUE)
-    df3 <- accrual_create_df(x, by = site)
-    plot(df3)
-
-![](man/figures/README-unnamed-chunk-6-1.png)
-
-    plot(df3, which = "abs", unit = "day")
-
-![](man/figures/README-unnamed-chunk-6-2.png)
-
-It is also possible to predict the time point at which a certain number
-of participants has been recruited (for estimating when a study will be
-complete). If we want to recruit a total of 75 participants, we can put
-that in the `target` option.
-
-    plot(df, "predict", target = 75)
-
-![](man/figures/README-unnamed-chunk-7-1.png)
-
-Table of recruitment, with or without a descriptive header.
-
-    # accrual_table(df) 
-    summary(df, unit = "day") 
-    #>            start_date          time                    n                   rate
-    #>  First participant in Days accruing Participants accrued Accrual rate (per day)
-    #>             18Nov2020            39                   50                   1.28
-    summary(df2, unit = "day") 
-    #>            start_date          time                    n                   rate
-    #>  First participant in Days accruing Participants accrued Accrual rate (per day)
-    #>             18Nov2020            39                   50                   1.28
-    summary(df3, unit = "day") 
-    #>     name           start_date          time                    n
-    #>   Center First participant in Days accruing Participants accrued
-    #>        1            18Nov2020            39                   16
-    #>        2            21Nov2020            36                   19
-    #>        3            19Nov2020            38                   15
-    #>  Overall            18Nov2020            39                   50
-    #>                    rate
-    #>  Accrual rate (per day)
-    #>                    0.41
-    #>                    0.53
-    #>                    0.39
-    #>                    1.28
-    summary(df3, unit = "day", header = FALSE) 
-    #>     name start_date time  n rate
-    #>        1  18Nov2020   39 16 0.41
-    #>        2  21Nov2020   36 19 0.53
-    #>        3  19Nov2020   38 15 0.39
-    #>  Overall  18Nov2020   39 50 1.28
