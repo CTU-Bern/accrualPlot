@@ -270,7 +270,7 @@ accrual_plot_predict<-function(accrual_df,
 
 	  if (design==3) {
 		if (alim[["ylim"]][1]==0) {
-			alim[["ylim"]][1]<--target/15
+			alim[["ylim"]][1]<--max(target)/15
 		}
 	  }
 
