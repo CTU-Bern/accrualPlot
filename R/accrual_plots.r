@@ -166,7 +166,6 @@ accrual_plot_predict<-function(accrual_df,
 	
 	if (!is.na(sum(mar))) {
 		stopifnot(length(mar)==4)
-		par(mar=mar)
 	}
 
 	if (length(target)==1) {
@@ -239,49 +238,47 @@ accrual_plot_predict<-function(accrual_df,
 	alim<-ascale(accrual_df,xlim=xlim,ylim=ylim,ni=xlabn,min.n=xlabminn,addxmax=edate,addymax=target)
 	cdate<-max(do.call("c",lapply(accrual_df,function(x) max(x$Date))))
 	
+	if (show_center) {
+		if (!is.null(center_start_dates)) {
+		  if (design==3) {
+			if (alim[["ylim"]][1]==0) {
+				alim[["ylim"]][1]<--max(target)/15
+			}
+		  }
+		}		
+	}
 
-	#plot setup
+	
+	#margin
 	#&&&&&&&&&&
-
-	if (pos_prediction %in% c("in","none")) {
-		margin_top<-1
-	} else {
-		margin_top<-2
-	}
+	
 	if (is.na(sum(mar))) {
-		par(mar=c(5,4.3,margin_top,1))
-	}
-
-	#centers
-	if (!is.null(center_start_dates)) {
-
-	  margin_bottom<-5
-
-	  if (center_legend=="number") {
-		margin_right<-1
-	  } else {
-		margin_right<-2.5
-	  }
-
-	  if (design==1) {
-		margin_bottom<-6.5
-	  }
-
-	  if (design==3) {
-		if (alim[["ylim"]][1]==0) {
-			alim[["ylim"]][1]<--max(target)/15
+	
+		mar<-c(5,4.3,2,1)
+	
+		if (pos_prediction %in% c("in","none")) {
+			mar[3]<-1
 		}
-	  }
 
-	  if (is.na(sum(mar))) {
-		par(mar=c(margin_bottom,4.3,margin_top,margin_right))
-	  }
+		#centers
+		if (show_center) {
+			if (!is.null(center_start_dates)) {
+				  if (center_legend=="strip") {
+					mar[4]<-2.5
+				  }
+				  if (design==1)
+					mar[1]<-6.5
+			}
+		}
 	
 	}
+	
 
 	#plot raw data
 	#&&&&&&&&&&
-
+	
+	par(mar=mar)
+	
 	plot(0,type="n",ylim=alim[["ylim"]],xlim=alim[["xlim"]],
 		 axes=FALSE,xlab="",ylab=ylab,...)
 	box()
@@ -367,58 +364,57 @@ accrual_plot_predict<-function(accrual_df,
 			bwidth<-centerw*y_off*lh
 			ypf<-function(yp1) {c(rep(yp1,2),rep(yp1 + bwidth,2))} #get position for barplot
 		
-			if (design==1) {
-		
-			yp1<-uc[3] - par("mar")[1] * y_off*lh #at the bottom
-			yp1<-uc[3] - (par("mar")[1]-0.4) * y_off*lh #0.4 lines above the bottom
-			yp<-ypf(yp1)
-			ypl<-mean(yp)
-			xpl<-cdates[1]-(uc[2]-uc[1])/50
-			xadj<-1
-			label<-center_label
+			if (design==1) {		
+				yp1<-uc[3] - par("mar")[1] * y_off*lh #at the bottom
+				yp1<-uc[3] - (par("mar")[1]-0.4) * y_off*lh #0.4 lines above the bottom
+				yp<-ypf(yp1)
+				ypl<-mean(yp)
+				xpl<-cdates[1]-(uc[2]-uc[1])/50
+				xadj<-1
+				label<-center_label
 			}
 		
 			if (design==2) {
-			yp1<-0.85*uc[4]
-			yp<-ypf(yp1)
-			ypl<-1.03*max(yp)
-			xpl<-cdates[1]
-			xadj<-0
-			label<-center_label
+				yp1<-0.85*uc[4]
+				yp<-ypf(yp1)
+				ypl<-1.03*max(yp)
+				xpl<-cdates[1]
+				xadj<-0
+				label<-center_label
 			}
 		
 			if (design==3) {
-			yp1<-0.85*uc[3]
-			yp<-ypf(yp1)
-			ypl<-mean(yp)
-			xpl<-cdates[length(cdates)]+(uc[2]-uc[1])/50
-			xadj<-0
-			label<-center_label
+				yp1<-0.85*uc[3]
+				yp<-ypf(yp1)
+				ypl<-mean(yp)
+				xpl<-cdates[length(cdates)]+(uc[2]-uc[1])/50
+				xadj<-0
+				label<-center_label
 			}
 		
 		
 			for (i in 1:(length(cdates)-1)) {
-			nc<-csk$Cumulative[i]
-		
-			if (is.na(center_colors[1])) {
-				polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
-						xpd=TRUE,col="grey90",border="gray70")
-			} else {
-				cols<-rev(center_colors)
-				if (length(center_colors)!=targetc) {
-					warning(paste0("center_colors is not of length ",lc))
+				nc<-csk$Cumulative[i]
+			
+				if (is.na(center_colors[1])) {
+					polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
+							xpd=TRUE,col="grey90",border="gray70")
+				} else {
+					cols<-rev(center_colors)
+					if (length(center_colors)!=targetc) {
+						warning(paste0("center_colors is not of length ",lc))
+					}
+					polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
+							xpd=TRUE,col=cols[nc],border="black")
 				}
-				polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
-						xpd=TRUE,col=cols[nc],border="black")
-			}
 			}
 		
 			#legend
 			text(x=xpl,y=ypl,labels=label,adj=xadj,xpd=TRUE)
 		
 			if (center_legend=="number") {
-			td<-(as.numeric(cdates)[-length(cdates)]+as.numeric(cdates)[-1])/2
-			text(x=td,y=mean(yp),labels=csk$Cumulative,xpd=TRUE,cex=center_legend_text_size)
+				td<-(as.numeric(cdates)[-length(cdates)]+as.numeric(cdates)[-1])/2
+				text(x=td,y=mean(yp),labels=csk$Cumulative,xpd=TRUE,cex=center_legend_text_size)
 		
 			} else {
 		
