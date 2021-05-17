@@ -117,7 +117,7 @@ accrual_plot_predict<-function(accrual_df,
 							   center_label="Centers",
 							   center_legend=c("number","strip"),
                                targetc=NA,
-                               center_colors=NA,
+                               center_colors=NULL,
                                center_legend_text_size=0.7,
                                ylim=NA,xlim=NA,
                                ylab="Recruited patients",
@@ -158,19 +158,11 @@ accrual_plot_predict<-function(accrual_df,
 	}
 	
 	
-	stopifnot(design>0 & design<=3)
-	
-	if (center_legend=="strip") {
-		stopifnot(!is.na(center_colors[1]))
-	}
-	
 	if (!is.na(sum(mar))) {
 		stopifnot(length(mar)==4)
 	}
 
-	if (length(target)==1) {
-		#only one prediction
-	} else {
+	if (length(target)!=1) {
 		#separate prediction
 		if (length(target)!=length(accrual_df)) {
 			stop("length of target has to correspond to length of accrual_df")
@@ -186,33 +178,9 @@ accrual_plot_predict<-function(accrual_df,
 	}
 	
 
-	#centers
+	#predictions 
 	#&&&&&&&&&&
 	
-	if (!is.null(center_start_dates)) {
-		if (length(accrual_df)>1)	{
-			if (lct!=length(center_start_dates)) {
-				stop("length of center_start_dates has to correspond to the number of sites (not including overall)")
-			}
-		}	
-	} else {
-		if (length(accrual_df)>1)	{
-			if (overall) {
-				center_start_dates<-do.call("c",lapply(accrual_df[names(accrual_df)!=name_overall],
-					function(x) min(x$Date)))
-			} else {
-				center_start_dates<-do.call("c",lapply(accrual_df,function(x) min(x$Date)))
-			}
-		}
-	}
-	if (!is.null(center_start_dates)) {
-		csk<-accrual_create_df(center_start_dates)
-	}
-	
-	if (is.na(targetc)) {
-		targetc<-lct
-	}
-
 	if (lc==1) {
 		#only 1:
 		adf<-accrual_df[[1]]
@@ -235,11 +203,16 @@ accrual_plot_predict<-function(accrual_df,
 		}
 	}
 	
-	alim<-ascale(accrual_df,xlim=xlim,ylim=ylim,ni=xlabn,min.n=xlabminn,addxmax=edate,addymax=target)
-	cdate<-max(do.call("c",lapply(accrual_df,function(x) max(x$Date))))
 	
+
+	#plot scaling 
+	#&&&&&&&&&&
+	
+	alim<-ascale(accrual_df,xlim=xlim,ylim=ylim,ni=xlabn,min.n=xlabminn,addxmax=edate,addymax=target)
+	
+	# modification of ylim if design==3	
 	if (show_center) {
-		if (!is.null(center_start_dates)) {
+		if (lc>1 | !is.null(center_start_dates)) {
 		  if (design==3) {
 			if (alim[["ylim"]][1]==0) {
 				alim[["ylim"]][1]<--max(target)/15
@@ -254,18 +227,15 @@ accrual_plot_predict<-function(accrual_df,
 	
 	if (is.na(sum(mar))) {
 	
-		mar<-c(5,4.3,2,1)
-	
-		if (pos_prediction %in% c("in","none")) {
-			mar[3]<-1
-		}
+		#mar<-c(5.1,4.1,2.0,1.0)
+		mar<-c(5.1,4.1,4.1,2.1)
 
 		#centers
 		if (show_center) {
-			if (!is.null(center_start_dates)) {
-				  if (center_legend=="strip") {
-					mar[4]<-2.5
-				  }
+			if (lc>1 | !is.null(center_start_dates)) {
+				  #if (center_legend=="strip") {
+					#mar[4]<-2.5
+				  #}
 				  if (design==1)
 					mar[1]<-6.5
 			}
@@ -348,105 +318,20 @@ accrual_plot_predict<-function(accrual_df,
 	}
 	
 
-	#centers, design
+	#plot centers info
 	#&&&&&&&&&&
-	if (show_center) {
-		if (!is.null(center_start_dates)) { 
+	
+	if (show_center) {	
+		if (lc>1 | !is.null(center_start_dates)) {
 		
-			cdates<-c(csk$Date,cdate)
-			centerw<-1
-		
-			#coordinates for plotting
-			uc<-par("usr")
-			lh <- par('cin')[2] * par('cex') * par('lheight')
-			x_off <- diff(grconvertX(0:1, 'inches', 'user'))
-			y_off <- diff(grconvertY(0:1, 'inches', 'user'))
-			bwidth<-centerw*y_off*lh
-			ypf<-function(yp1) {c(rep(yp1,2),rep(yp1 + bwidth,2))} #get position for barplot
-		
-			if (design==1) {		
-				yp1<-uc[3] - par("mar")[1] * y_off*lh #at the bottom
-				yp1<-uc[3] - (par("mar")[1]-0.4) * y_off*lh #0.4 lines above the bottom
-				yp<-ypf(yp1)
-				ypl<-mean(yp)
-				xpl<-cdates[1]-(uc[2]-uc[1])/50
-				xadj<-1
-				label<-center_label
-			}
-		
-			if (design==2) {
-				yp1<-0.85*uc[4]
-				yp<-ypf(yp1)
-				ypl<-1.03*max(yp)
-				xpl<-cdates[1]
-				xadj<-0
-				label<-center_label
-			}
-		
-			if (design==3) {
-				yp1<-0.85*uc[3]
-				yp<-ypf(yp1)
-				ypl<-mean(yp)
-				xpl<-cdates[length(cdates)]+(uc[2]-uc[1])/50
-				xadj<-0
-				label<-center_label
-			}
-		
-		
-			for (i in 1:(length(cdates)-1)) {
-				nc<-csk$Cumulative[i]
-			
-				if (is.na(center_colors[1])) {
-					polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
-							xpd=TRUE,col="grey90",border="gray70")
-				} else {
-					cols<-rev(center_colors)
-					if (length(center_colors)!=targetc) {
-						warning(paste0("center_colors is not of length ",lc))
-					}
-					polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
-							xpd=TRUE,col=cols[nc],border="black")
-				}
-			}
-		
-			#legend
-			text(x=xpl,y=ypl,labels=label,adj=xadj,xpd=TRUE)
-		
-			if (center_legend=="number") {
-				td<-(as.numeric(cdates)[-length(cdates)]+as.numeric(cdates)[-1])/2
-				text(x=td,y=mean(yp),labels=csk$Cumulative,xpd=TRUE,cex=center_legend_text_size)
-		
-			} else {
-		
-				bwidth<-centerw*y_off*lh
-				pl<- 0.5 * x_off * lh
-				lxp<-par("usr")[2] + pl/2
-				ypp<-seq(yp[1],yp[3] + 2*bwidth ,l=targetc+1)
-				if (design==2) {
-					ypp<-seq(yp[1]- bwidth,yp[3] + bwidth,l=targetc+1)
-				}
-				atc<-round(seq(1,targetc,l=5))
-				ypatc<-(ypp[atc]+ypp[atc+1])/2
-				tcks<-pl/5
-				xtck<-matrix(rep(c(lxp+pl,lxp+pl+tcks),length(atc)),length(atc),2,byrow=TRUE)
-				ytck<-matrix(rep(ypatc,each=2),length(atc),2,byrow=TRUE)
-			
-				for (i in 1:targetc) {
-					polygon(x=c(lxp,lxp+pl,lxp+pl,lxp),y=c(ypp[i],ypp[i],ypp[i+1],ypp[i+1]),
-						xpd=TRUE,col=cols[i],border=NA)
-				}
-				lines(x=c(lxp,lxp)+pl,y=c(min(ypp),max(ypp)),xpd=TRUE)
-				lines(x=c(lxp,lxp),y=c(min(ypp),max(ypp)),xpd=TRUE)
-				lines(x=c(lxp,lxp+pl),y=c(min(ypp),min(ypp)),xpd=TRUE)
-				lines(x=c(lxp+pl,lxp),y=c(max(ypp),max(ypp)),xpd=TRUE)
-			
-				for (i in 1:nrow(xtck)) {
-					lines(x=xtck[i,],y=ytck[i,],xpd=TRUE)
-				}
-				text(x=lxp+pl+2*tcks,y=ytck[,2],label=atc,xpd=TRUE,adj=0,cex=center_legend_text_size)
-			
-			}
-		}	
+			plot_center(accrual_df=accrual_df,
+				center_start_dates=center_start_dates,
+				overall=overall,name_overall=name_overall,
+				lc=lc,lct=lct,design=design,
+				center_legend=center_legend,center_colors=center_colors,targetc=targetc,
+				center_label=center_label,center_legend_text_size=center_legend_text_size)
+		}		
+
 	}
 }
 

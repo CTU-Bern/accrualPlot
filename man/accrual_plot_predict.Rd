@@ -25,7 +25,7 @@ accrual_plot_predict(
   center_label = "Centers",
   center_legend = c("number", "strip"),
   targetc = NA,
-  center_colors = NA,
+  center_colors = NULL,
   center_legend_text_size = 0.7,
   ylim = NA,
   xlim = NA,

@@ -92,3 +92,147 @@ ascale<-function(adf,xlim=NA,ylim=NA,ni=5,min.n=ni %/% 2, addxmax = NULL, addyma
 }
  
  
+plot_center<-function(accrual_df,center_start_dates,
+	overall,name_overall,
+	lc,lct,design,
+	center_legend,center_colors,targetc,
+	center_label,center_legend_text_size) {
+	
+	if (!is.null(center_start_dates)) {
+		if (length(accrual_df)>1)	{
+			if (lct!=length(center_start_dates)) {
+				stop("length of center_start_dates has to correspond to the number of sites (not including overall)")
+			}
+		}	
+	} else {
+		if (length(accrual_df)>1)	{
+			if (overall) {
+				center_start_dates<-do.call("c",lapply(accrual_df[names(accrual_df)!=name_overall],
+					function(x) min(x$Date)))
+			} else {
+				center_start_dates<-do.call("c",lapply(accrual_df,function(x) min(x$Date)))
+			}
+		}
+	}
+	
+	csk<-accrual_create_df(center_start_dates)
+	
+	cdate<-max(do.call("c",lapply(accrual_df,function(x) max(x$Date))))
+
+	stopifnot(design>0 & design<=3)
+			
+	if (is.na(targetc)) {
+		targetc<-lct
+	}
+	
+	#colors 
+	if(is.null(center_colors)) {
+		if (center_legend=="number")  {
+			center_colors<-rep("grey90",targetc)
+		} else {
+			center_colors<-gray.colors(targetc)
+		}
+	} else {
+		if (length(center_colors)!=targetc) {
+			warning(paste0("center_colors is not of length ",targetc))
+		}
+	}
+	
+	cols<-rev(center_colors)
+	centerw<-1
+		
+	#dates	
+	cdates<-c(csk$Date,cdate)
+	
+	
+	#coordinates for plotting
+	uc<-par("usr")
+	lh <- par('cin')[2] * par('cex') * par('lheight')
+	x_off <- diff(grconvertX(0:1, 'inches', 'user'))
+	y_off <- diff(grconvertY(0:1, 'inches', 'user'))
+	bwidth<-centerw*y_off*lh
+	ypf<-function(yp1) {c(rep(yp1,2),rep(yp1 + bwidth,2))} #get position for barplot
+	
+	if (design==1) {		
+		yp1<-uc[3] - par("mar")[1] * y_off*lh #at the bottom
+		yp1<-uc[3] - (par("mar")[1]-0.4) * y_off*lh #0.4 lines above the bottom
+		yp<-ypf(yp1)
+		ypl<-mean(yp)
+		xpl<-cdates[1]-(uc[2]-uc[1])/50
+		xadj<-1
+		label<-center_label
+	}
+	
+	if (design==2) {
+		yp1<-0.85*uc[4]
+		yp<-ypf(yp1)
+		ypl<-1.03*max(yp)
+		xpl<-cdates[1]
+		xadj<-0
+		label<-center_label
+	}
+	
+	if (design==3) {
+		yp1<-0.85*uc[3]
+		yp<-ypf(yp1)
+		ypl<-mean(yp)
+		xpl<-cdates[length(cdates)]+(uc[2]-uc[1])/50
+		xadj<-0
+		label<-center_label
+	}
+	
+	
+	for (i in 1:(length(cdates)-1)) {
+		nc<-csk$Cumulative[i]
+		polygon(x=c(cdates[i],rep(cdates[i+1],2),cdates[i]),y=yp,
+			xpd=TRUE,col=cols[nc],border="black")
+	}
+	
+	#legend
+	text(x=xpl,y=ypl,labels=label,adj=xadj,xpd=TRUE)
+	
+	if (center_legend=="number") {
+		td<-(as.numeric(cdates)[-length(cdates)]+as.numeric(cdates)[-1])/2
+		text(x=td,y=mean(yp),labels=csk$Cumulative,xpd=TRUE,cex=center_legend_text_size)
+	
+	} else {
+	
+		bwidth<-centerw*y_off*lh
+		pl<- 0.5 * x_off * lh
+		lxp<-par("usr")[2] + pl/2
+		ypp<-seq(yp[1],yp[3] + 2*bwidth ,l=targetc+1)
+		if (design==2) {
+			ypp<-seq(yp[1]- bwidth,yp[3] + bwidth,l=targetc+1)
+		}
+		atc<-round(seq(1,targetc,l=5))
+		ypatc<-(ypp[atc]+ypp[atc+1])/2
+		tcks<-pl/5
+		xtck<-matrix(rep(c(lxp+pl,lxp+pl+tcks),length(atc)),length(atc),2,byrow=TRUE)
+		ytck<-matrix(rep(ypatc,each=2),length(atc),2,byrow=TRUE)
+	
+		for (i in 1:targetc) {
+			polygon(x=c(lxp,lxp+pl,lxp+pl,lxp),y=c(ypp[i],ypp[i],ypp[i+1],ypp[i+1]),
+				xpd=TRUE,col=cols[i],border=NA)
+		}
+		lines(x=c(lxp,lxp)+pl,y=c(min(ypp),max(ypp)),xpd=TRUE)
+		lines(x=c(lxp,lxp),y=c(min(ypp),max(ypp)),xpd=TRUE)
+		lines(x=c(lxp,lxp+pl),y=c(min(ypp),min(ypp)),xpd=TRUE)
+		lines(x=c(lxp+pl,lxp),y=c(max(ypp),max(ypp)),xpd=TRUE)
+	
+		for (i in 1:nrow(xtck)) {
+			lines(x=xtck[i,],y=ytck[i,],xpd=TRUE)
+		}
+		text(x=lxp+pl+2*tcks,y=ytck[,2],label=atc,xpd=TRUE,adj=0,cex=center_legend_text_size)
+	
+	}
+	
+}
+
+
+
+
+
+
+
+
+

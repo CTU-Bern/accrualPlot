@@ -1,3 +1,7 @@
+accrualPlot 0.5.1
+------------------
+helper function for plotting center info in accrual_plot_predict
+
 accrualPlot 0.5.0
 ------------------
 modifications of accrual_plot_predict
