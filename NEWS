@@ -1,7 +1,44 @@
-accrualPlot 0.3.3
+accrualPlot 0.5.2
 ------------------
 accrual_df class applied to all dataframes when by is used (allows methods to work on subelements of the list too, e.g. plot(list[[1]]))
 tests added for accrual_create_df, accrual_plot_cum
+
+accrualPlot 0.5.1
+------------------
+helper function for plotting center info in accrual_plot_predict
+
+accrualPlot 0.5.0
+------------------
+modifications of accrual_plot_predict
+- no longer allows input of start and end date
+- no longer allows input of enrollment dates
+- center info is shown if accrual_df is a list
+- separate predictions are shown if accrual_df is a list and target is a vector of the same length
+accrual_create_df allows to add overall at top or bottom
+removal of overall option from accrual_plot_cum
+
+accrualPlot 0.4.1
+------------------
+accrual_plot_cum no longer allows input of start and end date
+
+accrualPlot 0.4.0
+------------------
+accrual_plot_abs produces stacked barplots if accrual_df is a list
+no longer allows additional input of start an end dates
+no longer produces several plots if accrual_df is a list
+
+accrualPlot 0.3.5
+------------------
+enrollment_date no longer allowed to include NA values
+
+accrualPlot 0.3.4
+------------------
+adapt options for start and end dates accrual_create_df
+
+accrualPlot 0.3.3
+------------------
+removal of possibility to pass dates are strings
+>>>>>>> 0c51608820193f8d715acf93d90e88fd59caa751
 
 accrualPlot 0.3.2
 ------------------

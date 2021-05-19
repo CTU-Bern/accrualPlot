@@ -6,26 +6,27 @@
 \usage{
 accrual_plot_predict(
   accrual_df,
-  format_enrollment_dates = "\%d\%b\%Y",
   target,
-  start_date = NA,
-  format_start_date = "\%d\%b\%Y",
-  current_date = NA,
-  format_current_date = "\%d\%b\%Y",
-  fill_up = c("yes", "no"),
+  overall = TRUE,
+  name_overall = "Overall",
+  fill_up = TRUE,
   wfun = function(x) seq(1/nrow(x), 1, by = 1/nrow(x)),
-  center_start_dates = NA,
-  format_center_start_dates = "\%d\%b\%Y",
-  targetc = NA,
-  center_label = "Centers",
-  design = 2,
-  center_colors = NA,
-  center_legend = c("number", "strip"),
-  legend_text_size = 0.7,
+  col.obs = NULL,
+  lty.obs = 1,
+  col.pred = "red",
+  lty.pred = 2,
+  pch.pred = 8,
   pos_prediction = c("out", "in", "none"),
   label_prediction = "Predicted end date: ",
   cex_prediction = 1.1,
   format_prediction = "\%B \%d, \%Y",
+  show_center = TRUE,
+  design = 1,
+  center_label = "Centers",
+  center_legend = c("number", "strip"),
+  targetc = NA,
+  center_colors = NULL,
+  center_legend_text_size = 0.7,
   ylim = NA,
   xlim = NA,
   ylab = "Recruited patients",
@@ -37,29 +38,20 @@ accrual_plot_predict(
   xlabadj = c(1, 1),
   xlabcex = 1,
   mar = NA,
-  ...
+  legend.list = NULL,
+  ...,
+  center_start_dates = NULL
 )
 }
 \arguments{
-\item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)
-or dates on which patients are enrolled as date or character vector}
+\item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
 
-\item{format_enrollment_dates}{single character identifying the format of the dates,
-ignored if accrual_df is a data frame or a date vector}
+\item{target}{target sample size, if it is a vector with the same length as accrual_df, center-specific
+predictions are shown}
 
-\item{target}{target sample size, can be a vector with the same length as accrual_df}
+\item{overall}{logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)}
 
-\item{start_date}{date when recruitment started,
-single character/date, or a vector with the same length as accrual_df,
-if not given the first enrollment date is used as start_date,}
-
-\item{format_start_date}{format of the start date, ignored if start_date is a date}
-
-\item{current_date}{date of the data export or database freeze,
-single character/date, or a vector with the same length as accrual_df,
-if not given the latest enrollment date is used,}
-
-\item{format_current_date}{format of the current date, ignored if current_date is a date}
+\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
 
 \item{fill_up}{whether to fill up days where no recruitment was observed,
 otherwise these points do not contribute to the regression, default is yes}
@@ -67,25 +59,15 @@ otherwise these points do not contribute to the regression, default is yes}
 \item{wfun}{function to calculate the weights based on the accrual data frame, default is
 wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))}
 
-\item{center_start_dates}{dates on which centers are enrolled as character or date vector,
-required if center information should be shown}
+\item{col.obs}{line color of cumulative recruitment, can be a vector with the same length as accrual_df}
 
-\item{format_center_start_dates}{format of the center start date, ignored if enrollment_dates are dates}
+\item{lty.obs}{line type of cumulative recruitment, can be a vector with the same length as accrual_df}
 
-\item{targetc}{target number of centers, required if center information should be shown,
-can be a vector with the same length as accrual_df}
+\item{col.pred}{line color of prediction, can be a vector with the same length as accrual_df}
 
-\item{center_label}{label for the center strip od axis}
+\item{lty.pred}{line color of prediction, can be a vector with the same length as accrual_df}
 
-\item{design}{design options for the addition of the center
-1: barplots, 2 (default): strip below plot, 3: strip within plot, above line, 4: strip within plot, below line}
-
-\item{center_colors}{colors to be used for the strip with the centers, a vector of length targetc}
-
-\item{center_legend}{either "number" to plot numbers in the center strip or "strip" to add a legend strip,
-requires specification of center_colors}
-
-\item{legend_text_size}{size of the text of the center or legend strip, only has a function}
+\item{pch.pred}{point symbol for end of prediction, can be a vector with the same length as accrual_df}
 
 \item{pos_prediction}{position of text with predicted end date, out, in or none}
 
@@ -94,6 +76,23 @@ requires specification of center_colors}
 \item{cex_prediction}{text size for predicted end date}
 
 \item{format_prediction}{date format for predicted end date}
+
+\item{show_center}{logical, whether the center info should be shown
+(if accrual_df is a list or if center_start_dates are given)}
+
+\item{design}{design options for the center info
+1 (default): below plot, 2: within plot, top, 3: within plot, bottom}
+
+\item{center_label}{label for the center info}
+
+\item{center_legend}{either "number" to plot numbers in the center strip or "strip" to add a legend strip,
+requires specification of center_colors}
+
+\item{targetc}{target number of centers, to scale the legend if it is "strip"}
+
+\item{center_colors}{colors to be used for the strip with the centers, a vector of length targetc}
+
+\item{center_legend_text_size}{size of the text of the center or legend strip, only has a function}
 
 \item{ylim}{limits for y-axis, can be a vector with the same length as accrual_df}
 
@@ -117,36 +116,42 @@ requires specification of center_colors}
 
 \item{mar}{vector of length 4 (bottom, left, top, right margins), overwrite default margins}
 
+\item{legend.list}{named list with options passed to legend(), only if accrual data frame is a list}
+
 \item{...}{further options passed to plot() and axis()}
+
+\item{center_start_dates}{alternative way to add center info,
+vector with dates on which centers are enrolled}
 }
 \value{
 A plot with cumulative accrual and the prediction to the end date.
 }
 \description{
-Generates an accrual predction plot based on vector with enrollment dates and a target sample size.
-Optionally the enrolled and targeted sites can be included.
+Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)
+and a target sample size.
+If the accrual data frame is a list (i.e. using the by option in accrual_create_df,
+	or if center start dates are given, the number of enrolled and targeted sites is included.
 }
 \examples{
 #Data
 set.seed(2020)
 enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-center_start_dates<-enrollment_dates[sample(1:length(enrollment_dates),5)]
 
 #Default plot
 accrual_df<-accrual_create_df(enrollment_dates)
 accrual_plot_predict(accrual_df=accrual_df,target=100)
-accrual_plot_predict(accrual_df=enrollment_dates,target=100)
 
 #Include site
-accrual_plot_predict(accrual_df=accrual_df,target=100,
-     center_start_dates=center_start_dates,targetc=10,center_label="Site")
-accrual_plot_predict(accrual_df=accrual_df,target=100,
-     center_start_dates=center_start_dates,targetc=10,
-     center_colors=heat.colors(10),center_legend="strip")
+set.seed(2021)
+centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
+accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+accrual_plot_predict(accrual_df=accrual_df,target=100,center_label="Site")
+## with strip and target
+accrual_plot_predict(accrual_df=accrual_df,target=100,center_label="Site",
+ targetc=5,center_colors=heat.colors(5),center_legend="strip")
 
 #Design for site
-accrual_plot_predict(accrual_df=accrual_df,target=100,
-     center_start_dates=center_start_dates,targetc=10,design=1)
+accrual_plot_predict(accrual_df=accrual_df,target=100,design=2)
 
 #Format prediction end date
 accrual_plot_predict(accrual_df=accrual_df,target=100,
@@ -159,11 +164,12 @@ accrual_plot_predict(accrual_df=accrual_df,target=100,
      xlabcex=1.2,xlabsrt=30,xlabn=5,xlabmin=5,
      mgp=c(3,0.5,0),cex.lab=1.2,cex.axis=1.2)
 
-#accrual_df with by option
-set.seed(2020)
-centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
-accrual_df<-accrual_create_df(enrollment_dates,by=centers)
-par(mfcol=c(2,2))
+#predictions for all sites
 accrual_plot_predict(accrual_df=accrual_df,target=c(30,30,30,100))
+## different colors
+accrual_plot_predict(accrual_df=accrual_df,target=c(30,30,30,100),
+col.obs=topo.colors(length(accrual_df)))
+##not showing center info
+accrual_plot_predict(accrual_df=accrual_df,target=c(30,30,30,100),show_center=FALSE)
 
 }

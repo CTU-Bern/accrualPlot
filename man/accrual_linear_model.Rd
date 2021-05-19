@@ -6,26 +6,12 @@
 \usage{
 accrual_linear_model(
   accrual_df,
-  start_date = NA,
-  format_start_date = "\%d\%b\%Y",
-  current_date = NA,
-  format_current_date = "\%d\%b\%Y",
-  fill_up = c("yes", "no"),
+  fill_up = TRUE,
   wfun = function(x) seq(1/nrow(x), 1, by = 1/nrow(x))
 )
 }
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
-
-\item{start_date}{date when recruitment started,
-single character/date, or a vector with the same length as accrual_df,}
-
-\item{format_start_date}{format of the start date, ignored if start_date is a date}
-
-\item{current_date}{date of the data export or database freeze,
-single character/date, or a vector with the same length as accrual_df,}
-
-\item{format_current_date}{format of the current date, ignored if current_date is a date}
 
 \item{fill_up}{whether to fill up days where no recruitment was observed,}
 
@@ -48,10 +34,6 @@ accrual_linear_model(accrual_df)
 accrual_linear_model(accrual_df, wfun=function(x) rep(1,nrow(x)))
 
 #different start and current date
-accrual_df<-accrual_create_df(enrollment_dates)
-accrual_linear_model(accrual_df,start_date=as.Date("2017-12-01"),
-    current_date=as.Date("2018-03-01"))
-#or
 accrual_df<-accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
     current_date=as.Date("2018-03-01"))
 accrual_linear_model(accrual_df)

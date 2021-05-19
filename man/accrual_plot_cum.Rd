@@ -6,12 +6,6 @@
 \usage{
 accrual_plot_cum(
   accrual_df,
-  overall = TRUE,
-  name_overall = "Overall",
-  start_date = NA,
-  format_start_date = "\%d\%b\%Y",
-  current_date = NA,
-  format_current_date = "\%d\%b\%Y",
   ylim = NA,
   xlim = NA,
   ylab = "Recruited patients",
@@ -30,18 +24,6 @@ accrual_plot_cum(
 }
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)}
-
-\item{overall}{indicates that accrual_df contains a summary with all sites (only if by is not NA)}
-
-\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
-
-\item{start_date}{start_date: date when recruitment started, single character or date,}
-
-\item{format_start_date}{format of the start date, ignored if start_date is a date}
-
-\item{current_date}{date of the data export or database freeze, single character or date}
-
-\item{format_current_date}{format of the current date, ignored if current_date is a date}
 
 \item{ylim}{limits for y-axis}
 
@@ -91,15 +73,15 @@ accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 accrual_plot_cum(accrual_df)
 
 #assuming a common start and current date
-accrual_plot_cum(accrual_df,start_date="common",current_date="common")
+accrual_df<-accrual_create_df(enrollment_dates,by=centers,start_date="common",current_date="common")
+accrual_plot_cum(accrual_df)
 
 #plot and legend options
-accrual_plot_cum(accrual_df,start_date="common",current_date="common",
-     col=c("red",rep(1,3)),lty=c(1,1:3),cex.lab=1.2,cex.axis=1.1,xlabcex=1.1)
+accrual_plot_cum(accrual_df,col=c("red",rep(1,3)),lty=c(1,1:3),cex.lab=1.2,cex.axis=1.1,xlabcex=1.1)
 accrual_plot_cum(accrual_df,legend.list=list(ncol=2,bty=TRUE,cex=0.8))
 
 #without overall
 accrual_df<-accrual_create_df(enrollment_dates,by=centers,overall=FALSE)
-accrual_plot_cum(accrual_df,start_date="common",current_date="common",overall=FALSE)
+accrual_plot_cum(accrual_df)
 
 }

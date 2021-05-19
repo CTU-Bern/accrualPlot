@@ -4,13 +4,7 @@
 \alias{accrual_predict}
 \title{accrual_predict}
 \usage{
-accrual_predict(
-  accrual_df,
-  accrual_fit,
-  target,
-  current_date = NA,
-  format_current_date = "\%d\%b\%Y"
-)
+accrual_predict(accrual_df, accrual_fit, target)
 }
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
@@ -18,11 +12,6 @@ accrual_predict(
 \item{accrual_fit}{linear model produced by accrual_linear_model, can be a list with the same length as accrual_df}
 
 \item{target}{target sample size, can be a vector with the same length as accrual_df}
-
-\item{current_date}{date of the data export or database freeze,
-single character/date, or a vector with the same length as accrual_df,}
-
-\item{format_current_date}{format of the current date, ignored if current_date is a date}
 }
 \value{
 The predicted end date or a list of the predicted end dates
@@ -47,11 +36,6 @@ accrual_df<-accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
     current_date=as.Date("2018-03-01"))
 accrual_model<-accrual_linear_model(accrual_df)
 accrual_predict(accrual_df,accrual_model,target=100)
-#or
-accrual_df<-accrual_create_df(enrollment_dates)
-accrual_model<-accrual_linear_model(accrual_df,start_date=as.Date("2017-12-01"),
-    current_date=as.Date("2018-03-01"))
-accrual_predict(accrual_df,accrual_model,target=100,current_date=as.Date("2018-03-01"))
 
  #accrual_df with by option
  set.seed(2020)
