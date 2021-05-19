@@ -12,7 +12,31 @@ df2 <- accrual_create_df(x, by = site)
 
 # vdiffr::manage_cases()
 
+
 test_that("cumulative plots", {
+  expect_error(accrual_plot_cum(df, start_date = as.Date("2020-11-20")))
+  expect_error(accrual_plot_cum(df, current_date = as.Date("2020-12-20")))
+  expect_error(accrual_plot_cum(df, current_date = as.Date("2020-12-20")))
+  expect_warning(accrual_plot_cum(df2, name_overall = "Foo"))
+})
+
+
+
+# accrual_plot_abs(df, unit = "week")
+
+test_that("accrual_plot_abs", {
+  expect_error(accrual_plot_abs(df, unit = "weeks"))
+  expect_error(accrual_plot_abs(df, unit = "week"), NA)
+})
+
+
+
+
+# vdiffr tests
+
+skip_if(getRversion() >= package_version("4.1.0"))
+
+test_that("vdiff cumulative plots", {
 
   fn <- function() accrual_plot_cum(df)
   expect_doppelganger("cumulative", fn)
@@ -20,12 +44,8 @@ test_that("cumulative plots", {
   fn <- function() accrual_plot_cum(df, start_date = as.Date("2020-10-31"))
   expect_doppelganger("cumulative, early start", fn)
 
-  expect_error(accrual_plot_cum(df, start_date = as.Date("2020-11-20")))
-
   fn <- function() accrual_plot_cum(df, current_date = as.Date("2020-12-31"))
   expect_doppelganger("cumulative, end date", fn)
-
-  expect_error(accrual_plot_cum(df, current_date = as.Date("2020-12-20")))
 
   fn <- function() accrual_plot_cum(df, xlabn = 8)
   expect_doppelganger("cumulative, xlabn", fn)
@@ -33,7 +53,6 @@ test_that("cumulative plots", {
 
   fn <- function() accrual_plot_cum(df, xlabsrt = 90)
   expect_doppelganger("cumulative, xlabsrt", fn)
-
 
   fn <- function() accrual_plot_cum(df2)
   expect_doppelganger("cumulative site", fn)
@@ -46,8 +65,6 @@ test_that("cumulative plots", {
   fn <- function() accrual_plot_cum(df2, current_date = as.Date("2020-12-31"))
   expect_doppelganger("cumulative site, end date", fn)
 
-  expect_error(accrual_plot_cum(df, current_date = as.Date("2020-12-20")))
-
   fn <- function() accrual_plot_cum(df2, xlabn = 8)
   expect_doppelganger("cumulative site, xlabn", fn)
   # doesnt seem to work
@@ -55,7 +72,6 @@ test_that("cumulative plots", {
   fn <- function() accrual_plot_cum(df2, xlabsrt = 90)
   expect_doppelganger("cumulative site, xlabsrt", fn)
 
-  expect_warning(accrual_plot_cum(df2, name_overall = "Foo"))
   fn <- function() accrual_plot_cum(df2, col = c("red1", "blue", "orange", "black"))
   expect_doppelganger("cumulative site, col", fn)
 
@@ -68,9 +84,7 @@ test_that("cumulative plots", {
 
 # accrual_plot_abs(df, unit = "week")
 
-test_that("accrual_plot_abs", {
-  expect_error(accrual_plot_abs(df, unit = "weeks"))
-  expect_error(accrual_plot_abs(df, unit = "week"), NA)
+test_that("vdiff accrual_plot_abs", {
   fn <- function() accrual_plot_abs(df)
   expect_doppelganger("abs default", fn)
   fn <- function() accrual_plot_abs(df, unit = "week")
