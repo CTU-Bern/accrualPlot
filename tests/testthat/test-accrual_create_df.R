@@ -63,13 +63,18 @@ test_that("accrual_create_df class, errors, length", {
   expect_error(accrual_create_df(format(enrollment_dates, "%Y-%m-%d"), by=centers))
 
   x <- accrual_create_df(enrollment_dates)
+  y <- accrual_create_df(enrollment_dates, force_start0=FALSE)
   expect_equal(class(x), c("accrual_df", "data.frame"))
   expect_equal(length(x), 3)
-  expect_equal(nrow(x), length(unique(enrollment_dates)))
+  expect_equal(nrow(x), length(unique(enrollment_dates))+1)
+  expect_equal(nrow(y), length(unique(enrollment_dates)))
 
   x <- accrual_create_df(enrollment_dates,by=centers)
+  y <- accrual_create_df(enrollment_dates,by=centers, overall=FALSE)
   expect_equal(class(x), c("accrual_df", "list"))
   expect_equal(length(x), length(unique(centers))+1)
+  expect_equal(length(y), length(unique(centers)))
+ 
 
 })
 
