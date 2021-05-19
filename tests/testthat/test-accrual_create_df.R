@@ -135,7 +135,7 @@ test_that("error on NA dates", {
 test_that("overall column", {
   df2 <- accrual_create_df(x, by = site)
   expect_equal(names(df2)[length(unique(site)) + 1], "Overall")
-  df2 <- accrual_create_df(x, by = site)
+  df2 <- accrual_create_df(x, by = site, name_overall = "All")
   expect_equal(names(df2)[length(unique(site)) + 1], "All")
   df2 <- accrual_create_df(x, by = site, overall = FALSE)
   expect_equal(length(df2), length(unique(site)))
