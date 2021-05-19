@@ -1,3 +1,8 @@
+accrualPlot 0.5.2
+------------------
+bug fix for force_start0 in accrual_create_df
+test for accrual_predict
+
 accrualPlot 0.5.1
 ------------------
 helper function for plotting center info in accrual_plot_predict
