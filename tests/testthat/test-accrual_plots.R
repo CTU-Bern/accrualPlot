@@ -16,7 +16,7 @@ test_that("cumulative plots", {
   expect_error(accrual_plot_cum(df), NA)
   expect_error(accrual_plot_cum(df), NA)
   expect_error(accrual_plot_cum(df), NA)
-  expect_warning(accrual_plot_cum(df2, name_overall = "Foo"))
+  expect_warning(accrual_plot_cum(df2))
 })
 
 
