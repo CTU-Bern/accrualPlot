@@ -20,26 +20,44 @@ check_length <- function(x,y) {
   }
 }	
 	
-genadf<-function(enrollment_dates,start_date,current_date,force_start0) {
+genadf<-function(enrollment_dates,start_date,current_date,force_start0,name=NULL,warning=TRUE) {
+	
 	adf <- data.frame(table(enrollment_dates))
     colnames(adf) <- c("Date", "Freq")
     adf$Date <- as.Date(as.character(adf$Date))
     adf<-adf[order(adf$Date),]
     adf$Cumulative <- cumsum(adf$Freq)
 
-    if (!is.na(start_date)) {
-      if (start_date != min(adf$Date) | force_start0)  {
-        stopifnot(start_date <= min(adf$Date))
-        adf<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),adf)
-      }
-    }
+	if (is.null(name)) {
+		wtext<-""
+	} else {
+		wtext<-paste0(" for ",name)
+	}
+	if (!is.na(start_date) & start_date > min(adf$Date)) {
+		if (warning) {
+			warning(paste0("Start date is after first recruitment",wtext," and will not be used."))
+		}
+		start_date<-NA
+	}
+	if (!is.na(current_date) & current_date < max(adf$Date)) {
+		if (warning) {
+			warning("Current date is before last recruitment",wtext," and will not be used.")
+		}
+		current_date<-NA
+	}
+	
+    if (!is.na(start_date) & start_date!=min(adf$Date)) {
+		adf<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),adf)
+    } else {
+		if (force_start0) {
+			adf<-rbind(data.frame(Date=min(adf$Date),Freq=0,Cumulative=0),adf)
+		}	
+	}
 
-    if (!is.na(current_date)) {
-      if (current_date != max(adf$Date)) {
-        stopifnot(current_date > max(adf$Date))
-        adf<-rbind(adf,data.frame(Date=current_date,Freq=0,Cumulative=max(adf$Cumulative)))
-      }
-    }
+    if (!is.na(current_date) & current_date!=max(adf$Date)) {
+		adf<-rbind(adf,data.frame(Date=current_date,Freq=0,Cumulative=max(adf$Cumulative)))
+	}	
+	
 	return(adf)
 }
 

@@ -101,7 +101,7 @@ accrual_create_df <- function(enrollment_dates,
      for (i in 1:nc) {
        ed<-enrollment_dates[by==lc[i]]
 	   adf<-genadf(enrollment_dates=ed,start_date=start_date[i],current_date=current_date[i],
-		force_start0=force_start0)
+		force_start0=force_start0,name=lc[[i]])
 	   accrual_df<-append(accrual_df,list(adf))
 	   names(accrual_df)[i]<-lc[i]
 	 } 
@@ -110,7 +110,7 @@ accrual_create_df <- function(enrollment_dates,
   if (byt!=0 & overall) {
     ed<-enrollment_dates
     adf<-genadf(enrollment_dates=ed,start_date=start_date[nct],current_date=current_date[nct],
-		force_start0=force_start0)
+		force_start0=force_start0,warning=FALSE)
     if (pos_overall=="last") {
 	  accrual_df<-append(accrual_df,list(name_overall=adf))
 	} else {
