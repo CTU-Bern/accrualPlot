@@ -53,7 +53,7 @@
 <rect x='639.52' y='280.80' width='12.22' height='221.76' style='stroke-width: 0.75; fill: #BEBEBE;' />
 <rect x='654.18' y='280.80' width='12.22' height='221.76' style='stroke-width: 0.75; fill: #BEBEBE;' />
 <text transform='translate(12.96,329.15) rotate(-90)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='96.70px' lengthAdjust='spacingAndGlyphs'>Recruited patients</text>
-<polyline points='59.04,502.56 689.76,502.56 689.76,59.04 59.04,59.04 59.04,502.56 ' style='stroke-width: 0.75;' />
+<polygon points='59.04,502.56 689.76,502.56 689.76,59.04 59.04,59.04 ' style='stroke-width: 0.75; fill: none;' />
 <line x1='59.04' y1='502.56' x2='59.04' y2='59.04' style='stroke-width: 0.75;' />
 <line x1='59.04' y1='502.56' x2='51.84' y2='502.56' style='stroke-width: 0.75;' />
 <line x1='59.04' y1='391.68' x2='51.84' y2='391.68' style='stroke-width: 0.75;' />
@@ -106,12 +106,12 @@
 <line x1='630.97' y1='502.56' x2='630.97' y2='509.76' style='stroke-width: 0.75;' />
 <line x1='645.63' y1='502.56' x2='645.63' y2='509.76' style='stroke-width: 0.75;' />
 <line x1='660.29' y1='502.56' x2='660.29' y2='509.76' style='stroke-width: 0.75;' />
-<text transform='translate(58.03,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Nov 2020</text>
-<text transform='translate(145.99,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Nov 2020</text>
-<text transform='translate(219.30,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Nov 2020</text>
-<text transform='translate(307.26,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Dec 2020</text>
-<text transform='translate(380.57,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Dec 2020</text>
-<text transform='translate(468.54,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Dec 2020</text>
-<text transform='translate(541.84,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Dec 2020</text>
-<text transform='translate(629.81,559.49) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='51.36px' lengthAdjust='spacingAndGlyphs'>Dec 2020</text>
+<text transform='translate(46.24,571.28) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='68.03px' lengthAdjust='spacingAndGlyphs'>18 Nov 2020</text>
+<text transform='translate(134.20,571.28) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='68.03px' lengthAdjust='spacingAndGlyphs'>24 Nov 2020</text>
+<text transform='translate(207.51,571.28) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='68.03px' lengthAdjust='spacingAndGlyphs'>29 Nov 2020</text>
+<text transform='translate(295.48,571.28) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='68.03px' lengthAdjust='spacingAndGlyphs'>05 Dez 2020</text>
+<text transform='translate(368.78,571.28) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='68.03px' lengthAdjust='spacingAndGlyphs'>10 Dez 2020</text>
+<text transform='translate(456.75,571.28) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='68.03px' lengthAdjust='spacingAndGlyphs'>16 Dez 2020</text>
+<text transform='translate(530.05,571.28) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='68.03px' lengthAdjust='spacingAndGlyphs'>21 Dez 2020</text>
+<text transform='translate(618.02,571.28) rotate(-45)' style='font-size: 12.00px; font-family: Liberation Sans;' textLength='68.03px' lengthAdjust='spacingAndGlyphs'>27 Dez 2020</text>
 </svg>
