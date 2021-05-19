@@ -10,13 +10,12 @@ site <- sample(1:3, 50, replace = TRUE)
 df <- accrual_create_df(x)
 df2 <- accrual_create_df(x, by = site)
 
-# vdiffr::manage_cases()
 
 
 test_that("cumulative plots", {
-  expect_error(accrual_plot_cum(df, start_date = as.Date("2020-11-20")))
-  expect_error(accrual_plot_cum(df, current_date = as.Date("2020-12-20")))
-  expect_error(accrual_plot_cum(df, current_date = as.Date("2020-12-20")))
+  expect_error(accrual_plot_cum(df))
+  expect_error(accrual_plot_cum(df))
+  expect_error(accrual_plot_cum(df))
   expect_warning(accrual_plot_cum(df2, name_overall = "Foo"))
 })
 
@@ -34,17 +33,20 @@ test_that("accrual_plot_abs", {
 
 # vdiffr tests
 
-skip_if(getRversion() >= package_version("4.1.0"))
+# to check validate figures
+# vdiffr::manage_cases()
+
+skip_if(getRversion() < package_version("4.1.0"))
 
 test_that("vdiff cumulative plots", {
 
   fn <- function() accrual_plot_cum(df)
   expect_doppelganger("cumulative", fn)
 
-  fn <- function() accrual_plot_cum(df, start_date = as.Date("2020-10-31"))
+  fn <- function() accrual_plot_cum(df)
   expect_doppelganger("cumulative, early start", fn)
 
-  fn <- function() accrual_plot_cum(df, current_date = as.Date("2020-12-31"))
+  fn <- function() accrual_plot_cum(df)
   expect_doppelganger("cumulative, end date", fn)
 
   fn <- function() accrual_plot_cum(df, xlabn = 8)
@@ -57,12 +59,12 @@ test_that("vdiff cumulative plots", {
   fn <- function() accrual_plot_cum(df2)
   expect_doppelganger("cumulative site", fn)
 
-  fn <- function() accrual_plot_cum(df2, start_date = as.Date("2020-10-31"))
+  fn <- function() accrual_plot_cum(df2)
   expect_doppelganger("cumulative site, early start", fn)
 
-  expect_error(accrual_plot_cum(df, start_date = as.Date("2020-11-20")))
+  expect_error(accrual_plot_cum(df))
 
-  fn <- function() accrual_plot_cum(df2, current_date = as.Date("2020-12-31"))
+  fn <- function() accrual_plot_cum(df2)
   expect_doppelganger("cumulative site, end date", fn)
 
   fn <- function() accrual_plot_cum(df2, xlabn = 8)
