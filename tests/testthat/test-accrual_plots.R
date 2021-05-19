@@ -32,6 +32,7 @@ test_that("accrual_plot_abs", {
 # vdiffr tests
 
 # to check validate figures
+# Sys.setlocale("LC_ALL","English")
 # vdiffr::manage_cases()
 
 skip_if(getRversion() < package_version("4.1.0"))
