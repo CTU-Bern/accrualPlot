@@ -13,9 +13,9 @@ df2 <- accrual_create_df(x, by = site)
 
 
 test_that("cumulative plots", {
-  expect_error(accrual_plot_cum(df))
-  expect_error(accrual_plot_cum(df))
-  expect_error(accrual_plot_cum(df))
+  expect_error(accrual_plot_cum(df), NA)
+  expect_error(accrual_plot_cum(df), NA)
+  expect_error(accrual_plot_cum(df), NA)
   expect_warning(accrual_plot_cum(df2, name_overall = "Foo"))
 })
 
@@ -61,8 +61,6 @@ test_that("vdiff cumulative plots", {
 
   fn <- function() accrual_plot_cum(df2)
   expect_doppelganger("cumulative site, early start", fn)
-
-  expect_error(accrual_plot_cum(df))
 
   fn <- function() accrual_plot_cum(df2)
   expect_doppelganger("cumulative site, end date", fn)
