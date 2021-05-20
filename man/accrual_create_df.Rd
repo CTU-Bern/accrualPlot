@@ -18,15 +18,15 @@ accrual_create_df(
 \arguments{
 \item{enrollment_dates}{dates on which patients are enrolled, date vector}
 
-\item{start_date}{date when recruitment started. Single date (used for all sites in by), 
-date vector (with the same length the number of distinct sites in by), 
+\item{start_date}{date when recruitment started. Single date (used for all sites in by),
+date vector (with the same length the number of distinct sites in by),
 "common" (first date overall) or "site" (first date for each site, default).}
 
-\item{current_date}{date of the data export or database freeze. 
+\item{current_date}{date of the data export or database freeze.
    Single date, date vector (with the same length the number of distinct sites in by),
 "common" (last date overall, default) or "site" (first date for each site).}
 
-\item{force_start0}{logical, adds an extra 0 line to the accrual data frame in cases 
+\item{force_start0}{logical, adds an extra 0 line to the accrual data frame in cases
 where a start date is given and corresponds to the earliest enrollment date.}
 
 \item{by}{vector with sites, has to have the same length as enrollment dates,

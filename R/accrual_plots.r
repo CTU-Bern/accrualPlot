@@ -1,12 +1,12 @@
 #' accrual_plot_predict
 #'
-#' Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)  
-#'	and a target sample size. 
-#' If the accrual data frame is a list (i.e. using the by option in accrual_create_df, 
+#' Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)
+#'	and a target sample size.
+#' If the accrual data frame is a list (i.e. using the by option in accrual_create_df,
 #' 	or if center start dates are given, the number of enrolled and targeted sites is included.
 #'
 #' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
-#' @param target target sample size, if it is a vector with the same length as accrual_df, center-specific 
+#' @param target target sample size, if it is a vector with the same length as accrual_df, center-specific
 #'		predictions are shown
 #' @param overall logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)
 #' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
@@ -23,8 +23,8 @@
 #' @param label_prediction label for predicted end date
 #' @param cex_prediction text size for predicted end date
 #' @param format_prediction date format for predicted end date
-#' @param show_center logical, whether the center info should be shown 
-#'	(if accrual_df is a list or if center_start_dates are given)	
+#' @param show_center logical, whether the center info should be shown
+#'	(if accrual_df is a list or if center_start_dates are given)
 #' @param design design options for the center info
 #'		1 (default): below plot, 2: within plot, top, 3: within plot, bottom
 #' @param center_label label for the center info
@@ -48,7 +48,7 @@
 #' @param mar vector of length 4 (bottom, left, top, right margins), overwrite default margins
 #' @param legend.list named list with options passed to legend(), only if accrual data frame is a list
 #' @param ... further options passed to plot() and axis()
-#' @param center_start_dates alternative way to add center info, 
+#' @param center_start_dates alternative way to add center info,
 #'	vector with dates on which centers are enrolled
 #'
 #' @return A plot with cumulative accrual and the prediction to the end date.
@@ -136,7 +136,7 @@ accrual_plot_predict<-function(accrual_df,
 
 	pos_prediction<-match.arg(pos_prediction)
 	center_legend<-match.arg(center_legend)
-	
+
 	if (is.data.frame(accrual_df)) {
 		accrual_df<-list(accrual_df)
 	} else {
@@ -145,19 +145,19 @@ accrual_plot_predict<-function(accrual_df,
 		}
 	}
 	lc<-lct<-length(accrual_df)
-	
+
 	if (lc>1 & overall==TRUE) {
 		if (is.null(accrual_df[[name_overall]])) {
 			print(paste0("'",name_overall,"' not found in accrual_df, overall set to FALSE"))
 			overall<-FALSE
 		}
-	} 
-	
+	}
+
 	if (overall & lc!=1) {
 		lct<-lc-1
 	}
-	
-	
+
+
 	if (!is.na(sum(mar))) {
 		stopifnot(length(mar)==4)
 	}
@@ -168,19 +168,20 @@ accrual_plot_predict<-function(accrual_df,
 			stop("length of target has to correspond to length of accrual_df")
 		}
 	}
-	
+
 	if (is.null(col.obs)) {
 		if (lc==1) {
 			col.obs="black"
 		} else {
 			col.obs<-gray.colors(lc)
 		}
-	}
-	
 
-	#predictions 
+	}
+
+
+	#predictions
 	#&&&&&&&&&&
-	
+
 	if (lc==1) {
 		#only 1:
 		adf<-accrual_df[[1]]
@@ -202,15 +203,15 @@ accrual_plot_predict<-function(accrual_df,
 			edate<-max(do.call("c",end_date))
 		}
 	}
-	
-	
 
-	#plot scaling 
+
+
+	#plot scaling
 	#&&&&&&&&&&
-	
+
 	alim<-ascale(accrual_df,xlim=xlim,ylim=ylim,ni=xlabn,min.n=xlabminn,addxmax=edate,addymax=target)
-	
-	# modification of ylim if design==3	
+
+	# modification of ylim if design==3
 	if (show_center) {
 		if (lc>1 | !is.null(center_start_dates)) {
 		  if (design==3) {
@@ -218,15 +219,15 @@ accrual_plot_predict<-function(accrual_df,
 				alim[["ylim"]][1]<--max(target)/15
 			}
 		  }
-		}		
+		}
 	}
 
-	
+
 	#margin
 	#&&&&&&&&&&
-	
+
 	if (is.na(sum(mar))) {
-	
+
 		#mar<-c(5.1,4.1,2.0,1.0)
 		mar<-c(5.1,4.1,4.1,2.1)
 
@@ -240,15 +241,15 @@ accrual_plot_predict<-function(accrual_df,
 					mar[1]<-6.5
 			}
 		}
-	
+
 	}
-	
+
 
 	#plot raw data
 	#&&&&&&&&&&
-	
+
 	par(mar=mar)
-	
+
 	plot(0,type="n",ylim=alim[["ylim"]],xlim=alim[["xlim"]],
 		 axes=FALSE,xlab="",ylab=ylab,...)
 	box()
@@ -258,19 +259,19 @@ accrual_plot_predict<-function(accrual_df,
 	axis(side=1,at=alim[["xlabs"]],labels=rep("",length(alim[["xlabs"]])),...)
 	if (is.na(xlabpos)) {
 		xlabpos<-par("usr")[3]-(par("usr")[4]-par("usr")[3])/30
-	} 
+	}
 	text(x=alim[["xlabs"]],y=xlabpos,srt=xlabsrt,labels=xlabsl,xpd=TRUE,adj=xlabadj,cex=xlabcex)
 
 	#ylabel:
 	axis(side=2,las=1,...)
 
-	#only overall 
-	if (lc==1 | (overall & length(target)==1)) { 
+	#only overall
+	if (lc==1 | (overall & length(target)==1)) {
 		lines(Cumulative~Date,data=adf,type="s",col=col.obs,lty=lty.obs)
 		lp<-adf[which.max(adf$Date),]
 		lines(x=c(lp$Date,end_date),y=c(lp$Cumulative,target),col=col.pred,lty=lty.pred)
 		points(x=end_date,y=target,pch=pch.pred,col=col.pred,xpd=TRUE)
-		
+
 		#predicted end date
 		if (pos_prediction!="none") {
 			if (pos_prediction=="in") {
@@ -281,7 +282,7 @@ accrual_plot_predict<-function(accrual_df,
 				paste0(label_prediction,format(end_date, format_prediction)),cex=cex_prediction)
 			}
 		}
-	
+
 	} else {
 	#for each site:
 		target<-mult(target,length(adf))
@@ -290,16 +291,16 @@ accrual_plot_predict<-function(accrual_df,
 		col.pred<-mult(col.pred,length(adf))
 		lty.pred<-mult(lty.pred,length(adf))
 		pch.pred<-mult(pch.pred,length(adf))
-			
+
 		for (k in 1:length(adf)) {
-			
+
 			lines(Cumulative~Date,data=adf[[k]],type="s",col=col.obs[k],lty=lty.obs[k])
 			lp<-adf[[k]][which.max(adf[[k]]$Date),]
 			lines(x=c(lp$Date,end_date[[k]]),y=c(lp$Cumulative,target[k]),col=col.pred[k],lty=lty.pred[k])
 			points(x=end_date[[k]],y=target[k],pch=pch.pred[k],col=col.pred[k],xpd=TRUE)
 		}
 		lna<-paste0(names(adf),": ",format(do.call("c",end_date), format_prediction))
-		
+
 		if(!is.null(legend.list)) {
 			ll<-legend.list
 			#defaults if not given:
@@ -314,23 +315,24 @@ accrual_plot_predict<-function(accrual_df,
 			ll<-list(x = "topleft",legend = lna,ncol=1,col=col.obs,lty=lty.obs,bty="n",y.intersp=0.85,seg.len=1.5)
 		}
 		do.call("legend",ll)
-		
+
 	}
-	
+
+
 
 	#plot centers info
 	#&&&&&&&&&&
-	
-	if (show_center) {	
+
+	if (show_center) {
 		if (lc>1 | !is.null(center_start_dates)) {
-		
+
 			plot_center(accrual_df=accrual_df,
 				center_start_dates=center_start_dates,
 				overall=overall,name_overall=name_overall,
 				lc=lc,lct=lct,design=design,
 				center_legend=center_legend,center_colors=center_colors,targetc=targetc,
 				center_label=center_label,center_legend_text_size=center_legend_text_size)
-		}		
+		}
 
 	}
 }
@@ -423,6 +425,7 @@ accrual_plot_cum<-function(accrual_df,
     lty<-rep(lty,lc)
   }
 
+
   alim<-ascale(accrual_df,xlim=xlim,ylim=ylim,ni=xlabn,min.n=xlabminn)
   lna<-names(accrual_df)
 
@@ -473,7 +476,7 @@ accrual_plot_cum<-function(accrual_df,
 #' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
 #' @param unit time unit for which the bars should be plotted, any of "month","year","week","day"
 #' @param target adds horizontal line for target recruitment per time unit
-#' @param overall logical, indicates that accrual_df contains a summary with all sites 
+#' @param overall logical, indicates that accrual_df contains a summary with all sites
 #'		that should be removed from stacked barplot (only if by is not NA)
 #' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
 #' @param ylim limits for y-axis, numeric vector of length 2
@@ -488,7 +491,7 @@ accrual_plot_cum<-function(accrual_df,
 #' @param xlabadj adjustment of x-label, numeric vector with length 1 or 2 for different adjustment
 #' 		in x- and y-direction
 #' @param xlabcex size of x-axis label
-#' @param col colors of bars in barplot, can be a vector if accrual_df is a list, default is grayscale	
+#' @param col colors of bars in barplot, can be a vector if accrual_df is a list, default is grayscale
 #' @param legend.list named list with options passed to legend()
 #' @param ... further arguments passed to barplot() and axis()
 #'
@@ -549,18 +552,18 @@ accrual_plot_abs<-function(accrual_df,
 			stop("accrual_df has to be a data frame or a list of data frames")
 		}
 	}
-  
-	#remove overall if 
+
+	#remove overall if
 	if (length(accrual_df)>1 & overall==TRUE) {
 		if (is.null(accrual_df[[name_overall]])) {
 			print(paste0("'",name_overall,"' not found in accrual_df, overall set to FALSE"))
 			overall<-FALSE
-		} else {	
+		} else {
 			accrual_df<-accrual_df[names(accrual_df)!=name_overall]
 		}
 	}
 	lc<-length(accrual_df)
-	
+
 	unit<-match.arg(unit)
 	if (length(unit)!=1) {
 		stop("unit should be of length 1")
@@ -571,7 +574,7 @@ accrual_plot_abs<-function(accrual_df,
 	if (!is.null(xlim) & length(xlim)!=2) {
 		stop("xlim should be of length 2")
 	}
-		
+
 	#default colors
 	if (is.null(col)) {
 		if (lc==1) {
@@ -579,9 +582,10 @@ accrual_plot_abs<-function(accrual_df,
 		} else {
 			col<-gray.colors(lc)
 		}
+
 	}
 
-	#default xlabformat	
+	#default xlabformat
 	if (is.null(xlabformat)) {
 		if (unit=="month") {xlabformat<-"%b %Y"}
 		if (unit=="year") {xlabformat<-"%Y"}
@@ -590,22 +594,22 @@ accrual_plot_abs<-function(accrual_df,
 	}
 
 	for (i in 1:lc) {
-	   
+
 	  accrual_dfi<-accrual_df[[i]]
-	  
+
 	  #summarize data by time unit
 	  dfi<-accrual_time_unit(accrual_dfi,unit=unit)
 	  names(dfi)[names(dfi)=="Freq"]<-paste0("Freq",i)
-	  
+
 	  if (i==1) {
 		#dfit<-dfi[,names(dfi)!="date"]
 		dfit<-dfi
 	  } else {
-		#dfit<-merge(dfit,dfi[,names(dfi)!="date"],all=TRUE) 
-		dfit<-merge(dfit,dfi,all=TRUE) 
+		#dfit<-merge(dfit,dfi[,names(dfi)!="date"],all=TRUE)
+		dfit<-merge(dfit,dfi,all=TRUE)
 	  }
 	}
-	
+
 	dfit<-dfit[order(dfit$date),]
 	ma<-as.matrix(dfit[,paste0("Freq",1:lc)])
 	ma[is.na(ma)]<-0
@@ -613,7 +617,7 @@ accrual_plot_abs<-function(accrual_df,
 		ma<-ma[,ncol(ma):1]
 	}
 	rownames(ma)<-rep("",nrow(ma))
-	
+
 	if (is.null(ylim)) {
 	  ylim<-c(0,max(apply(ma,1,function(x) sum(x,na.rm=TRUE)),target,na.rm=TRUE)+1)
 	}
@@ -623,7 +627,7 @@ accrual_plot_abs<-function(accrual_df,
 	if (is.null(xlim)) {
 		xlim<-c(min(b),max(b)) + c(-0.5,0.5)
 	}
-	
+
 	#x label selection
 	if (is.null(xlabsel)) {
 	  sel<-1:length(b)
@@ -642,7 +646,7 @@ accrual_plot_abs<-function(accrual_df,
 
 	#plot
 	b<-barplot(t(ma),ylab=ylab,ylim=ylim,axes=FALSE,xlim=xlim,col=col,...)
-	
+
 	box()
 	axis(side=2,las=2,...)
 	axis(side=1,at=b,labels=rep("",length(b)),...)
@@ -650,7 +654,7 @@ accrual_plot_abs<-function(accrual_df,
 	#xlabel
 	if (is.null(xlabpos)) {
 	  xlabpos<-par("usr")[3]-(par("usr")[4]-par("usr")[3])/30
-	} 
+	}
 	sel<-sel[sel<=length(b)]
 	bu<-b[sel]
 	lab<-format(dfit$date,xlabformat)
@@ -661,7 +665,7 @@ accrual_plot_abs<-function(accrual_df,
 	if (!is.null(target)) {
 	  abline(h=target,lty=2)
 	}
-	
+
 	#legend
 	if (lc!=1) {
 		if(!is.null(legend.list)) {
@@ -681,4 +685,42 @@ accrual_plot_abs<-function(accrual_df,
 		do.call("legend",ll)
 	}
 }
+
+
+# helpers
+ascale<-function(adf,xlim=NA,ylim=NA,ni=5,min.n=ni %/% 2) {
+  if (is.data.frame(adf)) {
+    adf<-list(adf)
+  }
+  if (sum(!is.na(xlim))==0) {
+    xlims<-c(min(do.call("c",lapply(adf,function(x) min(x$Date)))),
+             max(do.call("c",lapply(adf,function(x) max(x$Date)))))
+  } else {
+    xlims<-xlim
+  }
+  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
+  xlabs<-xlabs[xlabs>=xlims[1] & xlabs <=xlims[2]]
+
+  if (sum(!is.na(ylim))==0) {
+    ymax<-max(do.call("c",lapply(adf,function(x) max(x$Cumulative))))
+    ylims<-c(0,ymax)
+  } else {
+    ylims<-ylim
+  }
+  alim<-list(xlim=xlims,ylim=ylims,xlabs=xlabs)
+  return(alim)
+}
+
+
+
+mult<-function(var, accrual_df) {
+  if (length(var)==1) {
+    var<-rep(var,length(accrual_df))
+    return(var)
+  } else {
+    stopifnot(length(var)==length(accrual_df))
+    return(var)
+  }
+}
+
 

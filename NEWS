@@ -1,3 +1,13 @@
+accrualPlot 0.5.3
+------------------
+accrual_df class applied to all dataframes when by is used (allows methods to work on subelements of the list too, e.g. plot(list[[1]]))
+tests added for accrual_create_df, accrual_plot_cum
+
+accrualPlot 0.5.2
+------------------
+bug fix for force_start0 in accrual_create_df
+test for accrual_predict
+
 accrualPlot 0.5.1
 ------------------
 helper function for plotting center info in accrual_plot_predict
@@ -33,6 +43,7 @@ adapt options for start and end dates accrual_create_df
 accrualPlot 0.3.3
 ------------------
 removal of possibility to pass dates are strings
+>>>>>>> 0c51608820193f8d715acf93d90e88fd59caa751
 
 accrualPlot 0.3.2
 ------------------

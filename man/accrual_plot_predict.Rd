@@ -46,7 +46,7 @@ accrual_plot_predict(
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
 
-\item{target}{target sample size, if it is a vector with the same length as accrual_df, center-specific 
+\item{target}{target sample size, if it is a vector with the same length as accrual_df, center-specific
 predictions are shown}
 
 \item{overall}{logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)}
@@ -77,7 +77,7 @@ wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))}
 
 \item{format_prediction}{date format for predicted end date}
 
-\item{show_center}{logical, whether the center info should be shown 
+\item{show_center}{logical, whether the center info should be shown
 (if accrual_df is a list or if center_start_dates are given)}
 
 \item{design}{design options for the center info
@@ -120,16 +120,16 @@ requires specification of center_colors}
 
 \item{...}{further options passed to plot() and axis()}
 
-\item{center_start_dates}{alternative way to add center info, 
+\item{center_start_dates}{alternative way to add center info,
 vector with dates on which centers are enrolled}
 }
 \value{
 A plot with cumulative accrual and the prediction to the end date.
 }
 \description{
-Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)  
-and a target sample size. 
-If the accrual data frame is a list (i.e. using the by option in accrual_create_df, 
+Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)
+and a target sample size.
+If the accrual data frame is a list (i.e. using the by option in accrual_create_df,
 	or if center start dates are given, the number of enrolled and targeted sites is included.
 }
 \examples{
