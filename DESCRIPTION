@@ -1,7 +1,7 @@
 Package: accrualPlot
 Type: Package
 Title: Accrual plots and predictions for clinical trials
-Version: 0.5.2
+Version: 0.5.3
 Authors@R: 
     c(
     person(given = "Lukas", family = "Bütikofer", role = c("cre", "aut"),
@@ -16,6 +16,8 @@ Description: Tracking accrual in clinical trials is important for trial success.
     functions to aid the tracking of accrual and predict when a trial will reach 
     it's intended sample size.
 License: MIT + file LICENSE
+URL: https://github.com/CTU-Bern/accrualPlot
+BugReports: https://github.com/CTU-Bern/accrualPlot/issues
 Encoding: UTF-8
 LazyData: true
 Depends:
@@ -25,5 +27,6 @@ Suggests:
     knitr,
     markdown,
     rmarkdown,
-    testthat
+    testthat,
+    vdiffr
 VignetteBuilder: knitr

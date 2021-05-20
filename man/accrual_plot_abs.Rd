@@ -31,7 +31,7 @@ accrual_plot_abs(
 
 \item{target}{adds horizontal line for target recruitment per time unit}
 
-\item{overall}{logical, indicates that accrual_df contains a summary with all sites 
+\item{overall}{logical, indicates that accrual_df contains a summary with all sites
 that should be removed from stacked barplot (only if by is not NA)}
 
 \item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
