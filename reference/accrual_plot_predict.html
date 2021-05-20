@@ -40,9 +40,9 @@
 
 
 <meta property="og:title" content="accrual_plot_predict — accrual_plot_predict" />
-<meta property="og:description" content="Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)  
-and a target sample size. 
-If the accrual data frame is a list (i.e. using the by option in accrual_create_df, 
+<meta property="og:description" content="Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)
+and a target sample size.
+If the accrual data frame is a list (i.e. using the by option in accrual_create_df,
 	or if center start dates are given, the number of enrolled and targeted sites is included." />
 
 
@@ -75,7 +75,7 @@ If the accrual data frame is a list (i.e. using the by option in accrual_create_
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.3</span>
       </span>
     </div>
 
@@ -95,7 +95,12 @@ If the accrual data frame is a list (i.e. using the by option in accrual_create_
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/CTU-Bern/accrualPlot/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -110,14 +115,14 @@ If the accrual data frame is a list (i.e. using the by option in accrual_create_
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>accrual_plot_predict</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/CTU-Bern/accrualPlot/blob/master/R/accrual_plots.r'><code>R/accrual_plots.r</code></a></small>
     <div class="hidden name"><code>accrual_plot_predict.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)  
-and a target sample size. 
-If the accrual data frame is a list (i.e. using the by option in accrual_create_df, 
+    <p>Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)
+and a target sample size.
+If the accrual data frame is a list (i.e. using the by option in accrual_create_df,
 	or if center start dates are given, the number of enrolled and targeted sites is included.</p>
     </div>
 
@@ -169,7 +174,7 @@ If the accrual data frame is a list (i.e. using the by option in accrual_create_
     </tr>
     <tr>
       <th>target</th>
-      <td><p>target sample size, if it is a vector with the same length as accrual_df, center-specific 
+      <td><p>target sample size, if it is a vector with the same length as accrual_df, center-specific
 predictions are shown</p></td>
     </tr>
     <tr>
@@ -228,7 +233,7 @@ wfun&lt;-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))</p></td>
     </tr>
     <tr>
       <th>show_center</th>
-      <td><p>logical, whether the center info should be shown 
+      <td><p>logical, whether the center info should be shown
 (if accrual_df is a list or if center_start_dates are given)</p></td>
     </tr>
     <tr>
@@ -311,7 +316,7 @@ requires specification of center_colors</p></td>
     </tr>
     <tr>
       <th>center_start_dates</th>
-      <td><p>alternative way to add center info, 
+      <td><p>alternative way to add center info,
 vector with dates on which centers are enrolled</p></td>
     </tr>
     </table>

@@ -73,7 +73,7 @@ recruited at each date from a vector with enrollment dates." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.3</span>
       </span>
     </div>
 
@@ -93,7 +93,12 @@ recruited at each date from a vector with enrollment dates." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/CTU-Bern/accrualPlot/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -108,7 +113,7 @@ recruited at each date from a vector with enrollment dates." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>accrual_create_df</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/CTU-Bern/accrualPlot/blob/master/R/accrual_create_df.R'><code>R/accrual_create_df.R</code></a></small>
     <div class="hidden name"><code>accrual_create_df.Rd</code></div>
     </div>
 
@@ -137,19 +142,19 @@ recruited at each date from a vector with enrollment dates.</p>
     </tr>
     <tr>
       <th>start_date</th>
-      <td><p>date when recruitment started. Single date (used for all sites in by), 
-date vector (with the same length the number of distinct sites in by), 
+      <td><p>date when recruitment started. Single date (used for all sites in by),
+date vector (with the same length the number of distinct sites in by),
 "common" (first date overall) or "site" (first date for each site, default).</p></td>
     </tr>
     <tr>
       <th>current_date</th>
-      <td><p>date of the data export or database freeze. 
+      <td><p>date of the data export or database freeze.
    Single date, date vector (with the same length the number of distinct sites in by),
 "common" (last date overall, default) or "site" (first date for each site).</p></td>
     </tr>
     <tr>
       <th>force_start0</th>
-      <td><p>logical, adds an extra 0 line to the accrual data frame in cases 
+      <td><p>logical, adds an extra 0 line to the accrual data frame in cases
 where a start date is given and corresponds to the earliest enrollment date.</p></td>
     </tr>
     <tr>
