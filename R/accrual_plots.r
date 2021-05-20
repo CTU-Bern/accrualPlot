@@ -137,25 +137,7 @@ accrual_plot_predict<-function(accrual_df,
 	pos_prediction<-match.arg(pos_prediction)
 	center_legend<-match.arg(center_legend)
 
-	if (is.data.frame(accrual_df)) {
-		accrual_df<-list(accrual_df)
-	} else {
-		if (!all(unlist(lapply(accrual_df,function(x) is.data.frame(x))))) {
-			stop("accrual_df has to be a data frame or a list of data frames")
-		}
-	}
-	lc<-lct<-length(accrual_df)
-
-	if (lc>1 & overall==TRUE) {
-		if (is.null(accrual_df[[name_overall]])) {
-			print(paste0("'",name_overall,"' not found in accrual_df, overall set to FALSE"))
-			overall<-FALSE
-		}
-	}
-
-	if (overall & lc!=1) {
-		lct<-lc-1
-	}
+	lc_lct(accrual_df)
 
 
 	if (!is.na(sum(mar))) {
@@ -182,27 +164,12 @@ accrual_plot_predict<-function(accrual_df,
 	#predictions
 	#&&&&&&&&&&
 
-	if (lc==1) {
-		#only 1:
-		adf<-accrual_df[[1]]
-		m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
-		end_date<-accrual_predict(adf,m1,target)
-		edate<-end_date
-	} else {
-		#only 1 target and overall
-		if (overall & length(target)==1) {
-			adf<-accrual_df[[name_overall]]
-			m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
-			end_date<-accrual_predict(adf,m1,target)
-			edate<-end_date
-		} else {
-		#no overall or several targets: multiple predictions
-			adf<-accrual_df
-			m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
-			end_date<-accrual_predict(adf,m1,target)
-			edate<-max(do.call("c",end_date))
-		}
-	}
+	pred_fn(accrual_df,
+	        fill_up,
+	        wfun,
+	        lc,
+	        overall,
+	        target)
 
 
 
