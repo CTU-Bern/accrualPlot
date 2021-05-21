@@ -290,7 +290,6 @@ pred_fn <- function(accrual_df,
                     overall,
                     target){
 
-  print("pred")
   if (lc==1) {
     #only 1:
     adf<-accrual_df[[1]]
