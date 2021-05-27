@@ -142,6 +142,7 @@ gg_accrual_plot_abs <- function(accrual_df
 #' @export
 #' @importFrom ggplot2 geom_point geom_line annotation_custom ggtitle
 #' @importFrom purrr pmap
+#' @importFrom grid grobTree textGrob
 #' @examples
 #' ### ggplot2 approach
 #' #Data
@@ -263,8 +264,7 @@ gg_accrual_plot_predict <- function(accrual_df
   if(length(target) == 1){
     if(pos_prediction == "out") out <- out + ggtitle(pred_text)
     if(pos_prediction == "in"){
-      library(grid)
-      grob <- grid::grobTree(grid::textGrob(pred_text, x=0.025,  y=0.95, hjust=0))
+      grob <- grobTree(textGrob(pred_text, x=0.025,  y=0.95, hjust=0))
       out <- out + annotation_custom(grob)
     }
   }
