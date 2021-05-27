@@ -320,5 +320,11 @@ pred_fn <- function(accrual_df,
 }
 
 
+is_accrual_df <- function(x){
+  "accrual_df" %in% class(x)
+}
 
+is_accrual_list <- function(x){
+  "accrual_list" %in% class(x)
+}
 
