@@ -85,6 +85,7 @@ summary.accrual_df <- function(object, ...){
 #'
 #' @rdname print.accrual_df
 #' @param x output from accrual_create_df
+#' @param head show header of the accrual data?
 #'
 #' @return
 #' @export
