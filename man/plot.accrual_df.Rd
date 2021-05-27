@@ -4,13 +4,15 @@
 \alias{plot.accrual_df}
 \title{Plot method for accrual_dfs (as created by accrual_create_df)}
 \usage{
-\method{plot}{accrual_df}(x, which = "cum", ...)
+\method{plot}{accrual_df}(x, which = "cum", engine = c("base", "ggplot2"), ...)
 }
 \arguments{
 \item{x}{accrual_df object}
 
 \item{which}{one of \code{"cumulative"}, \code{"absolute"} or \code{"predict"}.
 Abbreviations are allowed.}
+
+\item{engine}{string to indicate the plotting engine (base/graphics or ggplot2)}
 
 \item{...}{options passed to other functions}
 }
@@ -27,4 +29,7 @@ accrual_df<-accrual_create_df(enrollment_dates)
 plot(accrual_df)
 plot(accrual_df, "abs")
 plot(accrual_df, "pred", target = 50)
+}
+\seealso{
+\link{accrual_plot_abs} \link{accrual_plot_cum} \link{accrual_plot_predict}
 }
