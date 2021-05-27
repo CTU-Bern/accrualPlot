@@ -123,6 +123,15 @@ gg_accrual_plot_predict <- function(accrual_df
 
   pos_prediction <- match.arg(pos_prediction)
 
+  if(is_accrual_list(accrual_df)){
+    if(length(target) > 1){
+      if(length(target) != length(accrual_df)) stop("target should have the same length as accrual_df")
+
+    } else {
+      accrual_df <- accrual_df[[name_overall]]
+    }
+  }
+
   accrual_df_o <- accrual_df
   lc_lct(accrual_df)
 
@@ -134,8 +143,55 @@ gg_accrual_plot_predict <- function(accrual_df
           target,
           name_overall)
 
-  pdat <- data.frame(date = c(max(adf$Date), edate),
-                     cum = c(max(adf$Cumulative), target))
+  if(is_accrual_list(accrual_df) & length(target) > 1){
+
+    pdat <- pmap(list(accrual_df, end_date, target), function(x, y, z){
+      data.frame(date = c(max(x$Date), y),
+                         cum = c(max(x$Cumulative, na.rm = TRUE), z))
+    })
+    str(pdat)
+
+    n <- 1
+    l <- list()
+    while(n <= length(target)){
+      print(n)
+      tmp <- pdat[[n]]
+      l[[length(l)+1]] <- geom_line(data = tmp,
+                                    mapping = aes(x = date, y = cum),
+                                    col = col.pred,
+                                    lty = lty.pred)
+      l[[length(l)+1]] <- geom_point(data = tmp[2, ],
+                                     aes(x = date, y = cum),
+                                     col = col.pred,
+                                     pch = pch.pred)
+
+      names(accrual_df_o)[n] <- paste0(names(accrual_df_o)[n], ": ",
+                                      format(end_date[[n]], format = format_prediction))
+
+      n <- n + 1
+    }
+
+    pgeom <- function() l
+
+
+  } else {
+
+    pdat <- data.frame(date = c(max(adf$Date), edate),
+                       cum = c(max(adf$Cumulative), target))
+    pgeom <- function() {
+      list(
+        geom_line(data = pdat,
+                  mapping = aes(x = date, y = cum),
+                  col = col.pred,
+                  lty = lty.pred),
+        geom_point(aes(x = edate, y = target),
+                   col = col.pred,
+                   pch = pch.pred)
+      )
+    }
+  }
+
+
 
   # if("list" %in% class(accrual_df)) x <- accrual_df[[1]]
   # if("data.frame" %in% class(accrual_df)) x <- accrual_df
@@ -144,22 +200,18 @@ gg_accrual_plot_predict <- function(accrual_df
                       format(edate, format = format_prediction))
 
   out <- gg_accrual_plot_cum(accrual_df_o)
-  out <- out +
-    geom_point(aes(x = edate, y = target),
-               col = col.pred,
-               pch = pch.pred)
 
-  out <- out +
-    geom_line(data = pdat,
-              mapping = aes(x = date, y = cum),
-              col = col.pred,
-              lty = lty.pred)
+  out <- out + pgeom()
 
-  if(pos_prediction == "out") out <- out + ggtitle(pred_text)
-  if(pos_prediction == "in"){
-    library(grid)
-    grob <- grid::grobTree(grid::textGrob(pred_text, x=0.025,  y=0.95, hjust=0))
-    out <- out + annotation_custom(grob)
+  print(str(pgeom))
+
+  if(length(target) == 1){
+    if(pos_prediction == "out") out <- out + ggtitle(pred_text)
+    if(pos_prediction == "in"){
+      library(grid)
+      grob <- grid::grobTree(grid::textGrob(pred_text, x=0.025,  y=0.95, hjust=0))
+      out <- out + annotation_custom(grob)
+    }
   }
   return(out)
 }
@@ -181,7 +233,7 @@ gg_accrual_plot_predict <- function(accrual_df
 # #several sites
 # set.seed(1)
 # centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
-# accrual_df<-accrual_create_df(enrollment_dates,by=centers, start_date = "common")
+# accrual_df<-accrual_create_df(enrollment_dates,by=centers, start_date = "common", name_overall = "Foo")
 # gg_accrual_plot_cum(accrual_df)
 # gg_accrual_plot_abs(accrual_df)
 # gg_accrual_plot_abs(accrual_df, unit = "week")
@@ -192,7 +244,10 @@ gg_accrual_plot_predict <- function(accrual_df
 #                      name_overall = "Overall")
 #
 # gg_accrual_plot_predict(accrual_df, target = target)
-# gg_accrual_plot_predict(accrual_df[[1]], target = target)
+# gg_accrual_plot_predict(accrual_df[[1]], target = 75)
+# gg_accrual_plot_predict(accrual_df[[4]], target = 75)
+# gg_accrual_plot_predict(accrual_df, target = 75)
+# gg_accrual_plot_predict(accrual_df, target = c(30,30,30,90))
 # accrual_plot_predict(accrual_df[[1]],
 #                      target = target,
 #                      name_overall = "Overall")
