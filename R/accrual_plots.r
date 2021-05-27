@@ -5,6 +5,7 @@
 #' If the accrual data frame is a list (i.e. using the by option in accrual_create_df,
 #' 	or if center start dates are given, the number of enrolled and targeted sites is included.
 #'
+#' @rdname accrual_plot_predict
 #' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
 #' @param target target sample size, if it is a vector with the same length as accrual_df, center-specific
 #'		predictions are shown
@@ -311,6 +312,7 @@ accrual_plot_predict<-function(accrual_df,
 #'
 #' Plot of cumulative recruitment based on accrual data frame produced by accrual_create_df
 #'
+#' @rdname accrual_plot_cum
 #' @param accrual_df  accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)
 #	  with by option, a line is added for each element in the list
 #' @param ylim  limits for y-axis
@@ -441,6 +443,7 @@ accrual_plot_cum<-function(accrual_df,
 #'
 #' Plot of absolute recruitment by time unit
 #'
+#' @rdname accrual_plot_abs
 #' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
 #' @param unit time unit for which the bars should be plotted, any of "month","year","week","day"
 #' @param target adds horizontal line for target recruitment per time unit
