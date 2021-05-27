@@ -1,8 +1,8 @@
-#' accrual_plot_predict
+#' Accrual prediction plots
 #'
 #' Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)
 #'	and a target sample size.
-#' If the accrual data frame is a list (i.e. using the by option in accrual_create_df,
+#' If the accrual data frame is a list (i.e. using the by option in accrual_create_df),
 #' 	or if center start dates are given, the number of enrolled and targeted sites is included.
 #'
 #' @rdname accrual_plot_predict
@@ -308,7 +308,7 @@ accrual_plot_predict<-function(accrual_df,
 
 #**********************************************************************************#
 
-#' accrual_plot_cum
+#' Cumulative accrual plots
 #'
 #' Plot of cumulative recruitment based on accrual data frame produced by accrual_create_df
 #'
@@ -439,7 +439,7 @@ accrual_plot_cum<-function(accrual_df,
 
 #**********************************************************************************#
 
-#' accrual_plot_abs
+#' Absolute accrual plots
 #'
 #' Plot of absolute recruitment by time unit
 #'
