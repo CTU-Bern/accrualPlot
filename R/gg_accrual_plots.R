@@ -1,22 +1,46 @@
-
-library(ggplot2)
-library(magrittr)
-library(dplyr)
-library(purrr)
-library(ggrepel)
-
-#' Title
+#' ggplot2 method for cumulative accrual plots
+#' @rdname accrual_plot_cum
 #'
-#' @param accrual_df
+#' @return ggplot2 object
 #'
-#' @return
 #' @export
-#' @importFrom ggplot2 ggplot aes geom_step +.gg
+#' @importFrom ggplot2 ggplot aes geom_step
 #' @importFrom purrr map2
 #' @importFrom magrittr %>%
 #' @importFrom dplyr bind_rows
-#'
 #' @examples
+#' ### ggplot2 approach
+#' set.seed(2020)
+#' enrollment_dates <-
+#'   as.Date("2018-01-01") + sort(sample(1:30, 50, replace = TRUE))
+#' accrual_df <- accrual_create_df(enrollment_dates)
+#' gg_accrual_plot_cum(accrual_df)
+#'
+#' #several sites
+#' set.seed(1)
+#' centers <-
+#'   sample(c("Site 1", "Site 2", "Site 3"),
+#'          length(enrollment_dates),
+#'          replace = TRUE)
+#' accrual_df <- accrual_create_df(enrollment_dates, by = centers)
+#' gg_accrual_plot_cum(accrual_df)
+#'
+#' #assuming a common start and current date
+#' accrual_df <-
+#'   accrual_create_df(
+#'     enrollment_dates,
+#'     by = centers,
+#'     start_date = "common",
+#'     current_date = "common"
+#'   )
+#' gg_accrual_plot_cum(accrual_df)
+#'
+#' #without overall
+#' accrual_df <-
+#'   accrual_create_df(enrollment_dates, by = centers, overall = FALSE)
+#' gg_accrual_plot_cum(accrual_df)
+
+
 gg_accrual_plot_cum <- function(accrual_df){
 
   if("data.frame" %in% class(accrual_df)){
@@ -48,18 +72,35 @@ gg_accrual_plot_cum <- function(accrual_df){
 
 
 
-#' Title
-#'
-#' @param accrual_df
-#' @param unit
+#' ggplot2 method for absolute accrual plots
+#' @rdname accrual_plot_abs
 #'
 #' @return
 #' @export
 #' @importFrom ggplot2 geom_bar
 #' @importFrom purrr map
 #' @importFrom dplyr filter
-#'
 #' @examples
+#' ### ggplot2 approach
+#' set.seed(2020)
+#' enrollment_dates <-
+#'   as.Date("2018-01-01") + sort(sample(1:100, 50, replace = TRUE))
+#' accrual_df <- accrual_create_df(enrollment_dates)
+#' gg_accrual_plot_abs(accrual_df, unit = "week")
+#'
+#' #time unit
+#' gg_accrual_plot_abs(accrual_df, unit = "day")
+#'
+#' #accrual_df with by option
+#' set.seed(2020)
+#' centers <-
+#'   sample(c("Site 1", "Site 2", "Site 3"),
+#'          length(enrollment_dates),
+#'          replace = TRUE)
+#' centers <- factor(centers, levels = c("Site 1", "Site 2", "Site 3"))
+#' accrual_df <- accrual_create_df(enrollment_dates, by = centers)
+#' gg_accrual_plot_abs(accrual_df = accrual_df, unit = "week")
+#'
 gg_accrual_plot_abs <- function(accrual_df
                                 , unit = c("month","year","week","day")
                                 ){
@@ -94,20 +135,42 @@ gg_accrual_plot_abs <- function(accrual_df
   return(out)
 }
 
-
-#' Title
-#'
-#' @param accrual_df
-#' @param overall
-#' @param name_overall
-#' @param fill_up
-#' @param wfun
+#' ggplot2 method for accrual prediction plots
+#' @rdname accrual_plot_predict
 #'
 #' @return
 #' @export
 #' @importFrom ggplot2 geom_point geom_line annotation_custom ggtitle
-#'
+#' @importFrom purrr pmap
 #' @examples
+#' ### ggplot2 approach
+#' #Data
+#' set.seed(2020)
+#' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
+#'
+#' #Default plot
+#' accrual_df <- accrual_create_df(enrollment_dates)
+#' gg_accrual_plot_predict(accrual_df = accrual_df, target = 100)
+#'
+#' #Include site
+#' set.seed(2021)
+#' centers<-sample(c("Site 1","Site 2","Site 3"),
+#'                 length(enrollment_dates), replace=TRUE)
+#' accrual_df<-accrual_create_df(enrollment_dates, by=centers)
+#' gg_accrual_plot_predict(accrual_df=accrual_df, target=100)
+#'
+#'
+#' #Format prediction end date
+#' gg_accrual_plot_predict(accrual_df = accrual_df,
+#'                         target=100,
+#'                         pos_prediction="in",
+#'                         format_prediction="%Y-%m-%d")
+#'
+#'
+#' #predictions for all sites
+#' gg_accrual_plot_predict(accrual_df = accrual_df,
+#'                         target = c(30,30,30,100))
+
 gg_accrual_plot_predict <- function(accrual_df
                                     , target
                                     , overall=TRUE
@@ -149,12 +212,10 @@ gg_accrual_plot_predict <- function(accrual_df
       data.frame(date = c(max(x$Date), y),
                          cum = c(max(x$Cumulative, na.rm = TRUE), z))
     })
-    str(pdat)
 
     n <- 1
     l <- list()
     while(n <= length(target)){
-      print(n)
       tmp <- pdat[[n]]
       l[[length(l)+1]] <- geom_line(data = tmp,
                                     mapping = aes(x = date, y = cum),
@@ -192,18 +253,12 @@ gg_accrual_plot_predict <- function(accrual_df
   }
 
 
-
-  # if("list" %in% class(accrual_df)) x <- accrual_df[[1]]
-  # if("data.frame" %in% class(accrual_df)) x <- accrual_df
-
   pred_text <- paste0("Predicted end date: ",
                       format(edate, format = format_prediction))
 
   out <- gg_accrual_plot_cum(accrual_df_o)
 
   out <- out + pgeom()
-
-  print(str(pgeom))
 
   if(length(target) == 1){
     if(pos_prediction == "out") out <- out + ggtitle(pred_text)
@@ -217,47 +272,3 @@ gg_accrual_plot_predict <- function(accrual_df
 }
 
 
-
-
-# set.seed(2020)
-# enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-# target <- 75
-# accrual_df<-accrual_create_df(enrollment_dates)
-# gg_accrual_plot_cum(accrual_df) +
-#   theme_classic()
-# gg_accrual_plot_abs(accrual_df, unit = "week")
-# gg_accrual_plot_abs(accrual_df, unit = "day")
-# gg_accrual_plot_predict(accrual_df, target = target)
-# accrual_plot_predict(accrual_df, target = target)
-#
-# #several sites
-# set.seed(1)
-# centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
-# accrual_df<-accrual_create_df(enrollment_dates,by=centers, start_date = "common", name_overall = "Foo")
-# gg_accrual_plot_cum(accrual_df)
-# gg_accrual_plot_abs(accrual_df)
-# gg_accrual_plot_abs(accrual_df, unit = "week")
-# gg_accrual_plot_abs(accrual_df, unit = "day")
-# gg_accrual_plot_predict(accrual_df, target = target)
-# accrual_plot_predict(accrual_df,
-#                      target = target,
-#                      name_overall = "Overall")
-#
-# gg_accrual_plot_predict(accrual_df, target = target)
-# gg_accrual_plot_predict(accrual_df[[1]], target = 75)
-# gg_accrual_plot_predict(accrual_df[[4]], target = 75)
-# gg_accrual_plot_predict(accrual_df, target = 75)
-# gg_accrual_plot_predict(accrual_df, target = c(30,30,30,90))
-# accrual_plot_predict(accrual_df[[1]],
-#                      target = target,
-#                      name_overall = "Overall")
-#
-# accrual_plot_predict(accrual_df,
-#                      target = c(30, 30, 30, 90),
-#                      name_overall = "Overall")
-#
-# accrual_plot_cum(accrual_df["Overall"])
-
-# accrual_plot_predict(accrual_df, pos_prediction="out", target = 75)
-# accrual_plot_predict(accrual_df, pos_prediction="in", target = 75)
-# accrual_plot_predict(accrual_df, pos_prediction="none", target = 75)
