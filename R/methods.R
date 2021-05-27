@@ -63,5 +63,35 @@ summary.accrual_df <- function(object, ...){
 
 
 
+#' Print methods for accrual objects
+#'
+#' @rdname print.accrual_df
+#' @param x output from accrual_create_df
+#'
+#' @return
+#' @export
+#'
+#' @examples
+print.accrual_df <- function(x){
+  mindate <- min(x$Date)
+  maxdate <- max(x$Date)
+  maxc <- max(x$Cumulative)
 
+  cat(paste(maxc, "participants recruited between", mindate, "and", maxdate))
+
+}
+
+#' @rdname print.accrual_df
+#' @name print.accrual_list
+#' @export
+print.accrual_list <- function(x){
+  w <- which(names(x) == attr(x, "name_overall"))
+  if(length(w) > 0) y <- x[-w]
+  ncenter <- length(y)
+  npart <- sum(sapply(y, function(x) max(x$Cumulative)))
+  maxdate <- max(do.call("c", lapply(y, function(x) max(x$Date))))
+  mindate <- min(do.call("c", lapply(y, function(x) min(x$Date))))
+
+  cat(paste(npart, "participants recruited between", mindate, "and", maxdate, "from", ncenter, "centers"))
+}
 
