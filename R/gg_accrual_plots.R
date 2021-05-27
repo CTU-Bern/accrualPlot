@@ -3,6 +3,7 @@ library(ggplot2)
 library(magrittr)
 library(dplyr)
 library(purrr)
+library(ggrepel)
 
 #' Title
 #'
@@ -10,7 +11,7 @@ library(purrr)
 #'
 #' @return
 #' @export
-#' @importFrom ggplot2 ggplot aes geom_step +
+#' @importFrom ggplot2 ggplot aes geom_step +.gg
 #' @importFrom purrr map2
 #' @importFrom magrittr %>%
 #' @importFrom dplyr bind_rows
@@ -18,14 +19,14 @@ library(purrr)
 #' @examples
 gg_accrual_plot_cum <- function(accrual_df){
 
-  if(class(accrual_df)[2] == "data.frame"){
+  if("data.frame" %in% class(accrual_df)){
 
     out <- ggplot(accrual_df, aes(x = Date, y = Cumulative)) +
       geom_step()
 
   }
 
-  if(class(accrual_df)[2] == "list"){
+  if("list" %in% class(accrual_df)){
 
     x <- accrual_df
     class(x) <- class(x)[2]
@@ -63,7 +64,7 @@ gg_accrual_plot_abs <- function(accrual_df
                                 , unit = c("month","year","week","day")
                                 ){
 
-  if(class(accrual_df)[2] == "data.frame"){
+  if("data.frame" %in% class(accrual_df)){
 
     x <- accrual_time_unit(accrual_df, unit=unit)
 
@@ -72,7 +73,7 @@ gg_accrual_plot_abs <- function(accrual_df
 
   }
 
-  if(class(accrual_df)[2] == "list"){
+  if("list" %in% class(accrual_df)){
 
     x <- accrual_df
     class(x) <- class(x)[2]
@@ -104,17 +105,25 @@ gg_accrual_plot_abs <- function(accrual_df
 #'
 #' @return
 #' @export
-#' @importFrom ggplot2 geom_point geom_line
+#' @importFrom ggplot2 geom_point geom_line annotation_custom ggtitle
 #'
 #' @examples
 gg_accrual_plot_predict <- function(accrual_df
                                     , target
                                     , overall=TRUE
-                                    , name_overall="Overall"
+                                    , name_overall = attr(accrual_df, "name_overall")
+                                    , col.pred="red"
+                                    , lty.pred=2
+                                    , pch.pred=8
                                     , fill_up=TRUE
                                     , wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))
+                                    , pos_prediction = c("out", "in", "none")
+                                    , format_prediction="%B %d, %Y"
                                     ){
 
+  pos_prediction <- match.arg(pos_prediction)
+
+  accrual_df_o <- accrual_df
   lc_lct(accrual_df)
 
   pred_fn(accrual_df,
@@ -122,12 +131,36 @@ gg_accrual_plot_predict <- function(accrual_df
           wfun,
           lc,
           overall,
-          target)
+          target,
+          name_overall)
 
-  out <- gg_accrual_plot_cum(accrual_df[[1]]) +
-    geom_point(aes(x = edate, y = target)) +
-    geom_line(aes(x = c(max())))
+  pdat <- data.frame(date = c(max(adf$Date), edate),
+                     cum = c(max(adf$Cumulative), target))
 
+  # if("list" %in% class(accrual_df)) x <- accrual_df[[1]]
+  # if("data.frame" %in% class(accrual_df)) x <- accrual_df
+
+  pred_text <- paste0("Predicted end date: ",
+                      format(edate, format = format_prediction))
+
+  out <- gg_accrual_plot_cum(accrual_df_o)
+  out <- out +
+    geom_point(aes(x = edate, y = target),
+               col = col.pred,
+               pch = pch.pred)
+
+  out <- out +
+    geom_line(data = pdat,
+              mapping = aes(x = date, y = cum),
+              col = col.pred,
+              lty = lty.pred)
+
+  if(pos_prediction == "out") out <- out + ggtitle(pred_text)
+  if(pos_prediction == "in"){
+    library(grid)
+    grob <- grid::grobTree(grid::textGrob(pred_text, x=0.025,  y=0.95, hjust=0))
+    out <- out + annotation_custom(grob)
+  }
   return(out)
 }
 
@@ -136,12 +169,12 @@ gg_accrual_plot_predict <- function(accrual_df
 
 # set.seed(2020)
 # enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
+# target <- 75
 # accrual_df<-accrual_create_df(enrollment_dates)
 # gg_accrual_plot_cum(accrual_df) +
 #   theme_classic()
 # gg_accrual_plot_abs(accrual_df, unit = "week")
 # gg_accrual_plot_abs(accrual_df, unit = "day")
-# target <- 75
 # gg_accrual_plot_predict(accrual_df, target = target)
 # accrual_plot_predict(accrual_df, target = target)
 #
@@ -149,73 +182,27 @@ gg_accrual_plot_predict <- function(accrual_df
 # set.seed(1)
 # centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
 # accrual_df<-accrual_create_df(enrollment_dates,by=centers, start_date = "common")
+# gg_accrual_plot_cum(accrual_df)
 # gg_accrual_plot_abs(accrual_df)
 # gg_accrual_plot_abs(accrual_df, unit = "week")
 # gg_accrual_plot_abs(accrual_df, unit = "day")
+# gg_accrual_plot_predict(accrual_df, target = target)
+# accrual_plot_predict(accrual_df,
+#                      target = target,
+#                      name_overall = "Overall")
+#
+# gg_accrual_plot_predict(accrual_df, target = target)
+# gg_accrual_plot_predict(accrual_df[[1]], target = target)
+# accrual_plot_predict(accrual_df[[1]],
+#                      target = target,
+#                      name_overall = "Overall")
+#
+# accrual_plot_predict(accrual_df,
+#                      target = c(30, 30, 30, 90),
+#                      name_overall = "Overall")
+#
+# accrual_plot_cum(accrual_df["Overall"])
 
-
-lc_lct <- function(accrual_df){
-  overall <- get("overall", envir = parent.frame())
-  name_overall <- get("name_overall", envir = parent.frame())
-
-  if (is.data.frame(accrual_df)) {
-    accrual_df<-list(accrual_df)
-  } else {
-    if (!all(unlist(lapply(accrual_df,function(x) is.data.frame(x))))) {
-      stop("accrual_df has to be a data frame or a list of data frames")
-    }
-  }
-  lc<-lct<-length(accrual_df)
-
-  if (lc>1 & overall==TRUE) {
-    if (is.null(accrual_df[[name_overall]])) {
-      print(paste0("'",name_overall,"' not found in accrual_df, overall set to FALSE"))
-      overall<-FALSE
-    }
-  }
-
-  if (overall & lc!=1) {
-    lct<-lc-1
-  }
-  assign("accrual_df", accrual_df, envir = parent.frame())
-  assign("lc", lc, envir = parent.frame())
-  assign("lct", lct, envir = parent.frame())
-  assign("overall", overall, envir = parent.frame())
-}
-
-pred_fn <- function(accrual_df,
-                    fill_up,
-                    wfun,
-                    lc,
-                    overall,
-                    target){
-
-  print("pred")
-  if (lc==1) {
-    #only 1:
-    adf<-accrual_df[[1]]
-    m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
-    end_date<-accrual_predict(adf,m1,target)
-    edate<-end_date
-  } else {
-    #only 1 target and overall
-    if (overall & length(target)==1) {
-      adf<-accrual_df[[name_overall]]
-      m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
-      end_date<-accrual_predict(adf,m1,target)
-      edate<-end_date
-    } else {
-      #no overall or several targets: multiple predictions
-      adf<-accrual_df
-      m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
-      end_date<-accrual_predict(adf,m1,target)
-      edate<-max(do.call("c",end_date))
-    }
-  }
-
-  assign("end_date", end_date, envir = parent.frame())
-  assign("edate", edate, envir = parent.frame())
-  assign("adf", adf, envir = parent.frame())
-
-}
-
+# accrual_plot_predict(accrual_df, pos_prediction="out", target = 75)
+# accrual_plot_predict(accrual_df, pos_prediction="in", target = 75)
+# accrual_plot_predict(accrual_df, pos_prediction="none", target = 75)
