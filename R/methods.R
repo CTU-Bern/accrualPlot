@@ -8,7 +8,7 @@
 #'
 #' @return a plot
 #' @export
-#' @seealso
+#' @seealso \link{accrual_plot_abs} \link{accrual_plot_cum} \link{accrual_plot_predict}
 #' @examples
 #' set.seed(2020)
 #' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
@@ -86,6 +86,7 @@ summary.accrual_df <- function(object, ...){
 #' @rdname print.accrual_df
 #' @param x output from accrual_create_df
 #' @param head show header of the accrual data?
+#' @param ... arguments passed to head and/or print
 #'
 #' @return
 #' @export
