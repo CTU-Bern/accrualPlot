@@ -111,21 +111,28 @@ accrual_create_df <- function(enrollment_dates,
   if (byt!=0 & overall) {
     ed<-enrollment_dates
     adf<-genadf(enrollment_dates=ed,start_date=start_date[nct],current_date=current_date[nct],
-		force_start0=force_start0,warning=FALSE)
+                force_start0=force_start0,warning=FALSE)
     if (pos_overall=="last") {
-	  accrual_df<-append(accrual_df,list(name_overall=adf))
-	} else {
-	  accrual_df<-append(list(name_overall=adf),accrual_df)
-	}
-	names(accrual_df)[names(accrual_df)=="name_overall"]<-name_overall
+      accrual_df<-append(accrual_df,list(name_overall=adf))
+    } else {
+      accrual_df<-append(list(name_overall=adf),accrual_df)
+    }
+    names(accrual_df)[names(accrual_df)=="name_overall"]<-name_overall
   }
 
-  if (byt == 1) accrual_df <- lapply(accrual_df, function(x) {
-    class(x) <- c("accrual_df", class(x))
-    x
-  })
+  if (byt == 1){
+    accrual_df <- lapply(accrual_df, function(x) {
+      class(x) <- c("accrual_df", class(x))
+      x
+    })
+    class(accrual_df) <- c("accrual_list", "accrual_df", class(accrual_df))
+    attr(accrual_df, "name_overall") <- name_overall
+  } else {
+    class(accrual_df) <- c("accrual_df", class(accrual_df))
 
-  class(accrual_df) <- c("accrual_df", class(accrual_df))
+  }
+
+  # class(accrual_df) <- c("accrual_df", class(accrual_df))
   return(accrual_df)
 }
 
