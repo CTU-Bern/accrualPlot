@@ -288,7 +288,8 @@ pred_fn <- function(accrual_df,
                     wfun,
                     lc,
                     overall,
-                    target){
+                    target,
+                    name_overall){
 
   if (lc==1) {
     #only 1:
