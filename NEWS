@@ -3,6 +3,8 @@ accrualPlot 0.6.0
 addition of names_overall attribute to accrual_df objects
 new accrual_list class for accrual_dfs with multiple sites
 new ggplot methods comparable to the base graphics capabilities
+new print methods for accrual_dfs and accrual_lists
+vignette updated to include above info (where appropriate)
 
 accrualPlot 0.5.3
 ------------------
