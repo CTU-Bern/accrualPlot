@@ -43,14 +43,15 @@ plot.accrual_df <- function(x
   }
   if(engine == "ggplot2"){
     if(which == "cumulative"){
-      gg_accrual_plot_cum(x, ...)
+      out <- gg_accrual_plot_cum(x, ...)
     }
     if(which == "absolute"){
-      gg_accrual_plot_abs(x, ...)
+      out <- gg_accrual_plot_abs(x, ...)
     }
     if(which == "predict"){
-      gg_accrual_plot_predict(x, ...)
+      out <- gg_accrual_plot_predict(x, ...)
     }
+    return(out)
   }
 
 }
@@ -104,24 +105,24 @@ print.accrual_df <- function(x, head = FALSE, ...){
 
   cat(paste(maxc, "participants recruited between", mindate, "and", maxdate, "\n"))
 
-  if(head) print(head(x, ...), ...)
+  if(head) print(head(as.data.frame(x), ...), ...)
 
 }
 
 #' @rdname print.accrual_df
 #' @name print.accrual_list
 #' @export
-print.accrual_list <- function(x, head = FALSE, ...){
-  w <- which(names(x) == attr(x, "name_overall"))
-  if(length(w) > 0) y <- x[-w]
-  ncenter <- length(y)
-  npart <- sum(sapply(y, function(x) max(x$Cumulative)))
-  maxdate <- max(do.call("c", lapply(y, function(x) max(x$Date))))
-  mindate <- min(do.call("c", lapply(y, function(x) min(x$Date))))
+print.accrual_list <- function(x, ...){
+  # w <- which(names(x) == attr(x, "name_overall"))
+  # if(length(w) > 0) y <- x[-w]
+  # ncenter <- length(y)
+  # npart <- sum(sapply(y, function(x) max(x$Cumulative)))
+  # maxdate <- max(do.call("c", lapply(y, function(x) max(x$Date))))
+  # mindate <- min(do.call("c", lapply(y, function(x) min(x$Date))))
 
-  cat(paste(npart, "participants recruited between", mindate, "and", maxdate, "from", ncenter, "centers\n"))
+  # cat(paste(npart, "participants recruited between", mindate, "and", maxdate, "from", ncenter, "centers\n"))
 
-  if(head) lapply(x, function(y) print.data.frame(head(y, ...), ...))
-
+  lapply(x, function(y) print(y, ...))
+  return(invisible(NULL))
 }
 
