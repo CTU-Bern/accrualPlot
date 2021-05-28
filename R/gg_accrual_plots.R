@@ -15,6 +15,8 @@
 #'   as.Date("2018-01-01") + sort(sample(1:30, 50, replace = TRUE))
 #' accrual_df <- accrual_create_df(enrollment_dates)
 #' gg_accrual_plot_cum(accrual_df)
+#' gg_accrual_plot_cum(accrual_df) +
+#'   ggplot2::theme_classic()
 #'
 #' #several sites
 #' set.seed(1)
@@ -87,6 +89,8 @@ gg_accrual_plot_cum <- function(accrual_df){
 #'   as.Date("2018-01-01") + sort(sample(1:100, 50, replace = TRUE))
 #' accrual_df <- accrual_create_df(enrollment_dates)
 #' gg_accrual_plot_abs(accrual_df, unit = "week")
+#' gg_accrual_plot_abs(accrual_df, unit = "week") +
+#'   ggplot2::theme_classic()
 #'
 #' #time unit
 #' gg_accrual_plot_abs(accrual_df, unit = "day")
@@ -100,6 +104,8 @@ gg_accrual_plot_cum <- function(accrual_df){
 #' centers <- factor(centers, levels = c("Site 1", "Site 2", "Site 3"))
 #' accrual_df <- accrual_create_df(enrollment_dates, by = centers)
 #' gg_accrual_plot_abs(accrual_df = accrual_df, unit = "week")
+#' gg_accrual_plot_abs(accrual_df = accrual_df, unit = "week") +
+#'   ggplot2::scale_fill_discrete(type = c("black", "red", "blue", "green"))
 #'
 gg_accrual_plot_abs <- function(accrual_df
                                 , unit = c("month","year","week","day")
@@ -152,6 +158,8 @@ gg_accrual_plot_abs <- function(accrual_df
 #' #Default plot
 #' accrual_df <- accrual_create_df(enrollment_dates)
 #' gg_accrual_plot_predict(accrual_df = accrual_df, target = 100)
+#' gg_accrual_plot_predict(accrual_df = accrual_df, target = 100) +
+#'   ggplot2::theme_classic()
 #'
 #' #Include site
 #' set.seed(2021)
@@ -171,6 +179,10 @@ gg_accrual_plot_abs <- function(accrual_df
 #' #predictions for all sites
 #' gg_accrual_plot_predict(accrual_df = accrual_df,
 #'                         target = c(30,30,30,100))
+#' gg_accrual_plot_predict(accrual_df = accrual_df,
+#'                         target = c(30,30,30,100)) +
+#'    ggplot2::theme(legend.position = c(0.15,.9)) +
+#'    ggplot2::labs(col = "Site")
 
 gg_accrual_plot_predict <- function(accrual_df
                                     , target
@@ -270,5 +282,6 @@ gg_accrual_plot_predict <- function(accrual_df
   }
   return(out)
 }
+
 
 
