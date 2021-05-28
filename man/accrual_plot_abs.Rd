@@ -104,6 +104,8 @@ enrollment_dates <-
   as.Date("2018-01-01") + sort(sample(1:100, 50, replace = TRUE))
 accrual_df <- accrual_create_df(enrollment_dates)
 gg_accrual_plot_abs(accrual_df, unit = "week")
+gg_accrual_plot_abs(accrual_df, unit = "week") +
+  ggplot2::theme_classic()
 
 #time unit
 gg_accrual_plot_abs(accrual_df, unit = "day")
@@ -117,5 +119,7 @@ centers <-
 centers <- factor(centers, levels = c("Site 1", "Site 2", "Site 3"))
 accrual_df <- accrual_create_df(enrollment_dates, by = centers)
 gg_accrual_plot_abs(accrual_df = accrual_df, unit = "week")
+gg_accrual_plot_abs(accrual_df = accrual_df, unit = "week") +
+  ggplot2::scale_fill_discrete(type = c("black", "red", "blue", "green"))
 
 }

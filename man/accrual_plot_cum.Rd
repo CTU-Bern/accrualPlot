@@ -95,6 +95,8 @@ enrollment_dates <-
   as.Date("2018-01-01") + sort(sample(1:30, 50, replace = TRUE))
 accrual_df <- accrual_create_df(enrollment_dates)
 gg_accrual_plot_cum(accrual_df)
+gg_accrual_plot_cum(accrual_df) +
+  ggplot2::theme_classic()
 
 #several sites
 set.seed(1)

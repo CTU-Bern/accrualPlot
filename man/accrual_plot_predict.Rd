@@ -197,6 +197,8 @@ enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
 #Default plot
 accrual_df <- accrual_create_df(enrollment_dates)
 gg_accrual_plot_predict(accrual_df = accrual_df, target = 100)
+gg_accrual_plot_predict(accrual_df = accrual_df, target = 100) +
+  ggplot2::theme_classic()
 
 #Include site
 set.seed(2021)
@@ -216,4 +218,8 @@ gg_accrual_plot_predict(accrual_df = accrual_df,
 #predictions for all sites
 gg_accrual_plot_predict(accrual_df = accrual_df,
                         target = c(30,30,30,100))
+gg_accrual_plot_predict(accrual_df = accrual_df,
+                        target = c(30,30,30,100)) +
+   ggplot2::theme(legend.position = c(0.15,.9)) +
+   ggplot2::labs(col = "Site")
 }
