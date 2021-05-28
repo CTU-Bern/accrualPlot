@@ -6,7 +6,7 @@ Authors@R:
     c(
     person(given = "Lukas", family = "Bütikofer", role = c("cre", "aut"),
     email = "lukas.buetikofer@ctu.unibe.ch"),
-    person(given = "Alan G.", family = "Haynes", role = "ctb",
+    person(given = "Alan G.", family = "Haynes", role = "aut",
     email = "alan.haynes@ctu.unibe.ch"))
 Maintainer: Lukas Bütikofer <lukas.buetikofer@ctu.unibe.ch>
 Description: Tracking accrual in clinical trials is important for trial success. 
