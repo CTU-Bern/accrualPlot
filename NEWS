@@ -1,3 +1,9 @@
+accrualPlot 0.6.0
+------------------
+addition of names_overall attribute to accrual_df objects
+new accrual_list class for accrual_dfs with multiple sites
+new ggplot methods comparable to the base graphics capabilities
+
 accrualPlot 0.5.3
 ------------------
 accrual_df class applied to all dataframes when by is used (allows methods to work on subelements of the list too, e.g. plot(list[[1]]))
