@@ -25,7 +25,11 @@ accrual_plot_abs(
   ...
 )
 
-gg_accrual_plot_abs(accrual_df, unit = c("month", "year", "week", "day"))
+gg_accrual_plot_abs(
+  accrual_df,
+  unit = c("month", "year", "week", "day"),
+  xlabformat = NULL
+)
 }
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
