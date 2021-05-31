@@ -4,10 +4,11 @@
 #' @return ggplot2 object
 #'
 #' @export
-#' @importFrom ggplot2 ggplot aes geom_step
+#' @importFrom ggplot2 ggplot aes geom_step vars scale_x_date labs
+#' @importFrom rlang !! sym
 #' @importFrom purrr map2
 #' @importFrom magrittr %>%
-#' @importFrom dplyr bind_rows
+#' @importFrom dplyr bind_rows rename mutate
 #' @examples
 #' ### ggplot2 approach
 #' set.seed(2020)
@@ -43,11 +44,13 @@
 #' gg_accrual_plot_cum(accrual_df)
 
 
-gg_accrual_plot_cum <- function(accrual_df){
+gg_accrual_plot_cum <- function(accrual_df, xlabformat="%d%b%Y"){
 
   if("data.frame" %in% class(accrual_df)){
 
-    out <- ggplot(accrual_df, aes(x = Date, y = Cumulative)) +
+    out <- accrual_df %>%
+      rename('Recruited participants' = Cumulative) %>%
+      ggplot(aes(x = Date, y = !!sym('Recruited participants'))) +
       geom_step()
 
   }
@@ -56,17 +59,22 @@ gg_accrual_plot_cum <- function(accrual_df){
 
     x <- accrual_df
     class(x) <- class(x)[2]
-    x <- x %>% map2(names(x), function(.x, .y){
+    out <- x %>% map2(names(x), function(.x, .y){
       .x$site <- .y
       .x
-    }) %>% bind_rows()
-
-    out <- ggplot(x, aes(x = Date, y = Cumulative, col = site)) +
-      geom_step()
+    }) %>%
+      bind_rows() %>%
+      rename('Recruited participants' = Cumulative) %>%
+      mutate(site = factor(site, unique(site), unique(site))) %>%
+      ggplot(aes(x = Date, y = !!sym('Recruited participants'), col = site)) +
+      geom_step() +
+      labs(col = NULL)
 
 
   }
 
+  out <- out +
+    scale_x_date(labels = function(x)format(x, format = xlabformat))
 
   return(out)
 
@@ -111,11 +119,19 @@ gg_accrual_plot_abs <- function(accrual_df
                                 , unit = c("month","year","week","day")
                                 ){
 
+  #default xlabformat
+  if (is.null(xlabformat)) {
+    if (unit=="month") {xlabformat<-"%b %Y"}
+    if (unit=="year") {xlabformat<-"%Y"}
+    if (unit=="week") {xlabformat<-"%d %b %Y"}
+    if (unit=="day") {xlabformat<-"%d %b %Y"}
+  }
+
   if("data.frame" %in% class(accrual_df)){
 
-    x <- accrual_time_unit(accrual_df, unit=unit)
-
-    out <- ggplot(x, aes(x = date, y = Freq)) +
+    out <- accrual_time_unit(accrual_df, unit=unit)%>%
+      rename('Recruited participants' = Freq) %>%
+      ggplot(aes(x = date, y = !!sym('Recruited participants'))) +
       geom_bar(stat = "identity")
 
   }
@@ -124,19 +140,22 @@ gg_accrual_plot_abs <- function(accrual_df
 
     x <- accrual_df
     class(x) <- class(x)[2]
-    x <- x %>%
+    out <- x %>%
       map(accrual_time_unit, unit = unit) %>%
       map2(names(x), function(.x, .y){
           .x$site <- .y
           .x
         }) %>%
       bind_rows() %>%
-      filter(site != "Overall")
-
-    out <- ggplot(x, aes(x = date, y = Freq, fill = site)) +
+      filter(site != "Overall") %>%
+      rename('Recruited participants' = Freq) %>%
+      ggplot(aes(x = date, y = !!sym('Recruited participants'), fill = site)) +
       geom_bar(stat = "identity")
 
   }
+
+  out <- out +
+    scale_x_date(labels = function(x)format(x, format = xlabformat))
 
   return(out)
 }
@@ -186,15 +205,16 @@ gg_accrual_plot_abs <- function(accrual_df
 
 gg_accrual_plot_predict <- function(accrual_df
                                     , target
-                                    , overall=TRUE
+                                    , overall = TRUE
                                     , name_overall = attr(accrual_df, "name_overall")
-                                    , col.pred="red"
-                                    , lty.pred=2
-                                    , pch.pred=8
-                                    , fill_up=TRUE
-                                    , wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))
+                                    , col.pred = "red"
+                                    , lty.pred = 2
+                                    , pch.pred = 8
+                                    , fill_up = TRUE
+                                    , wfun = function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))
                                     , pos_prediction = c("out", "in", "none")
-                                    , format_prediction="%B %d, %Y"
+                                    , format_prediction = "%B %d, %Y"
+                                    , xlabformat = "%d%b%Y"
                                     ){
 
   pos_prediction <- match.arg(pos_prediction)
@@ -289,6 +309,10 @@ gg_accrual_plot_predict <- function(accrual_df
       out <- out + annotation_custom(grob)
     }
   }
+
+  out <- out +
+    scale_x_date(labels = function(x)format(x, format = xlabformat))
+
   return(out)
 }
 
