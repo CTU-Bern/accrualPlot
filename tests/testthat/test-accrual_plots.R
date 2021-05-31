@@ -40,6 +40,7 @@ test_that("accrual_plot_abs", {
 # vdiffr::manage_cases()
 
 skip_if(getRversion() < package_version("4.1.0"))
+skip_if(.Platform$OS.type != "windows")
 
 test_that("vdiff cumulative plots", {
 
