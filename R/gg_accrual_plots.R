@@ -117,6 +117,7 @@ gg_accrual_plot_cum <- function(accrual_df, xlabformat="%d%b%Y"){
 #'
 gg_accrual_plot_abs <- function(accrual_df
                                 , unit = c("month","year","week","day")
+                                , xlabformat = NULL
                                 ){
 
   #default xlabformat
