@@ -87,7 +87,7 @@ summary.accrual_df <- function(object, ...){
 #' @rdname print.accrual_df
 #' @param x output from accrual_create_df
 #' @param head show header of the accrual data?
-#' @param ... arguments passed to head and/or print
+#' @param ... arguments passed to head
 #'
 #' @return
 #' @export
@@ -97,15 +97,16 @@ summary.accrual_df <- function(object, ...){
 #' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
 #' accrual_df<-accrual_create_df(enrollment_dates)
 #' print(accrual_df)
-#' print(accrual_df, head = TRUE)
-print.accrual_df <- function(x, head = FALSE, ...){
+#' print(accrual_df, head = FALSE)
+#' print(accrual_df, n = 15)
+print.accrual_df <- function(x, head = TRUE, ...){
   mindate <- min(x$Date)
   maxdate <- max(x$Date)
   maxc <- max(x$Cumulative)
 
   cat(paste(maxc, "participants recruited between", mindate, "and", maxdate, "\n"))
 
-  if(head) print(head(as.data.frame(x), ...), ...)
+  if(head) print(head(as.data.frame(x), ...))
 
 }
 
