@@ -254,9 +254,9 @@ plot_center<-function(accrual_df,center_start_dates,
 
 # helpers for prediction
 
-lc_lct <- function(accrual_df){
-  overall <- get("overall", envir = parent.frame())
-  name_overall <- get("name_overall", envir = parent.frame())
+lc_lct <- function(accrual_df, overall, name_overall){
+  # overall <- get("overall", envir = parent.frame())
+  # name_overall <- get("name_overall", envir = parent.frame())
 
   if (is.data.frame(accrual_df)) {
     accrual_df<-list(accrual_df)
@@ -277,10 +277,17 @@ lc_lct <- function(accrual_df){
   if (overall & lc!=1) {
     lct<-lc-1
   }
-  assign("accrual_df", accrual_df, envir = parent.frame())
-  assign("lc", lc, envir = parent.frame())
-  assign("lct", lct, envir = parent.frame())
-  assign("overall", overall, envir = parent.frame())
+
+  return(list(
+    accrual_df = accrual_df,
+    lc = lc,
+    lct = lct,
+    overall = overall
+  ))
+  # assign("accrual_df", accrual_df, envir = parent.frame())
+  # assign("lc", lc, envir = parent.frame())
+  # assign("lct", lct, envir = parent.frame())
+  # assign("overall", overall, envir = parent.frame())
 }
 
 pred_fn <- function(accrual_df,
@@ -313,9 +320,14 @@ pred_fn <- function(accrual_df,
     }
   }
 
-  assign("end_date", end_date, envir = parent.frame())
-  assign("edate", edate, envir = parent.frame())
-  assign("adf", adf, envir = parent.frame())
+  return(list(
+    end_date = end_date,
+    edate = edate,
+    adf = adf
+  ))
+  # assign("end_date", end_date, envir = parent.frame())
+  # assign("edate", edate, envir = parent.frame())
+  # assign("adf", adf, envir = parent.frame())
 
 }
 

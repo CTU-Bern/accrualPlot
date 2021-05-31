@@ -209,15 +209,24 @@ gg_accrual_plot_predict <- function(accrual_df
   }
 
   accrual_df_o <- accrual_df
-  lc_lct(accrual_df)
+  tmp <- lc_lct(accrual_df,
+                overall,
+                name_overall)
+  accrual_df <- tmp$accrual_df
+  lc <- tmp$lc
+  lct <- tmp$lct
+  overall <- tmp$overall
 
-  pred_fn(accrual_df,
-          fill_up,
-          wfun,
-          lc,
-          overall,
-          target,
-          name_overall)
+  tmp <- pred_fn(accrual_df,
+                 fill_up,
+                 wfun,
+                 lc,
+                 overall,
+                 target,
+                 name_overall)
+  end_date <- tmp$end_date
+  edate <- tmp$edate
+  adf <- tmp$adf
 
   if(is_accrual_list(accrual_df) & length(target) > 1){
 

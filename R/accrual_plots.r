@@ -138,8 +138,13 @@ accrual_plot_predict<-function(accrual_df,
 	pos_prediction<-match.arg(pos_prediction)
 	center_legend<-match.arg(center_legend)
 
-	lc_lct(accrual_df)
-
+	tmp <- lc_lct(accrual_df,
+	              overall,
+	              name_overall)
+	accrual_df <- tmp$accrual_df
+	lc <- tmp$lc
+	lct <- tmp$lct
+	overall <- tmp$overall
 
 	if (!is.na(sum(mar))) {
 		stopifnot(length(mar)==4)
@@ -165,14 +170,16 @@ accrual_plot_predict<-function(accrual_df,
 	#predictions
 	#&&&&&&&&&&
 
-	pred_fn(accrual_df,
-	        fill_up,
-	        wfun,
-	        lc,
-	        overall,
-	        target,
-	        name_overall)
-
+	tmp <- pred_fn(accrual_df,
+	               fill_up,
+	               wfun,
+	               lc,
+	               overall,
+	               target,
+	               name_overall)
+	end_date <- tmp$end_date
+	edate <- tmp$edate
+	adf <- tmp$adf
 
 
 	#plot scaling
