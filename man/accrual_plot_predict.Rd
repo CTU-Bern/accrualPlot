@@ -55,7 +55,8 @@ gg_accrual_plot_predict(
   fill_up = TRUE,
   wfun = function(x) seq(1/nrow(x), 1, by = 1/nrow(x)),
   pos_prediction = c("out", "in", "none"),
-  format_prediction = "\%B \%d, \%Y"
+  format_prediction = "\%B \%d, \%Y",
+  xlabformat = "\%d\%b\%Y"
 )
 }
 \arguments{

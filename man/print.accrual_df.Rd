@@ -5,16 +5,16 @@
 \alias{print.accrual_list}
 \title{Print methods for accrual objects}
 \usage{
-\method{print}{accrual_df}(x, head = FALSE, ...)
+\method{print}{accrual_df}(x, head = TRUE, ...)
 
-\method{print}{accrual_list}(x, head = FALSE, ...)
+\method{print}{accrual_list}(x, ...)
 }
 \arguments{
 \item{x}{output from accrual_create_df}
 
 \item{head}{show header of the accrual data?}
 
-\item{...}{arguments passed to head and/or print}
+\item{...}{arguments passed to head}
 }
 \value{
 
@@ -27,5 +27,8 @@ set.seed(2020)
 enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
 accrual_df<-accrual_create_df(enrollment_dates)
 print(accrual_df)
-print(accrual_df, head = TRUE)
+# only show text
+print(accrual_df, head = FALSE)
+# show first 15 days
+print(accrual_df, n = 15)
 }

@@ -23,7 +23,7 @@ accrual_plot_cum(
   ...
 )
 
-gg_accrual_plot_cum(accrual_df)
+gg_accrual_plot_cum(accrual_df, xlabformat = "\%d\%b\%Y")
 }
 \arguments{
 \item{accrual_df}{accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)}

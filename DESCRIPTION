@@ -27,7 +27,8 @@ Imports:
     ggplot2, 
     grid,
     magrittr,
-    purrr
+    purrr,
+    rlang
 RoxygenNote: 7.1.1
 Suggests: 
     knitr,

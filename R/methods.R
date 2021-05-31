@@ -97,7 +97,9 @@ summary.accrual_df <- function(object, ...){
 #' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
 #' accrual_df<-accrual_create_df(enrollment_dates)
 #' print(accrual_df)
+#' # only show text
 #' print(accrual_df, head = FALSE)
+#' # show first 15 days
 #' print(accrual_df, n = 15)
 print.accrual_df <- function(x, head = TRUE, ...){
   mindate <- min(x$Date)
