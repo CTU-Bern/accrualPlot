@@ -83,8 +83,8 @@ test_that("vdiff cumulative plots", {
   fn <- gg_accrual_plot_cum(df)
   expect_doppelganger("gg cumulative", fn)
 
-  fn <- gg_accrual_plot_abs(df)
-  expect_doppelganger("gg abs", fn)
+  # fn <- gg_accrual_plot_abs(df)
+  # expect_doppelganger("gg abs", fn)
 
   fn <- gg_accrual_plot_predict(df, target = 70)
   expect_doppelganger("gg pred", fn)
