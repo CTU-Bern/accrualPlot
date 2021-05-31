@@ -129,6 +129,7 @@ gg_accrual_plot_abs <- function(accrual_df
   }
 
   if("data.frame" %in% class(accrual_df)){
+    x <- accrual_df
 
     out <- accrual_time_unit(accrual_df, unit=unit)%>%
       rename('Recruited participants' = Freq) %>%
@@ -141,7 +142,7 @@ gg_accrual_plot_abs <- function(accrual_df
 
     x <- accrual_df
     class(x) <- class(x)[2]
-    out <- x %>%
+    x <- x %>%
       map(accrual_time_unit, unit = unit) %>%
       map2(names(x), function(.x, .y){
           .x$site <- .y
@@ -149,9 +150,12 @@ gg_accrual_plot_abs <- function(accrual_df
         }) %>%
       bind_rows() %>%
       filter(site != "Overall") %>%
-      rename('Recruited participants' = Freq) %>%
-      ggplot(aes(x = date, y = !!sym('Recruited participants'), fill = site)) +
-      geom_bar(stat = "identity")
+      rename('Recruited participants' = Freq)
+    out <- ggplot(x, aes(x = date,
+                         y = !!sym('Recruited participants'),
+                         fill = site)) +
+      geom_bar(stat = "identity") +
+      labs(fill = NULL)
 
   }
 
