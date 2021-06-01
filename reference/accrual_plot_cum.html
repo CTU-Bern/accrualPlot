@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>accrual_plot_cum — accrual_plot_cum • accrualPlot</title>
+<title>Cumulative accrual plots — accrual_plot_cum • accrualPlot</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="accrual_plot_cum — accrual_plot_cum" />
+<meta property="og:title" content="Cumulative accrual plots — accrual_plot_cum" />
 <meta property="og:description" content="Plot of cumulative recruitment based on accrual data frame produced by accrual_create_df" />
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -111,8 +111,8 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>accrual_plot_cum</h1>
-    <small class="dont-index">Source: <a href='https://github.com/CTU-Bern/accrualPlot/blob/master/R/accrual_plots.r'><code>R/accrual_plots.r</code></a></small>
+    <h1>Cumulative accrual plots</h1>
+    <small class="dont-index">Source: <a href='https://github.com/CTU-Bern/accrualPlot/blob/master/R/accrual_plots.r'><code>R/accrual_plots.r</code></a>, <a href='https://github.com/CTU-Bern/accrualPlot/blob/master/R/gg_accrual_plots.R'><code>R/gg_accrual_plots.R</code></a></small>
     <div class="hidden name"><code>accrual_plot_cum.Rd</code></div>
     </div>
 
@@ -136,7 +136,9 @@
   lty <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, each <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span>,
   legend.list <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='fu'>gg_accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span>, xlabformat <span class='op'>=</span> <span class='st'>"%d%b%Y"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,6 +208,7 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A plot of the cumulative accrual, optionally by site.</p>
+<p>ggplot2 object</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span></span>
@@ -239,6 +242,43 @@
 <span class='r-in'><span class='fu'>accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span></span>
 <span class='r-plt'><img src='accrual_plot_cum-7.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
+<span class='r-in'><span class='co'>### ggplot2 approach</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>enrollment_dates</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>, <span class='fl'>50</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>accrual_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>gg_accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_cum-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>gg_accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_cum-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#several sites</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>centers</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Site 1"</span>, <span class='st'>"Site 2"</span>, <span class='st'>"Site 3"</span><span class='op'>)</span>,</span>
+<span class='r-in'>         <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>,</span>
+<span class='r-in'>         replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>accrual_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>, by <span class='op'>=</span> <span class='va'>centers</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>gg_accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_cum-10.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#assuming a common start and current date</span></span>
+<span class='r-in'><span class='va'>accrual_df</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'>  <span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='va'>enrollment_dates</span>,</span>
+<span class='r-in'>    by <span class='op'>=</span> <span class='va'>centers</span>,</span>
+<span class='r-in'>    start_date <span class='op'>=</span> <span class='st'>"common"</span>,</span>
+<span class='r-in'>    current_date <span class='op'>=</span> <span class='st'>"common"</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>gg_accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_cum-11.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#without overall</span></span>
+<span class='r-in'><span class='va'>accrual_df</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'>  <span class='fu'><a href='accrual_create_df.html'>accrual_create_df</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span>, by <span class='op'>=</span> <span class='va'>centers</span>, overall <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>gg_accrual_plot_cum</span><span class='op'>(</span><span class='va'>accrual_df</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='accrual_plot_cum-12.png' alt='' width='700' height='433' /></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -251,7 +291,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Lukas Bütikofer.</p>
+  <p>Developed by Lukas Bütikofer, Alan G. Haynes.</p>
 </div>
 
 <div class="pkgdown">

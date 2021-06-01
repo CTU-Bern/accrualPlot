@@ -73,7 +73,7 @@ recruited at each date from a vector with enrollment dates." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -187,149 +187,61 @@ date with an accrual and the absolute and cumulative number of patients accrued.
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>enrollment_dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>, <span class='fl'>50</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>accrual_create_df</span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>          Date Freq Cumulative</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  2018-01-02    0          0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2018-01-02    1          1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  2018-01-03    2          3</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  2018-01-04    1          4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  2018-01-05    2          6</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  2018-01-07    2          8</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  2018-01-08    1          9</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  2018-01-09    2         11</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  2018-01-11    3         14</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 2018-01-12    1         15</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 2018-01-13    3         18</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 2018-01-14    2         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 2018-01-15    3         23</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 2018-01-16    2         25</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 2018-01-17    4         29</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 2018-01-18    2         31</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 2018-01-19    4         35</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 2018-01-21    3         38</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 2018-01-22    1         39</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 2018-01-23    3         42</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 2018-01-24    1         43</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 2018-01-25    3         46</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 2018-01-28    1         47</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 2018-01-29    1         48</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 2018-01-30    2         50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 50 participants recruited between 2018-01-02 and 2018-01-30 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         Date Freq Cumulative</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 2018-01-02    0          0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2018-01-02    1          1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 2018-01-03    2          3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 2018-01-04    1          4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 2018-01-05    2          6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 2018-01-07    2          8</span>
 <span class='r-in'><span class='co'># different start and current date</span></span>
 <span class='r-in'><span class='fu'>accrual_create_df</span><span class='op'>(</span><span class='va'>enrollment_dates</span>,start_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2017-12-01"</span><span class='op'>)</span>,</span>
 <span class='r-in'>current_date<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2018-03-01"</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>          Date Freq Cumulative</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  2017-12-01    0          0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2018-01-02    1          1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  2018-01-03    2          3</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  2018-01-04    1          4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  2018-01-05    2          6</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  2018-01-07    2          8</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  2018-01-08    1          9</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  2018-01-09    2         11</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  2018-01-11    3         14</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 2018-01-12    1         15</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 2018-01-13    3         18</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 2018-01-14    2         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 2018-01-15    3         23</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 2018-01-16    2         25</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 2018-01-17    4         29</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 2018-01-18    2         31</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 2018-01-19    4         35</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 2018-01-21    3         38</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 2018-01-22    1         39</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 2018-01-23    3         42</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 2018-01-24    1         43</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 2018-01-25    3         46</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 2018-01-28    1         47</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 2018-01-29    1         48</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 2018-01-30    2         50</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 26 2018-03-01    0         50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 50 participants recruited between 2017-12-01 and 2018-03-01 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         Date Freq Cumulative</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 2017-12-01    0          0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2018-01-02    1          1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 2018-01-03    2          3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 2018-01-04    1          4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 2018-01-05    2          6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 2018-01-07    2          8</span>
 <span class='r-in'><span class='co'>#by site</span></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>centers</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Site 1"</span>,<span class='st'>"Site 2"</span>,<span class='st'>"Site 3"</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>enrollment_dates</span><span class='op'>)</span>,replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>accrual_create_df</span><span class='op'>(</span><span class='va'>enrollment_dates</span>,by<span class='op'>=</span><span class='va'>centers</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $`Site 1`</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>          Date Freq Cumulative</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  2018-01-03    0          0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2018-01-03    1          1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  2018-01-04    1          2</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  2018-01-07    2          4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  2018-01-11    1          5</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  2018-01-13    1          6</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  2018-01-16    1          7</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  2018-01-19    3         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  2018-01-21    1         11</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 2018-01-22    1         12</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 2018-01-23    1         13</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 2018-01-24    1         14</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 2018-01-25    2         16</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 2018-01-28    1         17</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 2018-01-30    0         17</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $`Site 2`</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>          Date Freq Cumulative</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  2018-01-03    0          0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2018-01-03    1          1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  2018-01-05    2          3</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  2018-01-08    1          4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  2018-01-09    2          6</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  2018-01-11    1          7</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  2018-01-12    1          8</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  2018-01-13    2         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  2018-01-14    1         11</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 2018-01-15    2         13</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 2018-01-17    3         16</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 2018-01-18    1         17</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 2018-01-21    1         18</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 2018-01-23    1         19</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 2018-01-30    2         21</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $`Site 3`</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>          Date Freq Cumulative</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  2018-01-02    0          0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2018-01-02    1          1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  2018-01-11    1          2</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  2018-01-14    1          3</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  2018-01-15    1          4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  2018-01-16    1          5</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  2018-01-17    1          6</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  2018-01-18    1          7</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  2018-01-19    1          8</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 2018-01-21    1          9</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 2018-01-23    1         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 2018-01-25    1         11</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 2018-01-29    1         12</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 2018-01-30    0         12</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $Overall</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>          Date Freq Cumulative</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  2018-01-02    0          0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2018-01-02    1          1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  2018-01-03    2          3</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  2018-01-04    1          4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  2018-01-05    2          6</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  2018-01-07    2          8</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  2018-01-08    1          9</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  2018-01-09    2         11</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  2018-01-11    3         14</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 2018-01-12    1         15</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 2018-01-13    3         18</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 2018-01-14    2         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 2018-01-15    3         23</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 2018-01-16    2         25</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 2018-01-17    4         29</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 2018-01-18    2         31</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 2018-01-19    4         35</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 2018-01-21    3         38</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 2018-01-22    1         39</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 2018-01-23    3         42</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 2018-01-24    1         43</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 2018-01-25    3         46</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 2018-01-28    1         47</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 2018-01-29    1         48</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 2018-01-30    2         50</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "accrual_df" "list"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 participants recruited between 2018-01-03 and 2018-01-30 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         Date Freq Cumulative</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 2018-01-03    0          0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2018-01-03    1          1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 2018-01-04    1          2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 2018-01-07    2          4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 2018-01-11    1          5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 2018-01-13    1          6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 participants recruited between 2018-01-03 and 2018-01-30 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         Date Freq Cumulative</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 2018-01-03    0          0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2018-01-03    1          1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 2018-01-05    2          3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 2018-01-08    1          4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 2018-01-09    2          6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 2018-01-11    1          7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 participants recruited between 2018-01-02 and 2018-01-30 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         Date Freq Cumulative</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 2018-01-02    0          0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2018-01-02    1          1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 2018-01-11    1          2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 2018-01-14    1          3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 2018-01-15    1          4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 2018-01-16    1          5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 50 participants recruited between 2018-01-02 and 2018-01-30 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         Date Freq Cumulative</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 2018-01-02    0          0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2018-01-02    1          1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 2018-01-03    2          3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 2018-01-04    1          4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 2018-01-05    2          6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 2018-01-07    2          8</span>
 <span class='r-in'><span class='co'># }</span></span>
 </pre>
   </div>
@@ -343,7 +255,7 @@ date with an accrual and the absolute and cumulative number of patients accrued.
 
       <footer>
       <div class="copyright">
-  <p>Developed by Lukas Bütikofer.</p>
+  <p>Developed by Lukas Bütikofer, Alan G. Haynes.</p>
 </div>
 
 <div class="pkgdown">
