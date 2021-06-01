@@ -252,6 +252,91 @@ plot_center<-function(accrual_df,center_start_dates,
 
 
 
+# helpers for prediction
+
+lc_lct <- function(accrual_df, overall, name_overall){
+  # overall <- get("overall", envir = parent.frame())
+  # name_overall <- get("name_overall", envir = parent.frame())
+
+  if (is.data.frame(accrual_df)) {
+    accrual_df<-list(accrual_df)
+  } else {
+    if (!all(unlist(lapply(accrual_df,function(x) is.data.frame(x))))) {
+      stop("accrual_df has to be a data frame or a list of data frames")
+    }
+  }
+  lc<-lct<-length(accrual_df)
+
+  if (lc>1 & overall==TRUE) {
+    if (is.null(accrual_df[[name_overall]])) {
+      print(paste0("'",name_overall,"' not found in accrual_df, overall set to FALSE"))
+      overall<-FALSE
+    }
+  }
+
+  if (overall & lc!=1) {
+    lct<-lc-1
+  }
+
+  return(list(
+    accrual_df = accrual_df,
+    lc = lc,
+    lct = lct,
+    overall = overall
+  ))
+  # assign("accrual_df", accrual_df, envir = parent.frame())
+  # assign("lc", lc, envir = parent.frame())
+  # assign("lct", lct, envir = parent.frame())
+  # assign("overall", overall, envir = parent.frame())
+}
+
+pred_fn <- function(accrual_df,
+                    fill_up,
+                    wfun,
+                    lc,
+                    overall,
+                    target,
+                    name_overall){
+
+  if (lc==1) {
+    #only 1:
+    adf<-accrual_df[[1]]
+    m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
+    end_date<-accrual_predict(adf,m1,target)
+    edate<-end_date
+  } else {
+    #only 1 target and overall
+    if (overall & length(target)==1) {
+      adf<-accrual_df[[name_overall]]
+      m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
+      end_date<-accrual_predict(adf,m1,target)
+      edate<-end_date
+    } else {
+      #no overall or several targets: multiple predictions
+      adf<-accrual_df
+      m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
+      end_date<-accrual_predict(adf,m1,target)
+      edate<-max(do.call("c",end_date))
+    }
+  }
+
+  return(list(
+    end_date = end_date,
+    edate = edate,
+    adf = adf
+  ))
+  # assign("end_date", end_date, envir = parent.frame())
+  # assign("edate", edate, envir = parent.frame())
+  # assign("adf", adf, envir = parent.frame())
+
+}
 
 
+is_accrual_df <- function(x){
+  "accrual_df" %in% class(x)
+}
+
+is_accrual_list <- function(x){
+  "accrual_list" %in% class(x)
+}
 

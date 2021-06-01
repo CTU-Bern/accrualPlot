@@ -14,7 +14,9 @@ df2 <- accrual_create_df(x, by = site)
 
 test_that("cumulative plots", {
   expect_error(accrual_plot_cum(df), NA)
+  expect_error(gg_accrual_plot_cum(df), NA)
   expect_warning(accrual_plot_cum(df2), NA)
+  expect_warning(gg_accrual_plot_cum(df2), NA)
 })
 
 
@@ -24,6 +26,8 @@ test_that("cumulative plots", {
 test_that("accrual_plot_abs", {
   expect_error(accrual_plot_abs(df, unit = "weeks"))
   expect_error(accrual_plot_abs(df, unit = "week"), NA)
+  expect_error(gg_accrual_plot_abs(df, unit = "weeks"))
+  expect_error(gg_accrual_plot_abs(df, unit = "week"), NA)
 })
 
 
@@ -36,6 +40,7 @@ test_that("accrual_plot_abs", {
 # vdiffr::manage_cases()
 
 skip_if(getRversion() < package_version("4.1.0"))
+skip_if(.Platform$OS.type != "windows")
 
 test_that("vdiff cumulative plots", {
 
@@ -73,6 +78,42 @@ test_that("vdiff cumulative plots", {
 
   fn <- function() accrual_plot_cum(df2, col = c("red1", "blue", "orange", "black"))
   expect_doppelganger("cumulative site, col", fn)
+
+  # ggplot
+
+  fn <- gg_accrual_plot_cum(df)
+  expect_doppelganger("gg cumulative", fn)
+
+  fn <- gg_accrual_plot_abs(df)
+  expect_doppelganger("gg abs", fn)
+
+  fn <- gg_accrual_plot_predict(df, target = 70)
+  expect_doppelganger("gg pred", fn)
+
+  fn <- gg_accrual_plot_cum(df2)
+  expect_doppelganger("gg cumulative site", fn)
+
+  fn <- gg_accrual_plot_abs(df2)
+  expect_doppelganger("gg abs site", fn)
+
+  fn <- gg_accrual_plot_predict(df2, target = 70)
+  expect_doppelganger("gg pred site", fn)
+
+  fn <- gg_accrual_plot_cum(df2[[1]])
+  expect_doppelganger("gg cumulative site1", fn)
+
+  fn <- gg_accrual_plot_abs(df2[[1]])
+  expect_doppelganger("gg abs site1", fn)
+
+  # fn <- gg_accrual_plot_predict(df2[[1]], target = 70)
+  # expect_doppelganger("gg pred site 1", fn)
+
+  fn <- gg_accrual_plot_predict(df2[[2]], target = 70)
+  expect_doppelganger("gg pred site 2", fn)
+
+  fn <- gg_accrual_plot_predict(df2, target = c(30, 30, 30, 70))
+  expect_doppelganger("gg pred site n", fn)
+
 
 
 })

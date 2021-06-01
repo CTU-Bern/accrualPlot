@@ -25,7 +25,7 @@ test_that("does not work string %Y-%m-%d", {
 
 test_that("correct class", {
           expect_equal(class(df), c("accrual_df", "data.frame"))
-          expect_equal(class(df2), c("accrual_df", "list"))
+          expect_equal(class(df2), c("accrual_list", "accrual_df", "list"))
           expect_equal(class(df2[[1]]), c("accrual_df", "data.frame"))
 })
 
@@ -71,7 +71,7 @@ test_that("accrual_create_df class, errors, length", {
 
   x <- accrual_create_df(enrollment_dates,by=centers)
   y <- accrual_create_df(enrollment_dates,by=centers, overall=FALSE)
-  expect_equal(class(x), c("accrual_df", "list"))
+  expect_equal(class(x), c("accrual_list", "accrual_df", "list"))
   expect_equal(length(x), length(unique(centers))+1)
   expect_equal(length(y), length(unique(centers)))
 
