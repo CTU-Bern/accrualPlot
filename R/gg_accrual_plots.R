@@ -120,6 +120,8 @@ gg_accrual_plot_abs <- function(accrual_df
                                 , xlabformat = NULL
                                 ){
 
+  unit <- match.arg(unit)
+
   #default xlabformat
   if (is.null(xlabformat)) {
     if (unit=="month") {xlabformat<-"%b %Y"}
