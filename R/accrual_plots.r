@@ -1,10 +1,11 @@
-#' accrual_plot_predict
+#' Accrual prediction plots
 #'
 #' Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)
 #'	and a target sample size.
-#' If the accrual data frame is a list (i.e. using the by option in accrual_create_df,
+#' If the accrual data frame is a list (i.e. using the by option in accrual_create_df),
 #' 	or if center start dates are given, the number of enrolled and targeted sites is included.
 #'
+#' @rdname accrual_plot_predict
 #' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
 #' @param target target sample size, if it is a vector with the same length as accrual_df, center-specific
 #'		predictions are shown
@@ -99,23 +100,23 @@
 #'
 accrual_plot_predict<-function(accrual_df,
                                target,
-							   overall=TRUE,
-							   name_overall="Overall",
+                               overall=TRUE,
+                               name_overall=attr(accrual_df, "name_overall"),
                                fill_up=TRUE,
                                wfun=function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)),
-							   col.obs=NULL,
-							   lty.obs=1,
-							   col.pred="red",
-							   lty.pred=2,
-							   pch.pred=8,
-							   pos_prediction=c("out","in","none"),
+                               col.obs=NULL,
+                               lty.obs=1,
+                               col.pred="red",
+                               lty.pred=2,
+                               pch.pred=8,
+                               pos_prediction=c("out","in","none"),
                                label_prediction="Predicted end date: ",
                                cex_prediction=1.1,
                                format_prediction="%B %d, %Y",
                                show_center=TRUE,
-							   design=1,
-							   center_label="Centers",
-							   center_legend=c("number","strip"),
+                               design=1,
+                               center_label="Centers",
+                               center_legend=c("number","strip"),
                                targetc=NA,
                                center_colors=NULL,
                                center_legend_text_size=0.7,
@@ -129,34 +130,21 @@ accrual_plot_predict<-function(accrual_df,
                                xlabadj=c(1,1),
                                xlabcex=1,
                                mar=NA,
-							   legend.list=NULL,
+                               legend.list=NULL,
                                ...,
-							   center_start_dates=NULL) {
+                               center_start_dates=NULL) {
 
 
 	pos_prediction<-match.arg(pos_prediction)
 	center_legend<-match.arg(center_legend)
 
-	if (is.data.frame(accrual_df)) {
-		accrual_df<-list(accrual_df)
-	} else {
-		if (!all(unlist(lapply(accrual_df,function(x) is.data.frame(x))))) {
-			stop("accrual_df has to be a data frame or a list of data frames")
-		}
-	}
-	lc<-lct<-length(accrual_df)
-
-	if (lc>1 & overall==TRUE) {
-		if (is.null(accrual_df[[name_overall]])) {
-			print(paste0("'",name_overall,"' not found in accrual_df, overall set to FALSE"))
-			overall<-FALSE
-		}
-	}
-
-	if (overall & lc!=1) {
-		lct<-lc-1
-	}
-
+	tmp <- lc_lct(accrual_df,
+	              overall,
+	              name_overall)
+	accrual_df <- tmp$accrual_df
+	lc <- tmp$lc
+	lct <- tmp$lct
+	overall <- tmp$overall
 
 	if (!is.na(sum(mar))) {
 		stopifnot(length(mar)==4)
@@ -182,28 +170,16 @@ accrual_plot_predict<-function(accrual_df,
 	#predictions
 	#&&&&&&&&&&
 
-	if (lc==1) {
-		#only 1:
-		adf<-accrual_df[[1]]
-		m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
-		end_date<-accrual_predict(adf,m1,target)
-		edate<-end_date
-	} else {
-		#only 1 target and overall
-		if (overall & length(target)==1) {
-			adf<-accrual_df[[name_overall]]
-			m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
-			end_date<-accrual_predict(adf,m1,target)
-			edate<-end_date
-		} else {
-		#no overall or several targets: multiple predictions
-			adf<-accrual_df
-			m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
-			end_date<-accrual_predict(adf,m1,target)
-			edate<-max(do.call("c",end_date))
-		}
-	}
-
+	tmp <- pred_fn(accrual_df,
+	               fill_up,
+	               wfun,
+	               lc,
+	               overall,
+	               target,
+	               name_overall)
+	end_date <- tmp$end_date
+	edate <- tmp$edate
+	adf <- tmp$adf
 
 
 	#plot scaling
@@ -339,10 +315,11 @@ accrual_plot_predict<-function(accrual_df,
 
 #**********************************************************************************#
 
-#' accrual_plot_cum
+#' Cumulative accrual plots
 #'
 #' Plot of cumulative recruitment based on accrual data frame produced by accrual_create_df
 #'
+#' @rdname accrual_plot_cum
 #' @param accrual_df  accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)
 #	  with by option, a line is added for each element in the list
 #' @param ylim  limits for y-axis
@@ -469,10 +446,11 @@ accrual_plot_cum<-function(accrual_df,
 
 #**********************************************************************************#
 
-#' accrual_plot_abs
+#' Absolute accrual plots
 #'
 #' Plot of absolute recruitment by time unit
 #'
+#' @rdname accrual_plot_abs
 #' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
 #' @param unit time unit for which the bars should be plotted, any of "month","year","week","day"
 #' @param target adds horizontal line for target recruitment per time unit
@@ -531,7 +509,7 @@ accrual_plot_abs<-function(accrual_df,
                            unit=c("month","year","week","day"),
                            target=NULL,
 						   overall=TRUE,
-                           name_overall="Overall",
+                           name_overall=attr(accrual_df, "name_overall"),
                            ylim=NULL,
                            xlim=NULL,
                            ylab="Recruited patients",

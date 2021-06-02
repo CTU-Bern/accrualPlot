@@ -1,12 +1,12 @@
 Package: accrualPlot
 Type: Package
 Title: Accrual plots and predictions for clinical trials
-Version: 0.5.3
+Version: 0.6.0
 Authors@R: 
     c(
     person(given = "Lukas", family = "Bütikofer", role = c("cre", "aut"),
     email = "lukas.buetikofer@ctu.unibe.ch"),
-    person(given = "Alan G.", family = "Haynes", role = "ctb",
+    person(given = "Alan G.", family = "Haynes", role = "aut",
     email = "alan.haynes@ctu.unibe.ch"))
 Maintainer: Lukas Bütikofer <lukas.buetikofer@ctu.unibe.ch>
 Description: Tracking accrual in clinical trials is important for trial success. 
@@ -22,10 +22,18 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     lubridate
+Imports:
+    dplyr, 
+    ggplot2, 
+    grid,
+    magrittr,
+    purrr,
+    rlang
 RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     markdown,
+    patchwork,
     rmarkdown,
     testthat,
     vdiffr
