@@ -16,9 +16,6 @@
 
 \item{...}{arguments passed to head}
 }
-\value{
-
-}
 \description{
 Print methods for accrual objects
 }

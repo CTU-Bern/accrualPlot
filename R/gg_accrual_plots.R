@@ -46,6 +46,8 @@
 
 gg_accrual_plot_cum <- function(accrual_df, xlabformat="%d%b%Y"){
 
+  Date <- site <- Cumulative <- NULL
+
   if("data.frame" %in% class(accrual_df)){
 
     out <- accrual_df %>%
@@ -121,6 +123,7 @@ gg_accrual_plot_abs <- function(accrual_df
                                 ){
 
   unit <- match.arg(unit)
+  Date <- site <- Freq <- date <- NULL
 
   #default xlabformat
   if (is.null(xlabformat)) {
@@ -225,6 +228,8 @@ gg_accrual_plot_predict <- function(accrual_df
                                     ){
 
   pos_prediction <- match.arg(pos_prediction)
+
+  date <- cum <- NULL
 
   if(is_accrual_list(accrual_df)){
     if(length(target) > 1){
