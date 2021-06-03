@@ -134,7 +134,7 @@ plot_center<-function(accrual_df,center_start_dates,
 		}
 	}
 
-	csk<-accrual_create_df(center_start_dates)
+	csk<-accrual_create_df(center_start_dates,force_start0=FALSE)
 
 	cdate<-max(do.call("c",lapply(accrual_df,function(x) max(x$Date))))
 

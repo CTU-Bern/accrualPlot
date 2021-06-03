@@ -1,3 +1,7 @@
+accrualPlot 0.6.1
+------------------
+accrual_plot_predict: remove 0 from center strip
+
 accrualPlot 0.6.0
 ------------------
 addition of names_overall attribute to accrual_df objects
