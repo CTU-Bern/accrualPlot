@@ -58,9 +58,11 @@ accrual_table(accrual_df,format_time="\%1.1f",format_rrate="\%1.1f")
 accrual_table(accrual_df,unit="day")
 
 #common start and current dates
-accrual_table(accrual_df,unit="day",start_date="common",current_date="common")
-accrual_table(accrual_df,unit="day",start_date=as.Date("2017-12-31"),
+accrual_df<-accrual_create_df(enrollment_dates,by=centers,start_date="common",current_date="common")
+accrual_table(accrual_df)
+accrual_df<-accrual_create_df(enrollment_dates,by=centers,start_date=as.Date("2017-12-31"),
     current_date=as.Date("2018-03-01"))
+accrual_table(accrual_df)
 
 
 }
