@@ -9,14 +9,6 @@
 #' @param overall logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)
 #' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
 #' @param pos_overall overall in last or first row (if by is not NA and overall==TRUE)
-#' @param start_date start_date: date when recruitment started, single character or date,
-#	  or "common" if the same date should be used for all sites,
-#		if not given the first enrollment date is used as start_date
-#' @param format_start_date format of the start date, ignored if start_date is a date
-#' @param current_date date of the data export or database freeze, single character or date
-#	  or "common" if the same date should be used for all sites,
-#		if not given the latest enrollment date is used for each site
-#' @param format_current_date format of the current date, ignored if current_date is a date
 #' @param unit time unit for time recruiting and the rate, any of "month","year","week","day"
 #' @param format_table_date format of start date in table
 #' @param format_time format of time recruiting in table
@@ -51,10 +43,6 @@ accrual_table<-function(accrual_df,
                         overall=TRUE,
                         name_overall="Overall",
                         pos_overall=c("last","first"),
-                        start_date=NA,
-                        format_start_date="%d%b%Y",
-                        current_date=NA,
-                        format_current_date="%d%b%Y",
                         unit=c("month","year","week","day"),
                         format_table_date="%d%b%Y",
                         format_time="%1.0f",
@@ -79,50 +67,22 @@ accrual_table<-function(accrual_df,
   }
   lc<-length(accrual_df)
 
-  if (!is.na(start_date)) {
-    if (inherits(start_date,"Date")) {
-      sdate<-start_date
-    } else {
-      if (start_date=="common") {
-        sdate<-min(do.call("c",lapply(accrual_df,function(x) min(x$Date))))
-      } else {
-        sdate<-as.Date(start_date,format=format_start_date)
-      }
-    }
-  }
-
-  if (!is.na(current_date)) {
-    if (inherits(current_date,"Date")) {
-      end_date<-current_date
-    } else {
-      if (current_date=="common") {
-        end_date<-max(do.call("c",lapply(accrual_df,function(x) max(x$Date))))
-      } else {
-        end_date<-as.Date(current_date,format=format_current_date)
-      }
-    }
-  }
+  
 
   tab<-numeric(0)
 
   for (i in 1:lc) {
     nrec<-max(accrual_df[[i]]$Cumulative)
 
-    si<-min(accrual_df[[i]]$Date[accrual_df[[i]]$Cumulative>0])
-    if (is.na(start_date)) {
-      sdate<-si
-    }
-
-    ei<-max(accrual_df[[i]]$Date[accrual_df[[i]]$Cumulative==max(accrual_df[[i]]$Cumulative)])
-    if (is.na(current_date)) {
-      end_date<-ei
-    }
-
+    #sdate<-min(accrual_df[[i]]$Date[accrual_df[[i]]$Cumulative>0])
+    #end_date<-max(accrual_df[[i]]$Date[accrual_df[[i]]$Cumulative==max(accrual_df[[i]]$Cumulative)])
+	sdate<-min(accrual_df[[i]]$Date)
+    end_date<-max(accrual_df[[i]]$Date)
+   
     trec<-as.numeric(end_date-sdate)/scale
     if (end_date==sdate) {trec<-0.5/scale}
 
     rrate<-nrec/trec
-
 
     tabi<-c(name=names(accrual_df)[[i]],start_date=format(sdate,format_table_date),
             time=sprintf(format_time,trec),n=nrec,rate=sprintf(format_rrate,rrate))
