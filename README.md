@@ -1,7 +1,7 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-`accrualPlot` <img src='man/figures/sticker.png' align="right" height="200">
-============================================================================
+# `accrualPlot` <img src='man/figures/sticker.png' align="right" height="200">
 
 <!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
 
@@ -18,51 +18,47 @@ resources (including time). Assessing accrual rates can also be useful
 for planning analyses and estimating how long a trial needs to continue
 recruiting participants. `accrualPlot` provides tools for such plots
 
-Installation
-------------
+## Installation
 
 <!-- `accrualPlot` can be installed from CRAN in the usual manner: -->
 
-You can install the development version of `accrualPlot` from github
-with:
+The package can be installed from the CTU Bern universe via
 
-    # install.packages("remotes")
-    remotes::install_github("CTU-Bern/accrualPlot")
+``` r
+install.packages('accrualPlot', repos = 'https://ctu-bern.r-universe.dev')
+```
 
-Note that `remotes` treats any warnings (e.g. that a certain package was
-built under a different version of R) as errors. If you see such an
-error, run the following line and try again:
-
-    Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
-
-Overview
---------
+## Overview
 
 The first step to using `accrualPlot` is to create an accrual dataframe.
 This is simply a dataframe with a counts of participants included per
 day.
 
-    # load package
-    library(accrualPlot)
-    #> Loading required package: lubridate
-    #> 
-    #> Attaching package: 'lubridate'
-    #> The following objects are masked from 'package:base':
-    #> 
-    #>     date, intersect, setdiff, union
+``` r
+# load package
+library(accrualPlot)
+#> Loading required package: lubridate
+#> 
+#> Attaching package: 'lubridate'
+#> The following objects are masked from 'package:base':
+#> 
+#>     date, intersect, setdiff, union
 
-    # generate some data
-    set.seed(1234)
-    x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
+# generate some data
+set.seed(1234)
+x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
 
-    df <- accrual_create_df(x)
+df <- accrual_create_df(x)
+```
 
 Cumulative and absolute recruitment plots , as well as a method to
 predict the time point of study completion, are included.
 
-    par(mfrow = c(1,3))
-    plot(df, which = "cum")
-    plot(df, which = "abs")
-    plot(df, which = "pred", target = 100)
+``` r
+par(mfrow = c(1,3))
+plot(df, which = "cum")
+plot(df, which = "abs")
+plot(df, which = "pred", target = 100)
+```
 
-![](man/figures/README-unnamed-chunk-3-1.png)
+![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
