@@ -85,36 +85,36 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <!-- `accrualPlot` can be installed from CRAN in the usual manner: -->
-<p>You can install the development version of <code>accrualPlot</code> from github with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages("remotes")</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"CTU-Bern/accrualPlot"</span>)</span></code></pre></div>
-<p>Note that <code>remotes</code> treats any warnings (e.g. that a certain package was built under a different version of R) as errors. If you see such an error, run the following line and try again:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">Sys.setenv</span>(<span class="dt">R_REMOTES_NO_ERRORS_FROM_WARNINGS =</span> <span class="st">"true"</span>)</span></code></pre></div>
+<p>The package can be installed from the CTU Bern universe via</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'accrualPlot'</span>, repos <span class="op">=</span> <span class="st">'https://ctu-bern.r-universe.dev'</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>The first step to using <code>accrualPlot</code> is to create an accrual dataframe. This is simply a dataframe with a counts of participants included per day.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># load package</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">library</span>(accrualPlot)</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; Loading required package: lubridate</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; </span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; Attaching package: 'lubridate'</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; </span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt;     date, intersect, setdiff, union</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># generate some data</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb3-12"><a href="#cb3-12"></a>x &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"2020-12-07"</span>) <span class="op">+</span><span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">20</span><span class="op">:</span><span class="dv">20</span>), <span class="dv">50</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb3-13"><a href="#cb3-13"></a></span>
-<span id="cb3-14"><a href="#cb3-14"></a>df &lt;-<span class="st"> </span><span class="kw">accrual_create_df</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># load package</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/CTU-Bern/accrualPlot">accrualPlot</a></span><span class="op">)</span>
+<span class="co">#&gt; Loading required package: lubridate</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'lubridate'</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     date, intersect, setdiff, union</span>
+
+<span class="co"># generate some data</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-12-07"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">20</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span>, <span class="fl">50</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 <p>Cumulative and absolute recruitment plots , as well as a method to predict the time point of study completion, are included.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">plot</span>(df, <span class="dt">which =</span> <span class="st">"cum"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">plot</span>(df, <span class="dt">which =</span> <span class="st">"abs"</span>)</span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">plot</span>(df, <span class="dt">which =</span> <span class="st">"pred"</span>, <span class="dt">target =</span> <span class="dv">100</span>)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-3-1.png"></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"cum"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"abs"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"pred"</span>, target <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png"><!-- --></p>
 </div>
 </div>
   </div>
