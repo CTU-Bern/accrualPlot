@@ -62,3 +62,11 @@ plot(df, which = "pred", target = 100)
 ```
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
+
+### Acknowledgements
+
+The package logo was created with
+[`ggplot2`](https://ggplot2.tidyverse.org/) and
+[`hexSticker`](https://github.com/GuangchuangYu/hexSticker) with icons
+from [Font Awesome](https://fontawesome.com/) (via the [emojifont
+package](https://github.com/GuangchuangYu/emojifont)).
