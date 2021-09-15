@@ -28,6 +28,21 @@ The package can be installed from the CTU Bern universe via
 install.packages('accrualPlot', repos = 'https://ctu-bern.r-universe.dev')
 ```
 
+`accrualPlot` can be installed directly from from github with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("CTU-Bern/accrualPlot")
+```
+
+Note that `remotes` treats any warnings (e.g. that a certain package was
+built under a different version of R) as errors. If you see such an
+error, run the following line and try again:
+
+``` r
+Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
+```
+
 ## Overview
 
 The first step to using `accrualPlot` is to create an accrual dataframe.
@@ -43,7 +58,6 @@ library(accrualPlot)
 #> The following objects are masked from 'package:base':
 #> 
 #>     date, intersect, setdiff, union
-
 # generate some data
 set.seed(1234)
 x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
