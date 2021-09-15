@@ -34,6 +34,18 @@ The package can be installed from the CTU Bern universe via
 install.packages('accrualPlot', repos = 'https://ctu-bern.r-universe.dev')
 ```
 
+`accrualPlot` can be installed directly from from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("remotes")
+remotes::install_github("CTU-Bern/accrualPlot")
+```
+
+Note that `remotes` treats any warnings (e.g. that a certain package was built under a different version of R) as errors. If you see such an error, run the following line and try again:
+
+```{r remotes-error, eval = FALSE}
+Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
+```
 
 ## Overview
 The first step to using `accrualPlot` is to create an accrual dataframe. This is simply a dataframe with a counts of participants included per day.
