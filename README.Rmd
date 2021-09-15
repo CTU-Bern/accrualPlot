@@ -30,7 +30,7 @@ Accrual plots are an important tool when monitoring clinical trials. Some trials
 
 The package can be installed from the CTU Bern universe via
 
-```{r gh-installation, eval = FALSE}
+```{r universe-installation, eval = FALSE}
 install.packages('accrualPlot', repos = 'https://ctu-bern.r-universe.dev')
 ```
 
