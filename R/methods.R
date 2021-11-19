@@ -72,9 +72,8 @@ plot.accrual_df <- function(x
 #' summary(accrual_df)
 summary.accrual_df <- function(object, ...){
 
-  tab <- accrual_table(object, ...)
+  accrual_table(object, ...)
 
-  print(tab, row.names = FALSE)
 }
 
 
