@@ -9,10 +9,6 @@ accrual_table(
   overall = TRUE,
   name_overall = "Overall",
   pos_overall = c("last", "first"),
-  start_date = NA,
-  format_start_date = "\%d\%b\%Y",
-  current_date = NA,
-  format_current_date = "\%d\%b\%Y",
   unit = c("month", "year", "week", "day"),
   format_table_date = "\%d\%b\%Y",
   format_time = "\%1.0f",
@@ -28,14 +24,6 @@ accrual_table(
 \item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
 
 \item{pos_overall}{overall in last or first row (if by is not NA and overall==TRUE)}
-
-\item{start_date}{start_date: date when recruitment started, single character or date,}
-
-\item{format_start_date}{format of the start date, ignored if start_date is a date}
-
-\item{current_date}{date of the data export or database freeze, single character or date}
-
-\item{format_current_date}{format of the current date, ignored if current_date is a date}
 
 \item{unit}{time unit for time recruiting and the rate, any of "month","year","week","day"}
 
@@ -70,9 +58,11 @@ accrual_table(accrual_df,format_time="\%1.1f",format_rrate="\%1.1f")
 accrual_table(accrual_df,unit="day")
 
 #common start and current dates
-accrual_table(accrual_df,unit="day",start_date="common",current_date="common")
-accrual_table(accrual_df,unit="day",start_date=as.Date("2017-12-31"),
+accrual_df<-accrual_create_df(enrollment_dates,by=centers,start_date="common",current_date="common")
+accrual_table(accrual_df)
+accrual_df<-accrual_create_df(enrollment_dates,by=centers,start_date=as.Date("2017-12-31"),
     current_date=as.Date("2018-03-01"))
+accrual_table(accrual_df)
 
 
 }

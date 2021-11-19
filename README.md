@@ -5,7 +5,7 @@
 
 <!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
 
-[![](https://img.shields.io/badge/dev%20version-0.6.0-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
+[![](https://img.shields.io/badge/dev%20version-0.6.2-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
 [![Actions
 Status](https://github.com/CTU-Bern/accrualPlot/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/accrualPlot/actions)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
@@ -28,6 +28,21 @@ The package can be installed from the CTU Bern universe via
 install.packages('accrualPlot', repos = 'https://ctu-bern.r-universe.dev')
 ```
 
+`accrualPlot` can be installed directly from from github with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("CTU-Bern/accrualPlot")
+```
+
+Note that `remotes` treats any warnings (e.g. that a certain package was
+built under a different version of R) as errors. If you see such an
+error, run the following line and try again:
+
+``` r
+Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
+```
+
 ## Overview
 
 The first step to using `accrualPlot` is to create an accrual dataframe.
@@ -43,7 +58,6 @@ library(accrualPlot)
 #> The following objects are masked from 'package:base':
 #> 
 #>     date, intersect, setdiff, union
-
 # generate some data
 set.seed(1234)
 x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
@@ -62,3 +76,11 @@ plot(df, which = "pred", target = 100)
 ```
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
+
+### Acknowledgements
+
+The package logo was created with
+[`ggplot2`](https://ggplot2.tidyverse.org/) and
+[`hexSticker`](https://github.com/GuangchuangYu/hexSticker) with icons
+from [Font Awesome](https://fontawesome.com/) (via the [emojifont
+package](https://github.com/GuangchuangYu/emojifont)).
