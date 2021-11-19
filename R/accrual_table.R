@@ -55,7 +55,7 @@ accrual_table<-function(accrual_df,
   unit<-match.arg(unit)
   pos_overall<-match.arg(pos_overall)
 
-  scales<-data.frame(unit=c("year","month","week","day"),scale=c(365,30,7,1),name=c("Years","Months","Weaks","Days"))
+  scales<-data.frame(unit=c("year","month","week","day"),scale=c(365,30,7,1),name=c("Years","Months","Weeks","Days"))
   scale<-scales$scale[scales$unit==unit]
   uname<-scales$name[scales$unit==unit]
 

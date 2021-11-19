@@ -1,5 +1,10 @@
 accrualPlot 0.6.2
 ------------------
+accrual_table: correct typo in weeks
+summary: no longer prints the table
+
+accrualPlot 0.6.2
+------------------
 accrual_table: remove options for start and end date
 accrual_table: include 0-entries in accrual_df for calculation of accrual time
 
