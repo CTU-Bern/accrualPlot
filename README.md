@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `accrualPlot` <img src='man/figures/logo.png' align="right" width="120">
+# `accrualPlot` <img src='man/figures/logo.png' align="right" width="200">
 
 <!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
 
