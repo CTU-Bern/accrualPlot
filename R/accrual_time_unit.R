@@ -54,19 +54,24 @@ accrual_time_unit<-function(accrual_df,unit=c("month","year","week","day")) {
   }
 
   if (unit=="week") {
-    #beginning of the week:
-    #lastmon <- function(x) 7 * floor(as.numeric(x-1+4)/7) + as.Date(1-4, origin="1970-01-01")
-    #accrual_df$Dates<-lastmon(accrual_df$Date)
-	#dfim <- aggregate(cbind(Freq)~ week(Dates) + month(Dates) + year(Dates),data=accrual_df,FUN=sum)
-	dfim <- aggregate(cbind(Freq)~ week(Date) + month(Date) + year(Date),data=accrual_df,FUN=sum)
-    colnames(dfim)<-c("week","month","year","Freq") 
+	
+	#define weeks as starting on Monday
 	alltimes<-seq.Date(from=floor_date(start_date,unit=unit,week_start = 1),
-                       to=floor_date(current_date,unit=unit,week_start = 1),by=unit)				   
-    dfall <-data.frame(week=week(alltimes),month=month(alltimes),year = year(alltimes))
-    dfmerge<-merge(dfall,dfim,sort=FALSE,all=TRUE)
-    dfmerge<-dfmerge[order(dfmerge$year,dfmerge$month,dfmerge$week),]
-    dfmerge[is.na(dfmerge$Freq),"Freq"]<-0
-    dfmerge$date<-with(dfmerge,as.Date(paste(dfmerge$year,dfmerge$week, 1, sep="-"), "%Y-%W-%u"))	
+                       to=floor_date(current_date,unit=unit,week_start = 1),by=unit)
+	dfa<-data.frame(Date=alltimes,week=1:length(alltimes))
+	
+	alltimes_day<-seq.Date(from=floor_date(start_date,unit=unit,week_start = 1),
+                       to=floor_date(current_date,unit=unit,week_start = 1),by="day")
+	dfaj<-merge(data.frame(Date=alltimes_day),dfa,all=TRUE,by="Date")
+	for (i in 1:nrow(dfaj)) {
+		dfaj[i,"week"]<-ifelse(is.na(dfaj[i,"week"]),dfaj[i-1,"week"],dfaj[i,"week"])
+	}
+	dfajm<-merge(accrual_df,dfaj,by="Date",all=TRUE)
+	dfim<-aggregate(Freq~week,data=dfajm,FUN=sum)
+	dfmerge<-merge(dfa,dfim,by="week",all=TRUE)
+	dfmerge[is.na(dfmerge$Freq),"Freq"]<-0
+	names(dfmerge)[names(dfmerge)=="Date"]<-"date"
+
   }
 
   if (unit=="day") {
