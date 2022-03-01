@@ -1,4 +1,8 @@
-accrualPlot 0.6.2
+accrualPlot 0.6.4
+------------------
+accrual_time_unit: use weeks form start (last Monday) instead of calender weeks
+
+accrualPlot 0.6.3
 ------------------
 accrual_table: correct typo in weeks
 summary: no longer prints the table
