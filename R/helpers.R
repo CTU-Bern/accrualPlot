@@ -11,15 +11,35 @@ check_length <- function(x,y) {
   var1 <- as.character(sys.call())[2]
   var2 <- as.character(sys.call())[3]
   if (all(is.na(y))) {
-    if (length(x)!=1) stop(paste0(x," should be of length 1 if ",var2,"=NA"))
+    if (length(x)!=1) stop(paste0(var1," should be of length 1 if ",var2,"=NA"))
   } else {
     if (length(x)!=1 & length(x)!=length(unique(y))) {
   	  stop(paste0(var1," should be of length 1 or ",length(unique(y)),
 		" (the number of distinct centers in ",var2,")."))
   	}
   }
-
 }
+
+check_name <- function(date, lc) {
+
+	if (!is.null(names(date))) {
+		if (!all(lc %in% names(date))) {
+				warning("not all sites of by are present in date, names of date are ignored")
+				names(date)<-NULL
+		}
+	}
+	
+	if (is.null(names(date))) {
+		warning("date is not a named vector, the sequence was assumed to correspond to levels or order of by")
+		names(date)<-lc
+		print(data.frame(date))
+	}	
+	
+	date<-date[match(names(date),lc)]
+
+	return(date)
+}
+
 
 genadf<-function(enrollment_dates,start_date,current_date,force_start0,name=NULL,warning=TRUE) {
 
