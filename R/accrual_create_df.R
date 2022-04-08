@@ -5,14 +5,14 @@
 #'
 #' @param enrollment_dates dates on which patients are enrolled, date vector
 #' @param start_date date when recruitment started. Single date (used for all sites in by),
-#'  date vector (with the same length the number of distinct sites in by),
+#'  named date vector (with length and names corresponding to the levels of by),
 #'  "common" (first date overall) or "site" (first date for each site, default).
 #' @param current_date date of the data export or database freeze.
-#' 	Single date, date vector (with the same length the number of distinct sites in by),
+#' 	Single date, named date vector (with length and names corresponding to the levels of by),
 #'  "common" (last date overall, default) or "site" (first date for each site).
 #' @param force_start0 logical, adds an extra 0 line to the accrual data frame in cases
 #'  where a start date is given and corresponds to the earliest enrollment date.
-#' @param by vector with sites, has to have the same length as enrollment dates,
+#' @param by factor or character vector with sites, has to have the same length as enrollment dates,
 #' generates a list with accrual data frames for each site
 #' @param overall logical indicates that accrual_df contains a summary with all sites (only if by is not NA)
 #' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
@@ -52,7 +52,7 @@ accrual_create_df <- function(enrollment_dates,
    if (sum(!is.na(by))==0) {
     nc<-1; nct<-1; byt<-0
   } else {
-    if (is.factor(by)) {lc<-levels(by)} else {lc<-sort(unique(by))}
+    if (is.factor(by)) {lc<-levels(by)} else {lc<-unique(by)}
 	nc<-length(lc)
     nct<-ifelse(overall==TRUE,nc+1,nc)
     byt<-1
@@ -61,8 +61,12 @@ accrual_create_df <- function(enrollment_dates,
   if (!any(start_date[1] %in% c("site","common"))) {
 	check_date(start_date)
 	check_length(start_date,by)
+	if (length(start_date)>1) {
+		start_date<-check_name(start_date,lc)
+	}
 	start_date<-mult(start_date,nc)
 	if (nct>nc) {start_date<-c(start_date,min(start_date))}
+	
   } else {
 
 	if(length(start_date)!=1) {
@@ -78,6 +82,9 @@ accrual_create_df <- function(enrollment_dates,
   if (!any(current_date[1] %in% c("site","common"))) {
 	check_date(current_date)
 	check_length(current_date,by)
+	if (length(current_date)>1) {
+		current_date<-check_name(current_date,lc)
+	}
 	current_date<-mult(current_date,nc)
 	if (nct>nc) {current_date<-c(current_date,max(current_date))}
   } else {
@@ -97,12 +104,14 @@ accrual_create_df <- function(enrollment_dates,
     ed<-enrollment_dates
     accrual_df<-genadf(enrollment_dates=ed,start_date=start_date[1],current_date=current_date[1],
 		force_start0=force_start0)
+	row.names(accrual_df)<-1:nrow(accrual_df)
   }
   else {
      for (i in 1:nc) {
        ed<-enrollment_dates[by==lc[i]]
 	   adf<-genadf(enrollment_dates=ed,start_date=start_date[i],current_date=current_date[i],
 		force_start0=force_start0,name=lc[[i]])
+	   row.names(adf)<-1:nrow(adf)
 	   accrual_df<-append(accrual_df,list(adf))
 	   names(accrual_df)[i]<-lc[i]
 	 }
@@ -112,6 +121,7 @@ accrual_create_df <- function(enrollment_dates,
     ed<-enrollment_dates
     adf<-genadf(enrollment_dates=ed,start_date=start_date[nct],current_date=current_date[nct],
                 force_start0=force_start0,warning=FALSE)
+	row.names(adf)<-1:nrow(adf)			
     if (pos_overall=="last") {
       accrual_df<-append(accrual_df,list(name_overall=adf))
     } else {

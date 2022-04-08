@@ -116,6 +116,6 @@ accrual_table<-function(accrual_df,
       }
     }
   }
-
+  row.names(tab)<-1:nrow(tab)
   return(tab)
 }

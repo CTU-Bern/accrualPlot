@@ -1,3 +1,7 @@
+accrualPlot 0.6.5
+------------------
+accrual_create_df: named vector for start_date and current_date
+
 accrualPlot 0.6.4
 ------------------
 accrual_time_unit: use weeks form start (last Monday) instead of calender weeks
