@@ -3,6 +3,8 @@ on:
     paths:
       - '**/README.Rmd'
       - 'examples/*yaml'
+      - 'DESCRIPTION'
+      - 'NEWS.md'
   workflow_dispatch:
 
 name: Render README
