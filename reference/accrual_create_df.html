@@ -18,7 +18,7 @@ recruited at each date from a vector with enrollment dates."><meta property="og:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.5</span>
       </span>
     </div>
 
@@ -76,17 +76,17 @@ recruited at each date from a vector with enrollment dates.</p>
 <dd><p>dates on which patients are enrolled, date vector</p></dd>
 <dt>start_date</dt>
 <dd><p>date when recruitment started. Single date (used for all sites in by),
-date vector (with the same length the number of distinct sites in by),
+named date vector (with length and names corresponding to the levels of by),
 "common" (first date overall) or "site" (first date for each site, default).</p></dd>
 <dt>current_date</dt>
 <dd><p>date of the data export or database freeze.
-   Single date, date vector (with the same length the number of distinct sites in by),
+   Single date, named date vector (with length and names corresponding to the levels of by),
 "common" (last date overall, default) or "site" (first date for each site).</p></dd>
 <dt>force_start0</dt>
 <dd><p>logical, adds an extra 0 line to the accrual data frame in cases
 where a start date is given and corresponds to the earliest enrollment date.</p></dd>
 <dt>by</dt>
-<dd><p>vector with sites, has to have the same length as enrollment dates,
+<dd><p>factor or character vector with sites, has to have the same length as enrollment dates,
 generates a list with accrual data frames for each site</p></dd>
 <dt>overall</dt>
 <dd><p>logical indicates that accrual_df contains a summary with all sites (only if by is not NA)</p></dd>
@@ -131,22 +131,6 @@ date with an accrual and the absolute and cumulative number of patients accrued.
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">centers</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site 1"</span>,<span class="st">"Site 2"</span>,<span class="st">"Site 3"</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">enrollment_dates</span><span class="op">)</span>,replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">accrual_create_df</span><span class="op">(</span><span class="va">enrollment_dates</span>,by<span class="op">=</span><span class="va">centers</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 participants recruited between 2018-01-03 and 2018-01-30 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Date Freq Cumulative</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2018-01-03    0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2018-01-03    1          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2018-01-04    1          2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2018-01-07    2          4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2018-01-11    1          5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2018-01-13    1          6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 participants recruited between 2018-01-03 and 2018-01-30 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Date Freq Cumulative</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2018-01-03    0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2018-01-03    1          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2018-01-05    2          3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2018-01-08    1          4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2018-01-09    2          6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2018-01-11    1          7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 participants recruited between 2018-01-02 and 2018-01-30 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Date Freq Cumulative</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2018-01-02    0          0</span>
@@ -155,6 +139,22 @@ date with an accrual and the absolute and cumulative number of patients accrued.
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 2018-01-14    1          3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 2018-01-15    1          4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 2018-01-16    1          5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 participants recruited between 2018-01-03 and 2018-01-30 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Date Freq Cumulative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2018-01-03    0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2018-01-03    1          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2018-01-05    2          3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2018-01-08    1          4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2018-01-09    2          6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2018-01-11    1          7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 participants recruited between 2018-01-03 and 2018-01-30 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Date Freq Cumulative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2018-01-03    0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2018-01-03    1          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2018-01-04    1          2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2018-01-07    2          4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2018-01-11    1          5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2018-01-13    1          6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 50 participants recruited between 2018-01-02 and 2018-01-30 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Date Freq Cumulative</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2018-01-02    0          0</span>

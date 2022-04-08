@@ -19,7 +19,7 @@ rate of recruitment"><meta property="og:image" content="/logo.png"><!-- mathjax 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.5</span>
       </span>
     </div>
 
@@ -107,79 +107,79 @@ rate of recruitment</p>
 <span class="r-in"><span class="va">centers</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site 1"</span>,<span class="st">"Site 2"</span>,<span class="st">"Site 3"</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">enrollment_dates</span><span class="op">)</span>,replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">enrollment_dates</span>,by<span class="op">=</span><span class="va">centers</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         name           start_date            time                    n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Center First participant in Months accruing Participants accrued</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi  Site 1            02Jan2018               1                   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Site 2            03Jan2018               1                   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Site 3            04Jan2018               1                   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    Overall            02Jan2018               1                   50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Accrual rate (per month)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi                    20.36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       21.11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                       13.85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                       53.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      name           start_date            time                    n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Center First participant in Months accruing Participants accrued</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Site 1            02Jan2018               1                   19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Site 2            03Jan2018               1                   19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Site 3            04Jan2018               1                   12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Overall            02Jan2018               1                   50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Accrual rate (per month)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                    20.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                    21.11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                    13.85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                    53.57</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#format</span></span>
 <span class="r-in"><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span>,format_time<span class="op">=</span><span class="st">"%1.1f"</span>,format_rrate<span class="op">=</span><span class="st">"%1.1f"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         name           start_date            time                    n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Center First participant in Months accruing Participants accrued</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi  Site 1            02Jan2018             0.9                   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Site 2            03Jan2018             0.9                   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Site 3            04Jan2018             0.9                   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    Overall            02Jan2018             0.9                   50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Accrual rate (per month)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi                     20.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                        21.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                        13.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                        53.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      name           start_date            time                    n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Center First participant in Months accruing Participants accrued</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Site 1            02Jan2018             0.9                   19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Site 2            03Jan2018             0.9                   19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Site 3            04Jan2018             0.9                   12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Overall            02Jan2018             0.9                   50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Accrual rate (per month)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     20.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                     21.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     13.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                     53.6</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#unit</span></span>
 <span class="r-in"><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span>,unit<span class="op">=</span><span class="st">"day"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         name           start_date          time                    n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Center First participant in Days accruing Participants accrued</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi  Site 1            02Jan2018            28                   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Site 2            03Jan2018            27                   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Site 3            04Jan2018            26                   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    Overall            02Jan2018            28                   50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Accrual rate (per day)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi                   0.68</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                      0.70</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                      0.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                      1.79</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      name           start_date          time                    n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Center First participant in Days accruing Participants accrued</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Site 1            02Jan2018            28                   19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Site 2            03Jan2018            27                   19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Site 3            04Jan2018            26                   12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Overall            02Jan2018            28                   50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Accrual rate (per day)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                   0.68</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   0.70</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                   0.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                   1.79</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#common start and current dates</span></span>
 <span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">enrollment_dates</span>,by<span class="op">=</span><span class="va">centers</span>,start_date<span class="op">=</span><span class="st">"common"</span>,current_date<span class="op">=</span><span class="st">"common"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         name           start_date            time                    n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Center First participant in Months accruing Participants accrued</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi  Site 1            02Jan2018               1                   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Site 2            02Jan2018               1                   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Site 3            02Jan2018               1                   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    Overall            02Jan2018               1                   50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Accrual rate (per month)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi                    20.36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       20.36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                       12.86</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                       53.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      name           start_date            time                    n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Center First participant in Months accruing Participants accrued</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Site 1            02Jan2018               1                   19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Site 2            02Jan2018               1                   19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Site 3            02Jan2018               1                   12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Overall            02Jan2018               1                   50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Accrual rate (per month)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                    20.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                    20.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                    12.86</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                    53.57</span>
 <span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">enrollment_dates</span>,by<span class="op">=</span><span class="va">centers</span>,start_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2017-12-31"</span><span class="op">)</span>,</span>
 <span class="r-in">    current_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2018-03-01"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         name           start_date            time                    n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Center First participant in Months accruing Participants accrued</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi  Site 1            31Dec2017               2                   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Site 2            31Dec2017               2                   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Site 3            31Dec2017               2                   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    Overall            31Dec2017               2                   50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Accrual rate (per month)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi                     9.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                        9.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                        6.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                       25.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      name           start_date            time                    n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Center First participant in Months accruing Participants accrued</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Site 1            31Dec2017               2                   19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Site 2            31Dec2017               2                   19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Site 3            31Dec2017               2                   12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Overall            31Dec2017               2                   50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Accrual rate (per month)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     9.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                     9.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     6.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                    25.00</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 </code></pre></div>

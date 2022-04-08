@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.5</span>
       </span>
     </div>
 
@@ -78,12 +78,12 @@
 <span class="r-in"><span class="va">enrollment_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2018-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, <span class="fl">50</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">enrollment_dates</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                start_date            time                    n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    First participant in Months accruing Participants accrued</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi            02Jan2018               1                   50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Accrual rate (per month)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tabi                    53.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             start_date            time                    n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 First participant in Months accruing Participants accrued</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            02Jan2018               1                   50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Accrual rate (per month)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                    53.57</span>
 </code></pre></div>
     </div>
   </div>

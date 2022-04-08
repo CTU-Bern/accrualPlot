@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.5</span>
       </span>
     </div>
 
@@ -122,14 +122,14 @@
 <span class="r-in"><span class="va">centers</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site 1"</span>,<span class="st">"Site 2"</span>,<span class="st">"Site 3"</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">enrollment_dates</span><span class="op">)</span>,replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"> <span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">enrollment_dates</span>,by<span class="op">=</span><span class="va">centers</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">accrual_linear_model</span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Site 1`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Site 3`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lm(formula = Cumulative ~ Date, data = accrual_dfi, weights = weivec)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)         Date  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  -1.153e+04    6.574e-01  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -8714.671        0.497  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Site 2`</span>
@@ -142,14 +142,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  -1.336e+04    7.623e-01  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Site 3`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Site 1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lm(formula = Cumulative ~ Date, data = accrual_dfi, weights = weivec)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)         Date  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   -8714.671        0.497  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  -1.153e+04    6.574e-01  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Overall</span>
