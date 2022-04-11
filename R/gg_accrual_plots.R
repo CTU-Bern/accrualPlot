@@ -155,6 +155,7 @@ gg_accrual_plot_abs <- function(accrual_df
         }) %>%
       bind_rows() %>%
       filter(site != "Overall") %>%
+      mutate(site = factor(site, names(accrual_df), names(accrual_df))) %>%
       rename('Recruited participants' = Freq)
     out <- ggplot(x, aes(x = date,
                          y = !!sym('Recruited participants'),
