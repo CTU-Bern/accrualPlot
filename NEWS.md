@@ -1,3 +1,7 @@
+accrualPlot 0.6.7
+------------------
+Remove LazyDate from description
+
 accrualPlot 0.6.6
 ------------------
 gg_accrual_plot_abs: site as factor so that the legend is then the same order as the sites in the accrual_df_list
