@@ -1,3 +1,7 @@
+accrualPlot 0.6.6
+------------------
+gg_accrual_plot_abs: site as factor so that the legend is then the same order as the sites in the accrual_df_list
+
 accrualPlot 0.6.5
 ------------------
 accrual_create_df: named vector for start_date and current_date
