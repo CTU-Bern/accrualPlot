@@ -138,7 +138,8 @@ gg_accrual_plot_abs <- function(accrual_df
 
     out <- accrual_time_unit(accrual_df, unit=unit)%>%
       rename('Recruited participants' = Freq) %>%
-      ggplot(aes(x = date, y = !!sym('Recruited participants'))) +
+	   rename('Date' = date) %>%
+      ggplot(aes(x = Date, y = !!sym('Recruited participants'))) +
       geom_bar(stat = "identity")
 
   }
@@ -156,8 +157,10 @@ gg_accrual_plot_abs <- function(accrual_df
       bind_rows() %>%
       filter(site != "Overall") %>%
       mutate(site = factor(site, names(accrual_df), names(accrual_df))) %>%
-      rename('Recruited participants' = Freq)
-    out <- ggplot(x, aes(x = date,
+      rename('Recruited participants' = Freq)  %>%
+	  rename('Date' = date)
+	  
+    out <- ggplot(x, aes(x = Date,
                          y = !!sym('Recruited participants'),
                          fill = site)) +
       geom_bar(stat = "identity") +
