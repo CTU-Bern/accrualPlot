@@ -1,3 +1,8 @@
+accrualPlot 0.6.8
+------------------
+Update vignette
+Small changes in accrual_plot_predict (size of legend) and gg_accrual_plot_abs (name of x-axis title)
+
 accrualPlot 0.6.7
 ------------------
 Remove LazyDate from description

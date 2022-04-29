@@ -19,7 +19,7 @@ accrual_plot_predict(
   pch.pred = 8,
   pos_prediction = c("out", "in", "none"),
   label_prediction = "Predicted end date: ",
-  cex_prediction = 1.1,
+  cex_prediction = 1,
   format_prediction = "\%B \%d, \%Y",
   show_center = TRUE,
   design = 1,
