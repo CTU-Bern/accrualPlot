@@ -5,7 +5,7 @@
 
 <!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
 
-[![](https://img.shields.io/badge/dev%20version-0.6.8-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
+[![](https://img.shields.io/badge/dev%20version-1.0.0-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
 [![Actions
 Status](https://github.com/CTU-Bern/accrualPlot/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/accrualPlot/actions)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
@@ -72,11 +72,21 @@ predict the time point of study completion, are included.
 ``` r
 par(mfrow = c(1,3))
 plot(df, which = "cum")
-plot(df, which = "abs")
-plot(df, which = "pred", target = 100)
 ```
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
+
+``` r
+plot(df, which = "abs")
+```
+
+![](man/figures/README-unnamed-chunk-3-2.png)<!-- -->
+
+``` r
+plot(df, which = "pred", target = 100)
+```
+
+![](man/figures/README-unnamed-chunk-3-3.png)<!-- -->
 
 ### Acknowledgements
 
