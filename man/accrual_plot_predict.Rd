@@ -49,106 +49,106 @@ gg_accrual_plot_predict(
   target,
   overall = TRUE,
   name_overall = attr(accrual_df, "name_overall"),
+  fill_up = TRUE,
+  wfun = function(x) seq(1/nrow(x), 1, by = 1/nrow(x)),
   col.pred = "red",
   lty.pred = 2,
   pch.pred = 8,
-  fill_up = TRUE,
-  wfun = function(x) seq(1/nrow(x), 1, by = 1/nrow(x)),
   pos_prediction = c("out", "in", "none"),
   format_prediction = "\%B \%d, \%Y",
   xlabformat = "\%d\%b\%Y"
 )
 }
 \arguments{
-\item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
+\item{accrual_df}{object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.}
 
 \item{target}{target sample size, if it is a vector with the same length as accrual_df, center-specific
-predictions are shown}
+predictions are shown.}
 
-\item{overall}{logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)}
+\item{overall}{logical, indicates that accrual_df contains a summary with all sites (only if by is not NA).}
 
-\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
+\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE).}
 
 \item{fill_up}{whether to fill up days where no recruitment was observed,
-otherwise these points do not contribute to the regression, default is yes}
+otherwise these points do not contribute to the regression.}
 
-\item{wfun}{function to calculate the weights based on the accrual data frame, default is
-wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))}
+\item{wfun}{function to calculate the weights based on the accrual_df, default is
+wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)).}
 
-\item{col.obs}{line color of cumulative recruitment, can be a vector with the same length as accrual_df}
+\item{col.obs}{line color of cumulative recruitment, can be a vector with the same length as accrual_df.}
 
-\item{lty.obs}{line type of cumulative recruitment, can be a vector with the same length as accrual_df}
+\item{lty.obs}{line type of cumulative recruitment, can be a vector with the same length as accrual_df.}
 
-\item{col.pred}{line color of prediction, can be a vector with the same length as accrual_df}
+\item{col.pred}{line color of prediction, can be a vector with the same length as accrual_df.}
 
-\item{lty.pred}{line color of prediction, can be a vector with the same length as accrual_df}
+\item{lty.pred}{line color of prediction, can be a vector with the same length as accrual_df.}
 
-\item{pch.pred}{point symbol for end of prediction, can be a vector with the same length as accrual_df}
+\item{pch.pred}{point symbol for end of prediction, can be a vector with the same length as accrual_df.}
 
-\item{pos_prediction}{position of text with predicted end date, out, in or none}
+\item{pos_prediction}{position of text with predicted end date, either \code{"out"}, \code{"in"} or \code{"none"}.}
 
-\item{label_prediction}{label for predicted end date}
+\item{label_prediction}{label for predicted end date.}
 
-\item{cex_prediction}{text size for predicted end date}
+\item{cex_prediction}{text size for predicted end date.}
 
-\item{format_prediction}{date format for predicted end date}
+\item{format_prediction}{date format for predicted end date.}
 
 \item{show_center}{logical, whether the center info should be shown
-(if accrual_df is a list or if center_start_dates are given)}
+(if accrual_df is a list or if center_start_dates are given).}
 
 \item{design}{design options for the center info
-1 (default): below plot, 2: within plot, top, 3: within plot, bottom}
+1 (default): below plot, 2: within plot, top, 3: within plot, bottom.}
 
-\item{center_label}{label for the center info}
+\item{center_label}{label for the center info.}
 
 \item{center_legend}{either "number" to plot numbers in the center strip or "strip" to add a legend strip,
-requires specification of center_colors}
+requires specification of center_colors.}
 
-\item{targetc}{target number of centers, to scale the legend if it is "strip"}
+\item{targetc}{target number of centers, to scale the legend if it is "strip".}
 
-\item{center_colors}{colors to be used for the strip with the centers, a vector of length targetc}
+\item{center_colors}{colors to be used for the strip with the centers, a vector of length targetc.}
 
 \item{center_legend_text_size}{size of the text of the center or legend strip, only has a function}
 
-\item{ylim}{limits for y-axis, can be a vector with the same length as accrual_df}
+\item{ylim}{limits for y-axis.}
 
-\item{xlim}{limits for x-axis, can be a vector with the same length as accrual_df}
+\item{xlim}{limits for x-axis.}
 
-\item{ylab}{y-axis label}
+\item{ylab}{y-axis label.}
 
-\item{xlabformat}{format of date on x-axis}
+\item{xlabformat}{format of date on x-axis.}
 
-\item{xlabn}{integer giving the desired number of intervals for the xlabel, default=5}
+\item{xlabn}{integer giving the desired number of intervals for the xlabel, default=5.}
 
-\item{xlabminn}{nonnegative integer giving the minimal number of intervals}
+\item{xlabminn}{integer giving the minimal number of intervals.}
 
-\item{xlabpos}{position of the x-label, can be a vector with the same length as accrual_df}
+\item{xlabpos}{position of the x-label.}
 
-\item{xlabsrt}{rotation of x-axis labels in degrees}
+\item{xlabsrt}{rotation of x-axis labels in degrees.}
 
-\item{xlabadj}{adjustment of x-label, numeric vector with length 1 or 2 for different adjustment in x- and y-direction}
+\item{xlabadj}{adjustment of x-label, numeric vector with length 1 or 2 for different adjustment in x- and y-direction.}
 
-\item{xlabcex}{size of x-axis label}
+\item{xlabcex}{size of x-axis label.}
 
-\item{mar}{vector of length 4 (bottom, left, top, right margins), overwrite default margins}
+\item{mar}{vector of length 4 (bottom, left, top, right margins), overwrite default margins.}
 
-\item{legend.list}{named list with options passed to legend(), only if accrual data frame is a list}
+\item{legend.list}{named list with options passed to legend(), only if accrual data frame is a list.}
 
-\item{...}{further options passed to plot() and axis()}
+\item{...}{further options passed to plot() and axis().}
 
 \item{center_start_dates}{alternative way to add center info,
-vector with dates on which centers are enrolled}
+vector with dates on which centers are enrolled.}
 }
 \value{
-A plot with cumulative accrual and the prediction to the end date.
+\code{accrual_plot_predict} returns a plot with the accrual prediction.
 
-
+\code{gg_accrual_plot_predict} an object of class 'ggplot' with the accrual prediction.
 }
 \description{
-Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)
-and a target sample size.
-If the accrual data frame is a list (i.e. using the by option in accrual_create_df),
-	or if center start dates are given, the number of enrolled and targeted sites is included.
+Generates an accrual prediction plot using an accrual data frame produced by \code{accrual_create_df}
+and a target sample size. Prediction is based on a weighted linear regression.
+If the accrual data frame is a list (i.e. using the by option in \code{accrual_create_df}),
+or if center start dates are given, the number of enrolled and targeted sites is included.
 }
 \examples{
 #Data
@@ -191,6 +191,7 @@ col.obs=topo.colors(length(accrual_df)))
 accrual_plot_predict(accrual_df=accrual_df,target=c(30,30,30,100),show_center=FALSE)
 
 ### ggplot2 approach
+
 #Data
 set.seed(2020)
 enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))

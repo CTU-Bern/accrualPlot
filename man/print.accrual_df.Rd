@@ -10,11 +10,14 @@
 \method{print}{accrual_list}(x, ...)
 }
 \arguments{
-\item{x}{output from accrual_create_df}
+\item{x}{object of class 'accrual_df' or 'accrual_list' produced by accrual_create_df.}
 
 \item{head}{show header of the accrual data?}
 
 \item{...}{arguments passed to head}
+}
+\value{
+No return value
 }
 \description{
 Print methods for accrual objects

@@ -32,51 +32,52 @@ gg_accrual_plot_abs(
 )
 }
 \arguments{
-\item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
+\item{accrual_df}{object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.}
 
-\item{unit}{time unit for which the bars should be plotted, any of "month","year","week","day"}
+\item{unit}{time unit for which the bars should be plotted,
+one of \code{"month"}, \code{"year"}, \code{"week"} or \code{"day"}.}
 
-\item{target}{adds horizontal line for target recruitment per time unit}
+\item{target}{adds horizontal line for target recruitment per time unit.}
 
 \item{overall}{logical, indicates that accrual_df contains a summary with all sites
-that should be removed from stacked barplot (only if by is not NA)}
+that should be removed from stacked barplot (only if by is not NA).}
 
-\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
+\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE).}
 
-\item{ylim}{limits for y-axis, numeric vector of length 2}
+\item{ylim}{limits for y-axis.}
 
-\item{xlim}{limits for x-axis, in barplot units, numeric vector of length 2}
+\item{xlim}{limits for x-axis.}
 
-\item{ylab}{y-axis label}
+\item{ylab}{y-axis label.}
 
-\item{xlabformat}{format of date on x-axis}
+\item{xlabformat}{format of date on x-axis.}
 
 \item{xlabsel}{selection of x-labels if not all should be shown,
 by default all are shown up to 15 bars, with more an automated selection is done,
-either NA (default), NULL (show all), or a numeric vector}
+either NA (default), NULL (show all), or a numeric vector.}
 
-\item{xlabpos}{position of the x-label}
+\item{xlabpos}{position of the x-label.}
 
-\item{xlabsrt}{rotation of x-axis labels in degrees}
+\item{xlabsrt}{rotation of x-axis labels in degrees.}
 
 \item{xlabadj}{adjustment of x-label, numeric vector with length 1 or 2 for different adjustment
-in x- and y-direction}
+in x- and y-direction.}
 
-\item{xlabcex}{size of x-axis label}
+\item{xlabcex}{size of x-axis label.}
 
-\item{col}{colors of bars in barplot, can be a vector if accrual_df is a list, default is grayscale}
+\item{col}{colors of bars in barplot, can be a vector if accrual_df is a list, default is grayscale.}
 
-\item{legend.list}{named list with options passed to legend()}
+\item{legend.list}{named list with options passed to legend().}
 
-\item{...}{further arguments passed to barplot() and axis()}
+\item{...}{further arguments passed to barplot() and axis().}
 }
 \value{
-Barplot of absolute recruitment by time unit, stacked if accrual_df is a list.
+\code{accrual_plot_abs} returns a barplot of absolute accrual by time unit (stacked if accrual_df is a list).
 
-
+\code{gg_accrual_plot_abs} returns an object of class 'ggplot' with the absolute accrual by time unit.
 }
 \description{
-Plot of absolute recruitment by time unit
+Plot of absolute recruitment by time unit using an accrual data frame produced by \code{accrual_create_df}.
 }
 \examples{
 set.seed(2020)
@@ -103,6 +104,7 @@ accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 accrual_plot_abs(accrual_df=accrual_df,unit=c("week"))
 
 ### ggplot2 approach
+
 set.seed(2020)
 enrollment_dates <-
   as.Date("2018-01-01") + sort(sample(1:100, 50, replace = TRUE))

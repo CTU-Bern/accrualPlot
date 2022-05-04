@@ -7,12 +7,17 @@
 \method{summary}{accrual_df}(object, ...)
 }
 \arguments{
-\item{object}{accrual_df object}
+\item{object}{object of class 'accrual_df' or 'accrual_list' produced by accrual_create_df.}
 
 \item{...}{options passed to other functions}
 }
 \value{
-a table
+Returns data frame with a header, a row per site and overall and the following columns:
+\item{name}{name of the site (if accrual_df is a list)}
+\item{start_date}{accrual start date}
+\item{time}{time accruing}
+\item{n}{number of patients accrued}
+\item{rate}{accrual rate per time unit}
 }
 \description{
 Summary method for accrual_dfs (as created by accrual_create_df)
@@ -20,6 +25,7 @@ Summary method for accrual_dfs (as created by accrual_create_df)
 \examples{
 set.seed(2020)
 enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-accrual_df<-accrual_create_df(enrollment_dates)
+centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
+accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 summary(accrual_df)
 }

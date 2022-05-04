@@ -1,3 +1,8 @@
+accrualPlot 1.0.0
+------------------
+Clean help files
+Add names to header in print method
+
 accrualPlot 0.6.8
 ------------------
 Update vignette

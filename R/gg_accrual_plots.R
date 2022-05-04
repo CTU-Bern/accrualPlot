@@ -1,16 +1,19 @@
 #' ggplot2 method for cumulative accrual plots
 #' @rdname accrual_plot_cum
 #'
-#' @return ggplot2 object
+#' @return \code{gg_accrual_plot_cum} returns an object of class 'ggplot' with the cumulative accrual.
 #'
 #' @export
+#'
 #' @importFrom ggplot2 ggplot aes geom_step vars scale_x_date labs
 #' @importFrom rlang !! sym
 #' @importFrom purrr map2
 #' @importFrom magrittr %>%
 #' @importFrom dplyr bind_rows rename mutate
+#'
 #' @examples
 #' ### ggplot2 approach
+#'
 #' set.seed(2020)
 #' enrollment_dates <-
 #'   as.Date("2018-01-01") + sort(sample(1:30, 50, replace = TRUE))
@@ -87,13 +90,17 @@ gg_accrual_plot_cum <- function(accrual_df, xlabformat="%d%b%Y"){
 #' ggplot2 method for absolute accrual plots
 #' @rdname accrual_plot_abs
 #'
-#' @return
+#' @return \code{gg_accrual_plot_abs} returns an object of class 'ggplot' with the absolute accrual by time unit.
+#'
 #' @export
+#'
 #' @importFrom ggplot2 geom_bar
 #' @importFrom purrr map
 #' @importFrom dplyr filter
+#'
 #' @examples
 #' ### ggplot2 approach
+#'
 #' set.seed(2020)
 #' enrollment_dates <-
 #'   as.Date("2018-01-01") + sort(sample(1:100, 50, replace = TRUE))
@@ -177,13 +184,17 @@ gg_accrual_plot_abs <- function(accrual_df
 #' ggplot2 method for accrual prediction plots
 #' @rdname accrual_plot_predict
 #'
-#' @return
+#' @return \code{gg_accrual_plot_predict} an object of class 'ggplot' with the accrual prediction.
+#'
 #' @export
+#'
 #' @importFrom ggplot2 geom_point geom_line annotation_custom ggtitle
 #' @importFrom purrr pmap
 #' @importFrom grid grobTree textGrob
+#'
 #' @examples
 #' ### ggplot2 approach
+#'
 #' #Data
 #' set.seed(2020)
 #' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
@@ -221,11 +232,11 @@ gg_accrual_plot_predict <- function(accrual_df
                                     , target
                                     , overall = TRUE
                                     , name_overall = attr(accrual_df, "name_overall")
+									, fill_up = TRUE
+                                    , wfun = function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))
                                     , col.pred = "red"
                                     , lty.pred = 2
                                     , pch.pred = 8
-                                    , fill_up = TRUE
-                                    , wfun = function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))
                                     , pos_prediction = c("out", "in", "none")
                                     , format_prediction = "%B %d, %Y"
                                     , xlabformat = "%d%b%Y"
@@ -326,8 +337,10 @@ gg_accrual_plot_predict <- function(accrual_df
     }
   }
 
-  out <- out +
-    scale_x_date(labels = function(x)format(x, format = xlabformat))
+  suppressMessages(
+    out <- out +
+      scale_x_date(labels = function(x)format(x, format = xlabformat))
+  )
 
   return(out)
 }

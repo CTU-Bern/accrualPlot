@@ -2,22 +2,24 @@
 #'
 #' Generates summary of recruitment per time unit
 #'
-#' @param accrual_df accrual data frame produced by accrual_create_df with by=NA
-#' @param unit time unit for which the bars should be plotted, any of "month","year","week","day"
+#' @param accrual_df accrual data frame produced by \code{accrual_create_df} with by=NA.
+#' @param unit time unit for which the bars should be plotted, 
+#'	one of \code{"month"}, \code{"year"}, \code{"week"} or \code{"day"}.
 #'
-#' @return Data frame with the number of patients accrued for each time unit
-#' (given by day and/or week and/or month and year).
+#' @return Returns a data frame with the number of patients accrued for each time unit.
 #'
 #'
 #' @import lubridate
+#'
+#' @export
 #'
 #' @examples
 #' \donttest{
 #' set.seed(2020)
 #' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
 #' accrual_df<-accrual_create_df(enrollment_dates)
-#' accrualPlot:::accrual_time_unit(accrual_df,"week")
-#' accrualPlot:::accrual_time_unit(accrual_df,"day")
+#' accrual_time_unit(accrual_df,"week")
+#' accrual_time_unit(accrual_df,"day")
 #' }
 #'
 accrual_time_unit<-function(accrual_df,unit=c("month","year","week","day")) {

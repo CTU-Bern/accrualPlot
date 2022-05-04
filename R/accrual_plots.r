@@ -1,58 +1,58 @@
 #' Accrual prediction plots
 #'
-#' Generates an accrual prediction plot based an accrual data frame (produced by accrual_create_df)
-#'	and a target sample size.
-#' If the accrual data frame is a list (i.e. using the by option in accrual_create_df),
+#' Generates an accrual prediction plot using an accrual data frame produced by \code{accrual_create_df}
+#'	and a target sample size. Prediction is based on a weighted linear regression.
+#' If the accrual data frame is a list (i.e. using the by option in \code{accrual_create_df}),
 #' 	or if center start dates are given, the number of enrolled and targeted sites is included.
 #'
 #' @rdname accrual_plot_predict
-#' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
+#' @param accrual_df object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.
 #' @param target target sample size, if it is a vector with the same length as accrual_df, center-specific
-#'		predictions are shown
-#' @param overall logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)
-#' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
+#'		predictions are shown.
+#' @param overall logical, indicates that accrual_df contains a summary with all sites (only if by is not NA).
+#' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE).
 #' @param fill_up whether to fill up days where no recruitment was observed,
-#'		otherwise these points do not contribute to the regression, default is yes
-#' @param wfun function to calculate the weights based on the accrual data frame, default is
-#'		wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))
-#' @param col.obs line color of cumulative recruitment, can be a vector with the same length as accrual_df
-#' @param lty.obs line type of cumulative recruitment, can be a vector with the same length as accrual_df
-#' @param col.pred line color of prediction, can be a vector with the same length as accrual_df
-#' @param lty.pred line color of prediction, can be a vector with the same length as accrual_df
-#' @param pch.pred point symbol for end of prediction, can be a vector with the same length as accrual_df
-#' @param pos_prediction position of text with predicted end date, out, in or none
-#' @param label_prediction label for predicted end date
-#' @param cex_prediction text size for predicted end date
-#' @param format_prediction date format for predicted end date
+#'		otherwise these points do not contribute to the regression.
+#' @param wfun function to calculate the weights based on the accrual_df, default is
+#'		wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)).
+#' @param col.obs line color of cumulative recruitment, can be a vector with the same length as accrual_df.
+#' @param lty.obs line type of cumulative recruitment, can be a vector with the same length as accrual_df.
+#' @param col.pred line color of prediction, can be a vector with the same length as accrual_df.
+#' @param lty.pred line color of prediction, can be a vector with the same length as accrual_df.
+#' @param pch.pred point symbol for end of prediction, can be a vector with the same length as accrual_df.
+#' @param pos_prediction position of text with predicted end date, either \code{"out"}, \code{"in"} or \code{"none"}.
+#' @param label_prediction label for predicted end date.
+#' @param cex_prediction text size for predicted end date.
+#' @param format_prediction date format for predicted end date.
 #' @param show_center logical, whether the center info should be shown
-#'	(if accrual_df is a list or if center_start_dates are given)
+#'	(if accrual_df is a list or if center_start_dates are given).
 #' @param design design options for the center info
-#'		1 (default): below plot, 2: within plot, top, 3: within plot, bottom
-#' @param center_label label for the center info
+#'		1 (default): below plot, 2: within plot, top, 3: within plot, bottom.
+#' @param center_label label for the center info.
 #' @param center_legend either "number" to plot numbers in the center strip or "strip" to add a legend strip,
-#'		requires specification of center_colors
-#' @param center_colors colors to be used for the strip with the centers, a vector of length targetc
-#' @param targetc target number of centers, to scale the legend if it is "strip"
+#'		requires specification of center_colors.
+#' @param center_colors colors to be used for the strip with the centers, a vector of length targetc.
+#' @param targetc target number of centers, to scale the legend if it is "strip".
 #' @param center_legend_text_size  size of the text of the center or legend strip, only has a function
-#		if center and center_legend is specified
-#' @param ylim limits for y-axis, can be a vector with the same length as accrual_df
-#' @param xlim limits for x-axis, can be a vector with the same length as accrual_df
-#' @param ylab y-axis label
-#' @param xlabformat format of date on x-axis
-#' @param xlabn integer giving the desired number of intervals for the xlabel, default=5
-#' @param xlabminn nonnegative integer giving the minimal number of intervals
-#' @param xlabformat format of date on x-axis
-#' @param xlabpos position of the x-label, can be a vector with the same length as accrual_df
-#' @param xlabsrt rotation of x-axis labels in degrees
-#' @param xlabadj adjustment of x-label, numeric vector with length 1 or 2 for different adjustment in x- and y-direction
-#' @param xlabcex size of x-axis label
-#' @param mar vector of length 4 (bottom, left, top, right margins), overwrite default margins
-#' @param legend.list named list with options passed to legend(), only if accrual data frame is a list
-#' @param ... further options passed to plot() and axis()
+#		if center and center_legend is specified.
+#' @param ylim limits for y-axis.
+#' @param xlim limits for x-axis.
+#' @param ylab y-axis label.
+#' @param xlabformat format of date on x-axis.
+#' @param xlabn integer giving the desired number of intervals for the xlabel, default=5.
+#' @param xlabminn integer giving the minimal number of intervals.
+#' @param xlabformat format of date on x-axis.
+#' @param xlabpos position of the x-label.
+#' @param xlabsrt rotation of x-axis labels in degrees.
+#' @param xlabadj adjustment of x-label, numeric vector with length 1 or 2 for different adjustment in x- and y-direction.
+#' @param xlabcex size of x-axis label.
+#' @param mar vector of length 4 (bottom, left, top, right margins), overwrite default margins.
+#' @param legend.list named list with options passed to legend(), only if accrual data frame is a list.
+#' @param ... further options passed to plot() and axis().
 #' @param center_start_dates alternative way to add center info,
-#'	vector with dates on which centers are enrolled
+#'	vector with dates on which centers are enrolled.
 #'
-#' @return A plot with cumulative accrual and the prediction to the end date.
+#' @return \code{accrual_plot_predict} returns a plot with the accrual prediction.
 #'
 #' @export
 #'
@@ -134,6 +134,8 @@ accrual_plot_predict<-function(accrual_df,
                                ...,
                                center_start_dates=NULL) {
 
+	oldpar <- par(no.readonly = TRUE)
+	on.exit(par(oldpar))
 
 	pos_prediction<-match.arg(pos_prediction)
 	center_legend<-match.arg(center_legend)
@@ -317,29 +319,29 @@ accrual_plot_predict<-function(accrual_df,
 
 #' Cumulative accrual plots
 #'
-#' Plot of cumulative recruitment based on accrual data frame produced by accrual_create_df
+#' Plot of cumulative recruitment using an accrual data frame produced by \code{accrual_create_df}.
 #'
 #' @rdname accrual_plot_cum
-#' @param accrual_df  accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)
-#	  with by option, a line is added for each element in the list
-#' @param ylim  limits for y-axis
-#' @param xlim  limits for x-axis
-#' @param ylab y-axis label
-#' @param xlabn integer giving the desired number of intervals for the xlabel, default=5
-#' @param xlabminn nonnegative integer giving the minimal number of intervals
-#' @param xlabformat format of date on x-axis
-#' @param xlabpos position of the x-label
-#' @param xlabsrt rotation of x-axis labels in degrees
-#' @param xlabadj adjustment of x-label, numeric vector with length 1 or 2 for different adjustment in x- and y-direction
-#' @param xlabcex size of x-axis label
+#' @param accrual_df object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.
+#' @param ylim limits for y-axis.
+#' @param xlim limits for x-axis.
+#' @param ylab y-axis label.
+#' @param xlabn integer giving the desired number of intervals for the xlabel, default=5.
+#' @param xlabminn negative integer giving the minimal number of intervals.
+#' @param xlabformat format of date on x-axis.
+#' @param xlabpos position of the x-label.
+#' @param xlabsrt rotation of x-axis labels in degrees.
+#' @param xlabadj adjustment of x-label, numeric vector with length 1 or 2 
+#'	for different adjustment in x- and y-direction.
+#' @param xlabcex size of x-axis label.
 #' @param col color for line(s) in plot
-#		if accrual_df is a list and overall is indicated, the first entry is used for the overall
-#' @param lty line types in plot
-#		if accrual_df is a list and overall is indicated, the first entry is used for the overall
-#' @param legend.list named list with options passed to legend()
-#' @param ... further options passed to plot() and axis()
+#		if accrual_df is a list and overall is indicated, the first entry is used for the overall.
+#' @param lty line type(s) in plot
+#		if accrual_df is a list and overall is indicated, the first entry is used for the overall.
+#' @param legend.list named list with options passed to legend().
+#' @param ... further options passed to plot() and axis().
 #'
-#' @return A plot of the cumulative accrual, optionally by site.
+#' @return \code{accrual_plot_cum} returns a plot of the cumulative accrual (per site if accrual_df is a list).
 #'
 #' @export
 #' @importFrom graphics plot
@@ -386,6 +388,9 @@ accrual_plot_cum<-function(accrual_df,
                            legend.list=NULL,
                            ...) {
 
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
+	
   if (is.data.frame(accrual_df)) {
     accrual_df<-list(accrual_df)
   } else {
@@ -448,32 +453,33 @@ accrual_plot_cum<-function(accrual_df,
 
 #' Absolute accrual plots
 #'
-#' Plot of absolute recruitment by time unit
+#' Plot of absolute recruitment by time unit using an accrual data frame produced by \code{accrual_create_df}.
 #'
 #' @rdname accrual_plot_abs
-#' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
-#' @param unit time unit for which the bars should be plotted, any of "month","year","week","day"
-#' @param target adds horizontal line for target recruitment per time unit
+#' @param accrual_df object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.
+#' @param unit time unit for which the bars should be plotted, 
+#'	one of \code{"month"}, \code{"year"}, \code{"week"} or \code{"day"}.
+#' @param target adds horizontal line for target recruitment per time unit.
 #' @param overall logical, indicates that accrual_df contains a summary with all sites
-#'		that should be removed from stacked barplot (only if by is not NA)
-#' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
-#' @param ylim limits for y-axis, numeric vector of length 2
-#' @param xlim limits for x-axis, in barplot units, numeric vector of length 2
-#' @param ylab y-axis label
-#' @param xlabformat format of date on x-axis
+#'		that should be removed from stacked barplot (only if by is not NA).
+#' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE).
+#' @param ylim limits for y-axis.
+#' @param xlim limits for x-axis.
+#' @param ylab y-axis label.
+#' @param xlabformat format of date on x-axis.
 #' @param xlabsel selection of x-labels if not all should be shown,
 #'		 by default all are shown up to 15 bars, with more an automated selection is done,
-#'		 either NA (default), NULL (show all), or a numeric vector
-#' @param xlabpos position of the x-label
-#' @param xlabsrt rotation of x-axis labels in degrees
+#'		 either NA (default), NULL (show all), or a numeric vector.
+#' @param xlabpos position of the x-label.
+#' @param xlabsrt rotation of x-axis labels in degrees.
 #' @param xlabadj adjustment of x-label, numeric vector with length 1 or 2 for different adjustment
-#' 		in x- and y-direction
-#' @param xlabcex size of x-axis label
-#' @param col colors of bars in barplot, can be a vector if accrual_df is a list, default is grayscale
-#' @param legend.list named list with options passed to legend()
-#' @param ... further arguments passed to barplot() and axis()
+#' 		in x- and y-direction.
+#' @param xlabcex size of x-axis label.
+#' @param col colors of bars in barplot, can be a vector if accrual_df is a list, default is grayscale.
+#' @param legend.list named list with options passed to legend().
+#' @param ... further arguments passed to barplot() and axis().
 #'
-#' @return Barplot of absolute recruitment by time unit, stacked if accrual_df is a list.
+#' @return \code{accrual_plot_abs} returns a barplot of absolute accrual by time unit (stacked if accrual_df is a list).
 #'
 #' @export
 #'
@@ -523,6 +529,9 @@ accrual_plot_abs<-function(accrual_df,
 						    legend.list=NULL,
 							...) {
 
+	oldpar <- par(no.readonly = TRUE)
+	on.exit(par(oldpar))
+	
 	if (is.data.frame(accrual_df)) {
 		accrual_df<-list(accrual_df)
 	} else {

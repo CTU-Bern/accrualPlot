@@ -26,43 +26,44 @@ accrual_plot_cum(
 gg_accrual_plot_cum(accrual_df, xlabformat = "\%d\%b\%Y")
 }
 \arguments{
-\item{accrual_df}{accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)}
+\item{accrual_df}{object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.}
 
-\item{ylim}{limits for y-axis}
+\item{ylim}{limits for y-axis.}
 
-\item{xlim}{limits for x-axis}
+\item{xlim}{limits for x-axis.}
 
-\item{ylab}{y-axis label}
+\item{ylab}{y-axis label.}
 
-\item{xlabn}{integer giving the desired number of intervals for the xlabel, default=5}
+\item{xlabn}{integer giving the desired number of intervals for the xlabel, default=5.}
 
-\item{xlabminn}{nonnegative integer giving the minimal number of intervals}
+\item{xlabminn}{negative integer giving the minimal number of intervals.}
 
-\item{xlabformat}{format of date on x-axis}
+\item{xlabformat}{format of date on x-axis.}
 
-\item{xlabpos}{position of the x-label}
+\item{xlabpos}{position of the x-label.}
 
-\item{xlabsrt}{rotation of x-axis labels in degrees}
+\item{xlabsrt}{rotation of x-axis labels in degrees.}
 
-\item{xlabadj}{adjustment of x-label, numeric vector with length 1 or 2 for different adjustment in x- and y-direction}
+\item{xlabadj}{adjustment of x-label, numeric vector with length 1 or 2
+for different adjustment in x- and y-direction.}
 
-\item{xlabcex}{size of x-axis label}
+\item{xlabcex}{size of x-axis label.}
 
 \item{col}{color for line(s) in plot}
 
-\item{lty}{line types in plot}
+\item{lty}{line type(s) in plot}
 
-\item{legend.list}{named list with options passed to legend()}
+\item{legend.list}{named list with options passed to legend().}
 
-\item{...}{further options passed to plot() and axis()}
+\item{...}{further options passed to plot() and axis().}
 }
 \value{
-A plot of the cumulative accrual, optionally by site.
+\code{accrual_plot_cum} returns a plot of the cumulative accrual (per site if accrual_df is a list).
 
-ggplot2 object
+\code{gg_accrual_plot_cum} returns an object of class 'ggplot' with the cumulative accrual.
 }
 \description{
-Plot of cumulative recruitment based on accrual data frame produced by accrual_create_df
+Plot of cumulative recruitment using an accrual data frame produced by \code{accrual_create_df}.
 }
 \examples{
 set.seed(2020)
@@ -90,6 +91,7 @@ accrual_df<-accrual_create_df(enrollment_dates,by=centers,overall=FALSE)
 accrual_plot_cum(accrual_df)
 
 ### ggplot2 approach
+
 set.seed(2020)
 enrollment_dates <-
   as.Date("2018-01-01") + sort(sample(1:30, 50, replace = TRUE))

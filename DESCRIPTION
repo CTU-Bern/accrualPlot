@@ -1,7 +1,7 @@
 Package: accrualPlot
 Type: Package
 Title: Accrual Plots and Predictions for Clinical Trials
-Version: 0.6.8
+Version: 1.0.0
 Authors@R: 
     c(
     person(given = "Lukas", family = "Bütikofer", role = c("cre", "aut"),
@@ -12,13 +12,14 @@ Maintainer: Lukas Bütikofer <lukas.buetikofer@ctu.unibe.ch>
 Description: Tracking accrual in clinical trials is important for trial success. 
     If accrual is too slow, the trial will take too long and be too expensive. If
     accrual is much faster than expected, time sensitive tasks such as the writing 
-    of statistical analysis plans might need to be rushed. `accrualPlot` provides 
+    of statistical analysis plans might need to be rushed. 'accrualPlot' provides 
     functions to aid the tracking of accrual and predict when a trial will reach 
     it's intended sample size.
 License: MIT + file LICENSE
 URL: https://github.com/CTU-Bern/accrualPlot
 BugReports: https://github.com/CTU-Bern/accrualPlot/issues
 Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
 Depends:
     lubridate
 Imports:

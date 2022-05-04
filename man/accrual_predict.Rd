@@ -7,20 +7,20 @@
 accrual_predict(accrual_df, accrual_fit, target)
 }
 \arguments{
-\item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
+\item{accrual_df}{accrual data frame produced by \code{accrual_create_df} (optionally with by option as a list)}
 
 \item{accrual_fit}{linear model produced by accrual_linear_model, can be a list with the same length as accrual_df}
 
 \item{target}{target sample size, can be a vector with the same length as accrual_df}
 }
 \value{
-The predicted end date or a list of the predicted end dates
+Returns the predicted end date or a list of the predicted end dates
 }
 \description{
 accrual_predict
 }
 \details{
-Prediction of end date based on an accrual data frame produced by accrual_create_df,
+Prediction of end date based on an accrual data frame produced by \code{accrual_create_df},
 a fitted regression model produced by accrual_linear_model and a target sample size.
 }
 \examples{
