@@ -2,12 +2,12 @@
 % Please edit documentation in R/methods.R
 \name{plot.accrual_df}
 \alias{plot.accrual_df}
-\title{Plot method for accrual_dfs (as created by accrual_create_df)}
+\title{Plot method for accrual data frames produced by \code{accrual_create_df}}
 \usage{
 \method{plot}{accrual_df}(x, which = "cum", engine = c("base", "ggplot2"), ...)
 }
 \arguments{
-\item{x}{accrual_df object}
+\item{x}{object of class 'accrual_df' or 'accrual_list' produced by accrual_create_df.}
 
 \item{which}{one of \code{"cumulative"}, \code{"absolute"} or \code{"predict"}.
 Abbreviations are allowed.}
@@ -17,19 +17,20 @@ Abbreviations are allowed.}
 \item{...}{options passed to other functions}
 }
 \value{
-a plot
+A plot with cumulative or absolute accrual, or accrual prediction.
 }
 \description{
-Plot method for accrual_dfs (as created by accrual_create_df)
+Plot method for accrual data frames produced by \code{accrual_create_df}
 }
 \examples{
 set.seed(2020)
 enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
 accrual_df<-accrual_create_df(enrollment_dates)
 plot(accrual_df)
-plot(accrual_df, "abs")
-plot(accrual_df, "pred", target = 50)
+plot(accrual_df, "abs", unit="week")
+plot(accrual_df, "pred", target = 100)
+plot(accrual_df, "pred", target = 100, engine = "ggplot")
 }
 \seealso{
-\link{accrual_plot_abs} \link{accrual_plot_cum} \link{accrual_plot_predict}
+\code{\link[=accrual_plot_abs]{accrual_plot_abs()}}, \code{\link[=accrual_plot_cum]{accrual_plot_cum()}} and \code{\link[=accrual_plot_predict]{accrual_plot_predict()}}
 }

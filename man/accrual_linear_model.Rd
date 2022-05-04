@@ -11,17 +11,17 @@ accrual_linear_model(
 )
 }
 \arguments{
-\item{accrual_df}{accrual data frame produced by accrual_create_df (optionally with by option as a list)}
+\item{accrual_df}{object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.}
 
 \item{fill_up}{whether to fill up days where no recruitment was observed,}
 
 \item{wfun}{function to calculate the weights based on the accrual data frame, default is}
 }
 \value{
-A lm object of a weigthed linear regression of cumulative accrual on dates.
+Returns an object of class 'lm' with a weighted linear regression of cumulative accrual on dates.
 }
 \description{
-Creates weighted linear regression model based on an accrual data frame producd by accrual_create_df.
+Creates a weighted linear regression model using an accrual data frame produced by \code{accrual_create_df}.
 }
 \examples{
 \donttest{
@@ -38,10 +38,10 @@ accrual_df<-accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
     current_date=as.Date("2018-03-01"))
 accrual_linear_model(accrual_df)
 
- #accrual_df with by option
- set.seed(2020)
+#accrual_df with by option
+set.seed(2020)
 centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
- accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 accrual_linear_model(accrual_df)
 }
 }

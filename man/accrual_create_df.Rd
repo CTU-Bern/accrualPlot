@@ -6,46 +6,50 @@
 \usage{
 accrual_create_df(
   enrollment_dates,
+  by = NA,
   start_date = "site",
   current_date = "common",
-  force_start0 = TRUE,
-  by = NA,
   overall = TRUE,
   name_overall = "Overall",
-  pos_overall = c("last", "first")
+  pos_overall = c("last", "first"),
+  force_start0 = TRUE
 )
 }
 \arguments{
-\item{enrollment_dates}{dates on which patients are enrolled, date vector}
+\item{enrollment_dates}{date vector with one entry per participants.}
+
+\item{by}{factor or character vector with sites, has to have the same length as enrollment dates.
+If not NA, a list with an accrual data frame for each site is generated.}
 
 \item{start_date}{date when recruitment started. Single date (used for all sites in by),
 named date vector (with length and names corresponding to the levels of by),
 "common" (first date overall) or "site" (first date for each site, default).}
 
 \item{current_date}{date of the data export or database freeze.
-   Single date, named date vector (with length and names corresponding to the levels of by),
+Single date, named date vector (with length and names corresponding to the levels of by),
 "common" (last date overall, default) or "site" (first date for each site).}
+
+\item{overall}{logical indicates that accrual_df contains a summary with all sites (only if by is not NA).}
+
+\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE).}
+
+\item{pos_overall}{overall as last or first element of the list (if by is not NA and overall==TRUE).}
 
 \item{force_start0}{logical, adds an extra 0 line to the accrual data frame in cases
 where a start date is given and corresponds to the earliest enrollment date.}
-
-\item{by}{factor or character vector with sites, has to have the same length as enrollment dates,
-generates a list with accrual data frames for each site}
-
-\item{overall}{logical indicates that accrual_df contains a summary with all sites (only if by is not NA)}
-
-\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
-
-\item{pos_overall}{overall as last or first element of the list (if by is not NA and overall==TRUE)}
 }
 \value{
-Returns a data frame (or a list of data frames if by is not NA)
-with three columns "Date", "Freq" and "Cumulative" with each
-date with an accrual and the absolute and cumulative number of patients accrued.
+Returns a data frame of class 'accrual_df'
+or a list of class 'accrual_list' with an 'accrual_df' for each level of by (if by is not NA).
+The 'accrual_df' contains a row per accrual day and the following three columns:
+\item{Date}{date of accrual}
+\item{Freq}{absolute number accrued at Date}
+\item{Cumulative}{cumulative number accrued up to Date}
 }
 \description{
-Creates a data frame that contains the absolute and cumululative number of patients
-recruited at each date from a vector with enrollment dates.
+Creates a data frame or a list of data frames
+that contains the absolute and cumululative number of participants
+recruited at each date from a vector with enrollment dates. Used as input for accrual plot functions.
 }
 \examples{
 \donttest{
@@ -55,9 +59,14 @@ accrual_create_df(enrollment_dates)
 # different start and current date
 accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
 current_date=as.Date("2018-03-01"))
+
 #by site
 set.seed(2020)
 centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
 accrual_create_df(enrollment_dates,by=centers)
 }
+}
+\seealso{
+\code{\link[=accrual_plot_cum]{accrual_plot_cum()}}, \code{\link[=accrual_plot_abs]{accrual_plot_abs()}} and \code{\link[=accrual_plot_predict]{accrual_plot_predict()}}
+to generate cumulative, absolute and prediction plots, and \code{\link[=accrual_table]{accrual_table()}} to generate an accrual table.
 }

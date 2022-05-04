@@ -1,22 +1,26 @@
 #' accrual_table
 #'
 #'Table of recruitment overview by site,
-#'including name of site, start date, time recruiting, number of patients recruited and
-#'rate of recruitment
+#	including name of site, start date, time recruiting, number of patients recruited and
+#'	rate of recruitment
 #'
-#' @param accrual_df  accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)
-#	  with by option, a line is added for each element in the list
-#' @param overall logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)
-#' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE)
-#' @param pos_overall overall in last or first row (if by is not NA and overall==TRUE)
-#' @param unit time unit for time recruiting and the rate, any of "month","year","week","day"
-#' @param format_table_date format of start date in table
-#' @param format_time format of time recruiting in table
-#' @param format_rrate format of recruitment rate in table
-#' @param header header: include header, TRUE, NULL or character vector of length 5
+#' @param accrual_df object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.
+#' @param overall logical, indicates that accrual_df contains a summary with all sites (only if by is not NA).
+#' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE).
+#' @param pos_overall overall in last or first row (if by is not NA and overall==TRUE).
+#' @param unit time unit for time recruiting and the rate,
+#'	one of \code{"month"}, \code{"year"}, \code{"week"} or \code{"day"}.
+#' @param format_table_date format of start date in table.
+#' @param format_time format of time recruiting in table.
+#' @param format_rrate format of recruitment rate in table.
+#' @param header include header, logical or character vector of length 4 or 5 (if accrual_df is a list).
 #'
-#' @return Data frame with name of the site, accrual start date, time accruing,
-#'  number of patients accrued and accrual rate.
+#' @return Returns data frame with a header, a row per site and overall and the following columns:
+#' \item{name}{name of the site (if accrual_df is a list)}
+#' \item{start_date}{accrual start date}
+#' \item{time}{time accruing}
+#' \item{n}{number of patients accrued}
+#' \item{rate}{accrual rate per time unit}
 #'
 #' @export
 #'
@@ -114,7 +118,9 @@ accrual_table<-function(accrual_df,
         }
         tab<-rbind(head,tab)
       }
-    }
+    } else {
+		tab<-rbind(header,tab)
+	}
   }
   row.names(tab)<-1:nrow(tab)
   return(tab)

@@ -2,14 +2,14 @@
 #'
 #' accrual_predict
 #'
-#' Prediction of end date based on an accrual data frame produced by accrual_create_df,
+#' Prediction of end date based on an accrual data frame produced by \code{accrual_create_df},
 #' a fitted regression model produced by accrual_linear_model and a target sample size.
 #'
-#' @param accrual_df accrual data frame produced by accrual_create_df (optionally with by option as a list)
+#' @param accrual_df accrual data frame produced by \code{accrual_create_df} (optionally with by option as a list)
 #' @param accrual_fit linear model produced by accrual_linear_model, can be a list with the same length as accrual_df
 #' @param target target sample size, can be a vector with the same length as accrual_df
 #'
-#' @return The predicted end date or a list of the predicted end dates
+#' @return Returns the predicted end date or a list of the predicted end dates
 #'
 #' @export
 #'

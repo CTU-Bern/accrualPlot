@@ -17,31 +17,35 @@ accrual_table(
 )
 }
 \arguments{
-\item{accrual_df}{accrual data frame produced by accrual_create_df potentially with by option (i.e. as a list)}
+\item{accrual_df}{object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.}
 
-\item{overall}{logical, indicates that accrual_df contains a summary with all sites (only if by is not NA)}
+\item{overall}{logical, indicates that accrual_df contains a summary with all sites (only if by is not NA).}
 
-\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE)}
+\item{name_overall}{name of the summary with all sites (if by is not NA and overall==TRUE).}
 
-\item{pos_overall}{overall in last or first row (if by is not NA and overall==TRUE)}
+\item{pos_overall}{overall in last or first row (if by is not NA and overall==TRUE).}
 
-\item{unit}{time unit for time recruiting and the rate, any of "month","year","week","day"}
+\item{unit}{time unit for time recruiting and the rate,
+one of \code{"month"}, \code{"year"}, \code{"week"} or \code{"day"}.}
 
-\item{format_table_date}{format of start date in table}
+\item{format_table_date}{format of start date in table.}
 
-\item{format_time}{format of time recruiting in table}
+\item{format_time}{format of time recruiting in table.}
 
-\item{format_rrate}{format of recruitment rate in table}
+\item{format_rrate}{format of recruitment rate in table.}
 
-\item{header}{header: include header, TRUE, NULL or character vector of length 5}
+\item{header}{include header, logical or character vector of length 4 or 5 (if accrual_df is a list).}
 }
 \value{
-Data frame with name of the site, accrual start date, time accruing,
- number of patients accrued and accrual rate.
+Returns data frame with a header, a row per site and overall and the following columns:
+\item{name}{name of the site (if accrual_df is a list)}
+\item{start_date}{accrual start date}
+\item{time}{time accruing}
+\item{n}{number of patients accrued}
+\item{rate}{accrual rate per time unit}
 }
 \description{
 Table of recruitment overview by site,
-including name of site, start date, time recruiting, number of patients recruited and
 rate of recruitment
 }
 \examples{
