@@ -21,7 +21,7 @@
 <meta property="og:description" content="Tracking accrual in clinical trials is important for trial success. 
     If accrual is too slow, the trial will take too long and be too expensive. If
     accrual is much faster than expected, time sensitive tasks such as the writing 
-    of statistical analysis plans might need to be rushed. `accrualPlot` provides 
+    of statistical analysis plans might need to be rushed. accrualPlot provides 
     functions to aid the tracking of accrual and predict when a trial will reach 
     it's intended sample size.">
 <meta property="og:image" content="/logo.png">
@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -122,10 +122,14 @@
 <p>Cumulative and absolute recruitment plots , as well as a method to predict the time point of study completion, are included.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"cum"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"abs"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"pred"</span>, target <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"cum"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png"><!-- --></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"abs"</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-2.png"><!-- --></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"pred"</span>, target <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-3.png"><!-- --></p>
 <div class="section level3">
 <h3 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>
 </h3>
@@ -171,7 +175,7 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/CTU-Bern/accrualPlot" class="external-link"><img src="https://img.shields.io/badge/dev%20version-0.6.8-blue.svg"></a></li>
+<li><a href="https://github.com/CTU-Bern/accrualPlot" class="external-link"><img src="https://img.shields.io/badge/dev%20version-1.0.0-blue.svg"></a></li>
 <li><a href="https://github.com/CTU-Bern/accrualPlot/actions" class="external-link"><img src="https://github.com/CTU-Bern/accrualPlot/workflows/R-CMD-check/badge.svg" alt="Actions Status"></a></li>
 </ul>
 </div>

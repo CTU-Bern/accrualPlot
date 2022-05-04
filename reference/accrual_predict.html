@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -62,7 +62,7 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>accrual_df</dt>
-<dd><p>accrual data frame produced by accrual_create_df (optionally with by option as a list)</p></dd>
+<dd><p>accrual data frame produced by <code>accrual_create_df</code> (optionally with by option as a list)</p></dd>
 <dt>accrual_fit</dt>
 <dd><p>linear model produced by accrual_linear_model, can be a list with the same length as accrual_df</p></dd>
 <dt>target</dt>
@@ -70,11 +70,11 @@
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The predicted end date or a list of the predicted end dates</p>
+    <p>Returns the predicted end date or a list of the predicted end dates</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>Prediction of end date based on an accrual data frame produced by accrual_create_df,
+    <p>Prediction of end date based on an accrual data frame produced by <code>accrual_create_df</code>,
 a fitted regression model produced by accrual_linear_model and a target sample size.</p>
     </div>
 

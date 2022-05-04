@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -62,14 +62,14 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>accrual_df</dt>
-<dd><p>accrual data frame produced by accrual_create_df with by=NA</p></dd>
+<dd><p>accrual data frame produced by <code>accrual_create_df</code> with by=NA.</p></dd>
 <dt>unit</dt>
-<dd><p>time unit for which the bars should be plotted, any of "month","year","week","day"</p></dd>
+<dd><p>time unit for which the bars should be plotted,
+one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"day"</code>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Data frame with the number of patients accrued for each time unit
-(given by day and/or week and/or month and year).</p>
+    <p>Returns a data frame with the number of patients accrued for each time unit.</p>
     </div>
 
     <div id="ref-examples">
@@ -78,14 +78,14 @@
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">enrollment_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2018-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, <span class="fl">50</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">enrollment_dates</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">accrualPlot</span><span class="fu">:::</span><span class="fu">accrual_time_unit</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="st">"week"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">accrual_time_unit</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="st">"week"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   week       date Freq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    1 2018-01-01    8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2 2018-01-08   12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3    3 2018-01-15   18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4    4 2018-01-22    9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5    5 2018-01-29    1</span>
-<span class="r-in"><span class="fu">accrualPlot</span><span class="fu">:::</span><span class="fu">accrual_time_unit</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="st">"day"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">accrual_time_unit</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="st">"day"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    day month year Freq       date</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    2     1 2018    1 2018-01-02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    3     1 2018    2 2018-01-03</span>
