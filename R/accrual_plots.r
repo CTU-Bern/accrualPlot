@@ -134,8 +134,6 @@ accrual_plot_predict<-function(accrual_df,
                                ...,
                                center_start_dates=NULL) {
 
-	oldpar <- par(no.readonly = TRUE)
-	on.exit(par(oldpar))
 
 	pos_prediction<-match.arg(pos_prediction)
 	center_legend<-match.arg(center_legend)
@@ -226,7 +224,8 @@ accrual_plot_predict<-function(accrual_df,
 	#plot raw data
 	#&&&&&&&&&&
 
-	par(mar=mar)
+	oldpar <- par(mar=mar)
+	on.exit(par(oldpar))
 
 	plot(0,type="n",ylim=alim[["ylim"]],xlim=alim[["xlim"]],
 		 axes=FALSE,xlab="",ylab=ylab,...)
@@ -387,9 +386,6 @@ accrual_plot_cum<-function(accrual_df,
                            lty=rep(1:5,each=8),
                            legend.list=NULL,
                            ...) {
-
-  oldpar <- par(no.readonly = TRUE)
-  on.exit(par(oldpar))
 	
   if (is.data.frame(accrual_df)) {
     accrual_df<-list(accrual_df)
@@ -529,8 +525,6 @@ accrual_plot_abs<-function(accrual_df,
 						    legend.list=NULL,
 							...) {
 
-	oldpar <- par(no.readonly = TRUE)
-	on.exit(par(oldpar))
 	
 	if (is.data.frame(accrual_df)) {
 		accrual_df<-list(accrual_df)

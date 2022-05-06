@@ -1,3 +1,8 @@
+accrualPlot 1.0.1
+------------------
+Fix par setting for accrual_plots
+Reinstate old par at the end of the vignette
+
 accrualPlot 1.0.0
 ------------------
 Clean help files
