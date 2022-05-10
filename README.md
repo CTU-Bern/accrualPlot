@@ -3,8 +3,7 @@
 
 # `accrualPlot` <img src='man/figures/logo.png' align="right" width="200">
 
-<!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
-
+[![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)
 [![](https://img.shields.io/badge/dev%20version-1.0.1-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
 [![Actions
 Status](https://github.com/CTU-Bern/accrualPlot/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/accrualPlot/actions)
@@ -20,9 +19,14 @@ recruiting participants. `accrualPlot` provides tools for such plots
 
 ## Installation
 
-<!-- `accrualPlot` can be installed from CRAN in the usual manner: -->
+`accrualPlot` can be installed from CRAN in the usual manner:
 
-The package can be installed from the CTU Bern universe via
+``` r
+install.packages('accrualPlot')
+```
+
+The development version of the package can be installed from the CTU
+Bern universe via
 
 ``` r
 install.packages('accrualPlot', repos = 'https://ctu-bern.r-universe.dev')
