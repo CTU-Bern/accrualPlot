@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 # `accrualPlot` <img src='man/figures/logo.png' align="right" width="200">
 
 
-<!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
+[![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)
 `r badger::badge_custom("dev version", as.character(packageVersion("accrualPlot")), "blue", "https://github.com/CTU-Bern/accrualPlot")`
 [![Actions Status](https://github.com/CTU-Bern/accrualPlot/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/accrualPlot/actions)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
@@ -26,9 +26,13 @@ Accrual plots are an important tool when monitoring clinical trials. Some trials
 
 ## Installation
 
-<!-- `accrualPlot` can be installed from CRAN in the usual manner: -->
+`accrualPlot` can be installed from CRAN in the usual manner:
 
-The package can be installed from the CTU Bern universe via
+```{r cran-installation, eval = FALSE}
+install.packages('accrualPlot')
+```
+
+The development version of the package can be installed from the CTU Bern universe via
 
 ```{r universe-installation, eval = FALSE}
 install.packages('accrualPlot', repos = 'https://ctu-bern.r-universe.dev')
