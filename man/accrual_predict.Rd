@@ -11,7 +11,8 @@ accrual_predict(accrual_df, accrual_fit, target)
 
 \item{accrual_fit}{linear model produced by accrual_linear_model, can be a list with the same length as accrual_df}
 
-\item{target}{target sample size, can be a vector with the same length as accrual_df}
+\item{target}{target sample size, either a single number or a named vector with the same length as accrual_df,
+for the latter, center-specific predictions are shown.}
 }
 \value{
 Returns the predicted end date or a list of the predicted end dates
@@ -42,6 +43,6 @@ accrual_predict(accrual_df,accrual_model,target=100)
 centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
  accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 accrual_model<-accrual_linear_model(accrual_df)
-accrual_predict(accrual_df,accrual_model,target=c(30,30,30,100))
+accrual_predict(accrual_df,accrual_model,target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
 }
 }
