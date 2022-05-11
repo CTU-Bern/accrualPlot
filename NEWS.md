@@ -1,3 +1,7 @@
+accrualPlot 1.0.2
+------------------
+named vector for target, default plot size for vignette
+
 accrualPlot 1.0.1
 ------------------
 Fix par setting for accrual_plots
