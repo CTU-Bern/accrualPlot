@@ -222,9 +222,9 @@ gg_accrual_plot_abs <- function(accrual_df
 #'
 #' #predictions for all sites
 #' gg_accrual_plot_predict(accrual_df = accrual_df,
-#'                         target = c(30,30,30,100))
+#'                         target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
 #' gg_accrual_plot_predict(accrual_df = accrual_df,
-#'                         target = c(30,30,30,100)) +
+#'                         target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100)) +
 #'    ggplot2::theme(legend.position = c(0.15,.9)) +
 #'    ggplot2::labs(col = "Site")
 
@@ -248,7 +248,11 @@ gg_accrual_plot_predict <- function(accrual_df
 
   if(is_accrual_list(accrual_df)){
     if(length(target) > 1){
-      if(length(target) != length(accrual_df)) stop("target should have the same length as accrual_df")
+      if(length(target) != length(accrual_df)) {
+		stop("target should have the same length as accrual_df")
+	  } else {	
+		target<-check_name(target, names(accrual_df))
+	  }
 
     } else {
       accrual_df <- accrual_df[[name_overall]]

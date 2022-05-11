@@ -223,9 +223,9 @@ gg_accrual_plot_predict(accrual_df = accrual_df,
 
 #predictions for all sites
 gg_accrual_plot_predict(accrual_df = accrual_df,
-                        target = c(30,30,30,100))
+                        target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
 gg_accrual_plot_predict(accrual_df = accrual_df,
-                        target = c(30,30,30,100)) +
+                        target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100)) +
    ggplot2::theme(legend.position = c(0.15,.9)) +
    ggplot2::labs(col = "Site")
 }
