@@ -48,13 +48,15 @@ accrual_predict <- function(accrual_df, accrual_fit, target) {
   }
   stopifnot(length(accrual_df)==length(accrual_fit))
    
-  if (length(target)==1) {
-	target<-rep(target,length(accrual_df))
-  } else {
-	target<-check_name(target, names(accrual_df))
-  }
-  stopifnot(length(accrual_df)==length(target))	
-	
+  if (length(target)!=1) {
+		if (length(target)!=length(accrual_df)) {
+			stop("length of target has to correspond to length of accrual_df")
+		} else {
+			target<-check_name(target, names(accrual_df))
+		}
+	} else {
+		target<-rep(target,length(accrual_df))
+	}
 	
   prend<-numeric(0)	
   for (i in 1:length(accrual_df)) {
