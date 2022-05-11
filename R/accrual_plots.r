@@ -91,12 +91,15 @@
 #'      mgp=c(3,0.5,0),cex.lab=1.2,cex.axis=1.2)
 #'
 #' #predictions for all sites
-#' accrual_plot_predict(accrual_df=accrual_df,target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
+#' accrual_plot_predict(accrual_df=accrual_df,
+#'	target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
 #' ## different colors
-#' accrual_plot_predict(accrual_df=accrual_df,target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100),
+#' accrual_plot_predict(accrual_df=accrual_df,
+#'	target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100),
 #'	col.obs=topo.colors(length(accrual_df)))
 #' ##not showing center info
-#' accrual_plot_predict(accrual_df=accrual_df,target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100),
+#' accrual_plot_predict(accrual_df=accrual_df,
+#'	target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100),
 #'	show_center=FALSE)
 #'
 accrual_plot_predict<-function(accrual_df,

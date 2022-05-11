@@ -33,7 +33,8 @@
 #'	centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
 #'  accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 #'	accrual_model<-accrual_linear_model(accrual_df)
-#'	accrual_predict(accrual_df,accrual_model,target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
+#'	accrual_predict(accrual_df,accrual_model,
+#'	target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
 #' }
 
 accrual_predict <- function(accrual_df, accrual_fit, target) {
