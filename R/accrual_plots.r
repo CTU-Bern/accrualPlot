@@ -7,14 +7,14 @@
 #'
 #' @rdname accrual_plot_predict
 #' @param accrual_df object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.
-#' @param target target sample size, if it is a vector with the same length as accrual_df, center-specific
-#'		predictions are shown.
+#' @param target target sample size, either a single number or a named vector with the same length as accrual_df, 
+#'	for the latter, center-specific predictions are shown.
 #' @param overall logical, indicates that accrual_df contains a summary with all sites (only if by is not NA).
 #' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE).
 #' @param fill_up whether to fill up days where no recruitment was observed,
 #'		otherwise these points do not contribute to the regression.
-#' @param wfun function to calculate the weights based on the accrual_df, default is
-#'		wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)).
+#' @param wfun function to calculate the weights with accrual data frame as argument, 
+#'	default is wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)).
 #' @param col.obs line color of cumulative recruitment, can be a vector with the same length as accrual_df.
 #' @param lty.obs line type of cumulative recruitment, can be a vector with the same length as accrual_df.
 #' @param col.pred line color of prediction, can be a vector with the same length as accrual_df.
@@ -91,12 +91,13 @@
 #'      mgp=c(3,0.5,0),cex.lab=1.2,cex.axis=1.2)
 #'
 #' #predictions for all sites
-#' accrual_plot_predict(accrual_df=accrual_df,target=c(30,30,30,100))
+#' accrual_plot_predict(accrual_df=accrual_df,target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
 #' ## different colors
-#' accrual_plot_predict(accrual_df=accrual_df,target=c(30,30,30,100),
+#' accrual_plot_predict(accrual_df=accrual_df,target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100),
 #'	col.obs=topo.colors(length(accrual_df)))
 #' ##not showing center info
-#' accrual_plot_predict(accrual_df=accrual_df,target=c(30,30,30,100),show_center=FALSE)
+#' accrual_plot_predict(accrual_df=accrual_df,target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100),
+#'	show_center=FALSE)
 #'
 accrual_plot_predict<-function(accrual_df,
                                target,
@@ -154,6 +155,8 @@ accrual_plot_predict<-function(accrual_df,
 		#separate prediction
 		if (length(target)!=length(accrual_df)) {
 			stop("length of target has to correspond to length of accrual_df")
+		} else {
+			target<-check_name(target, names(accrual_df))
 		}
 	}
 

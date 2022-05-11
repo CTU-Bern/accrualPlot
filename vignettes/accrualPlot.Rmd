@@ -10,7 +10,9 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width=7,
+  fig.height=3
 )
 ```
 
@@ -91,7 +93,7 @@ and supplies both base graphics as well as `ggplot2` graphics implementations
 ### Cumulative plots 
 
 Cumulative plots show a standard step function of the number of participants recruited up to a given point in time. The plots are produced via the `plot` method (which is a wrapper for the internal function `accrual_plot_cum`)
-```{r, fig.width=7}
+```{r}
 par(mfrow = c(1, 3))
 plot(df)
 plot(df2)
@@ -99,11 +101,13 @@ plot(df4)
 ```
 
 For `ggplot2` graphics, use the engine option:
-```{r, fig.width=7}
+```{r}
 library(patchwork)
 library(ggplot2)
 p1 <- plot(df, engine = "ggplot")
-p2 <- plot(df2, engine = "ggplot")
+p2 <- plot(df2, engine = "ggplot") + 
+   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
+         axis.title.x = element_blank())
 p3 <- plot(df4, engine = "ggplot") +
   labs(col = "Site") +
   theme_classic() +
@@ -121,7 +125,7 @@ p1 + p2 + p3
 
 Recruitment plots per unit time can be obtained via the `absolute` method (specify `which = "absolute"` to `plot`)
 
-```{r, fig.width=7}
+```{r}
 par(mfrow = c(1, 3))
 plot(df, which = "abs", unit = "week")
 plot(df2, which = "abs", unit = "week")
@@ -132,9 +136,11 @@ Options for `unit` are `year`, `month`, `week` and `day`.
 
 Where multiple sites exist, the different sites are indicated by different colours on the stacked bars.
 
-```{r, fig.width=7}
+```{r}
 p1 <- plot(df, which = "abs", unit = "week", engine = "ggplot")
-p2 <- plot(df2, which = "abs", unit = "week", engine = "ggplot")
+p2 <- plot(df2, which = "abs", unit = "week", engine = "ggplot") + 
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
+         axis.title.x = element_blank())
 p3 <- plot(df4, which = "abs", unit = "week", engine = "ggplot") +
   labs(fill = "Site") +
   ylim(0,12) +
@@ -154,7 +160,7 @@ p1 + p2 + p3
 
 It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 75 participants, we can put that in the `target` option. 
 
-```{r, fig.width=7}
+```{r}
 par(mfrow = c(1, 3))
 plot(df, which = "predict", target = 75)
 plot(df2, which = "predict", target = 75)
@@ -163,7 +169,7 @@ plot(df4, which = "predict", target = 75,  center_legend="strip")
 
 Or with `ggplot2`.
 
-```{r, fig.width=7, fig.height=4}
+```{r, fig.height=4}
 p1 <- plot(df, which = "predict", target = 75, engine = "ggplot2") +
   theme(plot.title.position = "plot")
 p2 <- plot(df2, which = "predict", target = c(30, 25, 35, 90), engine = "ggplot2") +

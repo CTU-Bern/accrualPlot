@@ -30,7 +30,8 @@ check_name <- function(date, lc) {
 	}
 	
 	if (is.null(names(date))) {
-		warning("date is not a named vector, the sequence was assumed to correspond to levels or order of by")
+		warning(paste0(deparse(substitute(date)),
+			" is not a named vector, the sequence was assumed to correspond to levels or order of by"))
 		names(date)<-lc
 		print(data.frame(date))
 	}	

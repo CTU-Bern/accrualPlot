@@ -5,8 +5,8 @@
 #' @param accrual_df object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.
 #' @param fill_up whether to fill up days where no recruitment was observed,
 #		otherwise these points do not contribute to the regression, default is TRUE.
-#' @param wfun function to calculate the weights based on the accrual data frame, default is
-#		wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)).
+#' @param wfun function to calculate the weights with accrual data frame as argument, 
+#'	default is wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)).
 #'
 #' @return Returns an object of class 'lm' with a weighted linear regression of cumulative accrual on dates.
 #'
