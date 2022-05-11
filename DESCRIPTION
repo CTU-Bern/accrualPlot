@@ -21,7 +21,8 @@ BugReports: https://github.com/CTU-Bern/accrualPlot/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Depends:
-    lubridate
+    lubridate,
+    R (>= 2.10)
 Imports:
     dplyr, 
     ggplot2, 
@@ -38,3 +39,4 @@ Suggests:
     testthat,
     vdiffr
 VignetteBuilder: knitr
+LazyData: true
