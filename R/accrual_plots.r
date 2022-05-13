@@ -86,14 +86,14 @@
 #'
 #' #predictions for all sites
 #' accrual_plot_predict(accrual_df=accrual_df,
-#'	target=c("Site 1"=100,"Site 2"=100,"Site 3"=100,"Overall"=350))
+#'	target=c("Site 1"=150,"Site 2"=100,"Site 3"=100,"Overall"=350))
 #' ## different colors
 #' accrual_plot_predict(accrual_df=accrual_df,
-#'	target=c("Site 1"=100,"Site 2"=100,"Site 3"=100,"Overall"=350),
+#'	target=c("Site 1"=150,"Site 2"=100,"Site 3"=100,"Overall"=350),
 #'	col.obs=topo.colors(length(accrual_df)))
 #' ##not showing center info
 #' accrual_plot_predict(accrual_df=accrual_df,
-#'	target=c("Site 1"=100,"Site 2"=100,"Site 3"=100,"Overall"=350),
+#'	target=c("Site 1"=150,"Site 2"=100,"Site 3"=100,"Overall"=350),
 #'	show_center=FALSE)
 #'
 accrual_plot_predict<-function(accrual_df,
