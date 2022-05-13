@@ -15,7 +15,8 @@ accrual_linear_model(
 
 \item{fill_up}{whether to fill up days where no recruitment was observed,}
 
-\item{wfun}{function to calculate the weights based on the accrual data frame, default is}
+\item{wfun}{function to calculate the weights with accrual data frame as argument,
+default is wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)).}
 }
 \value{
 Returns an object of class 'lm' with a weighted linear regression of cumulative accrual on dates.
