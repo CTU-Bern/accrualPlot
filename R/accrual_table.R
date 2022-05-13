@@ -25,10 +25,8 @@
 #' @export
 #'
 #' @examples
-#' set.seed(2020)
-#' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-#' centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
-#' accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+#' data(accrualdemo)
+#' accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site)
 #' accrual_table(accrual_df)
 #'
 #' #format
@@ -38,10 +36,10 @@
 #' accrual_table(accrual_df,unit="day")
 #'
 #' #common start and current dates
-#' accrual_df<-accrual_create_df(enrollment_dates,by=centers,start_date="common",current_date="common")
+#' accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site,start_date="common",current_date="common")
 #' accrual_table(accrual_df)
-#' accrual_df<-accrual_create_df(enrollment_dates,by=centers,start_date=as.Date("2017-12-31"),
-#'     current_date=as.Date("2018-03-01"))
+#' accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site,start_date=as.Date("2020-07-09"),
+#'     current_date=as.Date("2020-10-15"))
 #' accrual_table(accrual_df)
 #'
 #'
@@ -73,7 +71,7 @@ accrual_table<-function(accrual_df,
   }
   lc<-length(accrual_df)
 
-  
+
 
   tab<-numeric(0)
 
@@ -84,7 +82,7 @@ accrual_table<-function(accrual_df,
     #end_date<-max(accrual_df[[i]]$Date[accrual_df[[i]]$Cumulative==max(accrual_df[[i]]$Cumulative)])
 	sdate<-min(accrual_df[[i]]$Date)
     end_date<-max(accrual_df[[i]]$Date)
-   
+
     trec<-as.numeric(end_date-sdate)/scale
     if (end_date==sdate) {trec<-0.5/scale}
 

@@ -10,9 +10,8 @@
 #' @export
 #' @seealso [accrual_plot_abs()], [accrual_plot_cum()] and [accrual_plot_predict()]
 #' @examples
-#' set.seed(2020)
-#' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-#' accrual_df<-accrual_create_df(enrollment_dates)
+#' data(accrualdemo)
+#' accrual_df <- accrual_create_df(accrualdemo$date)
 #' plot(accrual_df)
 #' plot(accrual_df, "abs", unit="week")
 #' plot(accrual_df, "pred", target = 100)
@@ -73,10 +72,8 @@ plot.accrual_df <- function(x
 #' @export
 #'
 #' @examples
-#' set.seed(2020)
-#' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-#' centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
-#' accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+#' data(accrualdemo)
+#' accrual_df<-accrual_create_df(accrualdemo$date, accrualdemo$site)
 #' summary(accrual_df)
 summary.accrual_df <- function(object, ...){
 
@@ -97,9 +94,8 @@ summary.accrual_df <- function(object, ...){
 #' @export
 #'
 #' @examples
-#' set.seed(2020)
-#' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-#' accrual_df<-accrual_create_df(enrollment_dates)
+#' data(accrualdemo)
+#' accrual_df<-accrual_create_df(accrualdemo$date)
 #' print(accrual_df)
 #' # only show text
 #' print(accrual_df, head = FALSE)
@@ -113,8 +109,8 @@ print.accrual_df <- function(x, head = TRUE, ...){
   cat(paste(maxc, "participants recruited between", mindate, "and", maxdate, "\n"))
 
   if(head) print(head(as.data.frame(x), ...))
-	
-  return(invisible(NULL))	
+
+  return(invisible(NULL))
 
 }
 
@@ -130,7 +126,7 @@ print.accrual_list <- function(x, ...){
   # mindate <- min(do.call("c", lapply(y, function(x) min(x$Date))))
 
   # cat(paste(npart, "participants recruited between", mindate, "and", maxdate, "from", ncenter, "centers\n"))
-  
+
   lapply(names(x), function(y) {
 		cat(paste0(y,":\n"))
 		print(x[[y]], ...)
