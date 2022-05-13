@@ -23,9 +23,8 @@ A plot with cumulative or absolute accrual, or accrual prediction.
 Plot method for accrual data frames produced by \code{accrual_create_df}
 }
 \examples{
-set.seed(2020)
-enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-accrual_df<-accrual_create_df(enrollment_dates)
+data(accrualdemo)
+accrual_df <- accrual_create_df(accrualdemo$date)
 plot(accrual_df)
 plot(accrual_df, "abs", unit="week")
 plot(accrual_df, "pred", target = 100)

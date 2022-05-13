@@ -74,7 +74,7 @@ in x- and y-direction.}
 \value{
 \code{accrual_plot_abs} returns a barplot of absolute accrual by time unit (stacked if accrual_df is a list).
 
-\code{gg_accrual_plot_abs} returns an object of class 'ggplot' with the absolute accrual by time unit.
+
 }
 \description{
 Plot of absolute recruitment by time unit using an accrual data frame produced by \code{accrual_create_df}.
@@ -104,11 +104,8 @@ accrual_df<-accrual_create_df(enrollment_dates,by=centers)
 accrual_plot_abs(accrual_df=accrual_df,unit=c("week"))
 
 ### ggplot2 approach
-
-set.seed(2020)
-enrollment_dates <-
-  as.Date("2018-01-01") + sort(sample(1:100, 50, replace = TRUE))
-accrual_df <- accrual_create_df(enrollment_dates)
+data(accrualdemo)
+accrual_df<-accrual_create_df(accrualdemo$date)
 gg_accrual_plot_abs(accrual_df, unit = "week")
 gg_accrual_plot_abs(accrual_df, unit = "week") +
   ggplot2::theme_classic()
@@ -117,13 +114,7 @@ gg_accrual_plot_abs(accrual_df, unit = "week") +
 gg_accrual_plot_abs(accrual_df, unit = "day")
 
 #accrual_df with by option
-set.seed(2020)
-centers <-
-  sample(c("Site 1", "Site 2", "Site 3"),
-         length(enrollment_dates),
-         replace = TRUE)
-centers <- factor(centers, levels = c("Site 1", "Site 2", "Site 3"))
-accrual_df <- accrual_create_df(enrollment_dates, by = centers)
+accrual_df <- accrual_create_df(accrualdemo$date, by = accrualdemo$site)
 gg_accrual_plot_abs(accrual_df = accrual_df, unit = "week")
 gg_accrual_plot_abs(accrual_df = accrual_df, unit = "week") +
   ggplot2::scale_fill_discrete(type = c("black", "red", "blue", "green"))

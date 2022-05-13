@@ -20,9 +20,8 @@ Generates summary of recruitment per time unit
 }
 \examples{
 \donttest{
-set.seed(2020)
-enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-accrual_df<-accrual_create_df(enrollment_dates)
+data(accrualdemo)
+accrual_df<-accrual_create_df(accrualdemo$date)
 accrual_time_unit(accrual_df,"week")
 accrual_time_unit(accrual_df,"day")
 }

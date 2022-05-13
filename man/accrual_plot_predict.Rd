@@ -49,11 +49,11 @@ gg_accrual_plot_predict(
   target,
   overall = TRUE,
   name_overall = attr(accrual_df, "name_overall"),
-  fill_up = TRUE,
-  wfun = function(x) seq(1/nrow(x), 1, by = 1/nrow(x)),
   col.pred = "red",
   lty.pred = 2,
   pch.pred = 8,
+  fill_up = TRUE,
+  wfun = function(x) seq(1/nrow(x), 1, by = 1/nrow(x)),
   pos_prediction = c("out", "in", "none"),
   format_prediction = "\%B \%d, \%Y",
   xlabformat = "\%d\%b\%Y"
@@ -142,7 +142,7 @@ vector with dates on which centers are enrolled.}
 \value{
 \code{accrual_plot_predict} returns a plot with the accrual prediction.
 
-\code{gg_accrual_plot_predict} an object of class 'ggplot' with the accrual prediction.
+
 }
 \description{
 Generates an accrual prediction plot using an accrual data frame produced by \code{accrual_create_df}
@@ -151,66 +151,52 @@ If the accrual data frame is a list (i.e. using the by option in \code{accrual_c
 or if center start dates are given, the number of enrolled and targeted sites is included.
 }
 \examples{
-#Data
-set.seed(2020)
-enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-
-#Default plot
-accrual_df<-accrual_create_df(enrollment_dates)
-accrual_plot_predict(accrual_df=accrual_df,target=100)
+data(accrualdemo)
+accrual_df<-accrual_create_df(accrualdemo$date)
+accrual_plot_predict(accrual_df=accrual_df,target=300)
 
 #Include site
-set.seed(2021)
-centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
-accrual_df<-accrual_create_df(enrollment_dates,by=centers)
-accrual_plot_predict(accrual_df=accrual_df,target=100,center_label="Site")
+accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site)
+accrual_plot_predict(accrual_df=accrual_df,target=300,center_label="Site")
 ## with strip and target
 accrual_plot_predict(accrual_df=accrual_df,target=100,center_label="Site",
  targetc=5,center_colors=heat.colors(5),center_legend="strip")
 
 #Design for site
-accrual_plot_predict(accrual_df=accrual_df,target=100,design=2)
+accrual_plot_predict(accrual_df=accrual_df,target=300,design=2)
 
 #Format prediction end date
-accrual_plot_predict(accrual_df=accrual_df,target=100,
+accrual_plot_predict(accrual_df=accrual_df,target=300,
      pos_prediction="in",label_prediction="End of accrual: ",cex_prediction=1.2,
      format_prediction="\%Y-\%m-\%d",ylim=c(0,150))
 
 #Format plot
-accrual_plot_predict(accrual_df=accrual_df,target=100,
+accrual_plot_predict(accrual_df=accrual_df,target=300,
      ylab="No of recruited patients",ylim=c(0,150),
      xlabcex=1.2,xlabsrt=30,xlabn=5,xlabmin=5,
      mgp=c(3,0.5,0),cex.lab=1.2,cex.axis=1.2)
 
 #predictions for all sites
 accrual_plot_predict(accrual_df=accrual_df,
-target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
+target=c("Site 1"=100,"Site 2"=100,"Site 3"=100,"Overall"=350))
 ## different colors
 accrual_plot_predict(accrual_df=accrual_df,
-target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100),
+target=c("Site 1"=100,"Site 2"=100,"Site 3"=100,"Overall"=350),
 col.obs=topo.colors(length(accrual_df)))
 ##not showing center info
 accrual_plot_predict(accrual_df=accrual_df,
-target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100),
+target=c("Site 1"=100,"Site 2"=100,"Site 3"=100,"Overall"=350),
 show_center=FALSE)
 
 ### ggplot2 approach
-
-#Data
-set.seed(2020)
-enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-
-#Default plot
-accrual_df <- accrual_create_df(enrollment_dates)
+data(accrualdemo)
+accrual_df<-accrual_create_df(accrualdemo$date)
 gg_accrual_plot_predict(accrual_df = accrual_df, target = 100)
 gg_accrual_plot_predict(accrual_df = accrual_df, target = 100) +
   ggplot2::theme_classic()
 
 #Include site
-set.seed(2021)
-centers<-sample(c("Site 1","Site 2","Site 3"),
-                length(enrollment_dates), replace=TRUE)
-accrual_df<-accrual_create_df(enrollment_dates, by=centers)
+accrual_df<-accrual_create_df(accrualdemo$date, by=accrualdemo$site)
 gg_accrual_plot_predict(accrual_df=accrual_df, target=100)
 
 
@@ -223,9 +209,9 @@ gg_accrual_plot_predict(accrual_df = accrual_df,
 
 #predictions for all sites
 gg_accrual_plot_predict(accrual_df = accrual_df,
-                        target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
+                        target = c(30,30,30,100))
 gg_accrual_plot_predict(accrual_df = accrual_df,
-                        target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100)) +
+                        target = c(30,30,30,100)) +
    ggplot2::theme(legend.position = c(0.15,.9)) +
    ggplot2::labs(col = "Site")
 }
