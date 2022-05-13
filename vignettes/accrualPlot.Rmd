@@ -30,9 +30,8 @@ library(accrualPlot)
 To work with `accrualPlot`, we need some data, specifically dates and, optionally, site identifiers. Here's some data that we will use in the following examples.
 
 ```{r}
-set.seed(1234)
-x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
-site <- as.factor(paste0("Site",sample(1:3, 50, replace = TRUE)))
+data(accrualdemo)
+head(accrualdemo)
 ```
 
 `accrual_df`s are simply dataframes with the number of participants on each day participants are recruited (or site) began recruiting. 
@@ -42,7 +41,7 @@ site <- as.factor(paste0("Site",sample(1:3, 50, replace = TRUE)))
 Monocentric trials obviously have only a single site, so we only need the `x` object we just created. We can pass this into the `accrual_create_df` function.
 
 ```{r}
-df <- accrual_create_df(x)
+df <- accrual_create_df(accrualdemo$date)
 print(df, head = TRUE)
 ```
 
@@ -53,7 +52,7 @@ In this case, the `accrual_df` has a single data frame.
 For multicentric trials, we should also pass the site identifier to `accrual_create_df` in the `by` argument.
 
 ```{r}
-df2 <- accrual_create_df(x, by = site)
+df2 <- accrual_create_df(accrualdemo$date, by = accrualdemo$site)
 print(df2, head = TRUE)
 ```
 
@@ -64,15 +63,15 @@ In this case, the `accrual_df` is a list of dataframes, one for each site and an
 By default, the start and end dates are defined based on the dates that you pass to `accrual_create_df`. You can override these via the `start_date` and `current_date` arguments. This is useful for when you have particularly slow recruiting trials (such as those with particularly strict inclusion criteria). For example, our fictitious example trial might have started recruiting on the 1st November. By adding this information, we modify other output
 
 ```{r}
-df3 <- accrual_create_df(x, start_date = as.Date("2020-11-01"))
+df3 <- accrual_create_df(accrualdemo$date, start_date = as.Date("2020-07-08"))
 ```
 
 For multicentric trials where different sites started recruiting at different times, we can pass a vector to `start_date`
 
 ```{r}
-start_date<-as.Date(c("2020-11-10","2020-11-15","2020-11-18"))
+start_date<-as.Date(c("2020-07-09","2020-07-09","2020-08-01"))
 names(start_date)<-c("Site1","Site2","Site3")
-df4 <- accrual_create_df(x, by = site, start_date = start_date)
+df4 <- accrual_create_df(accrualdemo$date, by = accrualdemo$site, start_date = start_date)
 ```
 
 
@@ -158,21 +157,21 @@ p1 + p2 + p3
 
 ### Predicting the endpoint
 
-It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 75 participants, we can put that in the `target` option. 
+It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 300 participants, we can put that in the `target` option. 
 
 ```{r}
 par(mfrow = c(1, 3))
-plot(df, which = "predict", target = 75)
-plot(df2, which = "predict", target = 75)
-plot(df4, which = "predict", target = 75,  center_legend="strip")
+plot(df, which = "predict", target = 300)
+plot(df2, which = "predict", target = 300)
+plot(df4, which = "predict", target = 300,  center_legend="strip")
 ```
 
 Or with `ggplot2`.
 
 ```{r, fig.height=4}
-p1 <- plot(df, which = "predict", target = 75, engine = "ggplot2") +
+p1 <- plot(df, which = "predict", target = 300, engine = "ggplot2") +
   theme(plot.title.position = "plot")
-p2 <- plot(df2, which = "predict", target = c(30, 25, 35, 90), engine = "ggplot2") +
+p2 <- plot(df2, which = "predict", target = c(150, 100, 100, 350), engine = "ggplot2") +
   labs(col = NULL) +
   theme_classic() +
   theme(legend.position = c(.025,.9),
