@@ -3,7 +3,7 @@
 #' Generates summary of recruitment per time unit
 #'
 #' @param accrual_df accrual data frame produced by \code{accrual_create_df} with by=NA.
-#' @param unit time unit for which the bars should be plotted, 
+#' @param unit time unit for which the bars should be plotted,
 #'	one of \code{"month"}, \code{"year"}, \code{"week"} or \code{"day"}.
 #'
 #' @return Returns a data frame with the number of patients accrued for each time unit.
@@ -15,9 +15,8 @@
 #'
 #' @examples
 #' \donttest{
-#' set.seed(2020)
-#' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-#' accrual_df<-accrual_create_df(enrollment_dates)
+#' data(accrualdemo)
+#' accrual_df<-accrual_create_df(accrualdemo$date)
 #' accrual_time_unit(accrual_df,"week")
 #' accrual_time_unit(accrual_df,"day")
 #' }
@@ -56,12 +55,12 @@ accrual_time_unit<-function(accrual_df,unit=c("month","year","week","day")) {
   }
 
   if (unit=="week") {
-	
+
 	#define weeks as starting on Monday
 	alltimes<-seq.Date(from=floor_date(start_date,unit=unit,week_start = 1),
                        to=floor_date(current_date,unit=unit,week_start = 1),by=unit)
 	dfa<-data.frame(Date=alltimes,week=1:length(alltimes))
-	
+
 	alltimes_day<-seq.Date(from=floor_date(start_date,unit=unit,week_start = 1),
                        to=floor_date(current_date,unit=unit,week_start = 1),by="day")
 	dfaj<-merge(data.frame(Date=alltimes_day),dfa,all=TRUE,by="Date")

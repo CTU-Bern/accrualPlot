@@ -1,3 +1,7 @@
+accrualPlot 1.0.3
+------------------
+add a demo dataset `accrualdemo`
+
 accrualPlot 1.0.2
 ------------------
 named vector for target, default plot size for vignette

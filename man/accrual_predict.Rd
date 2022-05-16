@@ -26,24 +26,21 @@ a fitted regression model produced by accrual_linear_model and a target sample s
 }
 \examples{
 \donttest{
-set.seed(2020)
-enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-accrual_df<-accrual_create_df(enrollment_dates)
+data(accrualdemo)
+accrual_df<-accrual_create_df(accrualdemo$date)
 accrual_model<-accrual_linear_model(accrual_df)
-accrual_predict(accrual_df,accrual_model,target=100)
+accrual_predict(accrual_df,accrual_model,target=300)
 
 #different start and current date
-accrual_df<-accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
-    current_date=as.Date("2018-03-01"))
+accrual_df<-accrual_create_df(accrualdemo$date,start_date=as.Date("2020-07-09"),
+    current_date=as.Date("2020-10-15"))
 accrual_model<-accrual_linear_model(accrual_df)
-accrual_predict(accrual_df,accrual_model,target=100)
+accrual_predict(accrual_df,accrual_model,target=300)
 
  #accrual_df with by option
- set.seed(2020)
-centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
- accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+ accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site)
 accrual_model<-accrual_linear_model(accrual_df)
 accrual_predict(accrual_df,accrual_model,
-target=c("Site 1"=30,"Site 2"=30,"Site 3"=30,"Overall"=100))
+target=c("Site 1"=100,"Site 2"=100,"Site 3"=100,"Overall"=350))
 }
 }

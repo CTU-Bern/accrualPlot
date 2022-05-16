@@ -23,9 +23,7 @@ Returns data frame with a header, a row per site and overall and the following c
 Summary method for accrual_dfs (as created by accrual_create_df)
 }
 \examples{
-set.seed(2020)
-enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
-accrual_df<-accrual_create_df(enrollment_dates,by=centers)
+data(accrualdemo)
+accrual_df<-accrual_create_df(accrualdemo$date, accrualdemo$site)
 summary(accrual_df)
 }

@@ -53,17 +53,14 @@ recruited at each date from a vector with enrollment dates. Used as input for ac
 }
 \examples{
 \donttest{
-set.seed(2020)
-enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-accrual_create_df(enrollment_dates)
+data(accrualdemo)
+accrual_create_df(accrualdemo$date)
 # different start and current date
-accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
-current_date=as.Date("2018-03-01"))
+accrual_create_df(accrualdemo$date, start_date=as.Date("2020-07-08"),
+current_date=as.Date("2020-10-15"))
 
 #by site
-set.seed(2020)
-centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
-accrual_create_df(enrollment_dates,by=centers)
+accrual_create_df(accrualdemo$date,by=accrualdemo$site)
 }
 }
 \seealso{
