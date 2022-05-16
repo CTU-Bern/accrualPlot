@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -79,40 +79,39 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">enrollment_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2018-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, <span class="fl">50</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">enrollment_dates</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 participants recruited between 2018-01-02 and 2018-01-30 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250 participants recruited between 2020-07-09 and 2020-10-09 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Date Freq Cumulative</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2018-01-02    0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2018-01-02    1          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2018-01-03    2          3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2018-01-04    1          4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2018-01-05    2          6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2018-01-07    2          8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2020-07-09    0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2020-07-09    1          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2020-07-14    3          4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2020-07-16    1          5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2020-07-19    1          6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2020-07-20    1          7</span>
 <span class="r-in"><span class="co"># only show text</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">accrual_df</span>, head <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 participants recruited between 2018-01-02 and 2018-01-30 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250 participants recruited between 2020-07-09 and 2020-10-09 </span>
 <span class="r-in"><span class="co"># show first 15 days</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">accrual_df</span>, n <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 participants recruited between 2018-01-02 and 2018-01-30 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250 participants recruited between 2020-07-09 and 2020-10-09 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Date Freq Cumulative</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2018-01-02    0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2018-01-02    1          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2018-01-03    2          3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2018-01-04    1          4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2018-01-05    2          6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2018-01-07    2          8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2018-01-08    1          9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2018-01-09    2         11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2018-01-11    3         14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2018-01-12    1         15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2018-01-13    3         18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2018-01-14    2         20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2018-01-15    3         23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2018-01-16    2         25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2018-01-17    4         29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2020-07-09    0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2020-07-09    1          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2020-07-14    3          4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2020-07-16    1          5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2020-07-19    1          6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2020-07-20    1          7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2020-07-21    2          9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2020-07-22    1         10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2020-07-23    4         14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2020-07-25    1         15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2020-07-26    1         16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2020-07-27    2         18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2020-07-30    1         19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2020-07-31    3         22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2020-08-02    3         25</span>
 </code></pre></div>
     </div>
   </div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -82,42 +82,39 @@ a fitted regression model produced by accrual_linear_model and a target sample s
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">enrollment_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2018-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, <span class="fl">50</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">enrollment_dates</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">accrual_model</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_linear_model.html">accrual_linear_model</a></span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">accrual_predict</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="va">accrual_model</span>,target<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2018-02-26"</span>
+<span class="r-in"><span class="fu">accrual_predict</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="va">accrual_model</span>,target<span class="op">=</span><span class="fl">300</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2020-10-24"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#different start and current date</span></span>
-<span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">enrollment_dates</span>,start_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2017-12-01"</span><span class="op">)</span>,</span>
-<span class="r-in">    current_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2018-03-01"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>,start_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-07-09"</span><span class="op">)</span>,</span>
+<span class="r-in">    current_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-10-15"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">accrual_model</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_linear_model.html">accrual_linear_model</a></span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">accrual_predict</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="va">accrual_model</span>,target<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2018-04-29"</span>
+<span class="r-in"><span class="fu">accrual_predict</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="va">accrual_model</span>,target<span class="op">=</span><span class="fl">300</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2020-10-30"</span>
 <span class="r-in"></span>
 <span class="r-in"> <span class="co">#accrual_df with by option</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">centers</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site 1"</span>,<span class="st">"Site 2"</span>,<span class="st">"Site 3"</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">enrollment_dates</span><span class="op">)</span>,replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"> <span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">enrollment_dates</span>,by<span class="op">=</span><span class="va">centers</span><span class="op">)</span></span>
+<span class="r-in"> <span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>,by<span class="op">=</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">site</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">accrual_model</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_linear_model.html">accrual_linear_model</a></span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">accrual_predict</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="va">accrual_model</span>,</span>
-<span class="r-in">target<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site 1"</span><span class="op">=</span><span class="fl">30</span>,<span class="st">"Site 2"</span><span class="op">=</span><span class="fl">30</span>,<span class="st">"Site 3"</span><span class="op">=</span><span class="fl">30</span>,<span class="st">"Overall"</span><span class="op">=</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Site 3`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Site 3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "2018-03-08" </span>
+<span class="r-in">target<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site 1"</span><span class="op">=</span><span class="fl">100</span>,<span class="st">"Site 2"</span><span class="op">=</span><span class="fl">100</span>,<span class="st">"Site 3"</span><span class="op">=</span><span class="fl">100</span>,<span class="st">"Overall"</span><span class="op">=</span><span class="fl">350</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Site 1`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Site 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "2020-09-18" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Site 2`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Site 2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "2018-02-11" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "2020-10-19" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Site 1`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Site 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "2018-02-19" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Site 3`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Site 3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "2021-02-22" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Overall</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Overall </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "2018-02-26" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "2020-11-07" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
