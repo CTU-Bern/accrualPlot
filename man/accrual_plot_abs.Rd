@@ -73,8 +73,6 @@ in x- and y-direction.}
 }
 \value{
 \code{accrual_plot_abs} returns a barplot of absolute accrual by time unit (stacked if accrual_df is a list).
-
-
 }
 \description{
 Plot of absolute recruitment by time unit using an accrual data frame produced by \code{accrual_create_df}.
