@@ -60,7 +60,8 @@ accrual_table(accrual_df,format_time="\%1.1f",format_rrate="\%1.1f")
 accrual_table(accrual_df,unit="day")
 
 #common start and current dates
-accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site,start_date="common",current_date="common")
+accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site,start_date="common",
+current_date="common")
 accrual_table(accrual_df)
 accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site,start_date=as.Date("2020-07-09"),
     current_date=as.Date("2020-10-15"))
