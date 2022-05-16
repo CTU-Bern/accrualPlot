@@ -70,7 +70,7 @@ For multicentric trials where different sites started recruiting at different ti
 
 ```{r}
 start_date<-as.Date(c("2020-07-09","2020-07-09","2020-08-01"))
-names(start_date)<-c("Site1","Site2","Site3")
+names(start_date)<-c("Site 1","Site 2","Site 3")
 df4 <- accrual_create_df(accrualdemo$date, by = accrualdemo$site, start_date = start_date)
 ```
 
@@ -127,8 +127,8 @@ Recruitment plots per unit time can be obtained via the `absolute` method (speci
 ```{r}
 par(mfrow = c(1, 3))
 plot(df, which = "abs", unit = "week")
-plot(df2, which = "abs", unit = "week")
-plot(df4, which = "abs", unit = "week")
+plot(df2, which = "abs", unit = "week",legend.list=list(x="topleft"))
+plot(df4, which = "abs", unit = "month",legend.list=list(x="topleft"))
 ```
 
 Options for `unit` are `year`, `month`, `week` and `day`.
@@ -140,11 +140,10 @@ p1 <- plot(df, which = "abs", unit = "week", engine = "ggplot")
 p2 <- plot(df2, which = "abs", unit = "week", engine = "ggplot") + 
     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
          axis.title.x = element_blank())
-p3 <- plot(df4, which = "abs", unit = "week", engine = "ggplot") +
+p3 <- plot(df4, which = "abs", unit = "month", engine = "ggplot") +
   labs(fill = "Site") +
-  ylim(0,12) +
   theme_classic() +
-  theme(legend.position = c(.6,0.9),
+  theme(legend.position = c(0.01,0.9),
      legend.justification = "left",
      legend.key.height = unit(2, "mm"),
      legend.key.width = unit(2, "mm"),
