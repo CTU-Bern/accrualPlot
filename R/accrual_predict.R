@@ -31,7 +31,7 @@
 #'  accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site)
 #'	accrual_model<-accrual_linear_model(accrual_df)
 #'	accrual_predict(accrual_df,accrual_model,
-#'	target=c("Site 1"=100,"Site 2"=100,"Site 3"=100,"Overall"=350))
+#'	  target=c("Site 1"=160,"Site 2"=100,"Site 3"=40,"Overall"=300))
 #' }
 
 accrual_predict <- function(accrual_df, accrual_fit, target) {

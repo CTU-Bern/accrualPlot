@@ -1,3 +1,8 @@
+accrualPlot 1.0.4
+------------------
+bug fix in accrual_plot_abs (stacking of bars)
+fix vignette and help files
+
 accrualPlot 1.0.3
 ------------------
 add a demo dataset `accrualdemo`

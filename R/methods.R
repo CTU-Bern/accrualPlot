@@ -14,8 +14,8 @@
 #' accrual_df <- accrual_create_df(accrualdemo$date)
 #' plot(accrual_df)
 #' plot(accrual_df, "abs", unit="week")
-#' plot(accrual_df, "pred", target = 100)
-#' plot(accrual_df, "pred", target = 100, engine = "ggplot")
+#' plot(accrual_df, "pred", target = 300)
+#' plot(accrual_df, "pred", target = 300, engine = "ggplot")
 
 plot.accrual_df <- function(x
                             , which = "cum"
