@@ -76,7 +76,7 @@ predict the time point of study completion, are included.
 par(mfrow = c(1,3))
 plot(df, which = "cum")
 plot(df, which = "abs")
-plot(df, which = "pred", target = 300)
+plot(df, which = "pred", target = 100)
 ```
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
