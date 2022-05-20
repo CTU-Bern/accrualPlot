@@ -79,6 +79,11 @@ in x- and y-direction.}
 \description{
 Plot of absolute recruitment by time unit using an accrual data frame produced by \code{accrual_create_df}.
 }
+\details{
+When the \code{accrual_df} includes multiple sites, the dataframe
+passed to \code{ggplot} includes a \code{site} variable
+which can be used for facetting
+}
 \examples{
 set.seed(2020)
 enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:100, 50, replace=TRUE))

@@ -150,6 +150,11 @@ and a target sample size. Prediction is based on a weighted linear regression.
 If the accrual data frame is a list (i.e. using the by option in \code{accrual_create_df}),
 or if center start dates are given, the number of enrolled and targeted sites is included.
 }
+\details{
+When the \code{accrual_df} includes multiple sites, the dataframe
+passed to \code{ggplot} includes a \code{site} variable
+which can be used for facetting
+}
 \examples{
 data(accrualdemo)
 accrual_df<-accrual_create_df(accrualdemo$date)

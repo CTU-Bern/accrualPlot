@@ -65,6 +65,11 @@ ggplot2 object
 \description{
 Plot of cumulative recruitment using an accrual data frame produced by \code{accrual_create_df}.
 }
+\details{
+When the \code{accrual_df} includes multiple sites, the dataframe
+passed to \code{ggplot} includes a \code{site} variable
+which can be used for faceting
+}
 \examples{
 set.seed(2020)
 enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))

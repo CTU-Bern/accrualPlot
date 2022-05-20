@@ -154,6 +154,11 @@ p3 <- plot(df4, which = "abs", unit = "week", engine = "ggplot") +
 p1 + p2 + p3
 ```
 
+It might be desirable to have panels for each site. This is easy to do with the `ggplot` implementation. The variable to use in this case is `site`, which is constructed in the appropriate plot function.
+
+```{r}
+plot(df2, which = "abs", unit = "week", engine = "ggplot") + facet_wrap(~site)
+```
 
 ### Predicting the endpoint
 
@@ -189,6 +194,13 @@ In the second `ggplot2` example above, we specify different targets for each sit
 ```{r, include = FALSE}
 par(oldpar)
 ```
+
+It's not strictly necessary to use `plot` for any of the above figures. `plot` is a wrapper which selects one of 6 underlying functions depending on the value of the `which` and `engine` arguments. The underlying functions for base graphics are `accrual_plot_cum` for cumulative plots, `accrual_plot_abs` for absolute values, and `accrual_plot_predict` for the prediction plots. The `ggplot` equivalents just prepend those names with `gg_`, i.e. `gg_accrual_plot_cum`, `gg_accrual_plot_abs` and `gg_accrual_plot_predict`. For more clarity, it might be desirable to use those instead, e.g.
+
+```{r, eval = FALSE}
+gg_accrual_plot_predict(df2, target = c(150, 100, 100, 350))
+```
+
 
 ## Recruitment tables
 
