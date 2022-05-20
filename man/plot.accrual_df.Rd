@@ -27,8 +27,8 @@ data(accrualdemo)
 accrual_df <- accrual_create_df(accrualdemo$date)
 plot(accrual_df)
 plot(accrual_df, "abs", unit="week")
-plot(accrual_df, "pred", target = 100)
-plot(accrual_df, "pred", target = 100, engine = "ggplot")
+plot(accrual_df, "pred", target = 300)
+plot(accrual_df, "pred", target = 300, engine = "ggplot")
 }
 \seealso{
 \code{\link[=accrual_plot_abs]{accrual_plot_abs()}}, \code{\link[=accrual_plot_cum]{accrual_plot_cum()}} and \code{\link[=accrual_plot_predict]{accrual_plot_predict()}}

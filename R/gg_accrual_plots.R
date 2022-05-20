@@ -178,29 +178,29 @@ gg_accrual_plot_abs <- function(accrual_df
 #' ### ggplot2 approach
 #' data(accrualdemo)
 #' accrual_df<-accrual_create_df(accrualdemo$date)
-#' gg_accrual_plot_predict(accrual_df = accrual_df, target = 100)
-#' gg_accrual_plot_predict(accrual_df = accrual_df, target = 100) +
+#' gg_accrual_plot_predict(accrual_df = accrual_df, target = 300)
+#' gg_accrual_plot_predict(accrual_df = accrual_df, target = 300) +
 #'   ggplot2::theme_classic()
 #'
 #' #Include site
 #' accrual_df<-accrual_create_df(accrualdemo$date, by=accrualdemo$site)
-#' gg_accrual_plot_predict(accrual_df=accrual_df, target=100)
+#' gg_accrual_plot_predict(accrual_df=accrual_df, target=300)
 #'
 #'
 #' #Format prediction end date
 #' gg_accrual_plot_predict(accrual_df = accrual_df,
-#'                         target=100,
-#'                         pos_prediction="in",
-#'                         format_prediction="%Y-%m-%d")
+#'	target=300,
+#'	pos_prediction="in",
+#'	format_prediction="%Y-%m-%d")
 #'
 #'
 #' #predictions for all sites
 #' gg_accrual_plot_predict(accrual_df = accrual_df,
-#'                         target = c(30,30,30,100))
+#'	target=c("Site 1"=160,"Site 2"=100,"Site 3"=40,"Overall"=300))
 #' gg_accrual_plot_predict(accrual_df = accrual_df,
-#'                         target = c(30,30,30,100)) +
-#'    ggplot2::theme(legend.position = c(0.15,.9)) +
-#'    ggplot2::labs(col = "Site")
+#'  target=c("Site 1"=160,"Site 2"=100,"Site 3"=40,"Overall"=300)) +
+#' 	ggplot2::theme(legend.position = c(0.15,.9)) +
+#' 	ggplot2::labs(col = "Site")
 
 gg_accrual_plot_predict <- function(accrual_df
                                     , target

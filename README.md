@@ -4,7 +4,7 @@
 # `accrualPlot` <img src='man/figures/logo.png' align="right" width="200">
 
 [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)
-[![](https://img.shields.io/badge/dev%20version-1.0.2-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
+[![](https://img.shields.io/badge/dev%20version-1.0.4-blue.svg)](https://github.com/CTU-Bern/accrualPlot)
 [![Actions
 Status](https://github.com/CTU-Bern/accrualPlot/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/accrualPlot/actions)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
@@ -63,11 +63,10 @@ library(accrualPlot)
 #> 
 #>     date, intersect, setdiff, union
 
-# generate some data
-set.seed(1234)
-x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
+# demonstration data
+data(accrualdemo)
 
-df <- accrual_create_df(x)
+df <- accrual_create_df(accrualdemo$date)
 ```
 
 Cumulative and absolute recruitment plots , as well as a method to
@@ -77,7 +76,7 @@ predict the time point of study completion, are included.
 par(mfrow = c(1,3))
 plot(df, which = "cum")
 plot(df, which = "abs")
-plot(df, which = "pred", target = 100)
+plot(df, which = "pred", target = 300)
 ```
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
