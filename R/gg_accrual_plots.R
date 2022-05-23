@@ -2,6 +2,9 @@
 #' @rdname accrual_plot_cum
 #'
 #' @return ggplot2 object
+#' @details When the \code{accrual_df} includes multiple sites, the dataframe
+#' passed to \code{ggplot} includes a \code{site} variable
+#' which can be used for faceting
 #'
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_step vars scale_x_date labs
@@ -81,6 +84,9 @@ gg_accrual_plot_cum <- function(accrual_df, xlabformat="%d%b%Y"){
 #' @rdname accrual_plot_abs
 #'
 #' @return
+#' @details When the \code{accrual_df} includes multiple sites, the dataframe
+#' passed to \code{ggplot} includes a \code{site} variable
+#' which can be used for facetting
 #' @export
 #' @importFrom ggplot2 geom_bar
 #' @importFrom purrr map
@@ -160,6 +166,10 @@ gg_accrual_plot_abs <- function(accrual_df
 #' @rdname accrual_plot_predict
 #'
 #' @return
+#' @details When the \code{accrual_df} includes multiple sites, the dataframe
+#' passed to \code{ggplot} includes a \code{site} variable
+#' which can be used for facetting
+#'
 #' @export
 #' @importFrom ggplot2 geom_point geom_line annotation_custom ggtitle
 #' @importFrom purrr pmap

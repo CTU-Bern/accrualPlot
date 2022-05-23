@@ -135,3 +135,31 @@ print.accrual_list <- function(x, ...){
   return(invisible(NULL))
 }
 
+
+#' as.data.frame method for accural_list objects
+#'
+#' @param x accrual_list
+#' @param ... for consistency with other \code{as.data.frame} methods (not used)
+#'
+#' @note methods from within the package will not work on the output from this function.
+#'
+#' @export
+#' @examples
+#' data(accrualdemo)
+#' x <- accrual_create_df(accrualdemo$date, accrualdemo$site)
+#' as.data.frame(x)
+#'
+as.data.frame.accrual_list <- function(x, ...){
+
+  tmp <- do.call(rbind,
+                 mapply(function(d, s){
+                   d$site <- s
+                   class(d) <- "data.frame"
+                   d
+                 }, x, names(x), SIMPLIFY = FALSE))
+  row.names(tmp) <- NULL
+  return(tmp)
+
+}
+
+

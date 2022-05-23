@@ -1,7 +1,11 @@
+accrualPlot 1.0.5
+------------------
+new `as.data.frame` method for accrual_list objects
+
 accrualPlot 1.0.4
 ------------------
-bug fix in accrual_plot_abs (stacking of bars)
-fix vignette and help files
+
+bug fix in accrual_plot_abs (stacking of bars) fix vignette and help files
 
 accrualPlot 1.0.3
 ------------------
