@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.5</span>
       </span>
     </div>
 
@@ -115,6 +115,12 @@ for different adjustment in x- and y-direction.</p></dd>
     <h2>Value</h2>
     <p><code>accrual_plot_cum</code> returns a plot of the cumulative accrual (per site if accrual_df is a list).
 ggplot2 object</p>
+    </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>When the <code>accrual_df</code> includes multiple sites, the dataframe
+passed to <code>ggplot</code> includes a <code>site</code> variable
+which can be used for faceting</p>
     </div>
 
     <div id="ref-examples">

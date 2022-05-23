@@ -20,7 +20,7 @@ or if center start dates are given, the number of enrolled and targeted sites is
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.5</span>
       </span>
     </div>
 
@@ -202,6 +202,12 @@ vector with dates on which centers are enrolled.</p></dd>
     <div id="value">
     <h2>Value</h2>
     <p><code>accrual_plot_predict</code> returns a plot with the accrual prediction.</p>
+    </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>When the <code>accrual_df</code> includes multiple sites, the dataframe
+passed to <code>ggplot</code> includes a <code>site</code> variable
+which can be used for facetting</p>
     </div>
 
     <div id="ref-examples">

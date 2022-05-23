@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.5</span>
       </span>
     </div>
 
@@ -256,19 +256,23 @@
          axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span></code></pre></div>
 <p><img src="accrualPlot_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
+<p>It might be desirable to have panels for each site. This is easy to do with the <code>ggplot</code> implementation. The variable to use in this case is <code>site</code>, which is constructed in the appropriate plot function.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df2</span>, which <span class="op">=</span> <span class="st">"abs"</span>, unit <span class="op">=</span> <span class="st">"week"</span>, engine <span class="op">=</span> <span class="st">"ggplot"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">site</span><span class="op">)</span></code></pre></div>
+<p><img src="accrualPlot_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
 </div>
 <div class="section level3">
 <h3 id="predicting-the-endpoint">Predicting the endpoint<a class="anchor" aria-label="anchor" href="#predicting-the-endpoint"></a>
 </h3>
 <p>It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 300 participants, we can put that in the <code>target</code> option.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"predict"</span>, target <span class="op">=</span> <span class="fl">300</span>, cex_prediction<span class="op">=</span><span class="fl">0.9</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df2</span>, which <span class="op">=</span> <span class="st">"predict"</span>, target <span class="op">=</span> <span class="fl">300</span>, cex_prediction<span class="op">=</span><span class="fl">0.9</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df4</span>, which <span class="op">=</span> <span class="st">"predict"</span>, target <span class="op">=</span> <span class="fl">300</span>, cex_prediction<span class="op">=</span><span class="fl">0.9</span>,  center_legend<span class="op">=</span><span class="st">"strip"</span><span class="op">)</span></code></pre></div>
-<p><img src="accrualPlot_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
+<p><img src="accrualPlot_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
 <p>Or with <code>ggplot2</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"predict"</span>, target <span class="op">=</span> <span class="fl">300</span>, engine <span class="op">=</span> <span class="st">"ggplot2"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title.position <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span>
 <span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which will</span>
@@ -287,15 +291,18 @@
 <span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which will</span>
 <span class="co">#&gt; replace the existing scale.</span>
 <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></code></pre></div>
-<p><img src="accrualPlot_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
+<p><img src="accrualPlot_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
 <p>In the second <code>ggplot2</code> example above, we specify different targets for each site, plus a study-level target. The syntax is the same for base graphics.</p>
+<p>It’s not strictly necessary to use <code>plot</code> for any of the above figures. <code>plot</code> is a wrapper which selects one of 6 underlying functions depending on the value of the <code>which</code> and <code>engine</code> arguments. The underlying functions for base graphics are <code>accrual_plot_cum</code> for cumulative plots, <code>accrual_plot_abs</code> for absolute values, and <code>accrual_plot_predict</code> for the prediction plots. The <code>ggplot</code> equivalents just prepend those names with <code>gg_</code>, i.e. <code>gg_accrual_plot_cum</code>, <code>gg_accrual_plot_abs</code> and <code>gg_accrual_plot_predict</code>. For more clarity, it might be desirable to use those instead, e.g.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/accrual_plot_predict.html">gg_accrual_plot_predict</a></span><span class="op">(</span><span class="va">df2</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">150</span>, <span class="fl">100</span>, <span class="fl">100</span>, <span class="fl">350</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="recruitment-tables">Recruitment tables<a class="anchor" aria-label="anchor" href="#recruitment-tables"></a>
 </h2>
 <p>Tables of recruitment can also be generated using <code>accrualPlot</code>, via the <code>summary</code> method. As with absolute recruitment above, a unit of time can be specified.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># accrual_table(df) </span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">df</span>, unit <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span> 
 <span class="co">#&gt;             start_date          time                    n</span>
