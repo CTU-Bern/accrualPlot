@@ -60,10 +60,15 @@ for different adjustment in x- and y-direction.}
 \value{
 \code{accrual_plot_cum} returns a plot of the cumulative accrual (per site if accrual_df is a list).
 
-\code{gg_accrual_plot_cum} returns an object of class 'ggplot' with the cumulative accrual.
+ggplot2 object
 }
 \description{
 Plot of cumulative recruitment using an accrual data frame produced by \code{accrual_create_df}.
+}
+\details{
+When the \code{accrual_df} includes multiple sites, the dataframe
+passed to \code{ggplot} includes a \code{site} variable
+which can be used for faceting
 }
 \examples{
 set.seed(2020)
@@ -91,29 +96,21 @@ accrual_df<-accrual_create_df(enrollment_dates,by=centers,overall=FALSE)
 accrual_plot_cum(accrual_df)
 
 ### ggplot2 approach
-
-set.seed(2020)
-enrollment_dates <-
-  as.Date("2018-01-01") + sort(sample(1:30, 50, replace = TRUE))
-accrual_df <- accrual_create_df(enrollment_dates)
+data(accrualdemo)
+accrual_df<-accrual_create_df(accrualdemo$date)
 gg_accrual_plot_cum(accrual_df)
 gg_accrual_plot_cum(accrual_df) +
   ggplot2::theme_classic()
 
 #several sites
-set.seed(1)
-centers <-
-  sample(c("Site 1", "Site 2", "Site 3"),
-         length(enrollment_dates),
-         replace = TRUE)
-accrual_df <- accrual_create_df(enrollment_dates, by = centers)
+accrual_df <- accrual_create_df(accrualdemo$date, by = accrualdemo$site)
 gg_accrual_plot_cum(accrual_df)
 
 #assuming a common start and current date
 accrual_df <-
   accrual_create_df(
-    enrollment_dates,
-    by = centers,
+    accrualdemo$date,
+    by = accrualdemo$site,
     start_date = "common",
     current_date = "common"
   )
@@ -121,6 +118,6 @@ gg_accrual_plot_cum(accrual_df)
 
 #without overall
 accrual_df <-
-  accrual_create_df(enrollment_dates, by = centers, overall = FALSE)
+  accrual_create_df(accrualdemo$date, by = accrualdemo$site, overall = FALSE)
 gg_accrual_plot_cum(accrual_df)
 }

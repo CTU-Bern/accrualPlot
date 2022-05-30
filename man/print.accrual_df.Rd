@@ -23,9 +23,8 @@ No return value
 Print methods for accrual objects
 }
 \examples{
-set.seed(2020)
-enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-accrual_df<-accrual_create_df(enrollment_dates)
+data(accrualdemo)
+accrual_df<-accrual_create_df(accrualdemo$date)
 print(accrual_df)
 # only show text
 print(accrual_df, head = FALSE)

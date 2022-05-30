@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 # `accrualPlot` <img src='man/figures/logo.png' align="right" width="200">
 
 
-<!-- [![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)  -->
+[![](https://www.r-pkg.org/badges/version/accrualPlot?color=green)](https://cran.r-project.org/package=accrualPlot)
 `r badger::badge_custom("dev version", as.character(packageVersion("accrualPlot")), "blue", "https://github.com/CTU-Bern/accrualPlot")`
 [![Actions Status](https://github.com/CTU-Bern/accrualPlot/workflows/R-CMD-check/badge.svg)](https://github.com/CTU-Bern/accrualPlot/actions)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
@@ -26,9 +26,13 @@ Accrual plots are an important tool when monitoring clinical trials. Some trials
 
 ## Installation
 
-<!-- `accrualPlot` can be installed from CRAN in the usual manner: -->
+`accrualPlot` can be installed from CRAN in the usual manner:
 
-The package can be installed from the CTU Bern universe via
+```{r cran-installation, eval = FALSE}
+install.packages('accrualPlot')
+```
+
+The development version of the package can be installed from the CTU Bern universe via
 
 ```{r universe-installation, eval = FALSE}
 install.packages('accrualPlot', repos = 'https://ctu-bern.r-universe.dev')
@@ -54,21 +58,20 @@ The first step to using `accrualPlot` is to create an accrual dataframe. This is
 # load package
 library(accrualPlot)
 
-# generate some data
-set.seed(1234)
-x <- as.Date("2020-12-07") + sample(c(-20:20), 50, replace = TRUE)
+# demonstration data
+data(accrualdemo)
 
-df <- accrual_create_df(x)
+df <- accrual_create_df(accrualdemo$date)
 
 ```
 
 Cumulative and absolute recruitment plots , as well as a method to predict the time point of study completion, are included.
 
-```{r, fig.height=3}
+```{r, fig.height=3, fig.width=7.5}
 par(mfrow = c(1,3))
 plot(df, which = "cum")
 plot(df, which = "abs")
-plot(df, which = "pred", target = 100)
+plot(df, which = "pred", target = 300)
 ```
 
 ### Acknowledgements

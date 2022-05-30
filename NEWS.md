@@ -1,3 +1,20 @@
+accrualPlot 1.0.5
+------------------
+new `as.data.frame` method for accrual_list objects
+
+accrualPlot 1.0.4
+------------------
+
+bug fix in accrual_plot_abs (stacking of bars) fix vignette and help files
+
+accrualPlot 1.0.3
+------------------
+add a demo dataset `accrualdemo`
+
+accrualPlot 1.0.2
+------------------
+named vector for target, default plot size for vignette
+
 accrualPlot 1.0.1
 ------------------
 Fix par setting for accrual_plots

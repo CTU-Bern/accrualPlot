@@ -1,6 +1,6 @@
 #' accrual_create_df
 #'
-#' Creates a data frame or a list of data frames 
+#' Creates a data frame or a list of data frames
 #'	that contains the absolute and cumululative number of participants
 #'  recruited at each date from a vector with enrollment dates. Used as input for accrual plot functions.
 #'
@@ -19,7 +19,7 @@
 #' @param force_start0 logical, adds an extra 0 line to the accrual data frame in cases
 #'  where a start date is given and corresponds to the earliest enrollment date.
 #'
-#' @return Returns a data frame of class 'accrual_df' 
+#' @return Returns a data frame of class 'accrual_df'
 #'	or a list of class 'accrual_list' with an 'accrual_df' for each level of by (if by is not NA).
 #' The 'accrual_df' contains a row per accrual day and the following three columns:
 #'	\item{Date}{date of accrual}
@@ -31,20 +31,16 @@
 #'
 #' @export
 #'
-#' @examples 
+#' @examples
 #' \donttest{
-#' set.seed(2020)
-#' enrollment_dates <- as.Date("2018-01-01") + sort(sample(1:30, 50, replace=TRUE))
-#' accrual_create_df(enrollment_dates)
-
+#' data(accrualdemo)
+#' accrual_create_df(accrualdemo$date)
 #' # different start and current date
-#' accrual_create_df(enrollment_dates,start_date=as.Date("2017-12-01"),
-#' current_date=as.Date("2018-03-01"))
+#' accrual_create_df(accrualdemo$date, start_date=as.Date("2020-07-08"),
+#' current_date=as.Date("2020-10-15"))
 #'
 #' #by site
-#' set.seed(2020)
-#' centers<-sample(c("Site 1","Site 2","Site 3"),length(enrollment_dates),replace=TRUE)
-#' accrual_create_df(enrollment_dates,by=centers)
+#' accrual_create_df(accrualdemo$date,by=accrualdemo$site)
 #' }
 accrual_create_df <- function(enrollment_dates,
 	by=NA,
@@ -77,7 +73,7 @@ accrual_create_df <- function(enrollment_dates,
 	}
 	start_date<-mult(start_date,nc)
 	if (nct>nc) {start_date<-c(start_date,min(start_date))}
-	
+
   } else {
 
 	if(length(start_date)!=1) {
@@ -132,7 +128,7 @@ accrual_create_df <- function(enrollment_dates,
     ed<-enrollment_dates
     adf<-genadf(enrollment_dates=ed,start_date=start_date[nct],current_date=current_date[nct],
                 force_start0=force_start0,warning=FALSE)
-	row.names(adf)<-1:nrow(adf)			
+	row.names(adf)<-1:nrow(adf)
     if (pos_overall=="last") {
       accrual_df<-append(accrual_df,list(name_overall=adf))
     } else {

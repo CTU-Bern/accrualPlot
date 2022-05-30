@@ -3,3 +3,4 @@
 ^.github
 ^README
 ^LICENSE\.md$
+^data-raw
