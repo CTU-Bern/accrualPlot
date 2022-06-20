@@ -299,7 +299,7 @@ gg_accrual_plot_predict <- function(accrual_df
   pred_text <- paste0("Predicted end date: ",
                       format(edate, format = format_prediction))
 
-  out <- gg_accrual_plot_cum(accrual_df_o)
+  out <- gg_accrual_plot_cum(accrual_df_o, xlabformat)
 
   out <- out + pgeom()
 
@@ -310,9 +310,6 @@ gg_accrual_plot_predict <- function(accrual_df
       out <- out + annotation_custom(grob)
     }
   }
-
-  out <- out +
-    scale_x_date(labels = function(x)format(x, format = xlabformat))
 
   return(out)
 }
