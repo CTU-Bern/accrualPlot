@@ -1,3 +1,7 @@
+accrualPlot 1.0.6
+------------------
+allow for empty sites in by (if specified as factor)
+
 accrualPlot 1.0.5
 ------------------
 new `as.data.frame` method for accrual_list objects
