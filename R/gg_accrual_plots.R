@@ -260,19 +260,22 @@ gg_accrual_plot_predict <- function(accrual_df
     l <- list()
     while(n <= length(target)){
       tmp <- pdat[[n]]
-      l[[length(l)+1]] <- geom_line(data = tmp,
-                                    mapping = aes(x = date, y = cum),
-                                    col = col.pred,
-                                    lty = lty.pred)
-      l[[length(l)+1]] <- geom_point(data = tmp[2, ],
-                                     aes(x = date, y = cum),
-                                     col = col.pred,
-                                     pch = pch.pred)
+	  if (is.finite(as.numeric(tmp$date[2]))) {
+		  
+		  l[[length(l)+1]] <- geom_line(data = tmp,
+										mapping = aes(x = date, y = cum),
+										col = col.pred,
+										lty = lty.pred)
+		  l[[length(l)+1]] <- geom_point(data = tmp[2, ],
+										 aes(x = date, y = cum),
+										 col = col.pred,
+										 pch = pch.pred)
 
-      names(accrual_df_o)[n] <- paste0(names(accrual_df_o)[n], ": ",
-                                      format(end_date[[n]], format = format_prediction))
-
-      n <- n + 1
+		  names(accrual_df_o)[n] <- paste0(names(accrual_df_o)[n], ": ",
+										  format(end_date[[n]], format = format_prediction))
+		 							  
+		}
+	  n <- n + 1			
     }
 
     pgeom <- function() l
