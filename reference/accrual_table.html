@@ -18,7 +18,7 @@ rate of recruitment"><meta property="og:image" content="/logo.png"><!-- mathjax 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.6</span>
       </span>
     </div>
 
@@ -75,37 +75,61 @@ rate of recruitment</p>
     <h2>Arguments</h2>
     <dl><dt>accrual_df</dt>
 <dd><p>object of class 'accrual_df' or 'accrual_list' produced by <code>accrual_create_df</code>.</p></dd>
+
+
 <dt>overall</dt>
 <dd><p>logical, indicates that accrual_df contains a summary with all sites (only if by is not NA).</p></dd>
+
+
 <dt>name_overall</dt>
 <dd><p>name of the summary with all sites (if by is not NA and overall==TRUE).</p></dd>
+
+
 <dt>pos_overall</dt>
 <dd><p>overall in last or first row (if by is not NA and overall==TRUE).</p></dd>
+
+
 <dt>unit</dt>
 <dd><p>time unit for time recruiting and the rate,
 one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"day"</code>.</p></dd>
+
+
 <dt>format_table_date</dt>
 <dd><p>format of start date in table.</p></dd>
+
+
 <dt>format_time</dt>
 <dd><p>format of time recruiting in table.</p></dd>
+
+
 <dt>format_rrate</dt>
 <dd><p>format of recruitment rate in table.</p></dd>
+
+
 <dt>header</dt>
 <dd><p>include header, logical or character vector of length 4 or 5 (if accrual_df is a list).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns data frame with a header, a row per site and overall and the following columns:</p>
+    
+
+<p>Returns data frame with a header, a row per site and overall and the following columns:</p>
 <dl><dt>name</dt>
 <dd><p>name of the site (if accrual_df is a list)</p></dd>
+
 <dt>start_date</dt>
 <dd><p>accrual start date</p></dd>
+
 <dt>time</dt>
 <dd><p>time accruing</p></dd>
+
 <dt>n</dt>
 <dd><p>number of patients accrued</p></dd>
+
 <dt>rate</dt>
 <dd><p>accrual rate per time unit</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
@@ -203,7 +227,7 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

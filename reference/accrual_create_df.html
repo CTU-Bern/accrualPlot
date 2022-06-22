@@ -19,7 +19,7 @@ recruited at each date from a vector with enrollment dates. Used as input for ac
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.6</span>
       </span>
     </div>
 
@@ -76,38 +76,58 @@ recruited at each date from a vector with enrollment dates. Used as input for ac
     <h2>Arguments</h2>
     <dl><dt>enrollment_dates</dt>
 <dd><p>date vector with one entry per participants.</p></dd>
+
+
 <dt>by</dt>
 <dd><p>factor or character vector with sites, has to have the same length as enrollment dates.
 If not NA, a list with an accrual data frame for each site is generated.</p></dd>
+
+
 <dt>start_date</dt>
 <dd><p>date when recruitment started. Single date (used for all sites in by),
 named date vector (with length and names corresponding to the levels of by),
 "common" (first date overall) or "site" (first date for each site, default).</p></dd>
+
+
 <dt>current_date</dt>
 <dd><p>date of the data export or database freeze.
 Single date, named date vector (with length and names corresponding to the levels of by),
 "common" (last date overall, default) or "site" (first date for each site).</p></dd>
+
+
 <dt>overall</dt>
 <dd><p>logical indicates that accrual_df contains a summary with all sites (only if by is not NA).</p></dd>
+
+
 <dt>name_overall</dt>
 <dd><p>name of the summary with all sites (if by is not NA and overall==TRUE).</p></dd>
+
+
 <dt>pos_overall</dt>
 <dd><p>overall as last or first element of the list (if by is not NA and overall==TRUE).</p></dd>
+
+
 <dt>force_start0</dt>
 <dd><p>logical, adds an extra 0 line to the accrual data frame in cases
 where a start date is given and corresponds to the earliest enrollment date.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a data frame of class 'accrual_df'
+    
+
+<p>Returns a data frame of class 'accrual_df'
 or a list of class 'accrual_list' with an 'accrual_df' for each level of by (if by is not NA).
 The 'accrual_df' contains a row per accrual day and the following three columns:</p>
 <dl><dt>Date</dt>
 <dd><p>date of accrual</p></dd>
+
 <dt>Freq</dt>
 <dd><p>absolute number accrued at Date</p></dd>
+
 <dt>Cumulative</dt>
 <dd><p>cumulative number accrued up to Date</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -197,7 +217,7 @@ to generate cumulative, absolute and prediction plots, and <code><a href="accrua
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

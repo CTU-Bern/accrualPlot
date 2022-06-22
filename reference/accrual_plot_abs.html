@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.6</span>
       </span>
     </div>
 
@@ -87,47 +87,82 @@
     <h2>Arguments</h2>
     <dl><dt>accrual_df</dt>
 <dd><p>object of class 'accrual_df' or 'accrual_list' produced by <code>accrual_create_df</code>.</p></dd>
+
+
 <dt>unit</dt>
 <dd><p>time unit for which the bars should be plotted,
 one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"day"</code>.</p></dd>
+
+
 <dt>target</dt>
 <dd><p>adds horizontal line for target recruitment per time unit.</p></dd>
+
+
 <dt>overall</dt>
 <dd><p>logical, indicates that accrual_df contains a summary with all sites
 that should be removed from stacked barplot (only if by is not NA).</p></dd>
+
+
 <dt>name_overall</dt>
 <dd><p>name of the summary with all sites (if by is not NA and overall==TRUE).</p></dd>
+
+
 <dt>ylim</dt>
 <dd><p>limits for y-axis.</p></dd>
+
+
 <dt>xlim</dt>
 <dd><p>limits for x-axis.</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p>y-axis label.</p></dd>
+
+
 <dt>xlabformat</dt>
 <dd><p>format of date on x-axis.</p></dd>
+
+
 <dt>xlabsel</dt>
 <dd><p>selection of x-labels if not all should be shown,
 by default all are shown up to 15 bars, with more an automated selection is done,
 either NA (default), NULL (show all), or a numeric vector.</p></dd>
+
+
 <dt>xlabpos</dt>
 <dd><p>position of the x-label.</p></dd>
+
+
 <dt>xlabsrt</dt>
 <dd><p>rotation of x-axis labels in degrees.</p></dd>
+
+
 <dt>xlabadj</dt>
 <dd><p>adjustment of x-label, numeric vector with length 1 or 2 for different adjustment
 in x- and y-direction.</p></dd>
+
+
 <dt>xlabcex</dt>
 <dd><p>size of x-axis label.</p></dd>
+
+
 <dt>col</dt>
 <dd><p>colors of bars in barplot, can be a vector if accrual_df is a list, default is grayscale.</p></dd>
+
+
 <dt>legend.list</dt>
 <dd><p>named list with options passed to legend().</p></dd>
+
+
 <dt>...</dt>
 <dd><p>further arguments passed to barplot() and axis().</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>accrual_plot_abs</code> returns a barplot of absolute accrual by time unit (stacked if accrual_df is a list).</p>
+    
+
+<p><code>accrual_plot_abs</code> returns a barplot of absolute accrual by time unit (stacked if accrual_df is a list).</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -201,7 +236,7 @@ which can be used for facetting</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
