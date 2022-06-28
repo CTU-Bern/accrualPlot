@@ -119,7 +119,7 @@ plot(acc, which = "pred", target = 500,
 
 ![](paper_files/figure-latex/unnamed-chunk-7-1.pdf)<!-- --> 
 
-For those that prefer `ggplot2` graphics, the `engine = "ggplot"` argument to `plot` can be used to return `ggplot` objects instead of base graphics plots. Dedicated functions for each plot in both 'engines' also exist, so the use of `plot` is not strictly necessary. We show an example of using the function to create the `ggplot2` variants below, including using the dedicated function for the prediction plot.
+For those that prefer `ggplot2` graphics, the `engine = "ggplot"` argument to `plot` can be used to return `ggplot` objects instead of base graphics plots. Dedicated functions for each plot in both 'engines' also exist, so the use of `plot` is not strictly necessary. An example of using the function to create the `ggplot2` variants follows, including using the dedicated function for the prediction plot.
 
 
 ```r
