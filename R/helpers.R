@@ -13,10 +13,17 @@ check_length <- function(x,y) {
   if (all(is.na(y))) {
     if (length(x)!=1) stop(paste0(var1," should be of length 1 if ",var2,"=NA"))
   } else {
-    if (length(x)!=1 & length(x)!=length(unique(y))) {
-  	  stop(paste0(var1," should be of length 1 or ",length(unique(y)),
-		" (the number of distinct centers in ",var2,")."))
-  	}
+	if (is.factor(y)) {
+		if (length(x)!=1 & length(x)!=length(levels(y))) {
+		  stop(paste0(var1," should be of length 1 or ",length(levels(y)),
+			" (the number of distinct centers in ",var2,")."))
+		}
+	} else {
+		if (length(x)!=1 & length(x)!=length(unique(y))) {
+		  stop(paste0(var1," should be of length 1 or ",length(unique(y)),
+			" (the number of distinct centers in ",var2,")."))
+		}
+	}	
   }
 }
 
@@ -44,42 +51,64 @@ check_name <- function(date, lc) {
 
 genadf<-function(enrollment_dates,start_date,current_date,force_start0,name=NULL,warning=TRUE) {
 
-	adf <- data.frame(table(enrollment_dates))
-    colnames(adf) <- c("Date", "Freq")
-    adf$Date <- as.Date(as.character(adf$Date))
-    adf<-adf[order(adf$Date),]
-    adf$Cumulative <- cumsum(adf$Freq)
-
+	if (length(enrollment_dates)>0) {
+		adf <- data.frame(table(enrollment_dates))
+		colnames(adf) <- c("Date", "Freq")
+		adf$Date <- as.Date(as.character(adf$Date))
+		adf<-adf[order(adf$Date),]
+		adf$Cumulative <- cumsum(adf$Freq)
+		mind<-min(adf$Date,na.rm=TRUE)
+		maxd<-max(adf$Date,na.rm=TRUE)
+	} else {
+		adf<-data.frame(Date=as.Date(NA),Freq=0,Cumulative=0)
+		mind<-min(adf$Date)
+		maxd<-max(adf$Date)
+	}
+	
+	
+	
 	if (is.null(name)) {
 		wtext<-""
 	} else {
 		wtext<-paste0(" for ",name)
 	}
-	if (!is.na(start_date) & start_date > min(adf$Date)) {
+	if (!is.na(start_date) & !is.na(mind) & start_date > mind) {
 		if (warning) {
 			warning(paste0("Start date is after first recruitment",wtext," and will not be used."))
 		}
 		start_date<-NA
 	}
-	if (!is.na(current_date) & current_date < max(adf$Date)) {
+	if (!is.na(current_date) & !is.na(maxd) & current_date < maxd) {
 		if (warning) {
 			warning("Current date is before last recruitment",wtext," and will not be used.")
 		}
 		current_date<-NA
 	}
 
-    if (!is.na(start_date) & start_date!=min(adf$Date)) {
-		adf<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),adf)
+    if (!is.na(start_date)) {
+		if (start_date!=mind & !is.na(mind)) {
+			adf<-rbind(data.frame(Date=start_date,Freq=0,Cumulative=0),adf)
+		}
+		if (is.na(mind) & length(enrollment_dates)==0) {
+			adf<-data.frame(Date=start_date,Freq=0,Cumulative=0)
+		}
     } else {
 		if (force_start0) {
-			adf<-rbind(data.frame(Date=min(adf$Date),Freq=0,Cumulative=0),adf)
+			adf<-rbind(data.frame(Date=mind,Freq=0,Cumulative=0),adf)
 		}
 	}
 
-    if (!is.na(current_date) & current_date!=max(adf$Date)) {
-		adf<-rbind(adf,data.frame(Date=current_date,Freq=0,Cumulative=max(adf$Cumulative)))
+    if (!is.na(current_date)) {
+		if ((current_date!=maxd & !is.na(maxd)) | 
+			(is.na(maxd) & length(enrollment_dates)==0 & !is.na(start_date))) {
+				adf<-rbind(adf,data.frame(Date=current_date,Freq=0,Cumulative=max(adf$Cumulative)))
+		}
+		if (is.na(maxd) & length(enrollment_dates)==0 & is.na(start_date)) {
+			adf<-data.frame(Date=current_date,Freq=0,Cumulative=0)
+		}
 	}
-
+	
+	row.names(adf)<-1:nrow(adf)
 	return(adf)
 }
 
@@ -108,7 +137,7 @@ ascale<-function(adf,xlim=NA,ylim=NA,ni=5,min.n=ni %/% 2, addxmax = NULL, addyma
      xlims<-c(min(do.call("c",lapply(adf,function(x) min(x$Date)))),
               max(do.call("c",lapply(adf,function(x) max(x$Date)))))
 	if (!is.null(addxmax)) {
-		xlims[2]<-max(xlims[2],addxmax)
+		xlims[2]<-max(xlims[2],addxmax,na.rm=TRUE)
 	}
 	  xlabs<-pretty(x=xlims,n=ni,min.n=min.n)
      xlims<-c(min(xlims,xlabs),max(xlims,xlabs))
@@ -122,7 +151,7 @@ ascale<-function(adf,xlim=NA,ylim=NA,ni=5,min.n=ni %/% 2, addxmax = NULL, addyma
      ymax<-max(do.call("c",lapply(adf,function(x) max(x$Cumulative))))
      ylims<-c(0,ymax)
 	 if (!is.null(addymax)) {
-		ylims[2]<-max(ylims[2],addymax)
+		ylims[2]<-max(ylims[2],addymax,na.rm=TRUE)
 	 }
    } else {
      ylims<-ylim
@@ -337,7 +366,8 @@ pred_fn <- function(accrual_df,
       adf<-accrual_df
       m1<-accrual_linear_model(adf,fill_up=fill_up,wfun=wfun)
       end_date<-accrual_predict(adf,m1,target)
-      edate<-max(do.call("c",end_date))
+	  x<-do.call("c",end_date)
+      edate<-max(x[is.finite(as.numeric(x))])
     }
   }
 
