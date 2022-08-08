@@ -18,7 +18,7 @@ rate of recruitment"><meta property="og:image" content="/logo.png"><!-- mathjax 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.7</span>
       </span>
     </div>
 
@@ -58,17 +58,17 @@ rate of recruitment</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">accrual_table</span><span class="op">(</span>
-  <span class="va">accrual_df</span>,
-  overall <span class="op">=</span> <span class="cn">TRUE</span>,
-  name_overall <span class="op">=</span> <span class="st">"Overall"</span>,
-  pos_overall <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"last"</span>, <span class="st">"first"</span><span class="op">)</span>,
-  unit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"year"</span>, <span class="st">"week"</span>, <span class="st">"day"</span><span class="op">)</span>,
-  format_table_date <span class="op">=</span> <span class="st">"%d%b%Y"</span>,
-  format_time <span class="op">=</span> <span class="st">"%1.0f"</span>,
-  format_rrate <span class="op">=</span> <span class="st">"%1.2f"</span>,
-  header <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">accrual_table</span><span class="op">(</span></span>
+<span>  <span class="va">accrual_df</span>,</span>
+<span>  overall <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  name_overall <span class="op">=</span> <span class="st">"Overall"</span>,</span>
+<span>  pos_overall <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"last"</span>, <span class="st">"first"</span><span class="op">)</span>,</span>
+<span>  unit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"year"</span>, <span class="st">"week"</span>, <span class="st">"day"</span><span class="op">)</span>,</span>
+<span>  format_table_date <span class="op">=</span> <span class="st">"%d%b%Y"</span>,</span>
+<span>  format_time <span class="op">=</span> <span class="st">"%1.0f"</span>,</span>
+<span>  format_rrate <span class="op">=</span> <span class="st">"%1.2f"</span>,</span>
+<span>  header <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -134,9 +134,9 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>,by<span class="op">=</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">site</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>,by<span class="op">=</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">site</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      name           start_date            time                    n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Center First participant in Months accruing Participants accrued</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Site 1            09Jul2020               3                  141</span>
@@ -149,9 +149,9 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                    32.59</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                    18.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                    81.52</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#format</span></span>
-<span class="r-in"><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span>,format_time<span class="op">=</span><span class="st">"%1.1f"</span>,format_rrate<span class="op">=</span><span class="st">"%1.1f"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#format</span></span></span>
+<span class="r-in"><span><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span>,format_time<span class="op">=</span><span class="st">"%1.1f"</span>,format_rrate<span class="op">=</span><span class="st">"%1.1f"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      name           start_date            time                    n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Center First participant in Months accruing Participants accrued</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Site 1            09Jul2020             3.1                  141</span>
@@ -164,9 +164,9 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                     32.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                     18.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                     81.5</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#unit</span></span>
-<span class="r-in"><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span>,unit<span class="op">=</span><span class="st">"day"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#unit</span></span></span>
+<span class="r-in"><span><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span>,unit<span class="op">=</span><span class="st">"day"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      name           start_date          time                    n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Center First participant in Days accruing Participants accrued</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Site 1            09Jul2020            92                  141</span>
@@ -179,11 +179,11 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                   1.09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                   0.60</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                   2.72</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#common start and current dates</span></span>
-<span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>,by<span class="op">=</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">site</span>,start_date<span class="op">=</span><span class="st">"common"</span>,</span>
-<span class="r-in">current_date<span class="op">=</span><span class="st">"common"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#common start and current dates</span></span></span>
+<span class="r-in"><span><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>,by<span class="op">=</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">site</span>,start_date<span class="op">=</span><span class="st">"common"</span>,</span></span>
+<span class="r-in"><span>current_date<span class="op">=</span><span class="st">"common"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      name           start_date            time                    n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Center First participant in Months accruing Participants accrued</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Site 1            09Jul2020               3                  141</span>
@@ -196,9 +196,9 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                    28.70</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                     6.85</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                    81.52</span>
-<span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>,by<span class="op">=</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">site</span>,start_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-07-09"</span><span class="op">)</span>,</span>
-<span class="r-in">    current_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-10-15"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>,by<span class="op">=</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">site</span>,start_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-07-09"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    current_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-10-15"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">accrual_table</span><span class="op">(</span><span class="va">accrual_df</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      name           start_date            time                    n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Center First participant in Months accruing Participants accrued</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Site 1            09Jul2020               3                  141</span>
@@ -211,8 +211,8 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                    26.94</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                     6.43</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                    76.53</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -227,7 +227,7 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

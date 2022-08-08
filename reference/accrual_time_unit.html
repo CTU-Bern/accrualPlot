@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.7</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">accrual_time_unit</span><span class="op">(</span><span class="va">accrual_df</span>, unit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"year"</span>, <span class="st">"week"</span>, <span class="st">"day"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">accrual_time_unit</span><span class="op">(</span><span class="va">accrual_df</span>, unit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"year"</span>, <span class="st">"week"</span>, <span class="st">"day"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -79,10 +79,10 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">accrual_time_unit</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="st">"week"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">accrual_df</span><span class="op">&lt;-</span><span class="fu"><a href="accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">accrual_time_unit</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="st">"week"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    week       date Freq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     1 2020-07-06    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     2 2020-07-13    5</span>
@@ -98,7 +98,7 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12   12 2020-09-21   33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13   13 2020-09-28   33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14   14 2020-10-05    3</span>
-<span class="r-in"><span class="fu">accrual_time_unit</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="st">"day"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">accrual_time_unit</span><span class="op">(</span><span class="va">accrual_df</span>,<span class="st">"day"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    day month year Freq       date</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    9     7 2020    1 2020-07-09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 80  10     7 2020    0 2020-07-10</span>
@@ -193,8 +193,8 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 <span class="r-out co"><span class="r-pr">#&gt;</span> 76   7    10 2020    6 2020-10-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 77   8    10 2020    1 2020-10-08</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 78   9    10 2020    2 2020-10-09</span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -209,7 +209,7 @@ one of <code>"month"</code>, <code>"year"</code>, <code>"week"</code> or <code>"
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

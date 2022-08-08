@@ -19,7 +19,7 @@ recruited at each date from a vector with enrollment dates. Used as input for ac
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">accrualPlot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.7</span>
       </span>
     </div>
 
@@ -60,16 +60,16 @@ recruited at each date from a vector with enrollment dates. Used as input for ac
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">accrual_create_df</span><span class="op">(</span>
-  <span class="va">enrollment_dates</span>,
-  by <span class="op">=</span> <span class="cn">NA</span>,
-  start_date <span class="op">=</span> <span class="st">"site"</span>,
-  current_date <span class="op">=</span> <span class="st">"common"</span>,
-  overall <span class="op">=</span> <span class="cn">TRUE</span>,
-  name_overall <span class="op">=</span> <span class="st">"Overall"</span>,
-  pos_overall <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"last"</span>, <span class="st">"first"</span><span class="op">)</span>,
-  force_start0 <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">accrual_create_df</span><span class="op">(</span></span>
+<span>  <span class="va">enrollment_dates</span>,</span>
+<span>  by <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  start_date <span class="op">=</span> <span class="st">"site"</span>,</span>
+<span>  current_date <span class="op">=</span> <span class="st">"common"</span>,</span>
+<span>  overall <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  name_overall <span class="op">=</span> <span class="st">"Overall"</span>,</span>
+<span>  pos_overall <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"last"</span>, <span class="st">"first"</span><span class="op">)</span>,</span>
+<span>  force_start0 <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -137,9 +137,9 @@ to generate cumulative, absolute and prediction plots, and <code><a href="accrua
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">accrual_create_df</span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">accrual_create_df</span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 250 participants recruited between 2020-07-09 and 2020-10-09 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Date Freq Cumulative</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2020-07-09    0          0</span>
@@ -148,9 +148,9 @@ to generate cumulative, absolute and prediction plots, and <code><a href="accrua
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 2020-07-16    1          5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 2020-07-19    1          6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 2020-07-20    1          7</span>
-<span class="r-in"><span class="co"># different start and current date</span></span>
-<span class="r-in"><span class="fu">accrual_create_df</span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>, start_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-07-08"</span><span class="op">)</span>,</span>
-<span class="r-in">current_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-10-15"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># different start and current date</span></span></span>
+<span class="r-in"><span><span class="fu">accrual_create_df</span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>, start_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-07-08"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>current_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-10-15"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 250 participants recruited between 2020-07-08 and 2020-10-15 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Date Freq Cumulative</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2020-07-08    0          0</span>
@@ -159,9 +159,9 @@ to generate cumulative, absolute and prediction plots, and <code><a href="accrua
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 2020-07-16    1          5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 2020-07-19    1          6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 2020-07-20    1          7</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#by site</span></span>
-<span class="r-in"><span class="fu">accrual_create_df</span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>,by<span class="op">=</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">site</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#by site</span></span></span>
+<span class="r-in"><span><span class="fu">accrual_create_df</span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>,by<span class="op">=</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">site</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Site 1:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 141 participants recruited between 2020-07-09 and 2020-10-09 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Date Freq Cumulative</span>
@@ -202,7 +202,7 @@ to generate cumulative, absolute and prediction plots, and <code><a href="accrua
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 2020-07-19    1          6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 2020-07-20    1          7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -217,7 +217,7 @@ to generate cumulative, absolute and prediction plots, and <code><a href="accrua
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
