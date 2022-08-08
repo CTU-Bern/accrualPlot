@@ -11,11 +11,11 @@ accrual_predict(accrual_df, accrual_fit, target)
 
 \item{accrual_fit}{linear model produced by accrual_linear_model, can be a list with the same length as accrual_df}
 
-\item{target}{target sample size, either a single number or a named vector with the same length as accrual_df,
-for the latter, center-specific predictions are shown.}
+\item{target}{target sample size or date to predict end date or expected sample size, respectively.
+A single number or date, or a named vector with the same length as accrual_df (to add site-specific targets).}
 }
 \value{
-Returns the predicted end date or a list of the predicted end dates
+Returns the predicted end date(s) or the predicted sample size(s).
 }
 \description{
 accrual_predict
@@ -29,7 +29,10 @@ a fitted regression model produced by accrual_linear_model and a target sample s
 data(accrualdemo)
 accrual_df<-accrual_create_df(accrualdemo$date)
 accrual_model<-accrual_linear_model(accrual_df)
+#predict date for a specific n
 accrual_predict(accrual_df,accrual_model,target=300)
+#predict n at a specific date
+accrual_predict(accrual_df,accrual_model,target=as.Date("2020-11-01"))
 
 #different start and current date
 accrual_df<-accrual_create_df(accrualdemo$date,start_date=as.Date("2020-07-09"),
@@ -42,5 +45,6 @@ accrual_predict(accrual_df,accrual_model,target=300)
 accrual_model<-accrual_linear_model(accrual_df)
 accrual_predict(accrual_df,accrual_model,
   target=c("Site 1"=160,"Site 2"=100,"Site 3"=40,"Overall"=300))
+accrual_predict(accrual_df,accrual_model,target=as.Date("2020-11-01"))
 }
 }

@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.width=7,
+  fig.width=7.5,
   fig.height=3
 )
 ```
@@ -159,9 +159,11 @@ It might be desirable to have panels for each site. This is easy to do with the 
 plot(df2, which = "abs", unit = "week", engine = "ggplot") + facet_wrap(~site)
 ```
 
-### Predicting the endpoint
+### Predictions
 
-It is also possible to predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 300 participants, we can put that in the `target` option. 
+### Date at which a target sample size is reached
+
+In order predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 300 participants, we can put that in the `target` option. 
 
 ```{r}
 par(mfrow = c(1, 3))
@@ -169,6 +171,13 @@ plot(df, which = "predict", target = 300, cex_prediction=0.9)
 plot(df2, which = "predict", target = 300, cex_prediction=0.9)
 plot(df4, which = "predict", target = 300, cex_prediction=0.9,  center_legend="strip")
 ```
+
+We can also include site-specific targets:
+```{r, fig.height=6,out.width = '70%'}
+plot(df4, which = "predict", target=c("Site 1"=160,"Site 2"=100,"Site 3"=40,"Overall"=300),
+     show_center=FALSE)
+```
+
 
 Or with `ggplot2`.
 
@@ -191,16 +200,26 @@ p1 + p2
 
 In the second `ggplot2` example above, we specify different targets for each site, plus a study-level target. The syntax is the same for base graphics.
 
-```{r, include = FALSE}
-par(oldpar)
-```
-
 It's not strictly necessary to use `plot` for any of the above figures. `plot` is a wrapper which selects one of 6 underlying functions depending on the value of the `which` and `engine` arguments. The underlying functions for base graphics are `accrual_plot_cum` for cumulative plots, `accrual_plot_abs` for absolute values, and `accrual_plot_predict` for the prediction plots. The `ggplot` equivalents just prepend those names with `gg_`, i.e. `gg_accrual_plot_cum`, `gg_accrual_plot_abs` and `gg_accrual_plot_predict`. For more clarity, it might be desirable to use those instead, e.g.
 
 ```{r, eval = FALSE}
-gg_accrual_plot_predict(df2, target = c(150, 100, 100, 350))
+gg_accrual_plot_predict(df2, target=c("Site 1"=160,"Site 2"=100,"Site 3"=40,"Overall"=300))
 ```
 
+### Sample size at a specific time point
+
+It is also possible to predict the expected sample size at a specific time point. If we want to know how many patients 
+ will be recruited at the end of the year, we can put the date in the `target` option. 
+
+```{r, fig.height=4, out.width = '90%'}
+par(mfrow = c(1, 2))
+plot(df4, which = "predict", target = as.Date("2020-12-31"), cex_prediction=0.9,  center_legend="strip")
+target<-rep(as.Date("2020-12-31"),4)
+names(target)<-c("Site 1","Site 2","Site 3","Overall")
+plot(df4, which = "predict", target=target,show_center=FALSE)
+```
+
+In the second example we get site-specific predicions using a target vector (with the same date for all sites). Please note that the site-specifc estimates do not necessarily sum up to the overall because the are derived from separate models.
 
 ## Recruitment tables
 
@@ -214,4 +233,8 @@ summary(df3, unit = "day")
 summary(df3, unit = "day", header = FALSE) 
 ```
 
+
+```{r, include = FALSE}
+par(oldpar)
+```
 

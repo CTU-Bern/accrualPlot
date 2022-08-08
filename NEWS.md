@@ -1,3 +1,7 @@
+accrualPlot 1.0.7
+------------------
+prediction of sample size at specific date
+
 accrualPlot 1.0.6
 ------------------
 allow for empty sites in by (if specified as factor)
