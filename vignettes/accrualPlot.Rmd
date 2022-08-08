@@ -21,8 +21,7 @@ Following a trials recruitment is an important task for timing of analyses and e
 The package is loaded like any other:
 
 ```{r setup}
-devtools::load_all()
-#library(accrualPlot)
+library(accrualPlot)
 ```
 
 
