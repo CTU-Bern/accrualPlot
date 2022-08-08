@@ -21,7 +21,8 @@ Following a trials recruitment is an important task for timing of analyses and e
 The package is loaded like any other:
 
 ```{r setup}
-library(accrualPlot)
+devtools::load_all()
+#library(accrualPlot)
 ```
 
 
@@ -219,7 +220,7 @@ names(target)<-c("Site 1","Site 2","Site 3","Overall")
 plot(df4, which = "predict", target=target,show_center=FALSE)
 ```
 
-In the second example we get site-specific predicions using a target vector (with the same date for all sites). Please note that the site-specifc estimates do not necessarily sum up to the overall because the are derived from separate models.
+In the second example we get site-specific predicions using a target vector (with the same date for all sites). Please note that the site-specific estimates do not necessarily sum up to the overall because they are derived from separate models.
 
 ## Recruitment tables
 

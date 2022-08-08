@@ -285,7 +285,7 @@ accrual_plot_predict<-function(accrual_df,
 		if (preddate) {
 			pred_text<-paste0(label_prediction,format(end_date, format_prediction))
 		} else {
-			pred_text<-paste0(label_prediction,format(targetm,digits=0))
+			pred_text<-paste0(label_prediction,round(targetm,digits=0))
 		}
 		
 		if (pos_prediction!="none") {
@@ -315,7 +315,7 @@ accrual_plot_predict<-function(accrual_df,
 		if (preddate) {
 			lna<-paste0(names(adf),": ",format(do.call("c",end_date), format_prediction))
 		} else {
-			lna<-paste0(names(adf),": ",format(targetm, digits=0))
+			lna<-paste0(names(adf),": ",round(targetm, digits=0))
 		}
 		
 		if(!is.null(legend.list)) {

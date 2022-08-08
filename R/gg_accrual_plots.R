@@ -297,7 +297,7 @@ gg_accrual_plot_predict <- function(accrual_df
 										  format(end_date[[n]], format = format_prediction))
 		  } else {
 		    names(accrual_df_o)[n] <- paste0(names(accrual_df_o)[n], ": ",
-										  format(targetm[n], digits = 0))
+										  round(targetm[n], digits = 0))
 			}		  
 		 							  
 		}
@@ -327,7 +327,7 @@ gg_accrual_plot_predict <- function(accrual_df
   if (preddate) {
 	pred_text <- paste0(label_prediction,format(edate, format = format_prediction))
   } else {
-	pred_text <- paste0(label_prediction,format(targetm, digits = 0))
+	pred_text <- paste0(label_prediction,round(targetm, digits = 0))
   }
   
   out <- gg_accrual_plot_cum(accrual_df_o, xlabformat)
