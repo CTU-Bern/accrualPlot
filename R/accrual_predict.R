@@ -7,10 +7,10 @@
 #'
 #' @param accrual_df accrual data frame produced by \code{accrual_create_df} (optionally with by option as a list)
 #' @param accrual_fit linear model produced by accrual_linear_model, can be a list with the same length as accrual_df
-#' @param target target sample size, either a single number or a named vector with the same length as accrual_df,
-#'	for the latter, center-specific predictions are shown.
+#' @param target target sample size or date to predict end date or expected sample size, respectively.
+#' 	A single number or date, or a named vector with the same length as accrual_df (to add site-specific targets).
 #'
-#' @return Returns the predicted end date or a list of the predicted end dates
+#' @return Returns the predicted end date(s) or the predicted sample size(s).
 #'
 #' @export
 #'
@@ -19,7 +19,10 @@
 #' data(accrualdemo)
 #' accrual_df<-accrual_create_df(accrualdemo$date)
 #' accrual_model<-accrual_linear_model(accrual_df)
+#' #predict date for a specific n
 #' accrual_predict(accrual_df,accrual_model,target=300)
+#' #predict n at a specific date
+#' accrual_predict(accrual_df,accrual_model,target=as.Date("2020-11-01"))
 #'
 #' #different start and current date
 #' accrual_df<-accrual_create_df(accrualdemo$date,start_date=as.Date("2020-07-09"),
@@ -32,6 +35,7 @@
 #'	accrual_model<-accrual_linear_model(accrual_df)
 #'	accrual_predict(accrual_df,accrual_model,
 #'	  target=c("Site 1"=160,"Site 2"=100,"Site 3"=40,"Overall"=300))
+#'	accrual_predict(accrual_df,accrual_model,target=as.Date("2020-11-01"))
 #' }
 
 accrual_predict <- function(accrual_df, accrual_fit, target) {
@@ -46,22 +50,35 @@ accrual_predict <- function(accrual_df, accrual_fit, target) {
   stopifnot(length(accrual_df)==length(accrual_fit))
 
   if (length(target)!=1) {
-		if (length(target)!=length(accrual_df)) {
-			stop("length of target has to correspond to length of accrual_df")
-		} else {
-			target<-check_name(target, names(accrual_df))
-		}
+	if (length(target)!=length(accrual_df)) {
+	  stop("length of target has to correspond to length of accrual_df")
 	} else {
-		target<-rep(target,length(accrual_df))
+	  target<-check_name(target, names(accrual_df))
 	}
+  } else {
+	target<-rep(target,length(accrual_df))
+  }
+	
+  preddate<-TRUE
+  if (is.Date(target)) {
+	preddate<-FALSE
+	check_date(target)
+  }
 
   prend<-numeric(0)
   for (i in 1:length(accrual_df)) {
     accrual_dfi<-accrual_df[[i]]
 	accrual_fiti<-accrual_fit[[i]]
-    nr<-target[i]-max(accrual_dfi$Cumulative)
-    diffdays<-nr/as.numeric(accrual_fiti$coef[2])
-    prend<-append(prend,list(max(accrual_dfi$Date) + ceiling(diffdays)))
+    if (preddate) {
+	  nr<-target[i]-max(accrual_dfi$Cumulative)
+	  diffdays<-nr/as.numeric(accrual_fiti$coef[2])
+	  predi<-max(accrual_dfi$Date) + ceiling(diffdays)
+	} else {
+	  nd<-difftime(target[i],max(accrual_dfi$Date),units="day")
+	  diffn<-as.numeric(nd)*as.numeric(accrual_fiti$coef[2])
+	  predi<-max(accrual_dfi$Cumulative)+diffn
+	}
+	prend<-append(prend,list(predi))
   }
 
   if (length(prend)==1) {

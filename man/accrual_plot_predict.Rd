@@ -18,7 +18,7 @@ accrual_plot_predict(
   lty.pred = 2,
   pch.pred = 8,
   pos_prediction = c("out", "in", "none"),
-  label_prediction = "Predicted end date: ",
+  label_prediction = NULL,
   cex_prediction = 1,
   format_prediction = "\%B \%d, \%Y",
   show_center = TRUE,
@@ -55,6 +55,7 @@ gg_accrual_plot_predict(
   fill_up = TRUE,
   wfun = function(x) seq(1/nrow(x), 1, by = 1/nrow(x)),
   pos_prediction = c("out", "in", "none"),
+  label_prediction = NULL,
   format_prediction = "\%B \%d, \%Y",
   xlabformat = "\%d\%b\%Y"
 )
@@ -62,8 +63,9 @@ gg_accrual_plot_predict(
 \arguments{
 \item{accrual_df}{object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.}
 
-\item{target}{target sample size, either a single number or a named vector with the same length as accrual_df,
-for the latter, center-specific predictions are shown.}
+\item{target}{target sample size or date to predict end date or expected sample size, respectively.
+A single number or date, or a named vector with the same length as accrual_df.
+For the latter, center-specific predictions are shown.}
 
 \item{overall}{logical, indicates that accrual_df contains a summary with all sites (only if by is not NA).}
 
@@ -85,13 +87,14 @@ default is wfun<-function(x) seq(1 / nrow(x), 1, by = 1/nrow(x)).}
 
 \item{pch.pred}{point symbol for end of prediction, can be a vector with the same length as accrual_df.}
 
-\item{pos_prediction}{position of text with predicted end date, either \code{"out"}, \code{"in"} or \code{"none"}.}
+\item{pos_prediction}{position of text with predicted end date or sample size,
+either \code{"out"}, \code{"in"} or \code{"none"}.}
 
-\item{label_prediction}{label for predicted end date.}
+\item{label_prediction}{label for predicted end date or sample size.}
 
-\item{cex_prediction}{text size for predicted end date.}
+\item{cex_prediction}{text size for predicted end date or sample size.}
 
-\item{format_prediction}{date format for predicted end date.}
+\item{format_prediction}{date format for predicted end date (only if target is a sample size)}
 
 \item{show_center}{logical, whether the center info should be shown
 (if accrual_df is a list or if center_start_dates are given).}
@@ -156,13 +159,16 @@ which can be used for facetting
 \examples{
 data(accrualdemo)
 accrual_df<-accrual_create_df(accrualdemo$date)
+##Predict end date
 accrual_plot_predict(accrual_df=accrual_df,target=300)
+##Predict sample size
+accrual_plot_predict(accrual_df=accrual_df,as.Date("2020-11-01"))
 
 #Include site
 accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site)
 accrual_plot_predict(accrual_df=accrual_df,target=300,center_label="Site")
 ## with strip and target
-accrual_plot_predict(accrual_df=accrual_df,target=100,center_label="Site",
+accrual_plot_predict(accrual_df=accrual_df,target=300,center_label="Site",
  targetc=5,center_colors=heat.colors(5),center_legend="strip")
 
 #Design for site
@@ -191,6 +197,10 @@ accrual_plot_predict(accrual_df=accrual_df,
 target=c("Site 1"=160,"Site 2"=100,"Site 3"=40,"Overall"=300),
 show_center=FALSE)
 
+#predictions of sample size for all sites
+target<-rep(as.Date("2020-11-01"),4)
+names(target)<-c("Site 1","Site 2","Site 3","Overall")
+accrual_plot_predict(accrual_df=accrual_df,target=target,col.obs=topo.colors(length(accrual_df)))
 ### ggplot2 approach
 data(accrualdemo)
 accrual_df<-accrual_create_df(accrualdemo$date)

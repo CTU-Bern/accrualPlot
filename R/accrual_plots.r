@@ -7,8 +7,9 @@
 #'
 #' @rdname accrual_plot_predict
 #' @param accrual_df object of class 'accrual_df' or 'accrual_list' produced by \code{accrual_create_df}.
-#' @param target target sample size, either a single number or a named vector with the same length as accrual_df,
-#'	for the latter, center-specific predictions are shown.
+#' @param target target sample size or date to predict end date or expected sample size, respectively.
+#' 	A single number or date, or a named vector with the same length as accrual_df.
+#'	For the latter, center-specific predictions are shown.
 #' @param overall logical, indicates that accrual_df contains a summary with all sites (only if by is not NA).
 #' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE).
 #' @param fill_up whether to fill up days where no recruitment was observed,
@@ -20,10 +21,11 @@
 #' @param col.pred line color of prediction, can be a vector with the same length as accrual_df.
 #' @param lty.pred line color of prediction, can be a vector with the same length as accrual_df.
 #' @param pch.pred point symbol for end of prediction, can be a vector with the same length as accrual_df.
-#' @param pos_prediction position of text with predicted end date, either \code{"out"}, \code{"in"} or \code{"none"}.
-#' @param label_prediction label for predicted end date.
-#' @param cex_prediction text size for predicted end date.
-#' @param format_prediction date format for predicted end date.
+#' @param pos_prediction position of text with predicted end date or sample size, 
+#' either \code{"out"}, \code{"in"} or \code{"none"}.
+#' @param label_prediction label for predicted end date or sample size.
+#' @param cex_prediction text size for predicted end date or sample size.
+#' @param format_prediction date format for predicted end date (only if target is a sample size)
 #' @param show_center logical, whether the center info should be shown
 #'	(if accrual_df is a list or if center_start_dates are given).
 #' @param design design options for the center info
@@ -61,13 +63,16 @@
 #' @examples
 #' data(accrualdemo)
 #' accrual_df<-accrual_create_df(accrualdemo$date)
+#' ##Predict end date
 #' accrual_plot_predict(accrual_df=accrual_df,target=300)
+#' ##Predict sample size
+#' accrual_plot_predict(accrual_df=accrual_df,as.Date("2020-11-01"))
 #'
 #' #Include site
 #' accrual_df<-accrual_create_df(accrualdemo$date,by=accrualdemo$site)
 #' accrual_plot_predict(accrual_df=accrual_df,target=300,center_label="Site")
 #' ## with strip and target
-#' accrual_plot_predict(accrual_df=accrual_df,target=100,center_label="Site",
+#' accrual_plot_predict(accrual_df=accrual_df,target=300,center_label="Site",
 #'	 targetc=5,center_colors=heat.colors(5),center_legend="strip")
 #'
 #' #Design for site
@@ -96,6 +101,11 @@
 #'	target=c("Site 1"=160,"Site 2"=100,"Site 3"=40,"Overall"=300),
 #'	show_center=FALSE)
 #'
+#' #predictions of sample size for all sites
+#' target<-rep(as.Date("2020-11-01"),4)
+#' names(target)<-c("Site 1","Site 2","Site 3","Overall")
+#' accrual_plot_predict(accrual_df=accrual_df,target=target,col.obs=topo.colors(length(accrual_df)))
+
 accrual_plot_predict<-function(accrual_df,
                                target,
                                overall=TRUE,
@@ -108,7 +118,7 @@ accrual_plot_predict<-function(accrual_df,
                                lty.pred=2,
                                pch.pred=8,
                                pos_prediction=c("out","in","none"),
-                               label_prediction="Predicted end date: ",
+                               label_prediction=NULL,
                                cex_prediction=1,
                                format_prediction="%B %d, %Y",
                                show_center=TRUE,
@@ -156,7 +166,13 @@ accrual_plot_predict<-function(accrual_df,
 			target<-check_name(target, names(accrual_df))
 		}
 	}
-
+	
+	preddate<-TRUE
+	if (is.Date(target)) {
+		preddate<-FALSE
+		check_date(target)
+	}
+	 
 	if (is.null(col.obs)) {
 		if (lc==1) {
 			col.obs="black"
@@ -166,7 +182,14 @@ accrual_plot_predict<-function(accrual_df,
 
 	}
 
-
+	if (is.null(label_prediction)) {
+		if (preddate) {
+			label_prediction<-"Predicted end date: "
+		} else {
+			label_prediction<-"Predicted sample size: "
+		}
+	}
+	
 	#predictions
 	#&&&&&&&&&&
 
@@ -177,22 +200,31 @@ accrual_plot_predict<-function(accrual_df,
 	               overall,
 	               target,
 	               name_overall)
-	end_date <- tmp$end_date
-	edate <- tmp$edate
+				   
+	if (preddate) {
+		end_date <- tmp$end_date
+		edate <- tmp$edate
+		targetm <- target
+	} else {
+		end_date <- target
+		edate <- max(target)
+		targetm <- unlist(tmp$end_date)
+	}
+	
 	adf <- tmp$adf
-
+	
 
 	#plot scaling
 	#&&&&&&&&&&
 
-	alim<-ascale(accrual_df,xlim=xlim,ylim=ylim,ni=xlabn,min.n=xlabminn,addxmax=edate,addymax=target)
+	alim<-ascale(accrual_df,xlim=xlim,ylim=ylim,ni=xlabn,min.n=xlabminn,addxmax=edate,addymax=targetm)
 
 	# modification of ylim if design==3
 	if (show_center) {
 		if (lc>1 | !is.null(center_start_dates)) {
 		  if (design==3) {
 			if (alim[["ylim"]][1]==0) {
-				alim[["ylim"]][1]<--max(target)/15
+				alim[["ylim"]][1]<--max(targetm)/15
 			}
 		  }
 		}
@@ -246,23 +278,27 @@ accrual_plot_predict<-function(accrual_df,
 	if (lc==1 | (overall & length(target)==1)) {
 		lines(Cumulative~Date,data=adf,type="s",col=col.obs,lty=lty.obs)
 		lp<-adf[which.max(adf$Date),]
-		lines(x=c(lp$Date,end_date),y=c(lp$Cumulative,target),col=col.pred,lty=lty.pred)
-		points(x=end_date,y=target,pch=pch.pred,col=col.pred,xpd=TRUE)
+		lines(x=c(lp$Date,end_date),y=c(lp$Cumulative,targetm),col=col.pred,lty=lty.pred)
+		points(x=end_date,y=targetm,pch=pch.pred,col=col.pred,xpd=TRUE)
 
-		#predicted end date
+		#prediction text
+		if (preddate) {
+			pred_text<-paste0(label_prediction,format(end_date, format_prediction))
+		} else {
+			pred_text<-paste0(label_prediction,round(targetm,digits=0))
+		}
+		
 		if (pos_prediction!="none") {
 			if (pos_prediction=="in") {
-			legend("topleft",paste0(label_prediction,format(end_date, format_prediction)),bty="n",
-				cex=cex_prediction)
+			legend("topleft",pred_text,bty="n",cex=cex_prediction)
 			} else {
-			text(x=par("usr")[1],y=par("usr")[4],adj=c(0,-1), xpd=TRUE,
-				paste0(label_prediction,format(end_date, format_prediction)),cex=cex_prediction)
+			text(x=par("usr")[1],y=par("usr")[4],adj=c(0,-1), xpd=TRUE,pred_text,cex=cex_prediction)
 			}
 		}
 
 	} else {
 	#for each site:
-		target<-mult(target,length(adf))
+		targetm<-mult(targetm,length(adf))
 		col.obs<-mult(col.obs,length(adf))
 		lty.obs<-mult(lty.obs,length(adf))
 		col.pred<-mult(col.pred,length(adf))
@@ -273,11 +309,15 @@ accrual_plot_predict<-function(accrual_df,
 
 			lines(Cumulative~Date,data=adf[[k]],type="s",col=col.obs[k],lty=lty.obs[k])
 			lp<-adf[[k]][which.max(adf[[k]]$Date),]
-			lines(x=c(lp$Date,end_date[[k]]),y=c(lp$Cumulative,target[k]),col=col.pred[k],lty=lty.pred[k])
-			points(x=end_date[[k]],y=target[k],pch=pch.pred[k],col=col.pred[k],xpd=TRUE)
+			lines(x=c(lp$Date,end_date[[k]]),y=c(lp$Cumulative,targetm[k]),col=col.pred[k],lty=lty.pred[k])
+			points(x=end_date[[k]],y=targetm[k],pch=pch.pred[k],col=col.pred[k],xpd=TRUE)
 		}
-		lna<-paste0(names(adf),": ",format(do.call("c",end_date), format_prediction))
-
+		if (preddate) {
+			lna<-paste0(names(adf),": ",format(do.call("c",end_date), format_prediction))
+		} else {
+			lna<-paste0(names(adf),": ",round(targetm, digits=0))
+		}
+		
 		if(!is.null(legend.list)) {
 			ll<-legend.list
 			#defaults if not given:

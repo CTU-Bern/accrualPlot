@@ -212,6 +212,7 @@ gg_accrual_plot_predict <- function(accrual_df
                                     , fill_up = TRUE
                                     , wfun = function(x) seq(1 / nrow(x), 1, by = 1/nrow(x))
                                     , pos_prediction = c("out", "in", "none")
+									, label_prediction=NULL
                                     , format_prediction = "%B %d, %Y"
                                     , xlabformat = "%d%b%Y"
                                     ){
@@ -228,7 +229,20 @@ gg_accrual_plot_predict <- function(accrual_df
       accrual_df <- accrual_df[[name_overall]]
     }
   }
-
+  preddate<-TRUE
+  if (is.Date(target)) {
+    preddate<-FALSE
+	check_date(target)
+  }
+	
+  if (is.null(label_prediction)) {
+	if (preddate) {
+	  label_prediction<-"Predicted end date: "
+	} else {
+	  label_prediction<-"Predicted sample size: "
+	}
+  }
+	
   accrual_df_o <- accrual_df
   tmp <- lc_lct(accrual_df,
                 overall,
@@ -245,13 +259,21 @@ gg_accrual_plot_predict <- function(accrual_df
                  overall,
                  target,
                  name_overall)
-  end_date <- tmp$end_date
-  edate <- tmp$edate
+				 
+  if (preddate) {				 
+	end_date <- tmp$end_date
+	edate <- tmp$edate
+	targetm <- target
+  } else {
+    end_date <- target
+	edate <- max(target)
+	targetm <- unlist(tmp$end_date)
+  }
   adf <- tmp$adf
 
   if(is_accrual_list(accrual_df) & length(target) > 1){
 
-    pdat <- pmap(list(accrual_df, end_date, target), function(x, y, z){
+    pdat <- pmap(list(accrual_df, end_date, targetm), function(x, y, z){
       data.frame(date = c(max(x$Date), y),
                          cum = c(max(x$Cumulative, na.rm = TRUE), z))
     })
@@ -270,9 +292,13 @@ gg_accrual_plot_predict <- function(accrual_df
 										 aes(x = date, y = cum),
 										 col = col.pred,
 										 pch = pch.pred)
-
-		  names(accrual_df_o)[n] <- paste0(names(accrual_df_o)[n], ": ",
+		  if (preddate) {
+		    names(accrual_df_o)[n] <- paste0(names(accrual_df_o)[n], ": ",
 										  format(end_date[[n]], format = format_prediction))
+		  } else {
+		    names(accrual_df_o)[n] <- paste0(names(accrual_df_o)[n], ": ",
+										  round(targetm[n], digits = 0))
+			}		  
 		 							  
 		}
 	  n <- n + 1			
@@ -284,24 +310,26 @@ gg_accrual_plot_predict <- function(accrual_df
   } else {
 
     pdat <- data.frame(date = c(max(adf$Date), edate),
-                       cum = c(max(adf$Cumulative), target))
+                       cum = c(max(adf$Cumulative), targetm))
     pgeom <- function() {
       list(
         geom_line(data = pdat,
                   mapping = aes(x = date, y = cum),
                   col = col.pred,
                   lty = lty.pred),
-        geom_point(aes(x = edate, y = target),
+        geom_point(aes(x = edate, y = targetm),
                    col = col.pred,
                    pch = pch.pred)
       )
     }
   }
 
-
-  pred_text <- paste0("Predicted end date: ",
-                      format(edate, format = format_prediction))
-
+  if (preddate) {
+	pred_text <- paste0(label_prediction,format(edate, format = format_prediction))
+  } else {
+	pred_text <- paste0(label_prediction,round(targetm, digits = 0))
+  }
+  
   out <- gg_accrual_plot_cum(accrual_df_o, xlabformat)
 
   out <- out + pgeom()
