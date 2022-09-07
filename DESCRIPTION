@@ -1,7 +1,7 @@
 Package: accrualPlot
 Type: Package
 Title: Accrual Plots and Predictions for Clinical Trials
-Version: 1.0.7
+Version: 1.0.8
 Authors@R: 
     c(
     person(given = "Lukas", family = "Bütikofer", role = c("cre", "aut"),
