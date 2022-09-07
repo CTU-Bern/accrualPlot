@@ -144,6 +144,8 @@ vector with dates on which centers are enrolled.}
 }
 \value{
 \code{accrual_plot_predict} returns a plot with the accrual prediction.
+
+
 }
 \description{
 Generates an accrual prediction plot using an accrual data frame produced by \code{accrual_create_df}
