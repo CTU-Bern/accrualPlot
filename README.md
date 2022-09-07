@@ -10,6 +10,8 @@ Status](https://github.com/CTU-Bern/accrualPlot/workflows/R-CMD-check/badge.svg)
 <!-- ![travis](https://travis-ci.com/CTU-Bern/presize.svg?branch=master) -->
 <!-- [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/CTU-Bern/presize?branch=master&svg=true)](https://ci.appveyor.com/project/CTU-Bern/presize) -->
 <!-- [![codecov](https://codecov.io/github/CTU-Bern/accrualPlot/branch/master/graphs/badge.svg)](https://codecov.io/github/CTU-Bern/accrualPlot) -->
+[![metacran
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/accrualPlot)](https://cran.r-project.org/package=accrualPlot)
 
 Accrual plots are an important tool when monitoring clinical trials.
 Some trials are terminated early due to low accrual, which is a waste of
