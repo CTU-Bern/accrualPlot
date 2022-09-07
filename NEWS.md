@@ -1,3 +1,7 @@
+accrualPlot 1.0.8
+------------------
+bug fix in gg_accrual_plot_predict if accrual_df contains only one site and no overall
+
 accrualPlot 1.0.7
 ------------------
 prediction of sample size at specific date

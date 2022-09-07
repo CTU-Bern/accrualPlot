@@ -226,7 +226,7 @@ gg_accrual_plot_predict <- function(accrual_df
       if(length(target) != length(accrual_df)) stop("target should have the same length as accrual_df")
 
     } else {
-      accrual_df <- accrual_df[[name_overall]]
+      accrual_df <- accrual_df[[1]]
     }
   }
   preddate<-TRUE
