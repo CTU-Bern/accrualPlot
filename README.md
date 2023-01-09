@@ -59,6 +59,7 @@ day.
 # load package
 library(accrualPlot)
 #> Loading required package: lubridate
+#> Loading required package: timechange
 #> 
 #> Attaching package: 'lubridate'
 #> The following objects are masked from 'package:base':
