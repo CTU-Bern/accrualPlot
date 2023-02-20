@@ -83,7 +83,7 @@ gg_accrual_plot_cum <- function(accrual_df, xlabformat="%d%b%Y"){
 #' ggplot2 method for absolute accrual plots
 #' @rdname accrual_plot_abs
 #'
-#' @return
+#' @return ggplot object
 #' @details When the \code{accrual_df} includes multiple sites, the dataframe
 #' passed to \code{ggplot} includes a \code{site} variable
 #' which can be used for facetting
@@ -165,7 +165,7 @@ gg_accrual_plot_abs <- function(accrual_df
 #' ggplot2 method for accrual prediction plots
 #' @rdname accrual_plot_predict
 #'
-#' @return
+#' @return ggplot object
 #' @details When the \code{accrual_df} includes multiple sites, the dataframe
 #' passed to \code{ggplot} includes a \code{site} variable
 #' which can be used for facetting
