@@ -27,7 +27,7 @@ named date vector (with length and names corresponding to the levels of by),
 
 \item{current_date}{date of the data export or database freeze.
 Single date, named date vector (with length and names corresponding to the levels of by),
-"common" (last date overall, default) or "site" (first date for each site).}
+"common" (last date overall, default) or "site" (last date for each site).}
 
 \item{overall}{logical indicates that accrual_df contains a summary with all sites (only if by is not NA).}
 
