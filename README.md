@@ -31,7 +31,7 @@ The development version of the package can be installed from the CTU
 Bern universe via
 
 ``` r
-install.packages('accrualPlot', repos = 'https://ctu-bern.r-universe.dev')
+install.packages('accrualPlot', repos = c('https://ctu-bern.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 `accrualPlot` can be installed directly from from github with:
