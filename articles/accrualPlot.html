@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -73,7 +73,7 @@
 
       
 
-      </header><script src="accrualPlot_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>accrualPlot</h1>
@@ -86,7 +86,11 @@
 
     
     
-<p>Following a trials recruitment is an important task for timing of analyses and ensuring that a trial will not run for too long (longer trials are more expensive). <code>accrualPlot</code> provides tools for easily creating recruitment plots and even for predicting when a trial will have successfully recruited all participants.</p>
+<p>Following a trials recruitment is an important task for timing of
+analyses and ensuring that a trial will not run for too long (longer
+trials are more expensive). <code>accrualPlot</code> provides tools for
+easily creating recruitment plots and even for predicting when a trial
+will have successfully recruited all participants.</p>
 <p>The package is loaded like any other:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/CTU-Bern/accrualPlot" class="external-link">accrualPlot</a></span><span class="op">)</span></span>
@@ -99,7 +103,9 @@
 <div class="section level2">
 <h2 id="the-accrual_df">The <code>accrual_df</code><a class="anchor" aria-label="anchor" href="#the-accrual_df"></a>
 </h2>
-<p>To work with <code>accrualPlot</code>, we need some data, specifically dates and, optionally, site identifiers. Here’s some data that we will use in the following examples.</p>
+<p>To work with <code>accrualPlot</code>, we need some data,
+specifically dates and, optionally, site identifiers. Here’s some data
+that we will use in the following examples.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">)</span></span>
@@ -110,11 +116,15 @@
 <span><span class="co">#&gt; 193 2020-07-14 Site 1</span></span>
 <span><span class="co">#&gt; 139 2020-07-16 Site 1</span></span>
 <span><span class="co">#&gt; 248 2020-07-19 Site 1</span></span></code></pre></div>
-<p><code>accrual_df</code>s are simply dataframes with the number of participants on each day participants are recruited (or site) began recruiting.</p>
+<p><code>accrual_df</code>s are simply dataframes with the number of
+participants on each day participants are recruited (or site) began
+recruiting.</p>
 <div class="section level3">
 <h3 id="monocentric-trials">Monocentric trials<a class="anchor" aria-label="anchor" href="#monocentric-trials"></a>
 </h3>
-<p>Monocentric trials obviously have only a single site, so we only need the <code>x</code> object we just created. We can pass this into the <code>accrual_create_df</code> function.</p>
+<p>Monocentric trials obviously have only a single site, so we only need
+the <code>x</code> object we just created. We can pass this into the
+<code>accrual_create_df</code> function.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df</span>, head <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -126,12 +136,14 @@
 <span><span class="co">#&gt; 4 2020-07-16    1          5</span></span>
 <span><span class="co">#&gt; 5 2020-07-19    1          6</span></span>
 <span><span class="co">#&gt; 6 2020-07-20    1          7</span></span></code></pre></div>
-<p>In this case, the <code>accrual_df</code> has a single data frame.</p>
+<p>In this case, the <code>accrual_df</code> has a single data
+frame.</p>
 </div>
 <div class="section level3">
 <h3 id="multicentric-trials">Multicentric trials<a class="anchor" aria-label="anchor" href="#multicentric-trials"></a>
 </h3>
-<p>For multicentric trials, we should also pass the site identifier to <code>accrual_create_df</code> in the <code>by</code> argument.</p>
+<p>For multicentric trials, we should also pass the site identifier to
+<code>accrual_create_df</code> in the <code>by</code> argument.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>, by <span class="op">=</span> <span class="va">accrualdemo</span><span class="op">$</span><span class="va">site</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df2</span>, head <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -174,15 +186,23 @@
 <span><span class="co">#&gt; 4 2020-07-16    1          5</span></span>
 <span><span class="co">#&gt; 5 2020-07-19    1          6</span></span>
 <span><span class="co">#&gt; 6 2020-07-20    1          7</span></span></code></pre></div>
-<p>In this case, the <code>accrual_df</code> is a list of dataframes, one for each site and an overall.</p>
+<p>In this case, the <code>accrual_df</code> is a list of dataframes,
+one for each site and an overall.</p>
 </div>
 <div class="section level3">
 <h3 id="start-and-end-dates">Start and end dates<a class="anchor" aria-label="anchor" href="#start-and-end-dates"></a>
 </h3>
-<p>By default, the start and end dates are defined based on the dates that you pass to <code>accrual_create_df</code>. You can override these via the <code>start_date</code> and <code>current_date</code> arguments. This is useful for when you have particularly slow recruiting trials (such as those with particularly strict inclusion criteria). For example, our fictitious example trial might have started recruiting on the 1st November. By adding this information, we modify other output</p>
+<p>By default, the start and end dates are defined based on the dates
+that you pass to <code>accrual_create_df</code>. You can override these
+via the <code>start_date</code> and <code>current_date</code> arguments.
+This is useful for when you have particularly slow recruiting trials
+(such as those with particularly strict inclusion criteria). For
+example, our fictitious example trial might have started recruiting on
+the 1st November. By adding this information, we modify other output</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/accrual_create_df.html">accrual_create_df</a></span><span class="op">(</span><span class="va">accrualdemo</span><span class="op">$</span><span class="va">date</span>, start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-07-08"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>For multicentric trials where different sites started recruiting at different times, we can pass a vector to <code>start_date</code></p>
+<p>For multicentric trials where different sites started recruiting at
+different times, we can pass a vector to <code>start_date</code></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">start_date</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020-07-09"</span>,<span class="st">"2020-07-09"</span>,<span class="st">"2020-08-01"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">start_date</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site 1"</span>,<span class="st">"Site 2"</span>,<span class="st">"Site 3"</span><span class="op">)</span></span>
@@ -196,11 +216,15 @@
 * Cumulative<br>
 * Absolute<br>
 * Prediction</p>
-<p>and supplies both base graphics as well as <code>ggplot2</code> graphics implementations (allowing easier modification).</p>
+<p>and supplies both base graphics as well as <code>ggplot2</code>
+graphics implementations (allowing easier modification).</p>
 <div class="section level3">
 <h3 id="cumulative-plots">Cumulative plots<a class="anchor" aria-label="anchor" href="#cumulative-plots"></a>
 </h3>
-<p>Cumulative plots show a standard step function of the number of participants recruited up to a given point in time. The plots are produced via the <code>plot</code> method (which is a wrapper for the internal function <code>accrual_plot_cum</code>)</p>
+<p>Cumulative plots show a standard step function of the number of
+participants recruited up to a given point in time. The plots are
+produced via the <code>plot</code> method (which is a wrapper for the
+internal function <code>accrual_plot_cum</code>)</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
@@ -224,21 +248,31 @@
 <span>         legend.title<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>     axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, vjust <span class="op">=</span> <span class="fl">1</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>         axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2</span></span>
+<span><span class="co">#&gt; 3.5.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use the `legend.position.inside` argument of `theme()` instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span></span></code></pre></div>
 <p><img src="accrualPlot_files/figure-html/unnamed-chunk-9-1.png" width="720"></p>
 </div>
 <div class="section level3">
 <h3 id="absolute-recruitment">Absolute recruitment<a class="anchor" aria-label="anchor" href="#absolute-recruitment"></a>
 </h3>
-<p>Recruitment plots per unit time can be obtained via the <code>absolute</code> method (specify <code>which = "absolute"</code> to <code>plot</code>)</p>
+<p>Recruitment plots per unit time can be obtained via the
+<code>absolute</code> method (specify <code>which = "absolute"</code> to
+<code>plot</code>)</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"abs"</span>, unit <span class="op">=</span> <span class="st">"week"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df2</span>, which <span class="op">=</span> <span class="st">"abs"</span>, unit <span class="op">=</span> <span class="st">"week"</span>, legend.list<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"topleft"</span><span class="op">)</span>, xlabsel<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">20</span>,by<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df4</span>, which <span class="op">=</span> <span class="st">"abs"</span>, unit <span class="op">=</span> <span class="st">"month"</span>,legend.list<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"topleft"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="accrualPlot_files/figure-html/unnamed-chunk-10-1.png" width="720"></p>
-<p>Options for <code>unit</code> are <code>year</code>, <code>month</code>, <code>week</code> and <code>day</code>.</p>
-<p>Where multiple sites exist, the different sites are indicated by different colours on the stacked bars.</p>
+<p>Options for <code>unit</code> are <code>year</code>,
+<code>month</code>, <code>week</code> and <code>day</code>.</p>
+<p>Where multiple sites exist, the different sites are indicated by
+different colours on the stacked bars.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"abs"</span>, unit <span class="op">=</span> <span class="st">"week"</span>, engine <span class="op">=</span> <span class="st">"ggplot"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df2</span>, which <span class="op">=</span> <span class="st">"abs"</span>, unit <span class="op">=</span> <span class="st">"week"</span>, engine <span class="op">=</span> <span class="st">"ggplot"</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -256,7 +290,10 @@
 <span>         axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span></span></code></pre></div>
 <p><img src="accrualPlot_files/figure-html/unnamed-chunk-11-1.png" width="720"></p>
-<p>It might be desirable to have panels for each site. This is easy to do with the <code>ggplot</code> implementation. The variable to use in this case is <code>site</code>, which is constructed in the appropriate plot function.</p>
+<p>It might be desirable to have panels for each site. This is easy to
+do with the <code>ggplot</code> implementation. The variable to use in
+this case is <code>site</code>, which is constructed in the appropriate
+plot function.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df2</span>, which <span class="op">=</span> <span class="st">"abs"</span>, unit <span class="op">=</span> <span class="st">"week"</span>, engine <span class="op">=</span> <span class="st">"ggplot"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">site</span><span class="op">)</span></span></code></pre></div>
 <p><img src="accrualPlot_files/figure-html/unnamed-chunk-12-1.png" width="720"></p>
@@ -268,7 +305,10 @@
 <div class="section level3">
 <h3 id="date-at-which-a-target-sample-size-is-reached">Date at which a target sample size is reached<a class="anchor" aria-label="anchor" href="#date-at-which-a-target-sample-size-is-reached"></a>
 </h3>
-<p>In order predict the time point at which a certain number of participants has been recruited (for estimating when a study will be complete). If we want to recruit a total of 300 participants, we can put that in the <code>target</code> option.</p>
+<p>In order predict the time point at which a certain number of
+participants has been recruited (for estimating when a study will be
+complete). If we want to recruit a total of 300 participants, we can put
+that in the <code>target</code> option.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span>, which <span class="op">=</span> <span class="st">"predict"</span>, target <span class="op">=</span> <span class="fl">300</span>, cex_prediction<span class="op">=</span><span class="fl">0.9</span><span class="op">)</span></span>
@@ -295,17 +335,36 @@
 <span>        legend.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>        axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, vjust <span class="op">=</span> <span class="fl">1</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>        axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span>
+<span><span class="co">#&gt; Warning in geom_point(aes(x = edate, y = targetm), col = col.pred, pch = pch.pred): All aesthetics have length 1, but the data has 79 rows.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please consider using `annotate()` or provide this layer with data containing</span></span>
+<span><span class="co">#&gt;   a single row.</span></span></code></pre></div>
 <p><img src="accrualPlot_files/figure-html/unnamed-chunk-15-1.png" width="720"></p>
-<p>In the second <code>ggplot2</code> example above, we specify different targets for each site, plus a study-level target. The syntax is the same for base graphics.</p>
-<p>It’s not strictly necessary to use <code>plot</code> for any of the above figures. <code>plot</code> is a wrapper which selects one of 6 underlying functions depending on the value of the <code>which</code> and <code>engine</code> arguments. The underlying functions for base graphics are <code>accrual_plot_cum</code> for cumulative plots, <code>accrual_plot_abs</code> for absolute values, and <code>accrual_plot_predict</code> for the prediction plots. The <code>ggplot</code> equivalents just prepend those names with <code>gg_</code>, i.e. <code>gg_accrual_plot_cum</code>, <code>gg_accrual_plot_abs</code> and <code>gg_accrual_plot_predict</code>. For more clarity, it might be desirable to use those instead, e.g.</p>
+<p>In the second <code>ggplot2</code> example above, we specify
+different targets for each site, plus a study-level target. The syntax
+is the same for base graphics.</p>
+<p>It’s not strictly necessary to use <code>plot</code> for any of the
+above figures. <code>plot</code> is a wrapper which selects one of 6
+underlying functions depending on the value of the <code>which</code>
+and <code>engine</code> arguments. The underlying functions for base
+graphics are <code>accrual_plot_cum</code> for cumulative plots,
+<code>accrual_plot_abs</code> for absolute values, and
+<code>accrual_plot_predict</code> for the prediction plots. The
+<code>ggplot</code> equivalents just prepend those names with
+<code>gg_</code>, i.e. <code>gg_accrual_plot_cum</code>,
+<code>gg_accrual_plot_abs</code> and
+<code>gg_accrual_plot_predict</code>. For more clarity, it might be
+desirable to use those instead, e.g.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/accrual_plot_predict.html">gg_accrual_plot_predict</a></span><span class="op">(</span><span class="va">df2</span>, target<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site 1"</span><span class="op">=</span><span class="fl">160</span>,<span class="st">"Site 2"</span><span class="op">=</span><span class="fl">100</span>,<span class="st">"Site 3"</span><span class="op">=</span><span class="fl">40</span>,<span class="st">"Overall"</span><span class="op">=</span><span class="fl">300</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="sample-size-at-a-specific-time-point">Sample size at a specific time point<a class="anchor" aria-label="anchor" href="#sample-size-at-a-specific-time-point"></a>
 </h3>
-<p>It is also possible to predict the expected sample size at a specific time point. If we want to know how many patients will be recruited at the end of the year, we can put the date in the <code>target</code> option.</p>
+<p>It is also possible to predict the expected sample size at a specific
+time point. If we want to know how many patients will be recruited at
+the end of the year, we can put the date in the <code>target</code>
+option.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df4</span>, which <span class="op">=</span> <span class="st">"predict"</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-12-31"</span><span class="op">)</span>, cex_prediction<span class="op">=</span><span class="fl">0.9</span>,  center_legend<span class="op">=</span><span class="st">"strip"</span><span class="op">)</span></span>
@@ -313,13 +372,18 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">target</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site 1"</span>,<span class="st">"Site 2"</span>,<span class="st">"Site 3"</span>,<span class="st">"Overall"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df4</span>, which <span class="op">=</span> <span class="st">"predict"</span>, target<span class="op">=</span><span class="va">target</span>,show_center<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="accrualPlot_files/figure-html/unnamed-chunk-17-1.png" width="90%"></p>
-<p>In the second example we get site-specific predicions using a target vector (with the same date for all sites). Please note that the site-specific estimates do not necessarily sum up to the overall because they are derived from separate models.</p>
+<p>In the second example we get site-specific predicions using a target
+vector (with the same date for all sites). Please note that the
+site-specific estimates do not necessarily sum up to the overall because
+they are derived from separate models.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="recruitment-tables">Recruitment tables<a class="anchor" aria-label="anchor" href="#recruitment-tables"></a>
 </h2>
-<p>Tables of recruitment can also be generated using <code>accrualPlot</code>, via the <code>summary</code> method. As with absolute recruitment above, a unit of time can be specified.</p>
+<p>Tables of recruitment can also be generated using
+<code>accrualPlot</code>, via the <code>summary</code> method. As with
+absolute recruitment above, a unit of time can be specified.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># accrual_table(df) </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">df</span>, unit <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span> </span>
@@ -372,7 +436,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
