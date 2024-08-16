@@ -5,3 +5,6 @@
 ^LICENSE\.md$
 ^data-raw
 ^paper
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
