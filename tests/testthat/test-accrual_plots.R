@@ -111,7 +111,9 @@ test_that("vdiff cumulative plots", {
   fn <- gg_accrual_plot_predict(df2[[2]], target = 70)
   expect_doppelganger("gg pred site 2", fn)
 
-  fn <- gg_accrual_plot_predict(df2, target = c(30, 30, 30, 70))
+  target <- c(30, 30, 30, 70)
+  names(target)<-c("1","2","3","Overall")
+  fn <- gg_accrual_plot_predict(df2, target = target)
   expect_doppelganger("gg pred site n", fn)
 
 

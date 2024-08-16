@@ -1,3 +1,9 @@
+accrualPlot 1.0.9
+------------------
+accrual_create_df: warning if by refers to a NULL object
+accrual_create_df: fix typo in documentation (last instead of first date)
+test-accrual_plots: named vector for target
+
 accrualPlot 1.0.8
 ------------------
 bug fix in gg_accrual_plot_predict if accrual_df contains only one site and no overall

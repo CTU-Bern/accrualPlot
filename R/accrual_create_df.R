@@ -12,7 +12,7 @@
 #'  "common" (first date overall) or "site" (first date for each site, default).
 #' @param current_date date of the data export or database freeze.
 #' 	Single date, named date vector (with length and names corresponding to the levels of by),
-#'  "common" (last date overall, default) or "site" (first date for each site).
+#'  "common" (last date overall, default) or "site" (last date for each site).
 #' @param overall logical indicates that accrual_df contains a summary with all sites (only if by is not NA).
 #' @param name_overall name of the summary with all sites (if by is not NA and overall==TRUE).
 #' @param pos_overall overall as last or first element of the list (if by is not NA and overall==TRUE).
@@ -55,8 +55,12 @@ accrual_create_df <- function(enrollment_dates,
   check_date(enrollment_dates)
   if(any(is.na(enrollment_dates))) stop("'enrollment_dates' contains NA values")
   pos_overall<-match.arg(pos_overall)
-
-   if (sum(!is.na(by))==0) {
+	
+  if (is.null(by)) {
+	warning(paste0("'by' refers to a NULL object and is ignored"))
+  }
+  
+  if (sum(!is.na(by))==0) {
     nc<-1; nct<-1; byt<-0
   } else {
     if (is.factor(by)) {lc<-levels(by)} else {lc<-unique(by)}

@@ -1,7 +1,7 @@
 Package: accrualPlot
 Type: Package
 Title: Accrual Plots and Predictions for Clinical Trials
-Version: 1.0.8
+Version: 1.0.9
 Authors@R: 
     c(
     person(given = "Lukas", family = "Bütikofer", role = c("cre", "aut"),
@@ -30,7 +30,7 @@ Imports:
     magrittr,
     purrr,
     rlang
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
 Suggests: 
     knitr,
     markdown,
